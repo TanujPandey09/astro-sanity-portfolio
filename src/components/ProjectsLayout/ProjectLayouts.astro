@@ -1,0 +1,99 @@
+---
+import { Link } from "astro-link";
+
+import { PortableText } from "astro-portabletext";
+const data = Astro.props;
+---
+
+<script>
+  var cursor = document.querySelector(".cursor");
+  var cursorinner = document.querySelector(".cursor2");
+  var a = document.querySelectorAll("a");
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursorinner.style.left = x + "px";
+    cursorinner.style.top = y + "px";
+  });
+
+  document.addEventListener("mousedown", function () {
+    cursor.classList.add("click");
+    cursorinner.classList.add("cursorinnerhover");
+  });
+
+  document.addEventListener("mouseup", function () {
+    cursor.classList.remove("click");
+    cursorinner.classList.remove("cursorinnerhover");
+  });
+
+  a.forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      cursor.classList.add("hover");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursor.classList.remove("hover");
+    });
+  });
+</script>
+
+<section class="project-section container mx-auto font-Roboto">
+  <div class="grid md:grid-cols-2 md:gap-4 mt-10">
+    {
+      data.projectData?.map((projectItem) => {
+        console.log("Project",projectItem)
+        
+        return (
+          <>
+            <div class="project_container">
+              <Link
+                href={`/projects/${projectItem.slug?.current}`}
+                passHref
+                externalInNewTab={true}
+              >
+                <div class="max-w-full rounded overflow-hidden shadow-lg projects-card  text-gray-700">
+                  <img
+                    class="w-full "
+                    src={`${projectItem?.BackgroundImage?.asset?.url}`}
+                    alt="portfolio_image"
+                  />
+                  <div class="px-6 py-4 ">
+                    <div class="font-Roboto font-normal md:text-3xl text-sm mb-2">
+                      {projectItem?.projectName}
+                    </div>
+                    <p class=" text-base  font-Roboto font-normal">
+                      <PortableText class="font-normal md:text-base text-sm mb-2 font-Roboto truncate ..." value={projectItem?.excerpt} />
+                    </p>
+                  </div>
+                  <div class="px-6 pt-4 pb-2">
+                    {projectItem.tags.map((tagsItem) => {
+                      return (
+                        <>
+                          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-lg font-medium font-Roboto mr-2 mb-2">
+                            {tagsItem}
+                          </span>
+                        </>
+                      );
+                    })}
+                  </div>
+                  <div class="px-6 pt-4 pb-2">
+                    <a>Github link</a>&nbsp;|&nbsp;
+                    <a>Demo Link</a>&nbsp;|&nbsp;
+                  </div>
+                </div>
+              </Link>
+            </div>
+          </>
+        );
+      })
+    }
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+  </div>
+</section>

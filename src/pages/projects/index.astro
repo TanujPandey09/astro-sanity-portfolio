@@ -1,0 +1,23 @@
+---
+import { useSanityClient, groq } from "astro-sanity";
+import Layout from "../../layouts/Layout.astro";
+
+const query = groq`*[_type == "projects"]{
+        ...,
+        BackgroundImage{
+      asset->{
+        url
+      }
+      },
+    }`;
+
+const projectData = await useSanityClient().fetch(query);
+import ProjectLayouts from "../../components/ProjectsLayout/ProjectLayouts.astro";
+// const admin = Astro.props.adminstrativetitle || first.adminstrativetitle
+---
+
+<div class="">
+  <Layout title="Portfolio">
+    <ProjectLayouts projectData={projectData} />
+  </Layout>
+</div>

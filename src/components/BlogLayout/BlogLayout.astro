@@ -1,0 +1,183 @@
+---
+const data = Astro.props;
+console.log("Blog layout", data);
+---
+
+<script>
+  var cursor = document.querySelector(".cursor");
+  var cursorinner = document.querySelector(".cursor2");
+  var a = document.querySelectorAll("a");
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursorinner.style.left = x + "px";
+    cursorinner.style.top = y + "px";
+  });
+
+  document.addEventListener("mousedown", function () {
+    cursor.classList.add("click");
+    cursorinner.classList.add("cursorinnerhover");
+  });
+
+  document.addEventListener("mouseup", function () {
+    cursor.classList.remove("click");
+    cursorinner.classList.remove("cursorinnerhover");
+  });
+
+  a.forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      cursor.classList.add("hover");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursor.classList.remove("hover");
+    });
+  });
+</script>
+
+<section class="portfolio-section container mx-auto font-Roboto">
+  <div class="grid grid-cols-2 gap-4 mt-10">
+    {
+      data?.blogData?.map((blogItem) => {
+        console.log("itemS:" ,blogItem)
+        return (
+
+          <>
+            <div class="max-w-full rounded overflow-hidden shadow-lg">
+              <img
+                class="w-full"
+                src={`${blogItem?.BackgroundImage?.asset?.url}`}
+                alt="Sunset in the mountains"
+              />
+              <div class="px-6 py-4">
+                <div class="font-extrabold text-3xl mb-2">
+                  {blogItem?.projectName}
+                </div>
+                <p class="text-gray-700 text-base">
+                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                  Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                  exercitationem praesentium nihil.
+                </p>
+              </div>
+             
+            </div>
+          </>
+        );
+      })
+    }
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
+  </div>
+</section>
+<style>
+  body,
+  html {
+    width: 100%;
+    height: 100%;
+  }
+
+  a {
+    font-family: Montserrat;
+    position: relative;
+    text-decoration: none;
+  }
+
+  a:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    display: block;
+    margin-top: 0px;
+    left: 0%;
+    background: black;
+    transition: width 0.3s ease;
+  }
+
+  a:hover:after {
+    width: 100%;
+    left: 0%;
+    background: black;
+  }
+
+  .cursor {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    border: 1px solid black;
+    transition: all 200ms ease-out;
+    position: fixed;
+    pointer-events: none;
+    left: 0;
+    top: 0;
+    transform: translate(calc(-50% + 15px), -50%);
+  }
+
+  .cursor2 {
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    background-color: black;
+    opacity: 0.3;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition:
+      width 0.3s,
+      height 0.3s,
+      opacity 0.3s;
+  }
+
+  .hover {
+    background-color: red;
+    opacity: 0.5;
+  }
+
+  .cursorinnerhover {
+    width: 50px;
+    height: 50px;
+    opacity: 0.5;
+  }
+  body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+    height: 100vh;
+  }
+
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .home-section {
+    width: 100%;
+    height: 400px;
+  }
+  .inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes bgGradient {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+</style>
