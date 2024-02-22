@@ -13,11 +13,11 @@ const query = groq`*[_type == "projects"]{
 
 const projectData = await useSanityClient().fetch(query);
 import ProjectLayouts from "../../components/ProjectsLayout/ProjectLayouts.astro";
-// const admin = Astro.props.adminstrativetitle || first.adminstrativetitle
+
 ---
 
 <div class="">
-  <Layout title="Portfolio">
+  <Layout title="Projects">
     <ProjectLayouts projectData={projectData} />
   </Layout>
 </div>
