@@ -1,5 +1,8 @@
 ---
+import { Link } from "astro-link";
+
 const data = Astro.props;
+
 console.log("Blog layout", data);
 ---
 
@@ -45,28 +48,31 @@ console.log("Blog layout", data);
   <div class="grid grid-cols-2 gap-4 mt-10">
     {
       data?.blogData?.map((blogItem) => {
-        console.log("itemS:" ,blogItem)
+        console.log("itemS:", blogItem);
         return (
-
           <>
-            <div class="max-w-full rounded overflow-hidden shadow-lg">
-              <img
-                class="w-full"
-                src={`${blogItem?.BackgroundImage?.asset?.url}`}
-                alt="Sunset in the mountains"
-              />
-              <div class="px-6 py-4">
-                <div class="font-extrabold text-3xl mb-2">
-                  {blogItem?.projectName}
+            <Link
+              href={`/blogs/${blogItem.slug?.current}`}
+              externalInNewTab={true}
+            >
+              <div class="max-w-full rounded overflow-hidden shadow-lg">
+                <img
+                  class="w-full"
+                  src={`${blogItem?.BackgroundImage?.asset?.url}`}
+                  alt="Sunset in the mountains"
+                />
+                <div class="px-6 py-4">
+                  <div class="font-extrabold text-3xl mb-2">
+                    {blogItem?.projectName}
+                  </div>
+                  <p class="text-gray-700 text-base">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Voluptatibus quia, nulla! Maiores et perferendis eaque,
+                    exercitationem praesentium nihil.
+                  </p>
                 </div>
-                <p class="text-gray-700 text-base">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                  exercitationem praesentium nihil.
-                </p>
               </div>
-             
-            </div>
+            </Link>
           </>
         );
       })
