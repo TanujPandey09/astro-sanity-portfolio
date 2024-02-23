@@ -2,14 +2,13 @@
 import { Link } from "astro-link";
 
 const data = Astro.props;
+import { PortableText } from "astro-portabletext";
 
 console.log("Blog layout", data);
 ---
 
-
-
 <section class="portfolio-section container mx-auto font-Roboto">
-  <div class="grid grid-cols-2 gap-4 mt-10 ">
+  <div class="grid md:grid-cols-3 grid-cols-1 gap-4 mt-10 py-3 px-3">
     {
       data?.blogData?.map((blogItem) => {
         console.log("itemS:", blogItem);
@@ -21,21 +20,22 @@ console.log("Blog layout", data);
                 href={`/blogs/${blogItem.slug?.current}`}
                 externalInNewTab={true}
               >
-                <div class="max-w-full rounded overflow-hidden bg-white shadow-lg">
+                <div class="max-w-full rounded overflow-hidden bg-white">
                   <img
                     class="w-full"
                     src={`${blogItem?.BackgroundImage?.asset?.url}`}
-                    alt="Sunset in the mountains"
+                    alt=""
                   />
                   <div class="px-6 py-4">
-                    <div class="font-extrabold text-3xl mb-2">
+                    <div class="font-extrabold text-lg mb-2">
                       {blogItem?.projectName}
                     </div>
-                    <p class="text-gray-700 text-base">
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Voluptatibus quia, nulla! Maiores et perferendis eaque,
-                      exercitationem praesentium nihil.
-                    </p>
+                    <div class="py-4">
+                      <PortableText
+                        class="text-sm mb-2 font-Roboto blog-content"
+                        value={blogItem?.excerpt}
+                      />
+                    </div>
                   </div>
                 </div>
               </Link>
@@ -44,7 +44,5 @@ console.log("Blog layout", data);
         );
       })
     }
-  
   </div>
 </section>
-
