@@ -7,7 +7,7 @@ export default function MySwiper(props) {
   return (
     <>
       <div className="container mx-auto py-12 text-center">
-      <h1 className="font-Roboto text-5xl text-white font-medium">Skills Section</h1>
+      <h1 className="font-Roboto text-3xl text-white font-medium">Skills Section</h1>
        
         <Swiper
           slidesPerView={7}
