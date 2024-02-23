@@ -5,9 +5,50 @@ interface Props {
   title: string;
 }
 const { title } = Astro.props;
+
 ---
+<script >
+  
+  var cursor = document.querySelector(".cursor");
+  var cursorinner = document.querySelector(".cursor2");
+  var a = document.querySelectorAll("a");
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
+  });
+
+  document.addEventListener("mousemove", function (e) {
+    var x = e.clientX;
+    var y = e.clientY;
+    cursorinner.style.left = x + "px";
+    cursorinner.style.top = y + "px";
+  });
+
+  document.addEventListener("mousedown", function () {
+    cursor.classList.add("click");
+    cursorinner.classList.add("cursorinnerhover");
+  });
+
+  document.addEventListener("mouseup", function () {
+    cursor.classList.remove("click");
+    cursorinner.classList.remove("cursorinnerhover");
+  });
+
+  a.forEach((item) => {
+    item.addEventListener("mouseover", () => {
+      cursor.classList.add("hover");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursor.classList.remove("hover");
+    });
+  });
+
+</script>
 
 <!doctype html>
+
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -17,9 +58,12 @@ const { title } = Astro.props;
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
+
   <body>
     <Sidebar />
     <slot />
+    <div class="cursor"></div>
+    <div class="cursor2"></div>
   </body>
 </html>
 <style is:global>
@@ -63,8 +107,8 @@ const { title } = Astro.props;
   }
 
   .hover {
-    background-color: red;
-    opacity: 0.5;
+    background-color:transparent;
+    opacity: 0.2;
   }
 
   .cursorinnerhover {
@@ -126,5 +170,17 @@ const { title } = Astro.props;
   .projects-card{
     background-color: var(--primary-color);
     border-radius: 10px;
+  }
+
+  /* .....Blog details */
+
+  .blog-content a{
+    color: white;
+  }
+  
+  .blog-content a:hover{
+    color:#8CB9BD;
+    transition: all ease-in 0.5s;
+    text-decoration: underline;
   }
 </style>

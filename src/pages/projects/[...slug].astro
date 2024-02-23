@@ -28,8 +28,10 @@ export async function getStaticPaths() {
 }
 const { detailsData } = Astro.props;
 
+
 ---
 
-<Layout title="{}">
+<Layout title={`${detailsData?.projectName}`}`>
+
   <ProjectDetails detailsData={detailsData} />
 </Layout>

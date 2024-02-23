@@ -67,8 +67,14 @@ export default {
     },
 
     {
-      name: 'Link',
-      title: 'link',
+      name: 'gitHubLink',
+      title: 'Git Hub Link',
+      type: 'slug',
+    },
+
+    {
+      name: 'demoLink',
+      title: 'Demo Link',
       type: 'slug',
     },
 

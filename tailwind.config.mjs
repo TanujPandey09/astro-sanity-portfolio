@@ -4,7 +4,11 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				Roboto: ["Roboto Slab", 'serif'],}
+				Roboto: ["Roboto Slab", 'serif'],},
+
+			backgroundColor:{
+				buttonBg:"#424242"
+			}
 		},
 	},
 	plugins: [],

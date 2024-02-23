@@ -33,6 +33,14 @@ export default {
       },
 
       {
+        title: 'Blog Content',
+        name: 'blogcontent',
+        type: 'array',
+      description: "Add your content here. You can add text, images or videos.",
+        of: [{type: 'block'}],
+      },
+
+      {
         title: 'Tags',
         name: 'tags',
         type: 'array',

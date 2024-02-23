@@ -12,6 +12,10 @@ const query = groq`*[_type == "projects"]{
 
 const blogquery = groq`*[_type == "blogs"]{
        ...,
+       FeatureImage{
+      asset->{
+        url
+      }},
     }`;
 
 const projectData = await useSanityClient().fetch(query);
@@ -40,13 +44,15 @@ const blogData = await useSanityClient().fetch(blogquery);
     <!-- Projects -->
     <div class="projects container mx-auto py-5 text-white">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto md:text-2xl text-xl font-normal pt-8 pb-6">
+        <h1
+          class="text-white font-Roboto md:text-2xl text-xl font-normal pt-8 pb-6"
+        >
           My Projects
         </h1>
         <div class="max-w-sm border-gray-200 rounded-lg">
           <a
             href="/projects"
-            class="font-Roboto md:text-2xl  text-xl font-normal pt-8 pb-6"
+            class="font-Roboto md:text-2xl text-xl font-normal pt-8 pb-6"
           >
             View All
           </a>
@@ -58,12 +64,11 @@ const blogData = await useSanityClient().fetch(blogquery);
           projectData?.map((projectItem) => {
             return (
               <>
-                <div class=" rounded-lg overflow-hidden shadow-lg projects-card  my-3">
+                <div class=" rounded-lg overflow-hidden shadow-lg projects-card  hover:mx-1 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
                   <a href="#">
                     <img
                       class="rounded-t-lg h-72 w-full object-cover"
                       src={`${projectItem?.BackgroundImage?.asset?.url}`}
-                      
                     />
                   </a>
 
@@ -73,13 +78,14 @@ const blogData = await useSanityClient().fetch(blogquery);
                         {projectItem?.projectName}
                       </h5>
                     </a>
-                    <PortableText class="mb-3 font-normal text-gray-700 dark:text-gray-400  text-base font-Roboto" value={projectItem?.excerpt} />
-               
-                    <a
-                      
-                    href={`/projects/${projectItem.slug.current}`}
+                    <PortableText
+                      class="mb-3 font-normal text-gray-700 dark:text-gray-400  text-base font-Roboto"
+                      value={projectItem?.excerpt}
+                    />
 
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    <a
+                      href={`/projects/${projectItem.slug.current}`}
+                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-yellow-400  hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       Read more
                       <svg
@@ -106,14 +112,18 @@ const blogData = await useSanityClient().fetch(blogquery);
         }
       </div>
     </div>
-    
 
     <!-- Blogs -->
-    <div class="blogs container mx-auto text-white">
+    <div class="blogs container mx-auto text-white py-5">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto md:text-2xl  text-xl pt-8 pb-6">Blogs</h1>
+        <h1 class="text-white font-Roboto md:text-2xl text-xl pt-8 pb-6">
+          Blogs
+        </h1>
         <div class="max-w-sm border-gray-200 rounded-lg">
-          <a class="font-Roboto md:text-2xl  text-xl font-normal " href="/blogs">
+          <a
+            class="font-Roboto md:text-lg text-lg font-normal hover:text-slate-400"
+            href="/blogs"
+          >
             View All</a
           >
         </div>
@@ -122,13 +132,15 @@ const blogData = await useSanityClient().fetch(blogquery);
       <div class="grid md:grid-cols-3 grid-cols-1 gap-3">
         {
           blogData?.map((projectItem) => {
+            console.log(projectItem);
+
             return (
               <>
-                <div class=" rounded-lg overflow-hidden shadow-lg projects-card  my-3">
+                <div class=" rounded-lg overflow-hidden shadow-lg projects-card  hover:mx-1 hover:shadow-xl transition-transform duration-300 transform hover:scale-105">
                   <a href="#">
                     <img
                       class="rounded-t-lg"
-                      src={`${projectItem?.BackgroundImage?.asset?.url}`}
+                      src={`${projectItem?.FeatureImage?.asset?.url}`}
                       alt=""
                     />
                   </a>
@@ -139,10 +151,10 @@ const blogData = await useSanityClient().fetch(blogquery);
                         {projectItem?.projectName}
                       </h5>
                     </a>
-                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      Here are the biggest enterprise technology acquisitions of
-                      2021 so far, in reverse chronological order.
-                    </p>
+                    <PortableText
+                      class="text-xl mb-2 text-gray-900 font-Roboto blog-content"
+                      value={projectItem?.excerpt}
+                    />
                     <a
                       href="#"
                       class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

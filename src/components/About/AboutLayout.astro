@@ -2,50 +2,14 @@
 import Myswiper from "../../components/Slider/SliderLayout.jsx";
 const data = Astro.props;
 const skilldata = Astro.props;
-console.log("skillsss", skilldata);
+
 
 import { PortableText } from "astro-portabletext";
 import { Icon } from "astro-icon/components";
 import Contact from "../Contact/Contact.astro";
 ---
 
-<script>
-  var cursor = document.querySelector(".cursor");
-  var cursorinner = document.querySelector(".cursor2");
-  var a = document.querySelectorAll("a");
 
-  document.addEventListener("mousemove", function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
-  });
-
-  document.addEventListener("mousemove", function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursorinner.style.left = x + "px";
-    cursorinner.style.top = y + "px";
-  });
-
-  document.addEventListener("mousedown", function () {
-    cursor.classList.add("click");
-    cursorinner.classList.add("cursorinnerhover");
-  });
-
-  document.addEventListener("mouseup", function () {
-    cursor.classList.remove("click");
-    cursorinner.classList.remove("cursorinnerhover");
-  });
-
-  a.forEach((item) => {
-    item.addEventListener("mouseover", () => {
-      cursor.classList.add("hover");
-    });
-    item.addEventListener("mouseleave", () => {
-      cursor.classList.remove("hover");
-    });
-  });
-</script>
 
 <section class="portfolio-section container mx-auto ">
   <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 justify-items-center">
@@ -78,11 +42,8 @@ import Contact from "../Contact/Contact.astro";
     </div>
   </div>
 
-  <div class="cursor"></div>
-  <div class="cursor2"></div>
 </section>
 <Myswiper skilldata={skilldata} client:load />
-<Contact />
 
 <style>
  
