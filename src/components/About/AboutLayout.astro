@@ -7,6 +7,12 @@ const skilldata = Astro.props;
 import { PortableText } from "astro-portabletext";
 import { Icon } from "astro-icon/components";
 import Contact from "../Contact/Contact.astro";
+
+const links =[
+  {
+
+  }
+]
 ---
 
 
@@ -30,13 +36,15 @@ import Contact from "../Contact/Contact.astro";
       <div class="px-6 py-2">
         <h4 class="text-3xl font-medium font-Roboto get_connect ">Get Connect</h4>
         <div class="pt-4 pb-2 flex gap-6 w-3/5">
-          <a class="hover:bg-green-700">
+
+
+          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105" target="_blank">
             <Icon class:list={"none"} name="instagram" size={40} />
           </a>
-          <a>
+          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105"  href="https://github.com/TanujPandey09" target="_blank">
             <Icon name="github" size={40} />
           </a>
-          <a><Icon name="linkedin" size={40} /></a>
+          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105" href="https://www.linkedin.com/in/tanujp09/" target="_blank" ><Icon name="linkedin" size={40} /></a>
         </div>
       </div>
     </div>

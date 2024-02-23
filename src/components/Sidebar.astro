@@ -1,6 +1,5 @@
 ---
 import { useSanityClient, groq } from "astro-sanity";
-import { Icon } from "astro-icon/components";
 const query = groq`*[_type == "sideBar"]{
   ...,
   sideMenus[]->
@@ -18,7 +17,7 @@ const firstPost = await useSanityClient().fetch(query);
           justify-between
           w-full
           py-4
-          md:py-0
+          md:py-3
           px-4
           text-black
           md:text-white
@@ -26,9 +25,11 @@ const firstPost = await useSanityClient().fetch(query);
           bg-transparent"
     >
       <div>
-        <a href="#">
-          <p class="text-black
-          md:text-white"> Tanuj Pandey</p>
+        <a href="/">
+          <p class="text-black 
+          font-Roboto
+          hover:shadow-xl transition-transform duration-200 transform hover:scale-105
+          md:text-white border border-white rounded-3xl p-2"> T/P</p>
         <!-- <Icon name="logo"/> -->
         </a>
       </div>
@@ -60,7 +61,7 @@ const firstPost = await useSanityClient().fetch(query);
         {
           firstPost[0]?.sideMenus?.map((menuItem, index) => (
            
-              <li class="list_animate">
+              <li class="transition-transform duration-200 transform hover:scale-105">
                 <a
                   class="text-2xl font-medium font-Roboto px-5 py-1"
                   href={menuItem.menuLink.current}

@@ -5,8 +5,8 @@ import { PortableText } from "astro-portabletext";
 const data = Astro.props;
 ---
 
-<section class="project-section container mx-auto font-Roboto">
-  <div class="grid md:grid-cols-2 md:gap-4 mt-10">
+<section class="project-section container mx-auto md:px-0  px-4 py-4 font-Roboto">
+  <div class="grid md:grid-cols-2 grid-cols-1 gap-4  md:gap-4 mt-10">
     {
       data.projectData?.map((projectItem) => {
         return (
@@ -14,7 +14,7 @@ const data = Astro.props;
             <div class="project_container">
               <Link
                 href={`/projects/${projectItem.slug?.current}`}
-                passHref
+                
                 externalInNewTab={true}
               >
                 <div class="max-w-full rounded overflow-hidden shadow-lg projects-card  text-gray-700">
@@ -46,8 +46,10 @@ const data = Astro.props;
                     })}
                   </div>
                   <div class="px-6 pt-4 pb-2">
-                    <a href={projectItem?.gitHubLink?.current}>Github link</a>&nbsp;|&nbsp;
-                    <a href={projectItem?.demoLink?.current}>Demo Link</a>&nbsp;|&nbsp;
+                    <a href={projectItem?.gitHubLink?.current}>Github link</a>
+                    &nbsp;|&nbsp;
+                    <a href={projectItem?.demoLink?.current}>Demo Link</a>
+                    &nbsp;|&nbsp;
                   </div>
                 </div>
               </Link>
