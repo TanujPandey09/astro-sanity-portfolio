@@ -23,34 +23,37 @@ const data = Astro.props;
                     src={`${projectItem?.BackgroundImage?.asset?.url}`}
                     alt="portfolio_image"
                   />
-                  <div class="px-6 py-4 ">
-                    <div class="font-Roboto font-normal md:text-3xl text-sm mb-2">
+                  <div class="info-section px-4">
+                    <div class="py-4 ">
+                    <div class="font-Roboto font-normal md:text-2xl text-sm mb-2">
                       {projectItem?.projectName}
                     </div>
                     <p class=" text-base  font-Roboto font-normal">
                       <PortableText
-                        class="font-normal md:text-base text-sm mb-2 font-Roboto truncate ..."
+                        class="font-normal md:text-sm text-sm mb-2 font-Roboto "
                         value={projectItem?.excerpt}
                       />
                     </p>
                   </div>
-                  <div class="px-6 pt-4 pb-2">
+                  <div>
                     {projectItem?.tags?.map((tagsItem) => {
                       return (
                         <>
-                          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-lg font-medium font-Roboto mr-2 mb-2">
+                          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-bae font-medium font-Roboto mr-2 mb-2">
                             {tagsItem}
                           </span>
                         </>
                       );
                     })}
                   </div>
-                  <div class="px-6 pt-4 pb-2">
+                  <div class="py-4">
                     <a href={projectItem?.gitHubLink?.current}>Github link</a>
                     &nbsp;|&nbsp;
                     <a href={projectItem?.demoLink?.current}>Demo Link</a>
                     &nbsp;|&nbsp;
                   </div>
+                    </div>
+               
                 </div>
               </Link>
             </div>

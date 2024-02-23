@@ -22,7 +22,7 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 ---
 
-<section class="home-section px-4 font-Roboto">
+<section class="home-section px-4 font-Roboto ">
   <div class="container mx-auto">
     <div class="grid grid-cols-1 text-center text-white">
       <div
@@ -45,14 +45,14 @@ const blogData = await useSanityClient().fetch(blogquery);
     <div class="projects container mx-auto py-5 text-white">
       <div class="flex justify-between items-center">
         <h1
-          class="text-white font-Roboto md:text-2xl text-xl font-normal pt-8 pb-6"
+          class="text-white font-Roboto md:text-xl text-sm font-normal pt-8 pb-6"
         >
           My Projects
         </h1>
         <div class="max-w-sm border-gray-200 rounded-lg">
           <a
             href="/projects"
-            class="font-Roboto md:text-2xl text-xl font-normal pt-8 pb-6"
+            class="font-Roboto md:text-xl text-sm font-normal pt-8 pb-6  hover:text-slate-400"
           >
             View All
           </a>
@@ -74,7 +74,7 @@ const blogData = await useSanityClient().fetch(blogquery);
 
                   <div class="p-5">
                     <a href="#">
-                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {projectItem?.projectName}
                       </h5>
                     </a>
@@ -85,7 +85,7 @@ const blogData = await useSanityClient().fetch(blogquery);
 
                     <a
                       href={`/projects/${projectItem.slug.current}`}
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-yellow-400  hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500  hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
                       Read more
                       <svg
@@ -116,7 +116,7 @@ const blogData = await useSanityClient().fetch(blogquery);
     <!-- Blogs -->
     <div class="blogs container mx-auto text-white py-5">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto md:text-2xl text-xl pt-8 pb-6">
+        <h1 class="text-white font-Roboto md:text-lg text-sm pt-8 pb-6">
           Blogs
         </h1>
         <div class="max-w-sm border-gray-200 rounded-lg">
@@ -147,18 +147,18 @@ const blogData = await useSanityClient().fetch(blogquery);
 
                   <div class="p-5">
                     <a href="#">
-                      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
                         {projectItem?.projectName}
                       </h5>
                     </a>
                     <PortableText
-                      class="text-sm mb-2 text-gray-900  blog-content"
+                      class="text-base mb-2 text-gray-900  blog-content"
                       value={projectItem?.excerpt}
                     />
                     <a
                       href={`/blogs/${projectItem.slug.current}`}
 
-                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-yellow-400  hover:text-black focus:ring-4 focus:outline-none "
+                      class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500  hover:text-black focus:ring-4 focus:outline-none "
                     >
                       Read more
                       <svg

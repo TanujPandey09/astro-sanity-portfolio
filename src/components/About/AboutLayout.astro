@@ -8,17 +8,13 @@ import { PortableText } from "astro-portabletext";
 import { Icon } from "astro-icon/components";
 import Contact from "../Contact/Contact.astro";
 
-const links =[
-  {
 
-  }
-]
 ---
 
 
 
-<section class="portfolio-section container mx-auto ">
-  <div class="grid lg:grid-cols-2 grid-cols-1 gap-2 justify-items-center">
+<section class="portfolio-section container mx-auto pt-12 ">
+  <div class="grid md:grid-cols-2 grid-cols-1 gap-2 justify-items-center  px-3 md:px-0 ">
     <div class="w-auto overflow-hidden  ">
       <img
         class="w-auto border rounded-3xl border-slate-600 h-100  filter grayscale-10 grayscale"
@@ -27,14 +23,14 @@ const links =[
       />
     </div>
     <div>
-      <div class="px-6 py-4">
-        <div class="font-bold text-2xl mb-2 font-Roboto about_name">
+      <div class="px-6">
+        <div class="font-bold text-xl mb-4 mt-2  font-Roboto about_name">
           {data?.aboutData[0]?.aboutName}
         </div>
-        <PortableText class="font-normal text-xl mb-2 font-Roboto text-white" value={data?.aboutData[0]?.description} />
+        <PortableText class="font-normal text-lg  font-Roboto text-white" value={data?.aboutData[0]?.description} />
       </div>
       <div class="px-6 py-2">
-        <h4 class="text-3xl font-medium font-Roboto get_connect ">Get Connect</h4>
+        <h4 class="text-lg font-medium font-Roboto get_connect ">Get Connect</h4>
         <div class="pt-4 pb-2 flex gap-6 w-3/5">
 
 
