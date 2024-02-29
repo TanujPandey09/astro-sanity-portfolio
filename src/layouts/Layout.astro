@@ -157,17 +157,39 @@ const { title } = Astro.props;
     }
   }
 
+   /* ....Projects Cards */
+
+   .projects-card{
+    background-color: var(--primary-color);
+    border-radius: 10px;
+  }
+
+  /* .....Blog details */
+
+  .blog-content a{
+    color: var(--accent-color);
+ 
+  }
+  
+  .blog-content a:hover{
+    color:var(--bg2);
+    transition: all ease-in 0.5s;
+    text-decoration: underline;
+  }
+
+  
+
   @media only screen and (max-width: 768px) {
     body {
-      background: linear-gradient(-45deg, #424242, #131313, #fafafa);
+      background: linear-gradient(90deg, #131313);
       background-repeat: no-repeat;
       height: 100%;
       animation: none; /* Disable animation on mobile devices */
     }
 
     /* Add additional mobile styles if needed */
-  }
-  /* ....Projects Cards */
+
+     /* ....Projects Cards */
 
   .projects-card{
     background-color: var(--primary-color);
@@ -186,4 +208,6 @@ const { title } = Astro.props;
     transition: all ease-in 0.5s;
     text-decoration: underline;
   }
+  }
+ 
 </style>
