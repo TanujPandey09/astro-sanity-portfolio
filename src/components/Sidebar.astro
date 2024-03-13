@@ -80,7 +80,23 @@ const firstPost = await useSanityClient().fetch(query);
   </header>
 </body>
 
-<script>
+
+
+<style>
+  .show {
+    display: block;
+  }
+  /* Your existing styles */
+
+  @media (max-width: 768px) {
+    .links {
+      display: none;
+    }
+
+   
+  }
+</style>
+<script is:inline>
   // Burger menus
   const button = document.querySelector("#menu-button");
   const menu = document.querySelector("#menu");
@@ -101,18 +117,3 @@ const firstPost = await useSanityClient().fetch(query);
     bars.classList.toggle("fa-times");
   });
 </script>
-
-<style>
-  .show {
-    display: block;
-  }
-  /* Your existing styles */
-
-  @media (max-width: 768px) {
-    .links {
-      display: none;
-    }
-
-   
-  }
-</style>

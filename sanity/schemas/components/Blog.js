@@ -55,6 +55,22 @@ export default {
       },
 
       {
+        title: "Category",
+        description: "Category",
+        name: "Category",
+        type: "string",
+        options: {
+          list: [
+            { title: "Technology", value: "technology" },
+            { title: "Headless Cms", value: "headlesscms" },
+            { title: "Frameworks", value: "frameworks" },
+            { title: "Integrations", value: "integrations" },
+          ],
+        },
+        validation: (Rule) => Rule.required(),
+      },
+
+      {
         name: 'FeatureImage',
         title: 'Feature Image',
         description:'Upload Feature Image',

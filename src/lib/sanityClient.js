@@ -1,14 +1,9 @@
-import {useSanityClient,groq} from "astro-sanity"
+import {createClient} from '@sanity/client'
+// Import using ESM URL imports in environments that supports it:
+// import {createClient} from 'https://esm.sh/@sanity/client'
 
-export async function getFirst(){
-    const query = groq`*[_type == "sideBar"]{
-        ...,
-        sideMenus[]->
-    }`;
-    const firstPost = await useSanityClient().fetch(query);
-    return firstPost;
-}
-
-
-
-
+export const client = createClient({
+    projectId: 'fqd3bez7',
+    dataset: "production",
+  useCdn: true,
+})

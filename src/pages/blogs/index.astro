@@ -11,13 +11,12 @@ const query = groq`*[_type == "blogs"]{
     }`;
 
 const blogData = await useSanityClient().fetch(query);
-import BlogLayout from "../../components/BlogLayout/BlogLayout.astro";
+import Blogs from "../../components/BlogLayout/Blogs";
+
 import Layout from "../../layouts/Layout.astro";
-// const admin = Astro.props.adminstrativetitle || first.adminstrativetitle
+
 ---
 
-<div class="">
-  <Layout title="Portfolio">
-    <BlogLayout blogData={blogData} />
-  </Layout>
-</div>
+<Layout title="Blogs">
+  <Blogs client:load blogData={blogData} />
+</Layout>
