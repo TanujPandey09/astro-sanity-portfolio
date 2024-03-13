@@ -25,12 +25,12 @@ export default function Blogs({ blogData }) {
     <>
       <section className="portfolio-section container mx-auto font-Roboto">
         <h4 className="text-center text-5xl text-white">Blogs</h4>
-        <div className="flex flex-wrap justify-center mx-2 py-6 text-2xl">
+        <div className="flex flex-wrap justify-center mx-2 py-6  text-2xl">
           {category.map((item, index) => (
             <button
               key={index}
               className={`mx-2 hover:text-slate-200 transition-all ease-in-out cursor-pointer capitalize ${
-                activeFilter === item ? "font-semibold" : ""
+                activeFilter === item ? "font-semibold text-slate-200" : ""
               }`}
               onClick={() => handleFilter(item)}
             >
