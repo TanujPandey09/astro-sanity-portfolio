@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { PortableText } from "@portabletext/react";
 
-const category = ["All", "integrations", "technology"];
+const category = ["All", "integrations", "technology", "frameworks"];
 
 export default function Blogs({ blogData }) {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -39,33 +39,36 @@ export default function Blogs({ blogData }) {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 mt-10 py-3 px-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 m mt-10 py-3 px-3">
           {filterWork.map((blogItem) => (
-            <div key={blogItem.slug?.current}>
+            <div key={blogItem.slug?.current} className="flex flex-col h-full">
               <a
                 href={`/blogs/${blogItem.slug?.current}`}
                 externalInNewTab={true}
+                
               >
-                <div className="max-w-full rounded overflow-hidden bg-white">
+                <div className=" w-auto h-full file:rounded overflow-hidden bg-white">
                   <img
-                    className="w-full"
+                    className="w-full object-cover h-64 object-center"
                     src={blogItem?.BackgroundImage?.asset?.url}
-                    alt=""
                   />
-                  <div className="px-6 py-4">
-                    <div className="font-extrabold text-lg mb-2">
-                      {blogItem?.projectName}
-                    </div>
-                    <div className="p capitalize border w-2/4 br-2">
-                      <p>{blogItem?.Category}</p>
-                    </div>
-                    <div className="py-4">
-                      <PortableText
-                        className="text-sm mb-2 font-Roboto blog-content"
-                        value={blogItem?.excerpt}
-                      />
-                    </div>
+                  <div className="p-6 flex flex-wrap justify-between">
                     <div>
+                      <div className="font-extrabold text-base mb-2">
+                        {blogItem?.projectName}
+                      </div>
+                      <div className="p capitalize border inline-block br-2 bg-gray-200 rounded-md py-1 px-2">
+                        <p className="text-sm text-gray-700">
+                          {blogItem?.Category}
+                        </p>
+                      </div>
+                      <div className="py-4 text-sm md:text-base h-auto blog-content  font-Roboto w-full">
+                        <PortableText
+                         value={blogItem.excerpt}
+                        />
+                      </div>
+                    </div>
+                    <div className="">
                       <a
                         href={`/blogs/${blogItem.slug?.current}`}
                         className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

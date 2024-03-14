@@ -5,12 +5,9 @@ interface Props {
   title: string;
 }
 const { title } = Astro.props;
-
 ---
 
-
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -29,10 +26,9 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
+  @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
-
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
+  /* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
 
   :root {
     --primary-color: #fafafa;
@@ -64,14 +60,11 @@ const { title } = Astro.props;
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition:
-      width 0.3s,
-      height 0.3s,
-      opacity 0.3s;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
   }
 
   .hover {
-    background-color:transparent;
+    background-color: transparent;
     opacity: 0.2;
   }
 
@@ -102,8 +95,8 @@ const { title } = Astro.props;
   .home-section {
     width: 100%;
     height: 100%;
-	display: flex;
-	align-items: center;
+    display: flex;
+    align-items: center;
   }
   .inner {
     width: 100%;
@@ -119,27 +112,36 @@ const { title } = Astro.props;
     }
   }
 
-   /* ....Projects Cards */
+  /* ....Projects Cards */
 
-   .projects-card{
+  .projects-card {
     background-color: var(--primary-color);
     border-radius: 10px;
   }
 
   /* .....Blog details */
 
-  .blog-content a{
+  .blog-content a {
     color: var(--accent-color);
- 
   }
-  
-  .blog-content a:hover{
-    color:var(--bg2);
+
+  .blog-content a:hover {
+    color: var(--bg2);
     transition: all ease-in 0.5s;
     text-decoration: underline;
   }
 
-  
+  /* >.Blog Page */
+
+  /* .blog-content p {
+    p: 0;
+    m: 0;
+    font-size: 16px;
+    line-height:24px;
+    text-align:justify;
+    display: inline-block
+    
+  } */
 
   @media only screen and (max-width: 768px) {
     body {
@@ -151,31 +153,28 @@ const { title } = Astro.props;
 
     /* Add additional mobile styles if needed */
 
-     /* ....Projects Cards */
+    /* ....Projects Cards */
 
-  .projects-card{
-    background-color: var(--primary-color);
-    border-radius: 10px;
-  }
+    .projects-card {
+      background-color: var(--primary-color);
+      border-radius: 10px;
+    }
 
-  /* .....Blog details */
+    /* .....Blog details */
 
-  .blog-content a{
-    color: var(--accent-color);
- 
+    .blog-content a {
+      color: var(--accent-color);
+    }
+
+    .blog-content a:hover {
+      color: var(--bg2);
+      transition: all ease-in 0.5s;
+      text-decoration: underline;
+    }
   }
-  
-  .blog-content a:hover{
-    color:var(--bg2);
-    transition: all ease-in 0.5s;
-    text-decoration: underline;
-  }
-  }
- 
 </style>
 
-<script >
-  
+<script>
   var cursor = document.querySelector(".cursor");
   var cursorinner = document.querySelector(".cursor2");
   var a = document.querySelectorAll("a");
@@ -211,5 +210,4 @@ const { title } = Astro.props;
       cursor.classList.remove("hover");
     });
   });
-
 </script>
