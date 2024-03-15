@@ -23,14 +23,14 @@ export default function Blogs({ blogData }) {
 
   return (
     <>
-      <section className="portfolio-section container mx-auto font-Roboto">
-        <h4 className="text-center text-5xl text-white">Blogs</h4>
-        <div className="flex flex-wrap justify-center mx-2 py-6  text-2xl">
+      <section className="portfolio-section container mx-auto font-Roboto py-20">
+        <h4 className="md:text-center text-4xl text-primaryColor">Blogs</h4>
+        <div className="flex flex-wrap justify-center mx-4 py-6 mt-4 text-xl">
           {category.map((item, index) => (
             <button
               key={index}
-              className={`mx-2 hover:text-slate-200 transition-all ease-in-out cursor-pointer capitalize ${
-                activeFilter === item ? "font-semibold text-slate-200" : ""
+              className={`mx-2  text-primaryColor hover:text-secondaryColor transition-all ease-in-out cursor-pointer capitalize ${
+                activeFilter === item ? "font-semibold" : "text-secondaryColor opacity-50"
               }`}
               onClick={() => handleFilter(item)}
             >
@@ -47,22 +47,22 @@ export default function Blogs({ blogData }) {
                 externalInNewTab={true}
                 
               >
-                <div className=" w-auto h-full file:rounded overflow-hidden bg-white">
+                <div className="w-auto h-full file:rounded overflow-hidden projects-card">
                   <img
                     className="w-full object-cover h-64 object-center"
                     src={blogItem?.BackgroundImage?.asset?.url}
                   />
                   <div className="p-6 flex flex-wrap justify-between">
                     <div>
-                      <div className="font-extrabold text-base mb-2">
+                      <div className="font-extrabold text-base mb-2 text-primaryColor">
                         {blogItem?.projectName}
                       </div>
-                      <div className="p capitalize border inline-block br-2 bg-gray-200 rounded-md py-1 px-2">
+                      <div className="p capitalize border inline-block br-2 bg-primaryColor rounded-md py-1 px-2">
                         <p className="text-sm text-gray-700">
                           {blogItem?.Category}
                         </p>
                       </div>
-                      <div className="py-4 text-sm md:text-base h-auto blog-content  font-Roboto w-full">
+                      <div className="py-4 text-sm md:text-base h-auto blog-content text-secondaryColor font-Roboto w-full">
                         <PortableText
                          value={blogItem.excerpt}
                         />
@@ -71,7 +71,7 @@ export default function Blogs({ blogData }) {
                     <div className="">
                       <a
                         href={`/blogs/${blogItem.slug?.current}`}
-                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-primaryColor bg-slate-700 rounded-lg hover:bg-slate-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                       >
                         Read more
                         <svg

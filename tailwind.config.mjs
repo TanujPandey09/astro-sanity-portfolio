@@ -8,6 +8,10 @@ export default {
 
 			backgroundColor:{
 				buttonBg:"#424242"
+			},
+			colors:{
+				primaryColor:"#ffffff",
+				secondaryColor: "#ced6de",
 			}
 		},
 	},

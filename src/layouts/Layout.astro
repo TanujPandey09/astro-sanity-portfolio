@@ -31,18 +31,26 @@ const { title } = Astro.props;
   /* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
 
   :root {
-    --primary-color: #fafafa;
+    /* --primary-color: #fafafa;
     --secondary-color: #686868;
     --accent-color: #292929;
     --bg1: #424242;
-    --bg2: #131313;
+    --bg2: #131313; */
+
+    /* bg2 */
+
+    --primary-color: #ffffff;
+    --secondary-color: #ced6de;
+    --accent-color: #292929;
+    --bg1: #040615;
+    --bg2: #000000;
   }
 
   .cursor {
-    width: 50px;
-    height: 50px;
+    width: 30px;
+    height: 30px;
     border-radius: 100%;
-    border: 1px solid black;
+    border: 1px solid var(--primary-color);
     transition: all 200ms ease-out;
     position: fixed;
     pointer-events: none;
@@ -52,10 +60,10 @@ const { title } = Astro.props;
   }
 
   .cursor2 {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
     border-radius: 100%;
-    background-color: black;
+    background-color: var(--secondary-color);
     opacity: 0.3;
     position: fixed;
     transform: translate(-50%, -50%);
@@ -69,28 +77,23 @@ const { title } = Astro.props;
   }
 
   .cursorinnerhover {
-    width: 50px;
-    height: 50px;
+    width: 20px;
+    height: 20px;
     opacity: 0.5;
   }
   body {
-    background: linear-gradient(-45deg, #131313, #424242, #686868, #424242);
-    background-size: 400% 400%;
-    animation: gradient 15s ease infinite;
+    background-color:rgba(4, 6, 21, 0.9);
+    /* background: linear-gradient(145deg, rgba(4, 6, 21, 1), rgba(0, 0, 0, 0.8)); */
+    background-size: center;
     height: 100%;
+    width:100%;
+  
+    
   }
 
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+ 
+
+
 
   .home-section {
     width: 100%;
@@ -115,8 +118,9 @@ const { title } = Astro.props;
   /* ....Projects Cards */
 
   .projects-card {
-    background-color: var(--primary-color);
+    background-color: var(--bg1);
     border-radius: 10px;
+    border-color:var(--bg2)
   }
 
   /* .....Blog details */
@@ -130,6 +134,21 @@ const { title } = Astro.props;
     transition: all ease-in 0.5s;
     text-decoration: underline;
   }
+
+  .blog-details-content strong{
+    font-size:18px;
+    line-height:42px;
+  margin:40px 0px;
+
+  }
+
+  .blog-details-content li{
+    
+    font-size:16px;
+    line-height:24px;
+    padding:5px 0px;
+  }
+
 
   /* >.Blog Page */
 
@@ -155,11 +174,7 @@ const { title } = Astro.props;
 
     /* ....Projects Cards */
 
-    .projects-card {
-      background-color: var(--primary-color);
-      border-radius: 10px;
-    }
-
+   
     /* .....Blog details */
 
     .blog-content a {

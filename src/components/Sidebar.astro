@@ -9,111 +9,87 @@ const firstPost = await useSanityClient().fetch(query);
 ---
 
 <!-- component -->
-<body class="antialiased">
-  <header>
-    <nav
-      class="flex flex-wrap
-          items-center
-          justify-between
-          w-full
-          py-4
-          md:py-3
-          px-4
-          text-black
-          md:text-white
-          text-lg 
-          bg-transparent"
-    >
-      <div>
-        <a href="/">
-          <p class="text-black 
-          font-Roboto
-          hover:shadow-xl transition-transform duration-200 transform hover:scale-105
-          md:text-white border border-white rounded-3xl text-lg p-2"> T/P</p>
-        <!-- <Icon name="logo"/> -->
-        </a>
-      </div>
-<!-- Menu Button -->
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        id="menu-button"
-        class="h-6 w-6 cursor-pointer md:hidden block"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
+<!-- component -->
+<!-- component -->
+<header class="container mx-auto sticky top-0" id="header">
+  <nav class="flex flex-wrap items-center justify-between w-full md:py-3 text-primaryColor bg-transparent" id="navbar">
+    <div class="logo-section">
+      <a href="/" class="font-Roboto hover:shadow-xl transition-transform duration-200 transform hover:scale-105 text-white rounded-3xl text-sm p-2 border-r-primaryColor">
+        T/P
+      </a>
+    </div>
+    <!-- Close Button -->
+    <button id="close-button" class="md:hidden hidden">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
+    </button>
+    <!-- Menu Button -->
+    <svg xmlns="http://www.w3.org/2000/svg" id="menu-button" class="h-6 w-6 cursor-pointer md:hidden block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <!-- Menu Button -->
 
-      <!-- Nav Link -->
-      <div class="hidden w-full md:flex md:items-center md:w-auto" id="menu">
-        <ul
-          class="pt-4
-             text-black
-              md:text-white
-              md:flex
-              md:justify-between
-              md:pt-3"
-        >
+    <!-- Nav Link -->
+    <div class="hidden w-full md:flex justify-between md:items-center md:w-auto" id="menu">
+      <ul class="pt-4 text-primaryColor md:flex md:justify-between py-2 md:pt-3">
         {
           firstPost[0]?.sideMenus?.map((menuItem, index) => (
-           
-              <li class="transition-transform duration-200 transform hover:scale-105">
-                <a
-                  class="text-lg font-medium font-Roboto px-5 py-1  hover:text-slate-400"
-                  href={menuItem.menuLink.current}
-                >
-                  {menuItem.menuName}
-                </a>
-              </li>
-            
+            <li class="transition-transform duration-200 transform hover:scale-105">
+              <a class="text-base font-medium font-Roboto px-5 py-1 items-end hover:text-slate-400" href={menuItem.menuLink.current}>
+                {menuItem.menuName}
+              </a>
+            </li>
           ))
         }
-       
-        </ul>
-      </div>
-    </nav>
-  </header>
-</body>
-
-
+      </ul>
+    </div>
+  </nav>
+</header>
 
 <style>
-  .show {
-    display: block;
-  }
-  /* Your existing styles */
-
-  @media (max-width: 768px) {
-    .links {
-      display: none;
-    }
-
-   
+  /* Add styles for transparent background and shadow */
+  #header.transparent {
+    border-color: rgba(255, 255, 255, 0.1);
+    border-style: solid;
+    border-width: 0px; /* Set all border widths to 0px */
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.1); /* Adjust the transparency as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Adjust the shadow properties as needed */
+    backdrop-filter: blur(12px); /* For additional blur effect (optional) */
   }
 </style>
+
 <script is:inline>
+  // Add scroll event listener to toggle transparency and shadow
+  window.addEventListener("scroll", function() {
+    const header = document.getElementById("header");
+    if (window.scrollY > 0) {
+      header.classList.add("transparent");
+    } else {
+      header.classList.remove("transparent");
+    }
+  });
+
+  // Close Button
+  const closeButton = document.getElementById("close-button");
+  const menu = document.getElementById("menu");
+
+  closeButton.addEventListener("click", () => {
+    menu.classList.add("hidden");
+    closeButton.classList.add("hidden");
+    document.getElementById("menu-button").classList.remove("hidden");
+  });
+
   // Burger menus
   const button = document.querySelector("#menu-button");
-  const menu = document.querySelector("#menu");
 
   button.addEventListener("click", () => {
     menu.classList.toggle("hidden");
-  });
-
-  // Gets the Mobile Nav icon by its ID
-  let bars = document.getElementById("bars");
-
-  // Gets the Mobile Nav container
-  let mobileMenu = document.getElementById("mobileMenu");
-
-  // Displays the Mobile Nav when clicked and changes the Nav Icon from three bars to an 'X'
-  bars.addEventListener("click", function () {
-    mobileMenu.classList.toggle("show");
-    bars.classList.toggle("fa-times");
+    button.classList.add("hidden");
+    closeButton.classList.remove("hidden");
   });
 </script>
+
+
+

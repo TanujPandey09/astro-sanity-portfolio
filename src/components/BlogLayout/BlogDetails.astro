@@ -5,9 +5,9 @@ import { PortableText } from "astro-portabletext";
 ---
 
 <main
-  class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-transparent text-white antialiased"
+  class="pt-8  lg:pt-10 lg:pb-24 bg-transparent text-white antialiased  container mx-auto"
 >
-  <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
+  <div class="flex justify-between px-4 mx-auto max-w-screen-xl projects-card py-20">
     <article
       class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue dark:format-invert"
     >
@@ -20,16 +20,16 @@ import { PortableText } from "astro-portabletext";
       </header>
 
       <figure>
-        <img src={`${data?.detailsData?.BackgroundImage?.asset?.url}`} alt="" />
+        <img src={`${data?.detailsData?.BackgroundImage?.asset?.url}`} alt="feature-image" class="w-full" />
       </figure>
-      <p>
-        <p>
+      
+        <div class="blog-details-content">
           <PortableText
-            class="md:text-lg text-base py-1 text-pretty mb-2 font-Roboto blog-content"
+           
             value={data?.detailsData?.blogcontent}
           />
-        </p>
-      </p>
+        </div>
+      
     </article>
   </div>
 
