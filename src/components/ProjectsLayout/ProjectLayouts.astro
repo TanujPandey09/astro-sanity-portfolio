@@ -9,7 +9,7 @@ const data = Astro.props;
   class="project-section container mx-auto md:px-0 px-4 py-4 font-Roboto"
 >
   <h1 class="text-center text-4xl font-Roboto text-slate-50">My Works</h1>
-  <div class="grid md:grid-cols-2 grid-cols-1 gap-4 md:gap-4 mt-10 md:px-12">
+  <div class="grid md:grid-cols-1 grid-cols-1 gap-4 md:gap-4 mt-10 md:px-12">
     {
       data.projectData?.map((projectItem) => {
         return (
@@ -20,9 +20,11 @@ const data = Astro.props;
                 externalInNewTab={true}
               >
                 <div class="max-w-full rounded overflow-hidden shadow-lg projects-card h-auto flex-col text-gray-700">
-                  <img class=" h-72 w-full" src={`${projectItem?.BackgroundImage?.asset?.url}`}/>
+                  <img
+                    class="h-full w-full"
+                    src={`${projectItem?.BackgroundImage?.asset?.url}`}
+                  />
                   <div class="info-section px-4">
-                  
                     <div class="py-4">
                       <div class="font-Sans text-primaryColor  md:text-xl font-semibold text-sm mb-2">
                         {projectItem?.projectName}
@@ -34,11 +36,11 @@ const data = Astro.props;
                         />
                       </p>
                     </div>
-                    <div class="md:h-20 h-auto">
+                    <div class="h-auto">
                       {projectItem?.tags?.map((tagsItem) => {
                         return (
                           <>
-                            <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-medium font-Roboto mr-2 mb-2">
+                            <span class="inline-block bg-gray-200 rounded-full px-3 py-2 text-sm font-medium font-Roboto mr-2 mb-2">
                               {tagsItem}
                             </span>
                           </>
@@ -46,7 +48,12 @@ const data = Astro.props;
                       })}
                     </div>
                     <div class="py-4 text-secondaryColor">
-                      <a href={projectItem?.gitHubLink?.current}>Github link</a>
+                      <a
+                        href={projectItem?.gitHubLink?.current}
+                        class="hover:text-secondaryColor transition-all "
+                      >
+                        Github link
+                      </a>
                       &nbsp;|&nbsp;
                       <a href={projectItem?.demoLink?.current}>Demo Link</a>
                       &nbsp;|&nbsp;
