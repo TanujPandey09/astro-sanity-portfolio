@@ -8,7 +8,9 @@ import tailwind from "@astrojs/tailwind";
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: netlify(),
+  adapter: netlify({
+    edgeMiddleware: true
+  }),
   integrations: [sanity({
     projectId: 'fqd3bez7',
     dataset: "production",
