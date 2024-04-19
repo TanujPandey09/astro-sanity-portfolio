@@ -25,10 +25,10 @@ export default function ProjectSlider(props) {
                                 <SwiperSlide key={projectItem}>
 
                                     <div class="h-auto rounded-lg projects-card overflow-hidden shadow-lg hover:mx-1 hover:shadow-xl transition-transform duration-1000 transform hover:scale-105">
-                                        {/* <img
+                                        <img
                                             class="w-full h-40 mb-8"
                                             src={`${projectItem?.BackgroundImage?.asset?.url}`}
-                                        /> */}
+                                        />
                                         <div class="px-4 py-4 mt-4">
                                             <h5 class="mb-2 text-lg font-sans  font-bold text-primaryColor">
                                                 {projectItem?.projectName}
