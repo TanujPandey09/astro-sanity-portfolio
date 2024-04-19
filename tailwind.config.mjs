@@ -7,12 +7,18 @@ export default {
 				Roboto: ["Roboto Slab", 'serif'],},
 
 			backgroundColor:{
-				buttonBg:"#424242"
+				buttonBg:"#424242",
+				secondaryBg:"#040615",
+				primaryColor:"#000000"
 			},
 			colors:{
 				primaryColor:"#ffffff",
 				secondaryColor: "#ced6de",
-			}
+			},
+			backgroundImage: {
+				'job-pattern': "url('/img/SCUBE.webp')",
+				
+			  }
 		},
 	},
 	plugins: [],

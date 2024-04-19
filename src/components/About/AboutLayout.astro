@@ -3,55 +3,77 @@ import Myswiper from "../../components/Slider/SliderLayout.jsx";
 const data = Astro.props;
 const skilldata = Astro.props;
 
-
 import { PortableText } from "astro-portabletext";
 import { Icon } from "astro-icon/components";
-import Contact from "../Contact/Contact.astro";
-
-
 ---
 
-
-
-<section class="portfolio-section container mx-auto pt-12 ">
-  <div class="grid md:grid-cols-2 grid-cols-1 gap-2 justify-items-center  px-3 md:px-0 ">
-    <div class="w-auto overflow-hidden  ">
-      <img
-        class="w-auto border rounded-3xl border-slate-600 h-100  filter grayscale-10 grayscale"
-        src={`${data?.aboutData[0]?.heroImage?.asset?.url}`}
-        alt="Sunset in the mountains"
-      />
-    </div>
+<section class="portfolio-section container mx-auto pt-12">
+  <div
+    class="grid md:grid-cols-2 grid-cols-1 gap-2 justify-items-center px-3 md:px-0"
+  >
+    {
+      data?.aboutData[0]?.heroImage?.asset?.url && (
+        <>
+          <div class="w-auto overflow-hidden  ">
+            <img
+              class="w-auto border rounded-3xl border-slate-600 h-100  filter grayscale-10 grayscale"
+              src={`${data?.aboutData[0]?.heroImage?.asset?.url}`}
+              alt="Sunset in the mountains"
+            />
+          </div>
+        </>
+      )
+    }
     <div>
       <div class="px-6">
-        <div class="font-bold text-xl mb-4 mt-2  font-Roboto about_name">
-          {data?.aboutData[0]?.aboutName}
-        </div>
-        <PortableText class="font-normal text-lg  font-Roboto text-white" value={data?.aboutData[0]?.description} />
+        {
+          data?.aboutData[0]?.aboutName && (
+            <>
+              <div class="font-bold text-xl mb-4 mt-2 font-Roboto about_name">
+                {data?.aboutData[0]?.aboutName}
+              </div>
+            </>
+          )
+        }
+
+        
+
+        <PortableText
+          class="font-normal text-lg font-Roboto text-white"
+          value={data?.aboutData[0]?.description}
+        />
       </div>
       <div class="px-6 py-2">
-        <h4 class="text-lg font-medium font-Roboto get_connect ">Get Connect</h4>
+        <h4 class="text-lg font-medium font-Roboto get_connect">Get Connect</h4>
         <div class="pt-4 pb-2 flex gap-6 w-3/5">
-
-
-          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105" target="_blank">
+          <a
+            class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105"
+            target="_blank"
+          >
             <Icon class:list={"none"} name="instagram" size={40} />
           </a>
-          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105"  href="https://github.com/TanujPandey09" target="_blank">
+          <a
+            class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105"
+            href="https://github.com/TanujPandey09"
+            target="_blank"
+          >
             <Icon name="github" size={40} />
           </a>
-          <a class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105" href="https://www.linkedin.com/in/tanujp09/" target="_blank" ><Icon name="linkedin" size={40} /></a>
+          <a
+            class="hover:shadow-xl transition-transform duration-200 transform hover:scale-105"
+            href="https://www.linkedin.com/in/tanujp09/"
+            target="_blank"
+          >
+            <Icon name="linkedin" size={40} />
+          </a>
         </div>
       </div>
     </div>
   </div>
-
 </section>
 <Myswiper skilldata={skilldata} client:load />
 
 <style>
- 
- 
   .cursor {
     width: 40px;
     height: 40px;
@@ -64,13 +86,15 @@ import Contact from "../Contact/Contact.astro";
     top: 0;
     transform: translate(calc(-50% + 15px), -50%);
   }
-.about_name,.get_connect,.skills_heading{
-  color: var(--primary-color);
-}
+  .about_name,
+  .get_connect,
+  .skills_heading {
+    color: var(--primary-color);
+  }
 
-.about_desc {
-  color: var(--primary-color);
-}
+  .about_desc {
+    color: var(--primary-color);
+  }
   .cursor2 {
     width: 20px;
     height: 20px;
@@ -80,10 +104,7 @@ import Contact from "../Contact/Contact.astro";
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition:
-      width 0.3s,
-      height 0.3s,
-      opacity 0.3s;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
   }
 
   .cursorinnerhover {

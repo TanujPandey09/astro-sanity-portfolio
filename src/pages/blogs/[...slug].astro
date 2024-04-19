@@ -9,6 +9,11 @@ export async function getStaticPaths() {
   const blogs = await useSanityClient().fetch(
   groq`*[_type == "blogs"]{
         ...,
+        image{
+          assest->{
+            url
+          }
+        },
         BackgroundImage{
       asset->{
         url
@@ -27,6 +32,7 @@ export async function getStaticPaths() {
   });
 }
 const { detailsData } = Astro.props;
+console.log(detailsData)
 ---
 
 <Layout title={`${detailsData.projectName}`}>

@@ -1,9 +1,43 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { useSanityClient, groq } from "astro-sanity";
+
 import HomeLayout from "../components/HomeLayout.astro";
+import AboutLayout from "../components/About/AboutLayout.astro";
+
+const query = groq`*[_type == "about"]{
+        ...,
+        heroImage{
+      asset->{
+        url
+      }
+      },
+    }`;
+
+
+
+const skillquery = groq`*[_type == "skillsSection"] {
+  ...,
+  logoCase[]-> {
+    Logo {
+      ...,
+      asset-> {
+        ...,
+        url,
+      
+      },
+    
+   
+    }
+  }
+}`;
+
+const skillData = await useSanityClient().fetch(skillquery);
 
 ---
 
 <Layout title="Home">
-  <HomeLayout />
+
+  <HomeLayout/>
+  
 </Layout>

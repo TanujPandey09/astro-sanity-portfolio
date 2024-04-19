@@ -24,7 +24,7 @@ export default function MySwiper(props) {
           modules={[Autoplay, Pagination, Navigation]}
         >
           {props?.skilldata?.skillData[0]?.logoCase?.map((item) => {
-            console.log(item);
+      
             return (
               <>
                 <SwiperSlide className="mt-10" key={item?.Logo?.asset?.assetId}>
