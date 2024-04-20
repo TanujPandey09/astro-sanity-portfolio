@@ -6,15 +6,16 @@ const data = Astro.props;
 ---
 
 <section
-  class="project-section container mx-auto md:px-0 px-4 py-4 font-Roboto"
+  class="project-section container mx-auto md:px-0 px-4 py-4 font-Roboto" 
+ 
 >
-  <h1 class="text-center text-4xl font-Roboto text-slate-50">My Works</h1>
+  <h1 class="text-center text-4xl font-Roboto text-slate-50" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-delay="300" data-aos-offset="0">My Works</h1>
   <div class="grid md:grid-cols-1 grid-cols-1 gap-4 md:gap-4 mt-10 md:px-12">
     {
       data.projectData?.map((projectItem) => {
         return (
           <>
-            <div class="project_container">
+            <div class="project_container" data-aos="zoom-in">
               <Link
                 href={`/projects/${projectItem.slug?.current}`}
                 externalInNewTab={true}

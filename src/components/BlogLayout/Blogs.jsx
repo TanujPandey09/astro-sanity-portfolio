@@ -39,9 +39,9 @@ export default function Blogs({ blogData }) {
           ))}
         </div>
 
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 m mt-10 py-3 px-3">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-4 m mt-10 py-3 px-3"  >
           {filterWork.map((blogItem) => (
-            <div key={blogItem.slug?.current} className="flex flex-col h-full">
+            <div key={blogItem.slug?.current} className="flex flex-col h-full" data-aos={blogItem?.animate}>
               <a
                 href={`/blogs/${blogItem.slug?.current}`}
                 externalInNewTab={true}

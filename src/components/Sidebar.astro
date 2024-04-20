@@ -6,6 +6,7 @@ const query = groq`*[_type == "sideBar"]{
 }`;
 
 const firstPost = await useSanityClient().fetch(query);
+import { ViewTransitions } from 'astro:transitions';
 ---
 
 <!-- component -->
@@ -46,6 +47,7 @@ const firstPost = await useSanityClient().fetch(query);
     </div>
   </nav>
 </header>
+
 
 <style>
 

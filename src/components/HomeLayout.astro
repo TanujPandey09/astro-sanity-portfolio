@@ -2,7 +2,8 @@
 import { useSanityClient, groq } from "astro-sanity";
 import BlogSlider from "../components/Slider/BlogSlider.jsx";
 import ProjectSlider from "./Slider/ProjectSlider";
-
+import { ViewTransitions } from 'astro:transitions';
+import { fade } from 'astro:transitions';
 import { Icon } from "astro-icon/components";
 const query = groq`*[_type == "projects"]{
         ...,
@@ -25,18 +26,19 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 ---
 
-<section class="home-section px-4 font-Roboto h-screen w-auto">
+<section class="home-section px-4 font-Roboto h-screen w-auto" >
   <div class="container mx-auto">
     <div class="grid grid-cols-1 md:gap-2 gap-12 text-center justify-center">
       <div
         class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center lg:p-24 p-0 m-10 md:m-18 font-Roboto"
       >
-        <h1 class="lg:text-4xl text-base py-1">Hii, I am Tanuj Pandey</h1>
-        <p class="lg:text-xl py-1 text-sm lg:px-28">
+        <h1 class="lg:text-4xl text-base py-1" data-aos="fade-up" data-aos-anchor-placement="top-center">Hii, I am Tanuj Pandey</h1>
+        <p class="lg:text-xl py-1 text-sm lg:px-28"  data-aos="fade-down">
           A Result-Oriented Web Developer building and managing Websites and Web
           Applications that leads to the success of the overall product
         </p>
         <button
+        data-aos="fade-right"
           type="button"
           class="btn btn-primary text-secondaryColor lg:text-2xl py-3 hover:text-slate-400 text-base"
           onclick="downloadResume()"
@@ -48,7 +50,7 @@ const blogData = await useSanityClient().fetch(blogquery);
 
     <!-- Work stduy -->
 
-    <div class="expreince Section h-auto">
+    <div class="expreince Section h-auto"  data-aos="fade-right">
       <h4 class="text-white text-4xl py-3">Professional Experience</h4>
 
       <details>
@@ -117,7 +119,9 @@ const blogData = await useSanityClient().fetch(blogquery);
     <!-- Works Section -->
 
     <div
-      class="projects h-auto container mx-auto text-white  w-full"
+      class="projects h-auto container mx-auto text-white w-full "
+      data-aos="fade-left"
+      
     >
       <div class="flex justify-between items-center">
         <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
@@ -131,13 +135,13 @@ const blogData = await useSanityClient().fetch(blogquery);
           >
         </div>
       </div>
-      <div class=" sm:px-0 item-center">
+      <div class=" sm:px-0 item-center animate__animated animate__shakeX">
         <ProjectSlider projectData={projectData} client:load />
       </div>
     </div>
 
     <!--  Blogs Section -->
-    <div class="blogs h-auto container mx-auto text-white">
+    <div class="blogs h-auto container mx-auto text-white" data-aos="fade-right">
       <div class="flex justify-between items-center">
         <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
         <div class="max-w-sm border-gray-200 rounded-lg">

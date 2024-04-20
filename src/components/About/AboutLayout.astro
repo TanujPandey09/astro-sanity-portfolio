@@ -9,12 +9,12 @@ import { Icon } from "astro-icon/components";
 
 <section class="portfolio-section container mx-auto pt-12">
   <div
-    class="grid md:grid-cols-2 grid-cols-1 gap-2 justify-items-center px-3 md:px-0"
+    class="grid md:grid-cols-2 grid-cols-1 gap-2 justify-items-center px-3 md:px-0"  
   >
     {
       data?.aboutData[0]?.heroImage?.asset?.url && (
         <>
-          <div class="w-auto overflow-hidden  ">
+          <div class="w-auto overflow-hidden"  data-aos="fade-right">
             <img
               class="w-auto border rounded-3xl border-slate-600 h-100  filter grayscale-10 grayscale"
               src={`${data?.aboutData[0]?.heroImage?.asset?.url}`}
@@ -25,7 +25,7 @@ import { Icon } from "astro-icon/components";
       )
     }
     <div>
-      <div class="px-6">
+      <div class="px-6" data-aos="fade-left">
         {
           data?.aboutData[0]?.aboutName && (
             <>
@@ -71,7 +71,7 @@ import { Icon } from "astro-icon/components";
     </div>
   </div>
 </section>
-<Myswiper skilldata={skilldata} client:load />
+<Myswiper skilldata={skilldata} client:load  />
 
 <style>
   .cursor {
