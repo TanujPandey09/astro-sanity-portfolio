@@ -2,8 +2,8 @@
 import { useSanityClient, groq } from "astro-sanity";
 import BlogSlider from "../components/Slider/BlogSlider.jsx";
 import ProjectSlider from "./Slider/ProjectSlider";
-import { ViewTransitions } from 'astro:transitions';
-import { fade } from 'astro:transitions';
+import { ViewTransitions } from "astro:transitions";
+import { fade } from "astro:transitions";
 import { Icon } from "astro-icon/components";
 const query = groq`*[_type == "projects"]{
         ...,
@@ -24,21 +24,63 @@ const blogquery = groq`*[_type == "blogs"]{
 
 const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
+
+const experienceData = [
+  {
+    role: "React Developer",
+    company: "Techmatys",
+    duration: "May 2024 - June 2024",
+    type: "Onsite",
+    companyUrl: "https://www.scube.co/",
+    description:
+      "Develop Dashboard Applications on ReactJs framework with Antd.",
+    technologies: [
+      { name: "Javascript", color: "bg-red-100" },
+      { name: "Reactjs", color: "bg-blue-500" },
+      { name: "Antd", color: "bg-green-500" },
+    ],
+    logo: "/img/techmatys.jfif",
+  },
+  {
+    role: "Frontend Developer",
+    company: "Scube.co",
+    duration: "2022 - 2024",
+    type: "Remote",
+    companyUrl: "https://www.scube.co/",
+    description:
+      "Developing Frontend Applications on Nextjs/ReactJs framework with Headless CMS.",
+    technologies: [
+      { name: "Javascript", color: "bg-red-100" },
+      { name: "Nextjs", color: "bg-blue-500" },
+      { name: "TailWind", color: "bg-green-500" },
+      { name: "Sanity", color: "bg-blue-500" },
+      { name: "Contentful", color: "bg-slate-500" },
+      { name: "Mui", color: "bg-violet-500" },
+    ],
+    logo: "/img/SCUBE.webp",
+  },
+];
 ---
 
-<section class="home-section px-4 font-Roboto h-screen w-auto" >
+<section class="home-section px-4 font-Roboto h-screen w-auto">
   <div class="container mx-auto">
     <div class="grid grid-cols-1 md:gap-2 gap-12 text-center justify-center">
       <div
         class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center lg:p-24 p-0 m-10 md:m-18 font-Roboto"
       >
-        <h1 class="lg:text-4xl text-base py-1" data-aos="fade-up" data-aos-anchor-placement="top-center">Hii, I am Tanuj Pandey</h1>
-        <p class="lg:text-xl py-1 text-sm lg:px-28"  data-aos="fade-down">
+        <h1
+          class="lg:text-4xl text-base py-1"
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-center"
+        >
+          Hii, I am Tanuj Pandey
+        </h1>
+        <p class="lg:text-xl py-1 text-sm lg:px-28" data-aos="fade-down">
           A Result-Oriented Web Developer building and managing Websites and Web
           Applications that leads to the success of the overall product
         </p>
         <button
-        data-aos="fade-right"
+          data-aos="fade-right"
           type="button"
           class="btn btn-primary text-secondaryColor lg:text-2xl py-3 hover:text-slate-400 text-base"
           onclick="downloadResume()"
@@ -50,131 +92,124 @@ const blogData = await useSanityClient().fetch(blogquery);
 
     <!-- Work stduy -->
 
-    <div class="expreince Section h-auto"  data-aos="fade-right">
+    <div class="expreince Section h-auto" data-aos="fade-right">
       <h4 class="text-white text-4xl py-3">Professional Experience</h4>
 
-      <details>
-        <summary
-          class="bg-secondaryBg p-4 text-white rounded-lg flex justify-between items-center"
-          ><div>Frontend Developer <span class="lg:px-4">@Scube.co</span></div>
-          <div class="mx-12">2022 - 2024</div></summary
-        >
-        <div class="bg-primaryColor p-10 mt-2 ">
-          <div class="flex lg:flex-row flex-col justify-between items-center">
-            <div class="left_wrapper">
-              <div class="flex flex-row text-white gap-1 items-center">
-                <Icon name="svg" size={20} />
-                <p>Remote</p>
-                <a href="https://www.scube.co/" target="_blank" class="px-2"
-                  >Scube.co</a
-                >
+      <div class="work-details">
+        {
+          experienceData.map((experience, index) => (
+            <details key={index}>
+              <summary class="bg-secondaryBg p-4 text-white rounded-lg flex justify-between items-center mb-2">
+                <div>
+                  {experience.role}{" "}
+                  <span class="lg:px-4">{experience.company}</span>
+                </div>
+                <div class="mx-12">{experience.duration}</div>
+              </summary>
+              <div class="bg-primaryColor p-10 mt-2">
+                <div class="flex lg:flex-row flex-col justify-between items-center">
+                  <div class="left_wrapper">
+                    <div class="flex flex-row text-white gap-1 items-center">
+                      <Icon name="svg" size={20} />
+                      <p>{experience.type}</p>
+                      <a
+                        href={experience.companyUrl}
+                        target="_blank"
+                        class="px-2"
+                      >
+                        {experience.company}
+                      </a>
+                    </div>
+                    <div class="pt-1 text-white">
+                      <p>{experience.description}</p>
+                    </div>
+                  </div>
+                  <div class="company_logo pt-3">
+                    <img
+                      src={experience.logo}
+                      class="w-auto h-auto"
+                      alt={experience.company}
+                    />
+                  </div>
+                </div>
+                <div class="py-4 gap-6">
+                  {experience.technologies.map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      class={`${tech.color} text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300`}
+                    >
+                      {tech.name}
+                    </span>
+                  ))}
+                </div>
               </div>
-  
-              <div class="pt-1 text-white">
-                <p>
-                  Developing Frontend Applications on Nextjs/ReactJs framework
-                  with Headless Cms.
-                </p>
-              </div>
-            </div>
-  
-        
-              <div class="company_logo pt-3">
-                <img src="/img/SCUBE.webp" class="w-50 h-auto">
-              </div>
-    
+            </details>
+          ))
+        }
+      </div>
+
+      <!-- Works Section -->
+
+      <div
+        class="projects h-auto container mx-auto text-white w-full"
+        data-aos="fade-left"
+      >
+        <div class="flex justify-between items-center">
+          <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
+            My Works
+          </h1>
+          <div class="max-w-sm border-gray-200 rounded-lg">
+            <a
+              href="/projects"
+              class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400"
+              >View All</a
+            >
           </div>
-        
-          <div class="py-4  gap-6">
-            <span
-              class="bg-red-100 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Javascript</span
-            >
-            <span
-              class="bg-blue-500 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Nextjs</span
-            >
-            <span
-              class="bg-green-500 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >TailWind</span
-            >
-            <span
-              class="bg-blue-500 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Sanity</span
-            >
-            <span
-              class="bg-slate-500 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Contentful</span
-            >
+        </div>
+        <div class="sm:px-0 item-center animate__animated animate__shakeX">
+          <ProjectSlider projectData={projectData} client:load />
+        </div>
+      </div>
 
-            <span
-              class="bg-violet-500 text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300"
-              >Mui</span
+      <!--  Blogs Section -->
+      <div
+        class="blogs h-auto container mx-auto text-white"
+        data-aos="fade-right"
+      >
+        <div class="flex justify-between items-center">
+          <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
+          <div class="max-w-sm border-gray-200 rounded-lg">
+            <a
+              class="font-Roboto text-base font-normal hover:text-slate-400"
+              href="/blogs">View All</a
             >
           </div>
         </div>
-      </details>
-    </div>
-
-    <!-- Works Section -->
-
-    <div
-      class="projects h-auto container mx-auto text-white w-full "
-      data-aos="fade-left"
-      
-    >
-      <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
-          My Works
-        </h1>
-        <div class="max-w-sm border-gray-200 rounded-lg">
-          <a
-            href="/projects"
-            class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400"
-            >View All</a
-          >
+        <div class="xs:px-30">
+          <BlogSlider blogData={blogData} client:load />
         </div>
-      </div>
-      <div class=" sm:px-0 item-center animate__animated animate__shakeX">
-        <ProjectSlider projectData={projectData} client:load />
-      </div>
-    </div>
-
-    <!--  Blogs Section -->
-    <div class="blogs h-auto container mx-auto text-white" data-aos="fade-right">
-      <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
-        <div class="max-w-sm border-gray-200 rounded-lg">
-          <a
-            class="font-Roboto text-base font-normal hover:text-slate-400"
-            href="/blogs">View All</a
-          >
-        </div>
-      </div>
-      <div class="xs:px-30">
-        <BlogSlider blogData={blogData} client:load />
       </div>
     </div>
   </div>
+
+  <script is:inline>
+    function downloadResume() {
+      const resumeUrl = "/Resume.pdf"; // Adjust the path based on your actual file structure
+
+      // Create a link element
+      const link = document.createElement("a");
+      link.href = resumeUrl;
+      link.target = "_blank"; // Open in a new tab
+      link.download = "resume.pdf"; // Set the desired name for the downloaded file
+
+      // Append the link to the body
+      document.body.appendChild(link);
+
+      // Trigger a click on the link to start the download
+      link.click();
+
+      // Remove the link from the body
+      document.body.removeChild(link);
+    }
+  </script>
 </section>
-
-<script is:inline>
-  function downloadResume() {
-    const resumeUrl = "/Resume.pdf"; // Adjust the path based on your actual file structure
-
-    // Create a link element
-    const link = document.createElement("a");
-    link.href = resumeUrl;
-    link.target = "_blank"; // Open in a new tab
-    link.download = "resume.pdf"; // Set the desired name for the downloaded file
-
-    // Append the link to the body
-    document.body.appendChild(link);
-
-    // Trigger a click on the link to start the download
-    link.click();
-
-    // Remove the link from the body
-    document.body.removeChild(link);
-  }
-</script>

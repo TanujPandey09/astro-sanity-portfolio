@@ -1,20 +1,27 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-import { PortableText } from "@portabletext/react"; 
+import { PortableText } from "@portabletext/react";
 import 'swiper/css/effect-cube';
 import "swiper/css";
 import 'swiper/css/effect-cards';
 import { EffectCards } from 'swiper/modules';
+import { Pagination, Autoplay } from 'swiper/modules';
 export default function ProjectSlider(props) {
-    console.log(props)
+
     return (
         <>
             <Swiper
-                effect={'cards'}
-                grabCursor={true}
-                modules={[EffectCards]}
-                pagination={true}
-            // modules={[EffectCube, Pagination]}
-            // className="mySwiper"
+                slidesPerView={1}
+                spaceBetween={3}
+                loop={true}
+                pagination={{
+                    clickable: true,
+                }}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
+                modules={[Pagination, Autoplay]}
+                className="mySwiper"
             >
 
                 {

@@ -1,31 +1,36 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { PortableText } from "@portabletext/react";
-import 'swiper/css/effect-cube';
-import "swiper/css";
-import 'swiper/css/effect-cards';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import './style.css'
-import { EffectCards } from 'swiper/modules';
-export default function BlogSlider(props) {
-    console.log(props)
+import { Pagination, Autoplay } from 'swiper/modules';
 
+
+export default function BlogSlider(props) {
     return (
         <>
-            <Swiper
-                effect={'cards'}
-                grabCursor={true}
-                modules={[EffectCards]}
-                pagination={true}
+           <Swiper
+                slidesPerView={1}
+                spaceBetween={30}
+                loop={true}
+                pagination={{
+                    clickable: true,
+                }}
+                autoplay={{
+                    delay: 3000,
+                    disableOnInteraction: false,
+                }}
+                modules={[Pagination, Autoplay]}
                 className="mySwiper"
-
             >
 
-            
-{
+
+                {
                     props?.blogData?.map((blogItem) => {
                         return (
                             <>
-                            <SwiperSlide key={blogItem}>
-                                <div class="projects-card h-full flex flex-col  rounded-lg overflow-hidden shadow-lg hover:mx-1 hover:shadow-xl transition-transform duration-1000 transform hover:scale-105">
+                                <SwiperSlide key={blogItem}>
+                                    <div class="projects-card h-full flex flex-col w-full  rounded-lg overflow-hidden shadow-lg hover:mx-1 hover:shadow-xl transition-transform duration-1000 transform hover:scale-105">
                                         <img
                                             class="rounded-t-lg  h-52"
                                             src={`${blogItem?.FeatureImage?.asset?.url}`}
@@ -36,11 +41,11 @@ export default function BlogSlider(props) {
                                                 {blogItem?.projectName}
                                             </h5>
                                             <div
-                                                class="text-sm mb-2overflow-hidden text-secondaryColor"
-                                                // style="max-height:6rem;"
+                                                class="text-sm mb-2 overflow-hidden text-secondaryColor"
+                                            
                                             >
                                                 <PortableText
-                                                    class="text-sm mb-2 "
+                                                    class="text-sm mb-2"
                                                     value={blogItem?.excerpt}
                                                 />
                                             </div>
