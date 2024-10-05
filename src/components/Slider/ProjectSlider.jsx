@@ -1,83 +1,91 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import React from 'react';
+import Slider from 'react-slick';
 import { PortableText } from "@portabletext/react";
-import 'swiper/css/effect-cube';
-import "swiper/css";
-import 'swiper/css/effect-cards';
-import { EffectCards } from 'swiper/modules';
-import { Pagination, Autoplay } from 'swiper/modules';
-export default function ProjectSlider(props) {
 
-    return (
-        <>
-            <Swiper
-                slidesPerView={1}
-                spaceBetween={3}
-                loop={true}
-                pagination={{
-                    clickable: true,
-                }}
-                autoplay={{
-                    delay: 3000,
-                    disableOnInteraction: false,
-                }}
-                modules={[Pagination, Autoplay]}
-                className="mySwiper"
-            >
+// CSS imports should be handled by Astro
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-                {
-                    props?.projectData?.map((projectItem) => {
-                        return (
-                            <>
+export default function ProjectSlider({ projectData }) {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
 
-                                <SwiperSlide key={projectItem}>
-
-                                    <div class="h-auto rounded-lg projects-card overflow-hidden shadow-lg hover:mx-1 hover:shadow-xl transition-transform duration-1000 transform hover:scale-105">
-                                        <img
-                                            class="w-full h-40 mb-8"
-                                            src={`${projectItem?.BackgroundImage?.asset?.url}`}
-                                        />
-                                        <div class="px-4 py-4 mt-4">
-                                            <h5 class="mb-2 text-lg font-sans  font-bold text-primaryColor">
-                                                {projectItem?.projectName}
-                                            </h5>
-
-                                            <PortableText
-                                                class="text-sm font-Roboto text-secondaryColor"
-                                                value={projectItem?.excerpt}
-                                            />
-
-                                            <a
-                                                href={`/projects/${projectItem.slug.current}`}
-                                                class="inline-flex items-center px-3 py-2 mt-6 text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500  hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                            >
-                                                Read more
-                                                <svg
-                                                    class="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-                                                    aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                                    fill="none"
-                                                    viewBox="0 0 14 10"
-                                                >
-                                                    <path
-                                                        stroke="currentColor"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M1 5h12m0 0L9 1m4 4L9 9"
-                                                    />
-                                                </svg>
-                                            </a>
-                                        </div>
-                                    </div>
-
-                                </SwiperSlide>
-
-                            </>
-                        );
-                    })
-                }
-
-            </Swiper>
-        </>
-    );
+  return (
+    <Slider {...settings}>
+      {projectData?.map((projectItem, index) => (
+        <div key={projectItem._id || index} className="px-2">
+          <div className="h-auto rounded-lg projects-card overflow-hidden shadow-lg hover:shadow-xl transition-transform duration-1000 transform hover:scale-105 m-2 sm:m-4">
+            {projectItem?.BackgroundImage?.asset?.url && (
+              <img
+                className="w-full h-auto aspect-video object-cover mb-4 sm:mb-8"
+                src={projectItem.BackgroundImage.asset.url}
+                alt={projectItem.projectName || "Project image"}
+              />
+            )}
+            <div className="px-2 sm:px-4 py-2 sm:py-4 mt-2 sm:mt-4">
+              <h5 className="mb-2 text-base sm:text-lg md:text-xl font-sans font-bold text-primaryColor">
+                {projectItem?.projectName || "Untitled Project"}
+              </h5>
+              {projectItem?.excerpt && (
+                <PortableText
+                  value={projectItem.excerpt}
+                  components={{
+                    block: {
+                      normal: ({children}) => <p className="text-xs sm:text-sm font-Roboto text-secondaryColor">{children}</p>
+                    }
+                  }}
+                />
+              )}
+              {projectItem?.slug?.current && (
+                <a 
+                  href={`/projects/${projectItem.slug.current}`}
+                  className="inline-flex items-center px-2 sm:px-3 py-1 sm:py-2 mt-3 sm:mt-6 text-xs sm:text-sm font-medium text-center text-white bg-buttonBg rounded-lg hover:bg-slate-500 hover:text-black focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                >
+                  Read more
+                  <svg
+                    className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 14 10"
+                  >
+                    <path
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M1 5h12m0 0L9 1m4 4L9 9"
+                    />
+                  </svg>
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </Slider>
+  );
 }

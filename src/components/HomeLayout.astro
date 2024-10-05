@@ -1,10 +1,12 @@
 ---
 import { useSanityClient, groq } from "astro-sanity";
 import BlogSlider from "../components/Slider/BlogSlider.jsx";
-import ProjectSlider from "./Slider/ProjectSlider";
+import ProjectSlider from '../components/Slider/ProjectSlider'
 import { ViewTransitions } from "astro:transitions";
 import { fade } from "astro:transitions";
 import { Icon } from "astro-icon/components";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const query = groq`*[_type == "projects"]{
         ...,
         BackgroundImage{
@@ -66,45 +68,42 @@ const experienceData = [
   <div class="container mx-auto">
     <div class="grid grid-cols-1 md:gap-2 gap-12 text-center justify-center">
       <div
-        class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center lg:p-24 p-0 m-10 md:m-18 font-Roboto"
+      class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center p-4 lg:p-24 m-4 lg:m-10 font-Roboto"
+    >
+      <h1
+        class="text-2xl lg:text-4xl py-1"
       >
-        <h1
-          class="lg:text-4xl text-base py-1"
-          data-aos="fade-up"
-          data-aos-anchor-placement="top-center"
-        >
-          Hii, I am Tanuj Pandey
-        </h1>
-        <p class="lg:text-xl py-1 text-sm lg:px-28" data-aos="fade-down">
-          A Result-Oriented Web Developer building and managing Websites and Web
-          Applications that leads to the success of the overall product
-        </p>
-        <button
-          data-aos="fade-right"
-          type="button"
-          class="btn btn-primary text-secondaryColor lg:text-2xl py-3 hover:text-slate-400 text-base"
-          onclick="downloadResume()"
-        >
-          Get Resume
-        </button>
-      </div>
+        Hii, I am Tanuj Pandey
+      </h1>
+      <p class="text-sm lg:text-xl py-1 lg:px-28">
+        A Result-Oriented Web Developer building and managing Websites and Web
+        Applications that leads to the success of the overall product
+      </p>
+      <button
+        type="button"
+        class="btn btn-primary text-secondaryColor text-base lg:text-2xl py-2 lg:py-3 px-4 hover:text-slate-400"
+        onclick="downloadResume()"
+      >
+        Get Resume
+      </button>
+    </div>
     </div>
 
     <!-- Work stduy -->
 
-    <div class="expreince Section h-auto" data-aos="fade-right">
-      <h4 class="text-white text-4xl py-3">Professional Experience</h4>
+    <div class="expreince Section h-auto">
+      <h4 class="text-white lg:text-4xl text-base py-3">Professional Experience</h4>
 
       <div class="work-details">
         {
           experienceData.map((experience, index) => (
             <details key={index}>
-              <summary class="bg-secondaryBg p-4 text-white rounded-lg flex justify-between items-center mb-2">
+              <summary class="bg-secondaryBg p-4 md:text-lg text-sm text-white rounded-lg flex justify-between items-center mb-2">
                 <div>
                   {experience.role}{" "}
                   <span class="lg:px-4">{experience.company}</span>
                 </div>
-                <div class="mx-12">{experience.duration}</div>
+                <div class="lg:mx-12">{experience.duration}</div>
               </summary>
               <div class="bg-primaryColor p-10 mt-2">
                 <div class="flex lg:flex-row flex-col justify-between items-center">
@@ -132,11 +131,11 @@ const experienceData = [
                     />
                   </div>
                 </div>
-                <div class="py-4 gap-6">
+                <div class="py-4 lg:gap-6">
                   {experience.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      class={`${tech.color} text-white-800 text-sm font-medium me-2 px-2.5 py-0.5 rounded dark:bg-blue-900 dark:text-blue-300`}
+                      class={`${tech.color} text-white-800 text-sm font-medium me-2 lg:px-2.5 lg:py-0.5  mx-2 rounded dark:bg-blue-900 dark:text-blue-300`}
                     >
                       {tech.name}
                     </span>
@@ -147,69 +146,64 @@ const experienceData = [
           ))
         }
       </div>
+    </div>
 
-      <!-- Works Section -->
+    <!-- Works Section -->
 
-      <div
-        class="projects h-auto container mx-auto text-white w-full"
-        data-aos="fade-left"
-      >
-        <div class="flex justify-between items-center">
-          <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
-            My Works
-          </h1>
-          <div class="max-w-sm border-gray-200 rounded-lg">
-            <a
-              href="/projects"
-              class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400"
-              >View All</a
-            >
-          </div>
-        </div>
-        <div class="sm:px-0 item-center animate__animated animate__shakeX">
-          <ProjectSlider projectData={projectData} client:load />
+    <div class="projects_section h-auto container mx-auto w-auto text-white">
+      <div class="flex justify-between items-center">
+        <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
+          My Works
+        </h1>
+        <div class="border-gray-200 rounded-lg">
+          <a
+            href="/projects"
+            class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400"
+            >View All</a
+          >
         </div>
       </div>
+      <div>
+        <ProjectSlider projectData={projectData} client:only/>
+      </div>
+    </div>
 
-      <!--  Blogs Section -->
-      <div
-        class="blogs h-auto container mx-auto text-white"
-        data-aos="fade-right"
-      >
-        <div class="flex justify-between items-center">
-          <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
-          <div class="max-w-sm border-gray-200 rounded-lg">
-            <a
-              class="font-Roboto text-base font-normal hover:text-slate-400"
-              href="/blogs">View All</a
-            >
-          </div>
+    <!--  Blogs Section -->
+
+    <div class="blogs h-auto container mx-auto text-white w-auto">
+      <div class="flex justify-between items-center">
+        <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
+        <div class="max-w-sm border-gray-200 rounded-lg">
+          <a
+            class="font-Roboto text-base font-normal hover:text-slate-400"
+            href="/blogs">View All</a
+          >
         </div>
-        <div class="xs:px-30">
-          <BlogSlider blogData={blogData} client:load />
-        </div>
+      </div>
+      <div>
+        <BlogSlider blogData={blogData} client:only />
       </div>
     </div>
   </div>
-
-  <script is:inline>
-    function downloadResume() {
-      const resumeUrl = "/Resume.pdf"; // Adjust the path based on your actual file structure
-
-      // Create a link element
-      const link = document.createElement("a");
-      link.href = resumeUrl;
-      link.target = "_blank"; // Open in a new tab
-      link.download = "resume.pdf"; // Set the desired name for the downloaded file
-
-      // Append the link to the body
-      document.body.appendChild(link);
-
-      // Trigger a click on the link to start the download
-      link.click();
-
-      // Remove the link from the body
-      document.body.removeChild(link);
-    }
-  </script>
 </section>
+
+<script is:inline>
+  function downloadResume() {
+    const resumeUrl = "/Resume.pdf"; // Adjust the path based on your actual file structure
+
+    // Create a link element
+    const link = document.createElement("a");
+    link.href = resumeUrl;
+    link.target = "_blank"; // Open in a new tab
+    link.download = "resume.pdf"; // Set the desired name for the downloaded file
+
+    // Append the link to the body
+    document.body.appendChild(link);
+
+    // Trigger a click on the link to start the download
+    link.click();
+
+    // Remove the link from the body
+    document.body.removeChild(link);
+  }
+</script>
