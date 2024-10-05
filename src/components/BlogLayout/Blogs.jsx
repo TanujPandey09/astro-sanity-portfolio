@@ -24,7 +24,7 @@ export default function Blogs({ blogData }) {
   return (
     <>
       <section className="portfolio-section container mx-auto font-Roboto py-20">
-        <h4 className="md:text-center text-4xl text-primaryColor">Blogs</h4>
+        <h4 className="text-center text-4xl text-primaryColor">Blogs</h4>
         <div className="flex flex-wrap justify-center mx-4 py-6 mt-4 text-xl">
           {category.map((item, index) => (
             <button
