@@ -29,9 +29,8 @@ export default function Blogs({ blogData }) {
           {category.map((item, index) => (
             <button
               key={index}
-              className={`mx-2  text-primaryColor hover:text-secondaryColor transition-all ease-in-out cursor-pointer capitalize ${
-                activeFilter === item ? "font-semibold" : "text-secondaryColor opacity-50"
-              }`}
+              className={`mx-2  text-primaryColor hover:text-secondaryColor transition-all ease-in-out cursor-pointer capitalize ${activeFilter === item ? "font-semibold" : "text-secondaryColor opacity-50"
+                }`}
               onClick={() => handleFilter(item)}
             >
               {item}
@@ -45,7 +44,7 @@ export default function Blogs({ blogData }) {
               <a
                 href={`/blogs/${blogItem.slug?.current}`}
                 externalInNewTab={true}
-                
+
               >
                 <div className="w-auto h-full file:rounded overflow-hidden projects-card">
                   <img
@@ -64,7 +63,7 @@ export default function Blogs({ blogData }) {
                       </div>
                       <div className="py-4 text-sm md:text-base h-auto blog-content text-secondaryColor font-Roboto w-full">
                         <PortableText
-                         value={blogItem.excerpt}
+                          value={blogItem.excerpt}
                         />
                       </div>
                     </div>

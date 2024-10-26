@@ -40,22 +40,23 @@ const { title } = Astro.props;
   @import url("https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap");
 
   *{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
+  
+   
+  }
+
+  body{
+    overflow-x: hidden;
+    background-color: rgba(4, 6, 21, 0.9);
+  
+  background-size: center;
+  height: 100%;
+  width: 100%;
   }
 
   /* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
 
   :root {
-    /* --primary-color: #fafafa;
-    --secondary-color: #686868;
-    --accent-color: #292929;
-    --bg1: #424242;
-    --bg2: #131313; */
-
-    /* bg2 */
-
+   
     --primary-color: #ffffff;
     --secondary-color: #ced6de;
     --accent-color: #292929;
@@ -98,14 +99,9 @@ const { title } = Astro.props;
     height: 20px;
     opacity: 0.5;
   }
-  body {
-    background-color: rgba(4, 6, 21, 0.9);
-    /* background: linear-gradient(145deg, rgba(4, 6, 21, 1), rgba(0, 0, 0, 0.8)); */
-    background-size: center;
-    height: 100%;
-    width: 100%;
-   
-  }
+
+
+  
 
   .home-section {
     width: 100%;
@@ -159,18 +155,7 @@ const { title } = Astro.props;
     padding: 5px 0px;
   }
 
-  /* >.Blog Page */
-
-  /* .blog-content p {
-    p: 0;
-    m: 0;
-    font-size: 16px;
-    line-height:24px;
-    text-align:justify;
-    display: inline-block
-    
-  } */
-
+ 
   @media only screen and (max-width: 768px) {
     body {
       background: linear-gradient(90deg, #131313);

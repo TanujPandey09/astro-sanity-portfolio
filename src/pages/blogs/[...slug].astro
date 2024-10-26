@@ -4,37 +4,36 @@ import BlogDetails from "../../components/BlogLayout/BlogDetails.astro";
 import Layout from "../../layouts/Layout.astro";
 export const prerender = true;
 
-
 export async function getStaticPaths() {
   const blogs = await useSanityClient().fetch(
-  groq`*[_type == "blogs"]{
-        ...,
-        image{
-          assest->{
-            url
-          }
-        },
-        BackgroundImage{
-      asset->{
-        url
-      }
+    groq`*[_type == "blogs"]{
+      ...,
+      image{
+        asset->{
+          url
+        }
+      },
+      BackgroundImage{
+        asset->{
+          url
+        }
       },
     }`
   );
   return blogs.map((items) => {
-   
     return {
       params: { slug: items.slug?.current },
       props: {
         detailsData: items,
+        blogData: blogs, // Pass all blogs data to access it in the component
       },
     };
   });
 }
-const { detailsData } = Astro.props;
-console.log(detailsData)
+
+const { detailsData, blogData } = Astro.props;
 ---
 
 <Layout title={`${detailsData.projectName}`}>
-  <BlogDetails detailsData={detailsData} />
+  <BlogDetails detailsData={detailsData} blogData={blogData} />
 </Layout>

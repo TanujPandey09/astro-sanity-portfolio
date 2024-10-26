@@ -34,7 +34,7 @@ export default function BlogSlider({ blogData }) {
   };
 
   return (
-    <div className="w-full"> {/* Ensure slider container takes full width */}
+    <div className="w-auto container mx-auto"> {/* Ensure slider container takes full width */}
       <Slider {...settings}>
         {blogData?.map((blogItem, index) => (
           <div key={blogItem._id || index} className="px-2">

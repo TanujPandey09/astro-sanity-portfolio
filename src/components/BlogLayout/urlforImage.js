@@ -1,6 +1,6 @@
 // /my-blog/frontend/src/sanity/urlForImage.js
 
-import client from "../../lib/sanityClient";
+// import client from "../../lib/sanityClient";
 import imageUrlBuilder from "@sanity/image-url";
 
 export const imageBuilder = imageUrlBuilder({
