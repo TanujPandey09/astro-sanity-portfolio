@@ -7,6 +7,9 @@ import { fade } from "astro:transitions";
 import { Icon } from "astro-icon/components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+const props = Astro.props
+
 const query = groq`*[_type == "projects"]{
         ...,
         BackgroundImage{
@@ -68,44 +71,43 @@ const experienceData = [
   <div class="container mx-auto">
     <div class="grid grid-cols-1 md:gap-2 gap-12 text-center justify-center">
       <div
-      class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center p-4 lg:p-24 m-4 lg:m-10 font-Roboto"
-    >
-      <h1
-        class="text-2xl lg:text-4xl py-1"
+        class="text-primaryColor about_section border-e-red-50 flex flex-col items-center justify-center p-4 lg:p-24 m-4 lg:m-10 font-Roboto animate-fadeIn"
       >
-        Hii, I am Tanuj Pandey
-      </h1>
-      <p class="text-sm lg:text-xl py-1 lg:px-28">
-        A Result-Oriented Web Developer building and managing Websites and Web
-        Applications that leads to the success of the overall product
-      </p>
-      <button
-        type="button"
-        class="btn btn-primary text-secondaryColor text-base lg:text-2xl py-2 lg:py-3 px-4 hover:text-slate-400"
-        onclick="downloadResume()"
-      >
-        Get Resume
-      </button>
-    </div>
+        <h1
+          class="text-2xl lg:text-4xl py-1 animate-slideDown"
+        >
+          Hii, I am Tanuj Pandey
+        </h1>
+        <p class="text-sm lg:text-xl py-1 lg:px-28 animate-slideUp">
+          A Result-Oriented Web Developer building and managing Websites and Web
+          Applications that leads to the success of the overall product
+        </p>
+        <button
+          type="button"
+          class="btn btn-primary text-secondaryColor text-base lg:text-2xl py-2 lg:py-3 px-4 hover:text-slate-400 animate-pulse"
+          onclick="downloadResume()"
+        >
+          Get Resume
+        </button>
+      </div>
     </div>
 
-    <!-- Work stduy -->
-
-    <div class="expreince Section h-auto">
-      <h4 class="text-white lg:text-4xl text-base py-3">Professional Experience</h4>
+    <!-- Work study -->
+    <div class="experience-section h-auto animate-fadeIn">
+      <h4 class="text-white lg:text-4xl text-base py-3 animate-slideDown">Professional Experience</h4>
 
       <div class="work-details">
         {
           experienceData.map((experience, index) => (
-            <details key={index}>
-              <summary class="bg-secondaryBg p-4 md:text-lg text-sm text-white rounded-lg flex justify-between items-center mb-2">
+            <details class={`animate-slideIn animate-delay-${index}`}>
+              <summary class="bg-secondaryBg p-4 md:text-lg text-sm text-white rounded-lg flex justify-between items-center mb-2 hover:bg-opacity-90 transition-all duration-300">
                 <div>
                   {experience.role}{" "}
                   <span class="lg:px-4">{experience.company}</span>
                 </div>
                 <div class="lg:mx-12">{experience.duration}</div>
               </summary>
-              <div class="bg-primaryColor p-10 mt-2">
+              <div class="bg-primaryColor p-10 mt-2 animate-fadeIn">
                 <div class="flex lg:flex-row flex-col justify-between items-center">
                   <div class="left_wrapper">
                     <div class="flex flex-row text-white gap-1 items-center">
@@ -114,7 +116,7 @@ const experienceData = [
                       <a
                         href={experience.companyUrl}
                         target="_blank"
-                        class="px-2"
+                        class="px-2 hover:text-slate-400 transition-colors"
                       >
                         {experience.company}
                       </a>
@@ -123,7 +125,7 @@ const experienceData = [
                       <p>{experience.description}</p>
                     </div>
                   </div>
-                  <div class="company_logo pt-3">
+                  <div class="company_logo pt-3 animate-scaleIn">
                     <img
                       src={experience.logo}
                       class="w-auto h-auto"
@@ -135,7 +137,7 @@ const experienceData = [
                   {experience.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      class={`${tech.color} text-white-800 text-sm font-medium me-2 lg:px-2.5 lg:py-0.5  mx-2 rounded dark:bg-blue-900 dark:text-blue-300`}
+                      class={`${tech.color} text-white-800 text-sm font-medium me-2 lg:px-2.5 lg:py-0.5 mx-2 rounded dark:bg-blue-900 dark:text-blue-300 animate-fadeIn animate-delay-${techIndex}`}
                     >
                       {tech.name}
                     </span>
@@ -149,61 +151,150 @@ const experienceData = [
     </div>
 
     <!-- Works Section -->
-
-    <div class="projects_section h-auto container mx-auto w-auto text-white">
+    <div class="projects_section h-auto container mx-auto w-auto text-white animate-fadeIn">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6">
+        <h1 class="text-white font-Roboto text-base font-normal pt-8 pb-6 animate-slideDown">
           My Works
         </h1>
         <div class="border-gray-200 rounded-lg">
           <a
             href="/projects"
-            class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400"
+            class="font-Roboto text-base font-normal pt-8 pb-6 hover:text-slate-400 transition-colors"
             >View All</a
           >
         </div>
       </div>
-      <div>
+      <div class="animate-slideUp">
         <ProjectSlider projectData={projectData} client:only/>
       </div>
     </div>
 
-    <!--  Blogs Section -->
-
-    <div class="blogs h-auto container mx-auto text-white w-auto">
+    <!-- Blogs Section -->
+    <div class="blogs h-auto container mx-auto text-white w-auto animate-fadeIn">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-Roboto text-base pt-8 pb-6">Blogs</h1>
+        <h1 class="text-white font-Roboto text-base pt-8 pb-6 animate-slideDown">Blogs</h1>
         <div class="max-w-sm border-gray-200 rounded-lg">
           <a
-            class="font-Roboto text-base font-normal hover:text-slate-400"
+            class="font-Roboto text-base font-normal hover:text-slate-400 transition-colors"
             href="/blogs">View All</a
           >
         </div>
       </div>
-      <div>
+      <div class="animate-slideUp">
         <BlogSlider blogData={blogData} client:only />
       </div>
     </div>
   </div>
 </section>
 
+<style>
+  /* Base animations */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  @keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* Animation classes */
+  .animate-fadeIn {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .animate-slideDown {
+    animation: slideDown 0.8s ease-out forwards;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-slideIn {
+    animation: slideIn 0.8s ease-out forwards;
+  }
+
+  .animate-scaleIn {
+    animation: scaleIn 0.8s ease-out forwards;
+  }
+
+  .animate-pulse {
+    animation: pulse 2s infinite;
+  }
+
+  /* Animation delays */
+  .animate-delay-0 { animation-delay: 0s; }
+  .animate-delay-1 { animation-delay: 0.2s; }
+  .animate-delay-2 { animation-delay: 0.4s; }
+  .animate-delay-3 { animation-delay: 0.6s; }
+  .animate-delay-4 { animation-delay: 0.8s; }
+
+  /* Smooth transitions */
+  .transition-all {
+    transition: all 0.3s ease;
+  }
+
+  .transition-colors {
+    transition: color 0.3s ease;
+  }
+
+  /* Hover effects */
+  .hover\:bg-opacity-90:hover {
+    background-color: rgba(var(--bg-color), 0.9);
+  }
+
+  details summary {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  details summary:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  details[open] summary {
+    margin-bottom: 1rem;
+  }
+
+  details[open] > div {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+</style>
+
 <script is:inline>
   function downloadResume() {
-    const resumeUrl = "/Resume.pdf"; // Adjust the path based on your actual file structure
-
-    // Create a link element
+    const resumeUrl = "/Resume.pdf";
     const link = document.createElement("a");
     link.href = resumeUrl;
-    link.target = "_blank"; // Open in a new tab
-    link.download = "resume.pdf"; // Set the desired name for the downloaded file
-
-    // Append the link to the body
+    link.target = "_blank";
+    link.download = "resume.pdf";
     document.body.appendChild(link);
-
-    // Trigger a click on the link to start the download
     link.click();
-
-    // Remove the link from the body
     document.body.removeChild(link);
   }
 </script>
+</boltArtifact>
+

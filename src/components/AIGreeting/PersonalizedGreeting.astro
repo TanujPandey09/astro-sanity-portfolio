@@ -1,0 +1,16 @@
+---
+import { getTimeBasedGreeting } from '../../utils/greeting';
+---
+<div class="bg-gradient-to-r from-primary to-primary-dark text-white p-6 rounded-lg mb-8">
+  <h2 id="greeting-text" class="text-2xl font-bold mb-2">
+    {getTimeBasedGreeting()}
+  </h2>
+  <p id="greeting-message" class="text-lg opacity-90">
+    Welcome to my portfolio! I'm excited to share my work with you.
+  </p>
+</div>
+
+<script>
+  import { initializeGreeting } from '../../utils/greeting';
+  initializeGreeting();
+</script>

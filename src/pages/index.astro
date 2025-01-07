@@ -1,9 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import AIChatbot from "../components/AiChatbot";
+
 import { useSanityClient, groq } from "astro-sanity";
 
 import HomeLayout from "../components/HomeLayout.astro";
-import AboutLayout from "../components/About/AboutLayout.astro";
 
 const query = groq`*[_type == "about"]{
         ...,
@@ -32,12 +33,11 @@ const skillquery = groq`*[_type == "skillsSection"] {
   }
 }`;
 
-const skillData = await useSanityClient().fetch(skillquery);
 
 ---
 
 <Layout title="Home">
 
   <HomeLayout/>
-  
+
 </Layout>

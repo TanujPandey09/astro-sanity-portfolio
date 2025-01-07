@@ -15,5 +15,11 @@ export default defineConfig({
     projectId: 'fqd3bez7',
     dataset: "production",
     useCdn: true // Defaults to `false`. If true, uses Sanity's CDN for image
-  }), tailwind(),react(),icon()]
+  }), tailwind(),react(),icon()],
+  vite: {
+    define: {
+      'import.meta.env.OPENAI_API_KEY': JSON.stringify(process.env.OPENAI_API_KEY)
+    }
+  }
+
 });
