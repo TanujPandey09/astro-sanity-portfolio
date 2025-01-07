@@ -1,5 +1,6 @@
+import { FaInstagram, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-// import { Icon } from 'astro-icon/components';
+
 export default function Footer() {
   return (
     <motion.section
@@ -33,30 +34,30 @@ export default function Footer() {
             <div className="py-1">
               <div className="pt-2 pb-2 flex gap-6 w-3/5">
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl"
+                  className="hover:shadow-xl hover:text-purple-500 transition-all"
                   target="_blank"
                 >
-                  {/* <Icon name="instagram" size={25} /> */}
+                  <FaInstagram size={30} />
                 </motion.a>
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl"
+                  className="hover:shadow-xl hover:text-purple-500 transition-all"
                   href="https://github.com/TanujPandey09"
                   target="_blank"
                 >
-                  {/* <Icon name="github" size={25} /> */}
+                  <FaGithub size={30} />
                 </motion.a>
                 <motion.a
-                  whileHover={{ scale: 1.1 }}
+                  whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl"
+                  className="hover:shadow-xl hover:text-purple-500 transition-all"
                   href="https://www.linkedin.com/in/tanujp09/"
                   target="_blank"
                 >
-                  {/* <Icon name="linkedin" size={25} /> */}
+                  <FaLinkedin size={30} />
                 </motion.a>
               </div>
             </div>
@@ -69,7 +70,12 @@ export default function Footer() {
           className="main-footer__lower border border-r-0 border-l-0 border-b-0 pt-8 text-center text-white"
         >
           © Copyright 2024 . Made by
-          <a rel="noreferrer" target="_blank" href="https://tanujportfoliodev.netlify.app/">
+          <a
+            rel="noreferrer"
+            target="_blank"
+            href="https://tanujportfoliodev.netlify.app/"
+            className="hover:text-purple-500 underline"
+          >
             Tanuj Pandey
           </a>
         </motion.div>
