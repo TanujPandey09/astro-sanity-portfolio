@@ -95,7 +95,7 @@ const experienceData = [
     <!-- Work study -->
     <div class="experience-section h-auto animate-fadeIn">
       <h4 class="text-white lg:text-4xl text-base py-3 animate-slideDown">Professional Experience</h4>
-
+    
       <div class="work-details">
         {
           experienceData.map((experience, index) => (
@@ -128,7 +128,7 @@ const experienceData = [
                   <div class="company_logo pt-3 animate-scaleIn">
                     <img
                       src={experience.logo}
-                      class="w-auto h-auto"
+                      class="w-full h-auto object-contain"
                       alt={experience.company}
                     />
                   </div>
@@ -149,6 +149,7 @@ const experienceData = [
         }
       </div>
     </div>
+    
 
     <!-- Works Section -->
     <div class="projects_section h-auto container mx-auto w-auto text-white animate-fadeIn">
