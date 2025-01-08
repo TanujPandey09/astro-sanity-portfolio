@@ -1,0 +1,22 @@
+---
+import { useSanityClient, groq } from "astro-sanity";
+
+const query = groq`*[_type == "blogs"]{
+        ...,
+        BackgroundImage{
+      asset->{
+        url
+      }
+      },
+    }`;
+
+const blogData = await useSanityClient().fetch(query);
+import Blogs from "../../components/BlogLayout/Blogs";
+
+import Layout from "../../layouts/Layout.astro";
+
+---
+
+<Layout title="Blogs">
+  <Blogs blogData={blogData} />
+</Layout>
