@@ -36,5 +36,5 @@ const { detailsData, blogData } = Astro.props;
 ---
 
 <Layout title={`${detailsData.projectName}`}>
-  <BlogDetails client:load detailsData={detailsData} blogData={blogData} />
+  <BlogDetails detailsData={detailsData} blogData={blogData} />
 </Layout>
