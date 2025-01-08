@@ -7,7 +7,7 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'static',
+  output: 'server',
   adapter: netlify({
     edgeMiddleware: true
   }),
@@ -17,9 +17,7 @@ export default defineConfig({
     useCdn: true // Defaults to `false`. If true, uses Sanity's CDN for image
   }), tailwind(),react(),icon()],
   vite: {
-    define: {
-      'import.meta.env.OPENAI_API_KEY': JSON.stringify(process.env.OPENAI_API_KEY)
-    }
+ 
   }
 
 });
