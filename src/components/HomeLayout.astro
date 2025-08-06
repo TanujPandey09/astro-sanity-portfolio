@@ -32,22 +32,23 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 
 const experienceData = [
-   {
+  {
     role: "Frontend Developer",
     company: "Nasyat IT",
     duration: "Feb 2025 - June 2025",
     type: "Remote",
     companyUrl: "https://www.nasyait.com/",
     description:
-      "Develop Dashboard Applications on ReactJs framework with Antd.",
+      "Developed a complete Hospital Management System using React.js, Material UI, and React Native. Built appointment booking, case sheet, and reports modules. Integrated REST APIs with Axios, improving performance by 20%. Handled UI and testing across web and mobile platforms.",
     technologies: [
-      { name: "Reactjs -Redux", color: "bg-red-100" },
-      { name: "Reactjs", color: "bg-blue-500" },
-      { name: "Antd", color: "bg-green-500" },
-
-
+      { name: "React.js", color: "bg-blue-500" },
+      { name: "Material UI", color: "bg-green-500" },
+      { name: "React Native", color: "bg-indigo-500" },
+      { name: "Axios", color: "bg-yellow-500" },
+      { name: "REST API", color: "bg-rose-500" },
     ],
-    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1757548800&v=beta&t=o5O7fEsY1W_lgo6059sqkgNCqnY9zJjWgWlWm2UlGLQ",
+    logo:
+      "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1757548800&v=beta&t=o5O7fEsY1W_lgo6059sqkgNCqnY9zJjWgWlWm2UlGLQ",
   },
   {
     role: "React Developer",
@@ -56,34 +57,36 @@ const experienceData = [
     type: "Onsite",
     companyUrl: "https://www.scube.co/",
     description:
-      "Develop Dashboard Applications on ReactJs framework with Antd.",
+      "Developed a modern LMS Dashboard using React.js, Ant Design, and React Router. Improved UI/UX accessibility, collaborated with cross-functional teams, and optimized reusable UI components for scalability.",
     technologies: [
-      { name: "Javascript", color: "bg-red-100" },
-      { name: "Reactjs", color: "bg-blue-500" },
-      { name: "Antd", color: "bg-green-500" },
+      { name: "React.js", color: "bg-blue-500" },
+      { name: "Ant Design", color: "bg-teal-500" },
+      { name: "React Router", color: "bg-fuchsia-500" },
+      { name: "JavaScript", color: "bg-yellow-400" },
     ],
     logo: "/img/techmatys.jfif",
   },
-
   {
     role: "Frontend Developer",
     company: "Scube.co",
-    duration: "2022 - 2024",
+    duration: "Dec 2021 - Feb 2024",
     type: "Remote",
     companyUrl: "https://www.scube.co/",
     description:
-      "Developing Frontend Applications on Nextjs/ReactJs framework with Headless CMS.",
+      "Led frontend development for a suite of CRUD web apps and CMS-integrated websites. Built scalable UI with Next.js and React.js, integrated Sanity & Contentful headless CMS, and implemented dynamic layouts with multilingual support.",
     technologies: [
-      { name: "Javascript", color: "bg-red-100" },
-      { name: "Nextjs", color: "bg-blue-500" },
-      { name: "TailWind", color: "bg-green-500" },
-      { name: "Sanity", color: "bg-blue-500" },
-      { name: "Contentful", color: "bg-slate-500" },
-      { name: "Mui", color: "bg-violet-500" },
+      { name: "React.js", color: "bg-blue-500" },
+      { name: "Next.js", color: "bg-slate-800" },
+      { name: "Tailwind CSS", color: "bg-teal-400" },
+      { name: "Sanity", color: "bg-pink-500" },
+      { name: "Contentful", color: "bg-gray-600" },
+      { name: "MUI", color: "bg-violet-500" },
+      { name: "Headless CMS", color: "bg-cyan-600" },
     ],
     logo: "/img/SCUBE.webp",
   },
 ];
+
 ---
 
 <section class="home-section px-4 font-Roboto h-screen w-auto">
