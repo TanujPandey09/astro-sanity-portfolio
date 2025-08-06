@@ -121,14 +121,35 @@ const experienceData = [
       <div class="work-details">
         {
           experienceData.map((experience, index) => (
-            <details class={`animate-slideIn animate-delay-${index}`}>
-              <summary class="bg-secondaryBg p-4 md:text-lg text-sm text-white rounded-lg flex justify-between items-center mb-2 hover:bg-opacity-90 transition-all duration-300">
-                <div>
-                  {experience.role}{" "}
-                  <span class="lg:px-4">{experience.company}</span>
-                </div>
-                <div class="lg:mx-12">{experience.duration}</div>
-              </summary>
+             <details
+      id={`experience-${index}`}
+      class={`group animate-slideIn animate-delay-${index}`}
+    >
+      <summary class="bg-secondaryBg p-4 md:text-lg text-sm text-white rounded-lg flex justify-between items-center mb-2 hover:bg-opacity-90 transition-all duration-300">
+        <div>
+          {experience.role}{" "}
+          <span class="lg:px-4">{experience.company}</span>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="lg:mx-12">{experience.duration}</span>
+          <button
+            type="button"
+            class="text-xs bg-slate-700 px-2 py-1 rounded hover:bg-slate-600 transition-all"
+            data-index={index}
+            on:click={(e) => {
+              e.stopPropagation();
+              const id = e.target.dataset.index;
+              const detailsEl = document.getElementById(`experience-${id}`);
+              detailsEl.open = !detailsEl.open;
+              const icon = document.getElementById(`icon-${id}`);
+              if (icon) icon.innerText = detailsEl.open ? "▲" : "▼";
+            }}
+          >
+            <span id={`icon-${index}`}>▼</span>
+          </button>
+        </div>
+      </summary>
               <div class="bg-primaryColor p-10 mt-2 animate-fadeIn">
                 <div class="flex lg:flex-row flex-col justify-between items-center">
                   <div class="left_wrapper">
