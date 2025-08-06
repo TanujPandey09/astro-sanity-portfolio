@@ -7,6 +7,7 @@ import { fade } from "astro:transitions";
 import { Icon } from "astro-icon/components";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import AIChatbot from "./AiChatbot";
 
 const props = Astro.props
 
@@ -31,6 +32,23 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 
 const experienceData = [
+   {
+    role: "Frontend Developer",
+    company: "Nasyat IT",
+    duration: "Feb 2025 - June 2025",
+    type: "Remote",
+    companyUrl: "https://www.nasyait.com/",
+    description:
+      "Develop Dashboard Applications on ReactJs framework with Antd.",
+    technologies: [
+      { name: "Reactjs -Redux", color: "bg-red-100" },
+      { name: "Reactjs", color: "bg-blue-500" },
+      { name: "Antd", color: "bg-green-500" },
+
+
+    ],
+    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1757548800&v=beta&t=o5O7fEsY1W_lgo6059sqkgNCqnY9zJjWgWlWm2UlGLQ",
+  },
   {
     role: "React Developer",
     company: "Techmatys",
@@ -46,6 +64,7 @@ const experienceData = [
     ],
     logo: "/img/techmatys.jfif",
   },
+
   {
     role: "Frontend Developer",
     company: "Scube.co",
@@ -185,9 +204,17 @@ const experienceData = [
         <BlogSlider blogData={blogData} client:only />
       </div>
     </div>
+
+  </div>
+
+ 
+  
+</section>
+<section>
+   <div>
+ <AIChatbot apiKey={import.meta.env.PUBLIC_OPENAI_API_KEY} client:only />
   </div>
 </section>
-
 <style>
   /* Base animations */
   @keyframes fadeIn {
