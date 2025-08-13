@@ -35,7 +35,7 @@ const experienceData = [
   {
     role: "Frontend Developer",
     company: "Nasyat IT",
-    duration: "Feb 2025 - June 2025",
+    duration: "Feb 2025 - July 2025",
     type: "Remote",
     companyUrl: "https://www.nasyait.com/",
     description:
@@ -180,7 +180,7 @@ const experienceData = [
                   {experience.technologies.map((tech, techIndex) => (
                     <span
                       key={techIndex}
-                      class={`${tech.color} text-white-800 text-sm font-medium me-2 lg:px-2.5 lg:py-0.5 mx-2 rounded dark:bg-blue-900 dark:text-blue-300 animate-fadeIn animate-delay-${techIndex}`}
+                      class={`${tech.color} text-white-800 text-sm font-medium me-2 lg:px-2.5 lg:py-0.5 mx-2 bg-${tech?.color} rounded dark:text-blue-300 animate-fadeIn animate-delay-${techIndex}`}
                     >
                       {tech.name}
                     </span>
