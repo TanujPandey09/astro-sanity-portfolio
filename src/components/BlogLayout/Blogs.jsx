@@ -23,6 +23,7 @@ export default function Blogs({ blogData }) {
 
   return (
     <>
+      <div class="fixed inset-0 -z-10 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 animate-gradient-shift"></div>
       <section className="portfolio-section container mx-auto font-Roboto py-20">
         <h4 className="text-center text-4xl text-primaryColor">Blogs</h4>
         <div className="flex flex-wrap justify-center mx-4 py-6 mt-4 text-xl">
