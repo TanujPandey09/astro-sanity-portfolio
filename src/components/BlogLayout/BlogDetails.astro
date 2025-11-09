@@ -8,6 +8,7 @@ export interface BlogPost {
     current: string;
   };
   projectName: string;
+  _createdAt:string;
   BackgroundImage: {
     asset: {
       url: string;
@@ -24,6 +25,7 @@ export interface Props {
 
 const { detailsData, blogData } = Astro.props;
 
+
 const components = {
   type: {
     image: PortableTextImage
@@ -38,75 +40,495 @@ const getRandomPosts = (allPosts: BlogPost[], currentPostSlug: string, count = 3
 const randomRelatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
 ---
 
-<main class="pt-8 pb-24 bg-transparent text-white antialiased">
-    <div class="fixed inset-0 -z-10 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 animate-gradient-shift"></div>
-  <div class="max-w-screen-xl mx-auto px-4">
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-      <article class="col-span-2 mx-auto w-full max-w-2xl">
-        <header class="mb-6">
-          <h1 class="mb-4 text-3xl font-extrabold leading-tight lg:text-4xl">
+<style>
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(20px, -50px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.9); }
+    75% { transform: translate(50px, 50px) scale(1.05); }
+  }
+
+  @keyframes float-particle {
+    0%, 100% { 
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 0.3;
+    }
+    25% { 
+      transform: translate(30px, -30px) rotate(90deg);
+      opacity: 0.6;
+    }
+    50% { 
+      transform: translate(-20px, -60px) rotate(180deg);
+      opacity: 0.4;
+    }
+    75% { 
+      transform: translate(40px, -40px) rotate(270deg);
+      opacity: 0.5;
+    }
+  }
+
+  @keyframes draw-line {
+    0% { transform: translateX(-100%); opacity: 0; }
+    50% { opacity: 0.3; }
+    100% { transform: translateX(100vw); opacity: 0; }
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 0.4; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scale-in {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .animate-gradient-shift {
+    background: linear-gradient(-45deg, #020617, #581c87, #1e293b, #6d28d9, #020617);
+    background-size: 400% 400%;
+    animation: gradient-shift 15s ease infinite;
+  }
+
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 { animation-delay: 2s; }
+  .animation-delay-4000 { animation-delay: 4s; }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+    opacity: 0;
+  }
+
+  .animate-scale-in {
+    animation: scale-in 0.6s ease-out forwards;
+    opacity: 0;
+  }
+
+  .stagger-1 { animation-delay: 0.1s; }
+  .stagger-2 { animation-delay: 0.2s; }
+  .stagger-3 { animation-delay: 0.3s; }
+
+  /* Background Elements */
+  .particles-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    background: linear-gradient(135deg, rgba(168, 85, 247, 0.6), rgba(139, 92, 246, 0.3));
+    border-radius: 50%;
+    animation: float-particle 15s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+  }
+
+  .particle-1 { width: 4px; height: 4px; left: 10%; top: 20%; animation-duration: 12s; }
+  .particle-2 { width: 6px; height: 6px; left: 80%; top: 60%; animation-delay: 2s; animation-duration: 14s; }
+  .particle-3 { width: 3px; height: 3px; left: 60%; top: 30%; animation-delay: 4s; animation-duration: 16s; }
+  .particle-4 { width: 5px; height: 5px; left: 30%; top: 70%; animation-delay: 1s; animation-duration: 13s; }
+  .particle-5 { width: 4px; height: 4px; left: 90%; top: 40%; animation-delay: 3s; animation-duration: 15s; }
+
+  .lines-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .line {
+    position: absolute;
+    width: 200%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4) 20%, rgba(168, 85, 247, 0.8) 50%, rgba(168, 85, 247, 0.4) 80%, transparent);
+    animation: draw-line 12s linear infinite;
+  }
+
+  .line-1 { top: 20%; }
+  .line-2 { top: 50%; animation-delay: 4s; animation-duration: 15s; }
+  .line-3 { top: 75%; animation-delay: 8s; animation-duration: 18s; }
+
+  .ring {
+    position: absolute;
+    border: 2px solid rgba(168, 85, 247, 0.3);
+    border-radius: 50%;
+    animation: pulse-ring 4s ease-out infinite;
+  }
+
+  .ring-1 { width: 100px; height: 100px; top: 30%; left: 20%; }
+  .ring-2 { width: 150px; height: 150px; top: 60%; right: 25%; animation-delay: 1.5s; }
+
+  .bg-grid-pattern {
+    background-image: 
+      linear-gradient(rgba(139, 92, 246, 0.1) 1.5px, transparent 1.5px),
+      linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1.5px, transparent 1.5px);
+    background-size: 50px 50px;
+  }
+
+  .blog-details-content {
+    max-width: 100%;
+    line-height: 1.75;
+  }
+
+  .blog-details-content h1,
+  .blog-details-content h2,
+  .blog-details-content h3,
+  .blog-details-content h4,
+  .blog-details-content h5,
+  .blog-details-content h6 {
+    font-weight: 700;
+    color: white;
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    line-height: 1.3;
+  }
+
+  .blog-details-content h1 { font-size: 2.25rem; }
+  .blog-details-content h2 { font-size: 1.875rem; }
+  .blog-details-content h3 { font-size: 1.5rem; }
+  .blog-details-content h4 { font-size: 1.25rem; }
+
+  .blog-details-content p {
+    color: #d1d5db;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    font-size: 1.125rem;
+  }
+
+  .blog-details-content a {
+    color: #a78bfa;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .blog-details-content a:hover {
+    color: #c4b5fd;
+  }
+
+  .blog-details-content strong {
+    color: white!important;
+    font-weight: 600;
+  }
+
+  .blog-details-content code {
+    color: #c4b5fd;
+    background-color: #1f2937;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.875em;
+    font-family: 'Courier New', monospace;
+  }
+
+  .blog-details-content img {
+    border-radius: 0.75rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    margin: 2rem 0;
+  }
+
+  .blog-details-content ul,
+  .blog-details-content ol {
+    color: #d1d5db;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .blog-details-content li {
+    margin-bottom: 0.5rem;
+  }
+
+  .blog-details-content blockquote {
+    border-left: 4px solid #a855f7;
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    color: #9ca3af;
+    font-style: italic;
+  }
+
+  .blog-details-content pre {
+    background-color: #1f2937;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .blog-details-content pre code {
+    background-color: transparent;
+    padding: 0;
+  }
+
+  .glass-effect {
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .card-hover {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.3);
+  }
+
+  .gradient-border {
+    position: relative;
+    border-radius: 0.75rem;
+  }
+
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 0.75rem;
+    padding: 2px;
+    background: linear-gradient(135deg, #a855f7, #7c3aed);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  .shine-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shine-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .shine-effect:hover::after {
+    left: 100%;
+  }
+
+  .pulse-border {
+    box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.7);
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  @media (max-width: 768px) {
+    .particle { display: none; }
+    .ring { width: 60px !important; height: 60px !important; }
+  }
+</style>
+</style>
+
+<main class="min-h-screen pt-20 pb-24 relative overflow-hidden">
+  <!-- Animated Background -->
+  <div class="fixed inset-0 -z-10 animate-gradient-shift"></div>
+  
+  <!-- Grid Pattern -->
+  <div class="fixed inset-0 -z-10 bg-grid-pattern"></div>
+  
+  <!-- Floating Particles -->
+  <div class="fixed inset-0 -z-10 particles-container">
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    <div class="particle particle-5"></div>
+  </div>
+
+  <!-- Animated Lines -->
+  <div class="fixed inset-0 -z-10 lines-container">
+    <div class="line line-1"></div>
+    <div class="line line-2"></div>
+    <div class="line line-3"></div>
+  </div>
+
+  <!-- Pulsing Rings -->
+  <div class="fixed inset-0 -z-10">
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+  </div>
+
+  <!-- Floating Blobs -->
+  <div class="fixed top-20 left-10 w-72 h-72 bg-purple-500/30 rounded-full blur-3xl animate-blob -z-10"></div>
+  <div class="fixed bottom-20 right-10 w-96 h-96 bg-purple-700/20 rounded-full blur-3xl animate-blob animation-delay-2000 -z-10"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Back Button -->
+    <a href="/blogs" 
+       class="inline-flex items-center gap-2 mb-8 text-gray-300 hover:text-white transition-all hover:gap-3 group animate-fade-in-up">
+      <Icon name="mdi:arrow-left" class="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+      <span>Back to Articles</span>
+    </a>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <!-- Main Content -->
+      <article class="lg:col-span-8 space-y-8">
+        <!-- Header -->
+        <header class="space-y-6 animate-fade-in-up stagger-1">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-white">
             {detailsData.projectName}
           </h1>
+          
+          <!-- Meta Info -->
+          <div class="flex flex-wrap items-center gap-4 text-gray-400">
+            <div class="flex items-center gap-2">
+              <Icon name="mdi:calendar" class="w-5 h-5" />
+              <span>{detailsData._createdAt}</span>
+            </div>
+          
+          </div>
         </header>
 
+        <!-- Featured Image -->
         {detailsData.BackgroundImage?.asset?.url && (
-          <figure class="mb-8">
-            <img 
-              src={detailsData.BackgroundImage.asset.url} 
-              alt={detailsData.projectName} 
-              class="w-full rounded-lg shadow-lg"
-            />
+          <figure class="animate-scale-in stagger-2 group">
+            <div class="relative overflow-hidden rounded-2xl shadow-2xl shine-effect">
+              <img 
+                src={detailsData.BackgroundImage.asset.url} 
+                alt={detailsData.projectName} 
+                class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
           </figure>
         )}
 
-        <div class="blog-details-content">
-          <PortableText value={detailsData.blogcontent} components={components} />
+        <!-- Content -->
+        <div class="glass-effect rounded-2xl p-8 md:p-12 animate-fade-in-up stagger-3">
+          <div class="blog-details-content">
+            <PortableText value={detailsData.blogcontent} components={components} />
+          </div>
         </div>
+
+        <!-- Share & Actions -->
+        <!-- <div class="glass-effect rounded-2xl p-6 animate-fade-in-up stagger-3">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="text-gray-300 font-medium">Share this article:</span>
+              <div class="flex gap-2">
+                <button class="p-2 rounded-lg bg-gray-800 hover:bg-purple-600 text-gray-300 hover:text-white transition-all hover:scale-110 active:scale-95">
+                  <Icon name="mdi:twitter" class="w-5 h-5" />
+                </button>
+                <button class="p-2 rounded-lg bg-gray-800 hover:bg-purple-600 text-gray-300 hover:text-white transition-all hover:scale-110 active:scale-95">
+                  <Icon name="mdi:facebook" class="w-5 h-5" />
+                </button>
+                <button class="p-2 rounded-lg bg-gray-800 hover:bg-purple-600 text-gray-300 hover:text-white transition-all hover:scale-110 active:scale-95">
+                  <Icon name="mdi:linkedin" class="w-5 h-5" />
+                </button>
+                <button class="p-2 rounded-lg bg-gray-800 hover:bg-purple-600 text-gray-300 hover:text-white transition-all hover:scale-110 active:scale-95">
+                  <Icon name="mdi:link" class="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            <button class="px-6 py-2 rounded-lg bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white font-medium transition-all hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl">
+              <Icon name="mdi:bookmark-outline" class="w-5 h-5 inline mr-2" />
+              Save
+            </button>
+          </div>
+        </div> -->
       </article>
 
-      <aside aria-label="Related articles" class="bg-gray-900 rounded-xl p-6 h-fit lg:sticky lg:top-8">
-        <h2 class="mb-6 text-2xl font-bold text-white inline-flex items-center gap-2">
-          <span class="w-8 h-1 bg-indigo-500 rounded-full"></span>
-          Related Articles
-        </h2>
-        
-        <div class="grid gap-8">
-          {randomRelatedPosts.map((relatedBlog) => (
-            <article key={relatedBlog.slug.current} 
-              class="group relative overflow-hidden transition-all hover:transform hover:scale-[1.02]"
-            >
-              <a href={`/blogs/${relatedBlog.slug.current}`} class="block">
-                <div class="relative">
-                  {relatedBlog.BackgroundImage?.asset?.url && (
-                    <img
-                      src={relatedBlog.BackgroundImage.asset.url}
-                      alt={relatedBlog.projectName}
-                      class="w-full h-48 object-cover rounded-lg brightness-90 group-hover:brightness-100 transition-all"
-                    />
-                  )}
-                  <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent rounded-lg"></div>
-                </div>
+      <!-- Sidebar -->
+      <aside class="lg:col-span-4">
+        <div class="lg:sticky lg:top-8 space-y-6">
+          <!-- Related Articles -->
+          <div class="glass-effect rounded-2xl p-6 md:p-8 animate-fade-in-up stagger-2">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-1 h-8 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full"></div>
+              <h2 class="text-2xl font-bold text-white">Related Articles</h2>
+            </div>
+            
+            <div class="space-y-6">
+              {randomRelatedPosts.map((relatedBlog, index) => (
+                <article 
+                  class={`group gradient-border card-hover animate-fade-in-up stagger-${index + 1}`}
+                >
+                  <a href={`/blogs/${relatedBlog.slug.current}`} class="block">
+                    <div class="relative overflow-hidden rounded-xl">
+                      {relatedBlog.BackgroundImage?.asset?.url && (
+                        <div class="relative h-48 overflow-hidden">
+                          <img
+                            src={relatedBlog.BackgroundImage.asset.url}
+                            alt={relatedBlog.projectName}
+                            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                          />
+                          <div class="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent"></div>
+                        </div>
+                      )}
+                    </div>
 
-                <div class="mt-4 space-y-2">
-                  <h3 class="text-lg font-bold leading-tight group-hover:text-indigo-400 transition-colors">
-                    {relatedBlog.projectName}
-                  </h3>
-                  
-                  <div class="text-sm text-gray-400 line-clamp-2">
-                    <PortableText value={relatedBlog.excerpt} />
-                  </div>
+                    <div class="p-4 space-y-3">
+                      <h3 class="text-lg font-bold text-white leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-purple-600 transition-all">
+                        {relatedBlog.projectName}
+                      </h3>
+                      
+                      <div class="text-sm text-gray-400 line-clamp-2">
+                        <PortableText value={relatedBlog.excerpt} />
+                      </div>
 
-                  <div class="flex items-center gap-2 text-sm text-gray-400 pt-2">
-                    <Icon name="mdi:clock" />
-                    <span>2 min read</span>
-                    <span class="inline-flex items-center text-indigo-400 group-hover:translate-x-1 transition-transform">
-                      Read more →
-                    </span>
-                  </div>
-                </div>
-              </a>
-            </article>
-          ))}
+                      <div class="flex items-center justify-between pt-2 text-sm">
+                        <div class="flex items-center gap-2 text-gray-400">
+                          <Icon name="mdi:clock-outline" class="w-4 h-4" />
+                          <span>2 min read</span>
+                        </div>
+                        <span class="inline-flex items-center gap-1 text-purple-400 font-medium group-hover:gap-2 transition-all">
+                          Read <Icon name="mdi:arrow-right" class="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </a>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <!-- Newsletter -->
+          <div class="glass-effect rounded-2xl p-6 md:p-8 animate-fade-in-up stagger-3 pulse-border">
+            <div class="text-center space-y-4">
+              <div class="w-16 h-16 mx-auto bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center">
+                <Icon name="mdi:email-outline" class="w-8 h-8 text-white" />
+              </div>
+              <h3 class="text-xl font-bold text-white">Stay Updated</h3>
+              <p class="text-gray-400 text-sm">Get the latest articles delivered to your inbox</p>
+              <form class="space-y-3">
+                <input 
+                  type="email" 
+                  placeholder="your@email.com" 
+                  class="w-full px-4 py-3 rounded-lg bg-gray-800/50 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
+                />
+                <button 
+                  type="submit" 
+                  class="w-full px-6 py-3 rounded-lg bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white font-medium transition-all hover:scale-105 active:scale-95 shadow-lg"
+                >
+                  Subscribe
+                </button>
+              </form>
+            </div>
+          </div>
         </div>
       </aside>
     </div>
