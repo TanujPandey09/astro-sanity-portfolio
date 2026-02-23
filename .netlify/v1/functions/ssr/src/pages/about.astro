@@ -1,0 +1,44 @@
+---
+import { useSanityClient, groq } from "astro-sanity";
+import { PortableText } from "astro-portabletext";
+
+const query = groq`*[_type == "about"]{
+        ...,
+        heroImage{
+      asset->{
+        url
+      }
+      },
+    }`;
+
+const aboutData = await useSanityClient().fetch(query);
+
+const skillquery = groq`*[_type == "skillsSection"] {
+  ...,
+  logoCase[]-> {
+    Logo {
+      ...,
+      asset-> {
+        ...,
+        url,
+      
+      },
+    
+   
+    }
+  }
+}`;
+
+const skillData = await useSanityClient().fetch(skillquery);
+
+
+import AboutLayout from "../components/About/AboutLayout.astro";
+import Layout from "../layouts/Layout.astro";
+// const admin = Astro.props.adminstrativetitle || first.adminstrativetitle
+---
+
+<div class="">
+  <Layout title="About">
+    <AboutLayout aboutData={aboutData} skillData={skillData} />
+  </Layout>
+</div>
