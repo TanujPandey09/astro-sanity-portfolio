@@ -81,10 +81,10 @@ const experienceData = [
                  <div class="h-[1px] w-12 bg-[#599692]"></div>
                  <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">Curriculum Vitae</span>
               </div>
-              <h2 class="text-white text-5xl md:text-7xl font-black leading-none uppercase tracking-tighter">
+              <h2 class="text-white font-black leading-none uppercase tracking-tighter exp-title">
                 Evolution of <br/> <span class="text-gradient">Impact</span>
               </h2>
-              <p class="text-gray-400 text-lg md:text-xl italic max-w-md">
+              <p class="text-gray-400 italic max-w-md exp-subtitle">
                 "Architecting digital success through a progressive journey of technical mastery and innovative problem-solving."
               </p>
               
@@ -114,7 +114,7 @@ const experienceData = [
                           </div>
                           <div>
                              <span class="text-[10px] font-black uppercase tracking-[0.3em] text-[#599692] block mb-1">{exp.duration}</span>
-                             <h3 class="text-3xl md:text-4xl text-white uppercase tracking-tighter leading-none group-hover:text-gradient transition-all">{exp.role}</h3>
+                             <h3 class="text-white uppercase tracking-tighter leading-none group-hover:text-gradient transition-all role-title">{exp.role}</h3>
                           </div>
                        </div>
                        <div class="text-right flex items-center md:flex-col gap-4 md:gap-1">
@@ -125,7 +125,7 @@ const experienceData = [
 
                     <div class="glass-card p-10 relative overflow-hidden group/desc">
                        <div class="absolute -top-12 -right-12 w-24 h-24 bg-[#599692]/5 blur-[60px] -z-10 group-hover/desc:bg-[#599692]/10 transition-all"></div>
-                       <p class="text-gray-400 text-lg leading-relaxed italic">
+                       <p class="text-gray-400 leading-relaxed italic exp-desc">
                          "{exp.description}"
                        </p>
                     </div>
@@ -152,6 +152,26 @@ const experienceData = [
     </div>
   </div>
 </section>
+
+<style>
+  .exp-title {
+    font-size: clamp(var(--h1-mobile), 8vw, var(--h1-desktop));
+  }
+  .exp-subtitle {
+     font-size: clamp(var(--p-mobile), 1.5vw, var(--p-desktop));
+  }
+  .role-title {
+     font-size: clamp(var(--h3-mobile), 3vw, var(--h3-desktop));
+  }
+  .exp-desc {
+     font-size: var(--p-mobile);
+  }
+  @media (min-width: 1024px) {
+    .exp-desc {
+       font-size: var(--p-desktop);
+    }
+  }
+</style>
 
 <script>
   import gsap from 'gsap';

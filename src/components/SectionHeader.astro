@@ -21,7 +21,7 @@ const { title, gradientText, subtitle, center = false } = Astro.props;
   </h2>
   
   {subtitle && (
-    <p class="max-w-2xl text-[#94a3b8] text-lg md:text-xl italic font-medium leading-relaxed">
+    <p class="max-w-2xl text-[#94a3b8] italic font-medium leading-relaxed subtitle-text">
       "{subtitle}"
     </p>
   )}
@@ -29,6 +29,9 @@ const { title, gradientText, subtitle, center = false } = Astro.props;
 
 <style>
   h2 {
-    font-size: clamp(2.5rem, 8vw, 6rem);
+    font-size: clamp(var(--h2-mobile), 6vw, var(--h2-desktop));
+  }
+  .subtitle-text {
+    font-size: clamp(var(--p-mobile), 2vw, var(--p-desktop));
   }
 </style>

@@ -1,0 +1,105 @@
+---
+---
+
+<div id="preloader" class="fixed inset-0 z-[1000] bg-[#000105] flex items-center justify-center overflow-hidden">
+  <div class="relative w-full max-w-md px-12 text-center">
+    <!-- Progress Tracking UI -->
+    <div class="mb-8 flex justify-between items-end">
+       <div class="space-y-2 text-left">
+          <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.5em]">System Boot</p>
+          <p id="loader-percent" class="text-4xl font-black text-white tracking-tighter tabular-nums">00%</p>
+       </div>
+       <div class="text-right">
+          <p class="text-[10px] font-black text-white/20 uppercase tracking-widest">Initialization</p>
+          <div id="loader-status" class="text-[10px] font-black text-[#626c7d] uppercase tracking-widest">Analyzing Frequency...</div>
+       </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="h-[2px] w-full bg-white/5 relative overflow-hidden rounded-full">
+       <div id="progress-line" class="absolute top-0 left-0 h-full w-0 bg-[#599692] shadow-[0_0_15px_#599692]"></div>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-white/5 rounded-full -z-10 animate-pulse"></div>
+  </div>
+</div>
+
+<style>
+  #preloader.loaded {
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  const loader = document.getElementById('preloader');
+  const percentText = document.getElementById('loader-percent');
+  const progressLine = document.getElementById('progress-line');
+  const statusText = document.getElementById('loader-status');
+
+  const statuses = [
+    "Compiling Assets...",
+    "Syncing Neural Links...",
+    "Fetching Identity Intel...",
+    "Initializing UI Protocol...",
+    "System Operational"
+  ];
+
+  let progress = 0;
+  
+  const updateLoader = () => {
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 5) + 1;
+      
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        finishLoading();
+      }
+
+      if (percentText) percentText.textContent = `${progress.toString().padStart(2, '0')}%`;
+      if (progressLine) progressLine.style.width = `${progress}%`;
+      
+      // Update status text based on progress
+      if (statusText) {
+        const statusIndex = Math.floor((progress / 100) * (statuses.length - 1));
+        statusText.textContent = statuses[statusIndex];
+      }
+    }, 50);
+  };
+
+  const finishLoading = () => {
+    const tl = gsap.timeline();
+    
+    tl.to('#preloader .max-w-md', {
+      opacity: 0,
+      y: -20,
+      duration: 0.8,
+      ease: "power4.inOut"
+    })
+    .to('#preloader', {
+      yPercent: -100,
+      duration: 1.2,
+      ease: "expo.inOut"
+    }, "-=0.4")
+    .set('#preloader', { display: 'none' });
+
+    // Custom Event to notify other components to start their intro animations
+    window.dispatchEvent(new Event('portfolio-loaded'));
+  };
+
+  // Start initialization
+  window.addEventListener('load', () => {
+    if (sessionStorage.getItem('portfolio-visited')) {
+      // Already visited in this session, skip loader
+      if (loader) loader.style.display = 'none';
+      window.dispatchEvent(new Event('portfolio-loaded'));
+    } else {
+      // First time visit, run full loader
+      sessionStorage.setItem('portfolio-visited', 'true');
+      updateLoader();
+    }
+  });
+</script>

@@ -43,10 +43,10 @@ import PremiumBackground from "../PremiumBackground.astro";
         <div class="prose-container relative">
           <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
           <div class="prose prose-xl prose-invert max-w-none">
-             <div class="text-3xl md:text-4xl text-white font-black uppercase tracking-tighter mb-8 leading-tight">
+             <div class="text-white font-black uppercase tracking-tighter mb-8 leading-tight h2-style">
                "{aboutData?.[0]?.aboutName || "Architecting digital success through technical mastery."}"
              </div>
-             <div class="text-[#626c7d] text-lg md:text-xl leading-relaxed italic space-y-6">
+             <div class="prose-content space-y-6">
                <PortableText value={aboutData?.[0]?.description} />
              </div>
           </div>
@@ -90,8 +90,22 @@ import PremiumBackground from "../PremiumBackground.astro";
 </div>
 
 <style>
+  .h2-style {
+    font-size: clamp(var(--h2-mobile), 5vw, var(--h2-desktop));
+  }
+  .prose-content {
+    color: var(--secondary-color);
+    font-size: var(--p-mobile);
+    line-height: var(--line-height-relaxed);
+    font-style: italic;
+  }
+  @media (min-width: 1024px) {
+    .prose-content {
+      font-size: var(--p-desktop);
+    }
+  }
   .prose p {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
   }
 </style>
 

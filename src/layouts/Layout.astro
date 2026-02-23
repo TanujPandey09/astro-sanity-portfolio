@@ -1,6 +1,7 @@
 ---
 import Sidebar from "../components/Sidebar.astro";
 import Footer from "../components/Footer";
+import Loader from "../components/Loader.astro";
 
 interface Props {
   title: string;
@@ -22,7 +23,7 @@ const { title } = Astro.props;
   </head>
 
   <body>
-    
+    <Loader />
     <Sidebar />
 
     <slot />
@@ -45,13 +46,10 @@ const { title } = Astro.props;
    
   }
 
-  body{
+  body {
     overflow-x: hidden;
-    background-color: rgba(4, 6, 21, 0.9);
-  
-  background-size: center;
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
   }
 
   /* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
@@ -62,12 +60,109 @@ const { title } = Astro.props;
     --accent-color: #dfe5ec;
     --bg-dark: #11172a;
     --bg-deep: #000105;
+
+    /* Headings - Mobile */
+    --h1-mobile: 2rem;      /* 32px */
+    --h2-mobile: 1.75rem;   /* 28px */
+    --h3-mobile: 1.5rem;    /* 24px */
+    --h4-mobile: 1.25rem;   /* 20px */
+    --h5-mobile: 1.125rem;  /* 18px */
+    --h6-mobile: 1rem;      /* 16px */
+
+    /* Paragraph - Mobile */
+    --p-mobile: 1rem;       /* 16px */
+    --small-mobile: 0.875rem; /* 14px */
+    --xs-mobile: 0.75rem;   /* 12px */
+
+    /* Desktop Sizes */
+    --h1-desktop: 3.5rem;   /* 56px */
+    --h2-desktop: 2.5rem;   /* 40px */
+    --h3-desktop: 2rem;     /* 32px */
+    --h4-desktop: 1.5rem;   /* 24px */
+    --h5-desktop: 1.25rem;  /* 20px */
+    --h6-desktop: 1rem;     /* 16px */
+
+    --p-desktop: 1.125rem;  /* 18px */
+    --small-desktop: 1rem;  /* 16px */
+    --xs-desktop: 0.875rem; /* 14px */
+
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+    --line-height-loose: 2;
+
+    /* Letter Spacing */
+    --letter-spacing-tight: -0.02em;
+    --letter-spacing-normal: 0;
+    --letter-spacing-wide: 0.05em;
+    --letter-spacing-wider: 0.1em;
+
+    /* Font Weights */
+    --fw-light: 300;
+    --fw-normal: 400;
+    --fw-medium: 500;
+    --fw-semibold: 600;
+    --fw-bold: 700;
+    --fw-black: 900;
+
+    /* Spacing Scale */
+    --space-xs: 0.25rem;    /* 4px */
+    --space-sm: 0.5rem;     /* 8px */
+    --space-md: 1rem;       /* 16px */
+    --space-lg: 1.5rem;     /* 24px */
+    --space-xl: 2rem;       /* 32px */
+    --space-2xl: 3rem;      /* 48px */
+    --space-3xl: 4rem;      /* 64px */
+    --space-4xl: 6rem;      /* 96px */
+  }
+
+  /* Global Typography Reset */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     overflow-x: hidden;
     background-color: var(--bg-deep);
     color: var(--accent-color);
+    font-family: 'Roboto Slab', serif;
+    font-size: var(--p-mobile);
+    line-height: var(--line-height-normal);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: white;
+    font-weight: var(--fw-black);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    text-transform: uppercase;
+  }
+
+  h1 { font-size: var(--h1-mobile); }
+  h2 { font-size: var(--h2-mobile); }
+  h3 { font-size: var(--h3-mobile); }
+  h4 { font-size: var(--h4-mobile); }
+  h5 { font-size: var(--h5-mobile); }
+  h6 { font-size: var(--h6-mobile); }
+
+  p {
+    font-size: var(--p-mobile);
+    line-height: var(--line-height-relaxed);
+    color: var(--secondary-color);
+  }
+
+  @media (min-width: 1024px) {
+    body { font-size: var(--p-desktop); }
+    h1 { font-size: var(--h1-desktop); }
+    h2 { font-size: var(--h2-desktop); }
+    h3 { font-size: var(--h3-desktop); }
+    h4 { font-size: var(--h4-desktop); }
+    h5 { font-size: var(--h5-desktop); }
+    h6 { font-size: var(--h6-desktop); }
+    p { font-size: var(--p-desktop); }
   }
 
   .cursor {
@@ -132,22 +227,6 @@ const { title } = Astro.props;
     }
   }
 
-  .blog-details-content strong {
-    font-size: 22px;
-    line-height: 36px;
-    margin: 40px 0px;
-  }
-
-  .blog-details-content li {
-    font-size: 16px;
-    line-height: 24px;
-    padding: 5px 0px;
-  }
-
-  .blog-details-content p:nth-of-type(7) {
-    background-color: #ced6de;
-}
-
  
   @media only screen and (max-width: 768px) {
     body {
@@ -176,39 +255,70 @@ const { title } = Astro.props;
 </style>
 
 <script>
-  var cursor = document.querySelector(".cursor");
-  var cursorinner = document.querySelector(".cursor2");
-  var a = document.querySelectorAll("a");
+  import gsap from 'gsap';
 
-  document.addEventListener("mousemove", function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursor.style.transform = `translate3d(calc(${e.clientX}px - 50%), calc(${e.clientY}px - 50%), 0)`;
-  });
+  const cursor = document.querySelector(".cursor");
+  const cursorinner = document.querySelector(".cursor2");
+  const links = document.querySelectorAll("a, button, .group");
 
-  document.addEventListener("mousemove", function (e) {
-    var x = e.clientX;
-    var y = e.clientY;
-    cursorinner.style.left = x + "px";
-    cursorinner.style.top = y + "px";
-  });
+  let mouseX = 0;
+  let mouseY = 0;
 
-  document.addEventListener("mousedown", function () {
-    cursor.classList.add("click");
-    cursorinner.classList.add("cursorinnerhover");
-  });
+  document.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
 
-  document.addEventListener("mouseup", function () {
-    cursor.classList.remove("click");
-    cursorinner.classList.remove("cursorinnerhover");
-  });
-
-  a.forEach((item) => {
-    item.addEventListener("mouseover", () => {
-      cursor.classList.add("hover");
+    gsap.to(cursor, {
+      x: mouseX,
+      y: mouseY,
+      duration: 0.5,
+      ease: "power2.out"
     });
-    item.addEventListener("mouseleave", () => {
-      cursor.classList.remove("hover");
+
+    gsap.to(cursorinner, {
+      x: mouseX,
+      y: mouseY,
+      duration: 0.1
     });
   });
+
+  document.addEventListener("mousedown", () => {
+    gsap.to(cursor, { scale: 0.8, duration: 0.3 });
+    gsap.to(cursorinner, { scale: 2, duration: 0.3 });
+  });
+
+  document.addEventListener("mouseup", () => {
+    gsap.to(cursor, { scale: 1, duration: 0.3 });
+    gsap.to(cursorinner, { scale: 1, duration: 0.3 });
+  });
+
+  links.forEach((link) => {
+    link.addEventListener("mouseenter", () => {
+      gsap.to(cursor, { 
+        width: 80, 
+        height: 80, 
+        backgroundColor: "rgba(89, 150, 146, 0.1)",
+        borderColor: "rgba(89, 150, 146, 0.5)",
+        duration: 0.3 
+      });
+      gsap.to(cursorinner, { scale: 0.5, opacity: 0, duration: 0.3 });
+    });
+    
+    link.addEventListener("mouseleave", () => {
+      gsap.to(cursor, { 
+        width: 25, 
+        height: 25, 
+        backgroundColor: "transparent",
+        borderColor: "var(--primary-color)",
+        duration: 0.3 
+      });
+      gsap.to(cursorinner, { scale: 1, opacity: 1, duration: 0.3 });
+    });
+  });
+
+  // Hide cursor on mobile
+  if (window.innerWidth < 1024) {
+    if (cursor) (cursor as HTMLElement).style.display = 'none';
+    if (cursorinner) (cursorinner as HTMLElement).style.display = 'none';
+  }
 </script>

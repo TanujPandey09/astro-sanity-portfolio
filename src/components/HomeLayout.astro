@@ -9,6 +9,8 @@ import Skills from "./Skills.astro";
 import Experience from "./Experience.astro";
 import Contact from "./Contact.astro";
 import SectionHeader from "./SectionHeader.astro";
+import ProjectCard from "./ProjectCard.astro";
+import Ticker from "./Ticker.astro";
 
 const query = groq`*[_type == "projects"]{...,BackgroundImage{asset->{url}}}`;
 const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}}}`;
@@ -30,6 +32,8 @@ const achievements = [
   <div class="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
     <!-- Hero Experience -->
     <Hero />
+
+    <Ticker />
 
     <!-- Achievement Grid -->
     <div class="py-24" data-aos="fade-up">
@@ -62,18 +66,45 @@ const achievements = [
           subtitle="A selection of high-fidelity platforms and architectural explorations."
         />
         
+        <!-- Featured Deliveries (Immersive List) -->
         <div class="mt-24 space-y-0">
-          {projectData?.map((project, index) => (
+          {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
         </div>
         
-        <div class="mt-32 flex justify-center">
-           <a href="/projects" class="group relative px-12 py-6 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#599692]">
-              <span class="relative z-10">View Entire Archive</span>
-              <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-           </a>
-        </div>
+        {projectData?.length > 4 && (
+          <div class="mt-48">
+            <div class="flex items-center justify-between mb-16 px-4">
+               <div class="space-y-2">
+                  <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.5em]">Repository Index</p>
+                  <h3 class="text-3xl font-black text-white uppercase tracking-tighter">Extended Artifacts</h3>
+               </div>
+               <button 
+                 id="expand-repo"
+                 class="group flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-[#626c7d] hover:text-[#599692] transition-colors"
+               >
+                 Explore Entire Intel
+                 <div class="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#599692] transition-all">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" id="repo-icon" class="transition-transform duration-500"><path d="m6 9 6 6 6-6"/></svg>
+                 </div>
+               </button>
+            </div>
+
+            <div id="repo-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               {projectData?.slice(4).map((project, index) => (
+                 <ProjectCard project={project} index={index} />
+               ))}
+            </div>
+
+            <div class="mt-32 flex justify-center">
+               <a href="/projects" class="group relative px-12 py-6 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#599692]">
+                  <span class="relative z-10">Access Full Registry Archive</span>
+                  <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+               </a>
+            </div>
+          </div>
+        )}
       </div>
     </section>
 
@@ -128,5 +159,18 @@ const achievements = [
         toggleActions: "play none none none"
       }
     });
+  });
+
+  // Repository Expansion Logic
+  const expandBtn = document.getElementById('expand-repo');
+  const repoGrid = document.getElementById('repo-grid');
+  const repoIcon = document.getElementById('repo-icon');
+
+  expandBtn?.addEventListener('click', () => {
+    repoGrid?.classList.toggle('hidden');
+    repoIcon?.classList.toggle('rotate-180');
+    
+    const isExpanded = !repoGrid?.classList.contains('hidden');
+    expandBtn.querySelector('span') && (expandBtn.querySelector('span')!.textContent = isExpanded ? 'Collapse Repository' : 'Explore Entire Intel');
   });
 </script>

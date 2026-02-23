@@ -1,5 +1,6 @@
 ---
 const { blog, index } = Astro.props;
+
 ---
 
 <div class="blog-item group relative py-16 border-b border-white/5 last:border-0" data-aos="fade-up" data-aos-delay={index * 50}>
@@ -10,8 +11,8 @@ const { blog, index } = Astro.props;
         <span class="text-[10px] font-black text-[#626c7d] italic">{new Date(blog._createdAt).toLocaleDateString()}</span>
       </div>
       
-      <h3 class="text-3xl md:text-5xl font-black text-white group-hover:text-[#599692] transition-colors uppercase tracking-tight leading-none">
-        {blog.title}
+      <h3 class="text-white group-hover:text-[#599692] transition-colors uppercase tracking-tight leading-none">
+        {blog.projectName}
       </h3>
     </div>
 
@@ -36,5 +37,8 @@ const { blog, index } = Astro.props;
 <style>
   .blog-item {
     cursor: pointer;
+  }
+  h3 {
+    font-size: clamp(var(--h3-mobile), 3vw, var(--h3-desktop));
   }
 </style>

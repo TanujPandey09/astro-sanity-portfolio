@@ -83,7 +83,7 @@ export default function Blogs({ blogData }) {
                     </div>
 
                     <h3 className="text-3xl md:text-5xl font-black text-white group-hover:text-[#599692] transition-colors uppercase tracking-tight leading-none mb-6">
-                      {blog.title}
+                      {blog.projectName}
                     </h3>
                   </div>
 

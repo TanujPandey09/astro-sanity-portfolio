@@ -5,8 +5,8 @@
   <div class="container mx-auto px-6">
     <div class="max-w-4xl mx-auto mb-20 text-center" data-aos="fade-up">
        <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692] block mb-6">Transmission Center</span>
-       <h2 class="text-white mb-6">Initiate <span class="text-gradient">Contact</span></h2>
-       <p class="text-gray-400 text-lg md:text-xl italic">
+       <h2 class="text-white mb-6 contact-title">Initiate <span class="text-gradient">Contact</span></h2>
+       <p class="text-gray-400 italic contact-subtitle">
          "Have a project in mind? Let's discuss how we can bring your ideas to life."
        </p>
     </div>
@@ -138,3 +138,12 @@
     }
   });
 </script>
+
+<style>
+  .contact-title {
+    font-size: clamp(var(--h2-mobile), 5vw, var(--h2-desktop));
+  }
+  .contact-subtitle {
+     font-size: clamp(var(--p-mobile), 1.5vw, var(--p-desktop));
+  }
+</style>

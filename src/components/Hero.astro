@@ -1,73 +1,97 @@
 ---
 ---
 
-<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+  <!-- Subtle Background Grid Overlay -->
+  <div class="absolute inset-0 bg-[url('/grid-subtle.svg')] opacity-[0.03] pointer-events-none"></div>
+
   <div class="container mx-auto px-6 relative z-20">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-7xl mx-auto">
       
-      <!-- Visual Accent -->
-      <div class="mb-12 flex items-center gap-4" data-aos="fade-down">
-         <div class="w-16 h-[2px] bg-[#599692]"></div>
-         <span class="text-[10px] font-black uppercase tracking-[0.6em] text-white/40">Digital Architect & Full-Stack Engineer</span>
-      </div>
+      <div class="grid lg:grid-cols-12 gap-20 items-center">
+        <!-- Text Content -->
+        <div class="lg:col-span-8 order-2 lg:order-1">
+          <div class="mb-8 flex items-center gap-4" data-aos="fade-right">
+             <div class="w-12 h-[1px] bg-[#599692]"></div>
+             <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">Deployment phase 02 / 2026</span>
+          </div>
 
-      <div class="relative mb-12" data-aos="zoom-out">
-        <h1 class="hero-title font-black text-white leading-[0.85] tracking-tighter uppercase relative z-10">
-          Crafting <br/>
-          <span class="text-gradient">Immersive</span> <br/>
-          Solutions.
-        </h1>
-        
-        <!-- Abstract Decoration -->
-        <div class="absolute -top-10 -right-20 w-64 h-64 bg-[#599692]/5 rounded-full blur-3xl -z-10 animate-pulse"></div>
-      </div>
+          <div class="relative mb-12" data-aos="fade-up" data-aos-delay="200">
+            <h1 class="hero-title font-black text-white leading-none tracking-tighter uppercase relative z-10 m-0">
+              Architecting <br/>
+              <span class="text-gradient">Resilient</span> Ecosystems.
+            </h1>
+            <!-- Abstract Architectural Line -->
+            <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/5 to-transparent hidden lg:block"></div>
+          </div>
 
-      <div class="grid md:grid-cols-12 gap-12 items-end">
-        <div class="md:col-span-7" data-aos="fade-right" data-aos-delay="200">
-          <p class="text-xl md:text-2xl text-[#94a3b8] leading-relaxed italic mb-12 max-w-2xl font-medium">
-            "Bridging the gap between sophisticated aesthetics and high-performance engineering. I build digital ecosystems that resonate."
-          </p>
-          
-          <div class="flex flex-wrap gap-8 items-center">
+          <div class="max-w-2xl mb-16" data-aos="fade-up" data-aos-delay="400">
+            <p class="text-lg md:text-xl text-[#626c7d] leading-relaxed italic font-medium">
+              "Synthesizing high-fidelity frontend architecture with robust engineering protocol. I build digital infrastructures that scale with the future."
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-12 items-center" data-aos="fade-up" data-aos-delay="600">
             <button 
               id="resume-btn"
-              class="group relative px-12 py-6 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-500 hover:tracking-[0.6em]"
+              class="group relative px-16 py-8 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-700 hover:scale-105"
             >
-               <span class="relative z-10">Download Intel</span>
-               <div class="magnetic-glow absolute inset-0 bg-[#599692] translate-y-[100%] group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
+               <span class="relative z-10">Access Intel [Resume]</span>
+               <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
             </button>
 
-            <a href="#contact" class="text-white font-black uppercase text-[10px] tracking-[0.4em] border-b border-white/20 pb-2 hover:border-[#599692] hover:text-[#599692] transition-all">
+            <a href="#contact" class="group flex items-center gap-6 text-white font-black uppercase text-[10px] tracking-[0.4em] transition-all">
               Initiate Project
+              <div class="h-[1px] w-12 bg-white/20 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700"></div>
             </a>
           </div>
         </div>
 
-        <div class="md:col-span-5 flex justify-end" data-aos="fade-left" data-aos-delay="400">
-           <div class="relative group">
-              <div class="absolute -inset-4 bg-gradient-to-tr from-[#599692] to-[#626c7d] rounded-full opacity-20 blur-2xl group-hover:opacity-40 transition-opacity duration-700"></div>
-              <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border border-white/10 p-2 relative z-10 bg-[#11172a]">
-                 <img 
-                   src="/img/profile.jpg" 
-                   alt="Tanuj Pandey" 
-                   class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-1000"
-                 />
+        <!-- Professional Technical Visual (Replacing Character Image) -->
+        <div class="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end" data-aos="zoom-out" data-aos-duration="1500">
+           <div class="relative w-full max-w-[400px] aspect-square">
+              <!-- Geometric HUD Design -->
+              <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_60s_linear_infinite]"></div>
+              <div class="absolute inset-10 border border-[#599692]/10 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
+              <div class="absolute inset-20 border border-white/5 rounded-full animate-[spin_20s_linear_infinite]"></div>
+              
+              <!-- Core Focal Point -->
+              <div class="absolute inset-[30%] bg-gradient-to-tr from-[#11172a] to-[#000105] border border-white/10 rounded-2xl backdrop-blur-3xl flex items-center justify-center group">
+                 <div class="w-16 h-16 border border-[#599692]/20 rounded-full flex items-center justify-center animate-pulse">
+                    <div class="w-8 h-8 bg-[#599692] rounded-full blur-xl opacity-40"></div>
+                    <div class="w-2 h-2 bg-[#599692] rounded-full relative z-10 shadow-[0_0_15px_#599692]"></div>
+                 </div>
+                 
+                 <!-- Dynamic Data Nodes -->
+                 <div class="absolute top-8 left-8 w-2 h-2 bg-white/20 rounded-full"></div>
+                 <div class="absolute bottom-8 right-8 w-2 h-2 bg-[#599692]/40 rounded-full"></div>
+              </div>
+
+              <!-- Floating Status Tags -->
+              <div class="absolute top-0 right-0 px-6 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full">
+                 <span class="text-[8px] font-black text-[#599692] uppercase tracking-widest">Latency: 2ms</span>
+              </div>
+              <div class="absolute bottom-10 left-0 px-6 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full">
+                 <span class="text-[8px] font-black text-white/40 uppercase tracking-widest">Status: Encrypted</span>
               </div>
            </div>
         </div>
       </div>
+
     </div>
   </div>
+  
+  <!-- Section Divider -->
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#000105] to-transparent z-30"></div>
 </section>
 
 <style>
   .hero-title {
-    font-size: clamp(2.5rem, 10vw, 7rem);
-    perspective: 1000px;
+    font-size: clamp(var(--h1-mobile), 10vw, var(--h1-desktop));
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #599692 0%, #626c7d 50%, #dfe5ec 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-size: 200% auto;
@@ -84,51 +108,35 @@
 <script>
   import gsap from 'gsap';
 
-  const initHero = () => {
-    // Magnetic Button Effect
-    const btn = document.querySelector('#resume-btn');
-    if (btn) {
-      btn.addEventListener('mousemove', (e: any) => {
-        const rect = btn.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        
-        gsap.to(btn, {
-          x: x * 0.3,
-          y: y * 0.3,
-          duration: 0.5,
-          ease: "power2.out"
-        });
-      });
-
-      btn.addEventListener('mouseleave', () => {
-        gsap.to(btn, {
-          x: 0,
-          y: 0,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.3)"
-        });
-      });
-
-      btn.addEventListener('click', () => {
-        const link = document.createElement("a");
-        link.href = "/Resume.pdf";
-        link.target = "_blank";
-        link.download = "resume.pdf";
-        link.click();
-      });
-    }
-
-    // GSAP Reveal
+  window.addEventListener('portfolio-loaded', () => {
     const tl = gsap.timeline();
-    tl.from('.hero-title span', {
-      y: 100,
+    
+    tl.from('.hero-title', {
+      y: 50,
       opacity: 0,
-      duration: 1.2,
-      stagger: 0.2,
-      ease: "power4.out"
-    });
-  };
+      duration: 1.5,
+      ease: "expo.out"
+    })
+    .from('p', {
+      y: 20,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out"
+    }, "-=1")
+    .from('#resume-btn', {
+      scale: 0.8,
+      opacity: 0,
+      duration: 0.8,
+      ease: "back.out(1.7)"
+    }, "-=0.5");
+  });
 
-  initHero();
+  const btn = document.querySelector('#resume-btn');
+  btn?.addEventListener('click', () => {
+    const link = document.createElement("a");
+    link.href = "/Resume.pdf";
+    link.target = "_blank";
+    link.download = "resume.pdf";
+    link.click();
+  });
 </script>
