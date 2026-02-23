@@ -57,91 +57,79 @@ const { title } = Astro.props;
   /* @import url('https://fonts.googleapis.com/css2?family=Inter:slnt,wght@-10..0,100..900&family=Roboto+Slab:wght@100..900&display=swap'); */
 
   :root {
-   
-    --primary-color: #ffffff;
-    --secondary-color: #ced6de;
-    --accent-color: #292929;
-    --bg1: #040615;
-    --bg2: #000000;
+    --primary-color: #599692;
+    --secondary-color: #626c7d;
+    --accent-color: #dfe5ec;
+    --bg-dark: #11172a;
+    --bg-deep: #000105;
+  }
+
+  body {
+    overflow-x: hidden;
+    background-color: var(--bg-deep);
+    color: var(--accent-color);
   }
 
   .cursor {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     border-radius: 100%;
     border: 1px solid var(--primary-color);
-    transition: all 200ms ease-out;
+    transition: all 150ms ease-out;
     position: fixed;
     pointer-events: none;
     left: 0;
     top: 0;
-    transform: translate(calc(-50% + 15px), -50%);
+    transform: translate(-50%, -50%);
+    z-index: 9999;
   }
 
   .cursor2 {
-    width: 15px;
-    height: 15px;
+    width: 8px;
+    height: 8px;
     border-radius: 100%;
-    background-color: var(--secondary-color);
-    opacity: 0.3;
+    background-color: var(--primary-color);
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, background-color 0.3s;
   }
 
   .hover {
-    background-color: transparent;
-    opacity: 0.2;
+    background-color: rgba(89, 150, 146, 0.1);
+    border-color: var(--primary-color);
+    width: 60px;
+    height: 60px;
   }
 
   .cursorinnerhover {
-    width: 20px;
-    height: 20px;
-    opacity: 0.5;
+    width: 4px;
+    height: 4px;
+    background-color: white;
   }
 
-
-  
-
-  .home-section {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-  }
-  .inner {
-    width: 100%;
-    height: 100%;
+  /* Text Gradients */
+  .text-gradient {
+    background: linear-gradient(135deg, #599692 0%, #626c7d 50%, #dfe5ec 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% auto;
   }
 
-  @keyframes bgGradient {
-    0% {
-      opacity: 1;
+  /* Premium Card (Glassmorphism) */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 2rem;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .cursor, .cursor2 {
+      display: none;
     }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  /* ....Projects Cards */
-
-  .projects-card {
-    background-color: var(--bg1);
-    border-radius: 10px;
-    border-color: var(--bg2);
-  }
-
-  /* .....Blog details */
-
-  .blog-content a {
-    color: var(--accent-color);
-  }
-
-  .blog-content a:hover {
-    color: var(--bg2);
-    transition: all ease-in 0.5s;
-    text-decoration: underline;
   }
 
   .blog-details-content strong {

@@ -9,7 +9,7 @@ const AIChatbot = () => {
   const [intents, setIntents] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
-  const [isMinimized, setIsMinimized] = useState(true); // Start minimized by default
+  const [isMinimized, setIsMinimized] = useState(true);
   const [hasNewMessage, setHasNewMessage] = useState(false);
   const messagesEndRef = useRef(null);
 
@@ -23,36 +23,25 @@ const AIChatbot = () => {
     }
   }, [messages, isMinimized]);
 
-  // Generate autosuggestions based on intents
   const generateSuggestions = (inputValue) => {
     if (!inputValue.trim()) {
-      setSuggestions([
-        "Hello",
-        "How can you help me?",
-        "Tell me more",
-        "Contact information"
-      ]);
+      setSuggestions(["Architecture", "Experience", "Contact Intel", "Frameworks"]);
       return;
     }
-
     const matchingSuggestions = [];
     intents.forEach(intent => {
       intent.userQuestions?.forEach(question => {
-        if (question.toLowerCase().includes(inputValue.toLowerCase()) && 
-            !matchingSuggestions.includes(question) &&
-            matchingSuggestions.length < 4) {
+        if (question.toLowerCase().includes(inputValue.toLowerCase()) && !matchingSuggestions.includes(question)) {
           matchingSuggestions.push(question);
         }
       });
     });
-
     setSuggestions(matchingSuggestions.slice(0, 4));
   };
 
   const handleInputChange = (e) => {
     const value = e.target.value;
     setInput(value);
-    
     if (value.trim()) {
       generateSuggestions(value);
       setShowSuggestions(true);
@@ -61,281 +50,92 @@ const AIChatbot = () => {
     }
   };
 
-  const handleSuggestionClick = (suggestion) => {
-    setInput(suggestion);
-    setShowSuggestions(false);
-    setTimeout(() => handleSend(suggestion), 100);
-  };
-
-  const toggleChatbot = () => {
-    setIsMinimized(!isMinimized);
-    setHasNewMessage(false);
-    if (!isMinimized) {
-      // When minimizing, hide suggestions
-      setShowSuggestions(false);
-    }
-  };
-
   const handleSend = (messageText = null) => {
-    const messageToSend = messageText || input;
-    if (!messageToSend.trim() || isLoading) return;
+    const text = messageText || input;
+    if (!text.trim() || isLoading) return;
 
-    const userMessage = { role: "user", content: messageToSend };
-    setMessages(prevMessages => [...prevMessages, userMessage]);
+    setMessages(prev => [...prev, { role: "user", content: text }]);
     setInput("");
     setShowSuggestions(false);
     setIsLoading(true);
 
-    // Enhanced greeting responses
-    const greetings = ["hello", "hi", "hey", "good morning", "good afternoon", "good evening"];
-    if (greetings.includes(messageToSend.toLowerCase().trim())) {
-      const botMessage = {
-        role: "assistant",
-        content: "Hello! How are you doing today? I'm here to help you with anything you need! 😊",
-      };
-      setTimeout(() => {
-        setMessages(prevMessages => [...prevMessages, botMessage]);
-        setIsLoading(false);
-        if (isMinimized) setHasNewMessage(true);
-      }, 800);
-      return;
-    }
-
-    // Handle "how are you" responses
-    const howAreYouQuestions = ["how are you", "how do you do", "what's up", "how's it going"];
-    if (howAreYouQuestions.some(q => messageToSend.toLowerCase().includes(q))) {
-      const botMessage = {
-        role: "assistant",
-        content: "I'm doing great, thank you for asking! I'm here and ready to assist you. What can I help you with today? 🚀",
-      };
-      setTimeout(() => {
-        setMessages(prevMessages => [...prevMessages, botMessage]);
-        setIsLoading(false);
-        if (isMinimized) setHasNewMessage(true);
-      }, 800);
-      return;
-    }
-
-    // Original intent matching logic
     setTimeout(() => {
-      const matched = intents.find((intent) =>
-        intent.userQuestions?.some((q) => {
-          const userInput = messageToSend.toLowerCase().replace(/[^\w\s]/g, '');
-          const question = q.toLowerCase().replace(/[^\w\s]/g, '');
-          return userInput.includes(question) || question.includes(userInput);
-        })
+      const matched = intents.find(intent =>
+        intent.userQuestions?.some(q => text.toLowerCase().includes(q.toLowerCase()))
       );
 
-      let response = "I'm sorry, I didn't quite understand that. Could you please try rephrasing your question? 🤔";
+      const response = matched ? matched.botResponse : "I'm processing this frequency but it's unclear. Can you rephrase the request? 🤔";
 
-      if (matched) {
-        response = matched.botResponse;
-        if (matched.linkedBlog) {
-          response += ` 👉 /blog/${matched.linkedBlog.slug.current}`;
-        }
-      }
-
-      const botMessage = {
-        role: "assistant",
-        content: response,
-      };
-      setMessages(prevMessages => [...prevMessages, botMessage]);
+      setMessages(prev => [...prev, { role: "assistant", content: response }]);
       setIsLoading(false);
       if (isMinimized) setHasNewMessage(true);
-    }, 800 + Math.random() * 500);
+    }, 1000);
   };
 
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSend();
-    }
-    if (e.key === 'Escape') {
-      setShowSuggestions(false);
-    }
-  };
-
-  const handleInputFocus = () => {
-    if (input.trim()) {
-      generateSuggestions(input);
-      setShowSuggestions(true);
-    }
-  };
-
-  const handleInputBlur = () => {
-    // Delay hiding suggestions to allow clicking on them
-    setTimeout(() => {
-      setShowSuggestions(false);
-    }, 150);
-  };
-
-  // Minimized view
   if (isMinimized) {
     return (
-      <div className="fixed bottom-4 right-4 z-50">
+      <div className="fixed bottom-8 right-8 z-[100]">
         <button
-          onClick={toggleChatbot}
-          className="relative w-16 h-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full shadow-2xl hover:shadow-3xl transform hover:scale-110 transition-all duration-300 flex items-center justify-center group"
-          aria-label="Open chatbot"
+          onClick={() => { setIsMinimized(false); setHasNewMessage(false); }}
+          className="w-16 h-16 bg-[#599692] text-white rounded-2xl shadow-2xl flex items-center justify-center group hover:scale-110 transition-all duration-500 relative"
         >
-          {/* Chat Icon */}
-          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2.5">
+            <path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
           </svg>
-          
-          {/* New message notification */}
-          {hasNewMessage && (
-            <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center animate-bounce">
-              <div className="w-3 h-3 bg-red-600 rounded-full animate-pulse"></div>
-            </div>
-          )}
-          
-          {/* Tooltip */}
-          <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-800 text-white text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
-            Click to open chat
-            <div className="absolute top-full right-4 w-2 h-2 bg-gray-800 transform rotate-45 -mt-1"></div>
-          </div>
+          {hasNewMessage && <div className="absolute -top-1 -right-1 w-4 h-4 bg-white rounded-full animate-bounce"></div>}
         </button>
       </div>
     );
   }
 
-  // Full chatbot view
   return (
-    <div className="fixed bottom-4 right-4 w-80 bg-white shadow-2xl rounded-xl border border-gray-200 overflow-hidden backdrop-blur-lg bg-white/95 z-50 animate-slideUp">
-      {/* Enhanced Header with close button */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-              <div className="w-4 h-4 bg-white rounded-full animate-pulse"></div>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg">Chat With Me</h3>
-              <p className="text-sm opacity-90">Online • Ready to help!</p>
-            </div>
-          </div>
-          <button
-            onClick={toggleChatbot}
-            className="p-2 hover:bg-white/20 rounded-lg transition-colors duration-200"
-            title="Close chat"
-            aria-label="Close chatbot"
-          >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
+    <div className="fixed bottom-8 right-8 w-96 bg-[#11172a] border border-white/10 rounded-[2.5rem] shadow-2xl z-[100] overflow-hidden flex flex-col h-[600px] backdrop-blur-3xl">
+      <div className="p-8 bg-white/5 border-b border-white/5 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="w-3 h-3 rounded-full bg-[#599692] animate-pulse"></div>
+          <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Neural Link Beta</span>
         </div>
+        <button onClick={() => setIsMinimized(true)} className="text-[#626c7d] hover:text-white transition-colors">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18M6 6l12 12" /></svg>
+        </button>
       </div>
 
-      {/* Chat Messages */}
-      <div className="h-80 overflow-y-auto p-4 space-y-3 bg-gradient-to-b from-gray-50 to-white">
-        {messages.length === 0 && (
-          <div className="text-center text-gray-500 py-8">
-            <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-              <span className="text-2xl">👋</span>
-            </div>
-            <p className="font-medium">Hi! How can I help you today?</p>
-            <p className="text-sm mt-1">Start typing to see suggestions...</p>
-          </div>
-        )}
-
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"} animate-fadeIn`}
-          >
-            <div
-              className={`max-w-xs px-4 py-3 rounded-2xl text-sm shadow-sm ${
-                msg.role === "user"
-                  ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-md"
-                  : "bg-white text-gray-800 rounded-bl-md border border-gray-100"
-              }`}
-            >
+      <div className="flex-1 overflow-y-auto p-8 space-y-8 scrollbar-hide">
+        {messages.map((msg, i) => (
+          <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className={`max-w-[80%] p-6 rounded-[2rem] text-[13px] font-medium leading-relaxed italic ${msg.role === 'user' ? 'bg-[#599692] text-white' : 'bg-white/5 text-[#dfe5ec]'}`}>
               {msg.content}
             </div>
           </div>
         ))}
-
-        {isLoading && (
-          <div className="flex justify-start animate-fadeIn">
-            <div className="bg-white text-gray-800 px-4 py-3 rounded-2xl rounded-bl-md shadow-sm border border-gray-100">
-              <div className="flex space-x-1">
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce"></div>
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-              </div>
-            </div>
-          </div>
-        )}
+        {isLoading && <div className="text-[10px] font-black text-[#599692] uppercase tracking-widest animate-pulse">Syncing...</div>}
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Suggestions Panel */}
-      {showSuggestions && suggestions.length > 0 && (
-        <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
-          <p className="text-xs text-gray-500 mb-2">Suggestions:</p>
-          <div className="flex flex-wrap gap-1">
-            {suggestions.map((suggestion, index) => (
-              <button
-                key={index}
-                onClick={() => handleSuggestionClick(suggestion)}
-                className="px-3 py-1 bg-white text-gray-700 text-xs rounded-full border border-gray-200 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700 transition-all duration-200"
-              >
-                {suggestion}
+      <div className="p-8 space-y-6">
+        {showSuggestions && suggestions.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {suggestions.map((s, i) => (
+              <button key={i} onClick={() => { setInput(s); handleSend(s); }} className="px-4 py-2 bg-white/5 border border-white/10 text-[10px] text-[#626c7d] font-black uppercase tracking-widest rounded-full hover:bg-white/10 hover:text-white transition-all">
+                {s}
               </button>
             ))}
           </div>
-        </div>
-      )}
-
-      {/* Enhanced Input Section */}
-      <div className="p-4 border-t border-gray-200 bg-white">
-        <div className="flex space-x-3">
-          <div className="flex-1 relative">
-            <input
-              type="text"
-              value={input}
-              onChange={handleInputChange}
-              onKeyPress={handleKeyPress}
-              onFocus={handleInputFocus}
-              onBlur={handleInputBlur}
-              placeholder="Type your message..."
-              disabled={isLoading}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50 disabled:bg-gray-50 transition-all duration-200"
-            />
-          </div>
-          <button
-            onClick={() => handleSend()}
-            disabled={!input.trim() || isLoading}
-            className="px-5 py-3 bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl hover:from-blue-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 transition-all duration-200 shadow-lg"
-            aria-label="Send message"
-          >
-            {isLoading ? (
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              "Send"
-            )}
+        )}
+        <div className="relative">
+          <input
+            type="text"
+            value={input}
+            onChange={handleInputChange}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            placeholder="Input Frequency..."
+            className="w-full bg-white/5 border border-white/10 rounded-full py-4 px-8 text-[13px] text-white placeholder-white/20 focus:outline-none focus:border-[#599692] transition-all italic"
+          />
+          <button onClick={() => handleSend()} className="absolute right-2 top-2 bottom-2 aspect-square bg-white rounded-full flex items-center justify-center text-black hover:bg-[#599692] hover:text-white transition-all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4"><path d="m5 12 7-7 7 7M12 19V5" /></svg>
           </button>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes fadeIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(20px) scale(0.95); }
-          to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-        .animate-fadeIn {
-          animation: fadeIn 0.3s ease-out;
-        }
-        .animate-slideUp {
-          animation: slideUp 0.4s ease-out;
-        }
-      `}</style>
     </div>
   );
 };

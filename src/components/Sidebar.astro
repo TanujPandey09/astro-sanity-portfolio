@@ -10,33 +10,25 @@ const [sideBar] = await useSanityClient().fetch(query);
 ---
 
 <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out" id="header">
-  <nav class="container mx-auto px-6 py-1.5">
+  <nav class="container mx-auto px-6 py-4 transition-all duration-500" id="nav">
     <div class="flex items-center justify-between">
-      {/* Logo Section - Image Logo */}
-      <a 
-        href="/" 
-        class="logo-container group"
-        aria-label="Home"
-      >
-        <div class="logo-wrapper">
-          <img 
-            src="/img/logo.png" 
-            alt="Portfolio Logo" 
-            class="logo-image"
-          />
+      {/* Logo Section */}
+      <a href="/" class="group flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-[#599692]/20 transition-all duration-500">
+          <span class="text-white font-black text-xl tracking-tighter group-hover:text-[#599692]">T</span>
         </div>
+        <span class="text-[10px] font-black text-white uppercase tracking-[0.5em] hidden sm:block">Tanuj Pandey</span>
       </a>
 
       {/* Desktop Navigation */}
-      <div class="hidden md:flex items-center space-x-1">
-        {sideBar?.sideMenus?.map((menuItem, index) => (
+      <div class="hidden md:flex items-center gap-2">
+        {sideBar?.sideMenus?.map((menuItem) => (
           <a 
             href={menuItem.menuLink.current}
-            class="nav-link group relative px-4 py-2 text-sm font-medium transition-all duration-300"
-            data-index={index}
+            class="nav-link px-6 py-2 text-[10px] font-black uppercase tracking-[0.4em] text-[#626c7d] hover:text-white transition-all relative group"
           >
             <span class="relative z-10">{menuItem.menuName}</span>
-            <span class="nav-link-bg"></span>
+            <div class="absolute inset-0 bg-white/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-500 -z-0"></div>
           </a>
         ))}
       </div>
@@ -44,313 +36,86 @@ const [sideBar] = await useSanityClient().fetch(query);
       {/* Mobile Menu Button */}
       <button 
         id="mobile-menu-button" 
-        class="md:hidden relative w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-300 hover:bg-white/10"
-        aria-label="Toggle Menu"
+        class="md:hidden w-10 h-10 flex flex-col items-end justify-center gap-1.5 group"
       >
-        <div class="hamburger">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
+        <div class="w-6 h-[2px] bg-white group-hover:bg-[#599692] transition-colors"></div>
+        <div class="w-4 h-[2px] bg-white group-hover:bg-[#599692] transition-colors"></div>
       </button>
     </div>
 
-    {/* Mobile Menu */}
+    {/* Mobile Menu Overlay */}
     <div 
       id="mobile-menu" 
-      class="mobile-menu md:hidden"
+      class="fixed inset-0 bg-[#000105]/95 backdrop-blur-2xl z-40 hidden flex-col items-center justify-center space-y-8"
     >
-      <div class="mobile-menu-content">
-        {sideBar?.sideMenus?.map((menuItem, index) => (
-          <a 
-            href={menuItem.menuLink.current}
-            class="mobile-nav-link"
-            style={`animation-delay: ${index * 0.1}s`}
-          >
-            {menuItem.menuName}
-          </a>
-        ))}
-      </div>
+      <button id="close-menu" class="absolute top-8 right-8 text-white/40 hover:text-white text-[10px] font-black uppercase tracking-widest">Close [ESC]</button>
+      {sideBar?.sideMenus?.map((menuItem) => (
+        <a 
+          href={menuItem.menuLink.current}
+          class="text-4xl font-black text-white uppercase tracking-tighter hover:text-[#599692] transition-colors"
+        >
+          {menuItem.menuName}
+        </a>
+      ))}
     </div>
   </nav>
 </header>
 
 <style>
-  /* Header States */
-  #header {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(51, 65, 85, 0.7) 100%);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
   #header.scrolled {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(51, 65, 85, 0.95) 100%);
+    background: rgba(17, 23, 42, 0.8);
     backdrop-filter: blur(20px);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  }
-
-  #header.at-top {
-    background: linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.4) 100%);
-    backdrop-filter: blur(8px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
-
-  /* Logo Styling */
-  .logo-container {
-    position: relative;
-    display: inline-block;
-  }
-
-  .logo-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid transparent;
-    border-radius: 12px;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .logo-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 12px;
-    padding: 3px;
-    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-
-  .logo-container:hover .logo-wrapper::before {
-    opacity: 1;
-  }
-
-  .logo-container:hover .logo-wrapper {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
-  }
-
-  .logo-image {
-    height: 40px;
-    width: auto;
-    object-fit: contain;
-    transition: transform 0.3s ease;
-  }
-
-  .logo-container:hover .logo-image {
-    transform: scale(1.05);
-  }
-
-  /* Desktop Navigation Links */
-  .nav-link {
-    color: rgba(255, 255, 255, 0.8);
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-  }
-
-  .nav-link-bg {
-    position: absolute;
-    inset: 0;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-link:hover {
-    color: #fff;
-  }
-
-  .nav-link:hover .nav-link-bg {
-    transform: scaleX(1);
+  
+  #header.scrolled #nav {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
   }
 
   .nav-link.active {
-    color: #fff;
+    color: #599692;
   }
 
-  .nav-link.active .nav-link-bg {
-    transform: scaleX(1);
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%);
-  }
-
-  /* Mobile Menu Button */
-  .hamburger {
-    width: 20px;
-    height: 16px;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, #60a5fa, #a78bfa);
-    border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  #mobile-menu-button.active .hamburger span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-
-  #mobile-menu-button.active .hamburger span:nth-child(2) {
-    opacity: 0;
-  }
-
-  #mobile-menu-button.active .hamburger span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
-
-  /* Mobile Menu */
-  .mobile-menu {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .mobile-menu.active {
-    max-height: 500px;
-  }
-
-  .mobile-menu-content {
-    padding: 1.5rem 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .mobile-nav-link {
-    padding: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
-    border-radius: 8px;
-    transition: all 0.3s;
-    opacity: 0;
-    transform: translateX(-20px);
-    animation: slideIn 0.4s forwards;
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .mobile-nav-link:hover {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(147, 51, 234, 0.2) 100%);
-    transform: translateX(4px);
-    color: #fff;
-  }
-
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .logo-wrapper {
-      padding: 0.5rem 0.75rem;
-    }
-
-    .logo-text {
-      font-size: 1.125rem;
-    }
+  .nav-link.active div {
+    scale: 1;
+    background: rgba(89, 150, 146, 0.1);
   }
 </style>
 
 <script>
-  // Type definitions
-  const header = document.getElementById("header") as HTMLElement | null;
-  const mobileMenuButton = document.getElementById("mobile-menu-button") as HTMLButtonElement | null;
-  const mobileMenu = document.getElementById("mobile-menu") as HTMLElement | null;
-  
-  // Scroll handler with throttling for performance
-  let ticking = false;
-  
-  const handleScroll = () => {
-    if (!ticking) {
-      window.requestAnimationFrame(() => {
-        if (header) {
-          if (window.scrollY > 20) {
-            header.classList.add("scrolled");
-            header.classList.remove("at-top");
-          } else {
-            header.classList.remove("scrolled");
-            header.classList.add("at-top");
-          }
-        }
-        ticking = false;
-      });
-      ticking = true;
-    }
-  };
+  const header = document.getElementById('header');
+  const btn = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+  const close = document.getElementById('close-menu');
 
-  // Initialize header state
-  if (header) {
-    if (window.scrollY <= 20) {
-      header.classList.add("at-top");
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
     } else {
-      header.classList.add("scrolled");
+      header?.classList.remove('scrolled');
     }
-  }
+  });
 
-  window.addEventListener("scroll", handleScroll, { passive: true });
+  btn?.addEventListener('click', () => {
+    menu?.classList.remove('hidden');
+    menu?.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  });
 
-  // Mobile menu toggle
-  const toggleMobileMenu = () => {
-    mobileMenuButton?.classList.toggle("active");
-    mobileMenu?.classList.toggle("active");
-    document.body.style.overflow = mobileMenu?.classList.contains("active") ? "hidden" : "";
+  const closeMenu = () => {
+    menu?.classList.add('hidden');
+    menu?.classList.remove('flex');
+    document.body.style.overflow = '';
   };
 
-  mobileMenuButton?.addEventListener("click", toggleMobileMenu);
-
-  // Close mobile menu on window resize
-  const handleResize = () => {
-    if (window.innerWidth >= 768) {
-      mobileMenuButton?.classList.remove("active");
-      mobileMenu?.classList.remove("active");
-      document.body.style.overflow = "";
+  close?.addEventListener('click', closeMenu);
+  
+  // Active Link Handler
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.nav-link').forEach(link => {
+    if (link.getAttribute('href') === currentPath) {
+      link.classList.add('active');
     }
-  };
-
-  window.addEventListener("resize", handleResize);
-
-  // Active link highlighting
-  const setActiveLink = () => {
-    const currentPath = window.location.pathname;
-    const links = document.querySelectorAll<HTMLAnchorElement>(".nav-link, .mobile-nav-link");
-    
-    links.forEach(link => {
-      const href = link.getAttribute("href");
-      if (href === currentPath || (currentPath === "/" && href === "/")) {
-        link.classList.add("active");
-      } else {
-        link.classList.remove("active");
-      }
-    });
-  };
-
-  // Run on page load
-  setActiveLink();
-
-  // Close mobile menu when clicking on a link
-  const mobileLinks = document.querySelectorAll(".mobile-nav-link");
-  mobileLinks.forEach(link => {
-    link.addEventListener("click", () => {
-      toggleMobileMenu();
-    });
   });
 </script>

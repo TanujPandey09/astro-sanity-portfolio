@@ -1,0 +1,40 @@
+---
+const { blog, index } = Astro.props;
+---
+
+<div class="blog-item group relative py-16 border-b border-white/5 last:border-0" data-aos="fade-up" data-aos-delay={index * 50}>
+  <a href={`/blogs/${blog.slug.current}`} class="flex items-center justify-between gap-8">
+    <div class="flex-1">
+      <div class="flex items-center gap-6 mb-4">
+        <span class="text-[10px] font-black text-[#599692]">JOURNAL {index + 1}</span>
+        <span class="text-[10px] font-black text-[#626c7d] italic">{new Date(blog._createdAt).toLocaleDateString()}</span>
+      </div>
+      
+      <h3 class="text-3xl md:text-5xl font-black text-white group-hover:text-[#599692] transition-colors uppercase tracking-tight leading-none">
+        {blog.title}
+      </h3>
+    </div>
+
+    <div class="hidden md:block w-32 h-32 rounded-full overflow-hidden scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] border-2 border-[#599692]">
+      {blog.FeatureImage?.asset?.url && (
+        <img 
+          src={blog.FeatureImage.asset.url} 
+          alt={blog.title}
+          class="w-full h-full object-cover"
+        />
+      )}
+    </div>
+
+    <div class="flex items-center justify-center w-12 h-12 rounded-full border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-500">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <path d="M5 12h14m-7-7 7 7-7 7"/>
+      </svg>
+    </div>
+  </a>
+</div>
+
+<style>
+  .blog-item {
+    cursor: pointer;
+  }
+</style>

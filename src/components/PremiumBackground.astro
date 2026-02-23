@@ -1,0 +1,80 @@
+<div class="fixed inset-0 -z-10 selection:bg-[#7000FF]/30">
+  <!-- Deep Base -->
+  <div class="absolute inset-0 bg-[#000105]"></div>
+  
+  <!-- Ethereal Glows -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="glow-particle glow-1"></div>
+    <div class="glow-particle glow-2"></div>
+    <div class="glow-particle glow-3"></div>
+  </div>
+
+  <!-- Noise Overlay -->
+  <div class="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-100 contrast-150"></div>
+  
+  <!-- Strategic Vignette -->
+  <div class="absolute inset-0 bg-radial-vignette pointer-events-none"></div>
+</div>
+
+<style>
+  .glow-particle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.15;
+    mix-blend-mode: screen;
+  }
+
+  .glow-1 {
+    width: 60vw;
+    height: 60vw;
+    top: -20%;
+    left: -10%;
+    background: radial-gradient(circle, #599692 0%, transparent 70%);
+    animation: float 20s infinite alternate ease-in-out;
+  }
+
+  .glow-2 {
+    width: 50vw;
+    height: 50vw;
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle, #626c7d 0%, transparent 70%);
+    animation: float 25s infinite alternate-reverse ease-in-out;
+  }
+
+  .glow-3 {
+    width: 40vw;
+    height: 40vw;
+    top: 40%;
+    left: 30%;
+    background: radial-gradient(circle, #599692 0%, transparent 70%);
+    animation: float 15s infinite alternate ease-in-out;
+  }
+
+  @keyframes float {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(3%, 3%) scale(1.05); }
+  }
+
+  .bg-radial-vignette {
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 1, 5, 0.4) 100%);
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+  
+  const initGlows = () => {
+    gsap.to('.glow-particle', {
+      x: "random(-50, 50)",
+      y: "random(-50, 50)",
+      duration: "random(10, 20)",
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut"
+    });
+  };
+
+  initGlows();
+</script>

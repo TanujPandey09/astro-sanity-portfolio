@@ -1,259 +1,118 @@
 ---
-import Myswiper from "../../components/Slider/SliderLayout.jsx";
-const data = Astro.props;
-const skilldata = Astro.props;
-
+const { aboutData } = Astro.props;
 import { PortableText } from "astro-portabletext";
-import { Icon } from "astro-icon/components";
+import SectionHeader from "../SectionHeader.astro";
+import PremiumBackground from "../PremiumBackground.astro";
 ---
 
-<!-- Animated Background -->
-<div class="fixed inset-0 -z-10 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-  <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+<div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
+  <PremiumBackground />
+
+  <main class="container mx-auto px-6 py-32 relative z-10">
+    <!-- Hero Section -->
+    <section class="grid lg:grid-cols-12 gap-20 items-center mb-48">
+      <div class="lg:col-span-12 mb-12" data-aos="fade-down">
+         <SectionHeader 
+           title="Identity" 
+           gradientText="Synthesis" 
+           subtitle="Decoding the intersection of technical architecture and creative narrative."
+         />
+      </div>
+
+      <!-- Image Section -->
+      <div class="lg:col-span-5 relative group" data-aos="fade-right">
+        <div class="absolute -inset-4 bg-gradient-to-tr from-[#599692] to-[#626c7d] rounded-[3rem] opacity-20 blur-3xl group-hover:opacity-40 transition-opacity duration-1000"></div>
+        <div class="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 p-2 bg-[#11172a]">
+          {aboutData?.[0]?.heroImage?.asset?.url ? (
+            <img
+              src={aboutData[0].heroImage.asset.url}
+              alt="Tanuj Pandey"
+              class="w-full h-full object-cover rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100"
+            />
+          ) : (
+             <div class="w-full h-full bg-white/5 animate-pulse rounded-[2.5rem]"></div>
+          )}
+        </div>
+        
+        <!-- Abstract Element -->
+        <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-[#599692]/10 rounded-full blur-[80px] -z-10 group-hover:bg-[#599692]/20 transition-all"></div>
+      </div>
+
+      <!-- Content -->
+      <div class="lg:col-span-7 space-y-12" data-aos="fade-left">
+        <div class="prose-container relative">
+          <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
+          <div class="prose prose-xl prose-invert max-w-none">
+             <div class="text-3xl md:text-4xl text-white font-black uppercase tracking-tighter mb-8 leading-tight">
+               "{aboutData?.[0]?.aboutName || "Architecting digital success through technical mastery."}"
+             </div>
+             <div class="text-[#626c7d] text-lg md:text-xl leading-relaxed italic space-y-6">
+               <PortableText value={aboutData?.[0]?.description} />
+             </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 pt-12">
+          <div class="space-y-2">
+             <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.4em]">Efficiency</p>
+             <p class="text-2xl text-white font-black tabular-nums">98.5%</p>
+          </div>
+          <div class="space-y-2">
+             <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Availability</p>
+             <p class="text-2xl text-white font-black tabular-nums">24/7</p>
+          </div>
+          <div class="space-y-2">
+             <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Latency</p>
+             <p class="text-2xl text-white font-black tabular-nums">&lt;2ms</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Grid (Awwwards Style) -->
+    <section class="py-32">
+       <div class="grid md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-[3rem] overflow-hidden">
+          {[
+            { title: "Frontend Architecture", desc: "Crafting high-fidelity, high-performance interfaces with modern frameworks and robust state management." },
+            { title: "Creative direction", desc: "Synthesizing visual aesthetics with functional requirements to create immersive digital experiences." },
+            { title: "Technical Strategy", desc: "Architecting scalable digital ecosystems that align with business objectives and growth trajectory." }
+          ].map((service, i) => (
+            <div class="group p-16 bg-[#11172a] hover:bg-white/[0.02] transition-colors relative">
+               <div class="text-[10px] font-black text-[#599692] mb-8 opacity-40">0{i + 1}</div>
+               <h3 class="text-2xl font-black text-white uppercase tracking-tighter mb-6 group-hover:text-gradient transition-all">{service.title}</h3>
+               <p class="text-[#626c7d] italic leading-relaxed">"{service.desc}"</p>
+               <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#599692] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
+            </div>
+          ))}
+       </div>
+    </section>
+  </main>
 </div>
 
-<main class="min-h-screen">
-  <!-- Hero Section with Image & Intro -->
-  <section class="container mx-auto px-6 py-20 md:py-32">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      
-      <!-- Image Section -->
-      {data?.aboutData[0]?.heroImage?.asset?.url && (
-        <div class="relative" data-aos="fade-right">
-          <div class="absolute -inset-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl blur-2xl opacity-20"></div>
-          <div class="relative">
-            <img
-              class="w-full h-auto rounded-3xl border-2 border-slate-700/50 shadow-2xl hover:scale-[1.02] transition-transform duration-500"
-              src={data.aboutData[0].heroImage.asset.url}
-              alt="Profile"
-            />
-            <!-- Decorative Elements -->
-            <div class="absolute -top-4 -right-4 w-24 h-24 bg-blue-500/20 rounded-full blur-xl"></div>
-            <div class="absolute -bottom-4 -left-4 w-32 h-32 bg-purple-500/20 rounded-full blur-xl"></div>
-          </div>
-        </div>
-      )}
-
-      <!-- Text Content -->
-      <div class="space-y-6" data-aos="fade-left">
-        {data?.aboutData[0]?.aboutName && (
-          <div>
-            <span class="inline-block px-4 py-2 bg-blue-500/10 text-blue-400 rounded-full text-sm font-medium mb-4">
-              About Me
-            </span>
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-              {data.aboutData[0].aboutName}
-            </h1>
-          </div>
-        )}
-
-        <div class="prose prose-lg prose-invert">
-          <PortableText
-            class="text-slate-300 leading-relaxed text-lg"
-            value={data?.aboutData[0]?.description}
-          />
-        </div>
-
-        <!-- Social Links -->
-        <div class="pt-6">
-          <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">
-            <span class="w-8 h-[2px] bg-gradient-to-r from-blue-500 to-purple-500"></span>
-            Let's Connect
-          </h3>
-          <div class="flex gap-4">
-            <a
-              href="#"
-              target="_blank"
-              class="group relative p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-pink-500/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/20"
-            >
-              <Icon name="instagram" size={28} class="text-slate-400 group-hover:text-pink-400 transition-colors" />
-            </a>
-            <a
-              href="https://github.com/TanujPandey09"
-              target="_blank"
-              class="group relative p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
-            >
-              <Icon name="github" size={28} class="text-slate-400 group-hover:text-blue-400 transition-colors" />
-            </a>
-            <a
-              href="https://www.linkedin.com/in/tanujp09/"
-              target="_blank"
-              class="group relative p-4 bg-slate-800/50 rounded-xl border border-slate-700/50 hover:border-blue-500/50 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/20"
-            >
-              <Icon name="linkedin" size={28} class="text-slate-400 group-hover:text-blue-400 transition-colors" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section (Optional - Add your actual stats) -->
-  <section class="container mx-auto px-6 py-16" data-aos="fade-up">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      <div class="text-center p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 transition-all duration-300">
-        <div class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-          5+
-        </div>
-        <div class="text-slate-400 text-sm">Years Experience</div>
-      </div>
-      <div class="text-center p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 transition-all duration-300">
-        <div class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-          50+
-        </div>
-        <div class="text-slate-400 text-sm">Projects Done</div>
-      </div>
-      <div class="text-center p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 transition-all duration-300">
-        <div class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-          30+
-        </div>
-        <div class="text-slate-400 text-sm">Happy Clients</div>
-      </div>
-      <div class="text-center p-6 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 transition-all duration-300">
-        <div class="text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-2">
-          15+
-        </div>
-        <div class="text-slate-400 text-sm">Technologies</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What I Do Section -->
-  <section class="container mx-auto px-6 py-16" data-aos="fade-up">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-        What I Do
-      </h2>
-      <p class="text-slate-400 max-w-2xl mx-auto">
-        I specialize in creating digital experiences that combine creativity with functionality
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
-      <!-- Service Card 1 -->
-      <div class="group p-8 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 hover:border-blue-500/50 transition-all duration-300">
-        <div class="w-14 h-14 bg-blue-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Web Development</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Building responsive and performant web applications using modern frameworks and best practices.
-        </p>
-      </div>
-
-      <!-- Service Card 2 -->
-      <div class="group p-8 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 hover:border-purple-500/50 transition-all duration-300">
-        <div class="w-14 h-14 bg-purple-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-purple-500/20 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-white mb-3">UI/UX Design</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Crafting beautiful and intuitive user interfaces that provide exceptional user experiences.
-        </p>
-      </div>
-
-      <!-- Service Card 3 -->
-      <div class="group p-8 bg-slate-800/30 rounded-2xl border border-slate-700/50 backdrop-blur-sm hover:bg-slate-800/50 hover:border-pink-500/50 transition-all duration-300">
-        <div class="w-14 h-14 bg-pink-500/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-pink-500/20 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-white mb-3">Product Strategy</h3>
-        <p class="text-slate-400 leading-relaxed">
-          Helping businesses bring their ideas to life with strategic planning and execution.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section class="py-16">
-    <Myswiper skilldata={skilldata} client:load />
-  </section>
-
-  <!-- CTA Section -->
-  <section class="container mx-auto px-6 py-20" data-aos="fade-up">
-    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 to-purple-600 p-12 text-center">
-      <div class="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-      <div class="relative z-10">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
-          Let's Work Together
-        </h2>
-        <p class="text-blue-100 mb-8 max-w-2xl mx-auto">
-          I'm always interested in hearing about new projects and opportunities.
-        </p>
-        <a
-          href="/"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-all duration-300 hover:scale-105 shadow-xl"
-        >
-          Get In Touch
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </a>
-      </div>
-    </div>
-  </section>
-</main>
-
 <style>
-  /* Custom Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #0f172a;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
-    border-radius: 4px;
-  }
-
-  /* Prose Styling for PortableText */
-  .prose {
-    max-width: none;
-  }
-
   .prose p {
-    margin-bottom: 1rem;
-    color: #cbd5e1;
-  }
-
-  .prose strong {
-    color: #f1f5f9;
-    font-weight: 600;
-  }
-
-  .prose a {
-    color: #60a5fa;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-
-  .prose a:hover {
-    color: #93c5fd;
-  }
-
-  /* Animation for background */
-  @keyframes gradient-shift {
-    0%, 100% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-  }
-
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
+    margin-bottom: 2rem;
   }
 </style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const initAbout = () => {
+    gsap.from('.prose-container', {
+      opacity: 0,
+      x: 50,
+      duration: 1.5,
+      ease: "power4.out",
+      scrollTrigger: {
+        trigger: '.prose-container',
+        start: "top 80%"
+      }
+    });
+  };
+
+  initAbout();
+</script>

@@ -2,84 +2,73 @@ import { FaInstagram, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <motion.section
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="footer-section font-Roboto w-auto bg-primaryColor h-auto lg:py-20 lg:mt-12 sm:mt-10 mt-10 px-4"
-    >
-      <div className="container mx-auto">
-        <div className="grid md:grid-cols-6 grid-cols-1 mb-10">
-          <motion.div
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-primaryColor about_section font-Roboto col-span-5 justify-center"
-          >
-            <h1 className="text-xl py-1">Tanuj Pandey</h1>
-            <p className="text-base py-1 lg:w-2/3">
-              A Frontend focused Web Developer building the Frontend of Websites and
-              Web Applications that leads to the success of the overall product
+    <footer className="relative py-32 border-t border-white/5 overflow-hidden">
+      <div className="container mx-auto px-6 relative z-10">
+        <div className="grid lg:grid-cols-12 gap-16 items-start">
+
+          <div className="lg:col-span-6 space-y-8">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-[1px] bg-[#599692]"></div>
+              <span className="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">Architecture</span>
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter leading-none">
+              Building the Future <br />
+              <span className="text-gradient">One Bit at a Time.</span>
+            </h2>
+            <p className="text-[#626c7d] text-lg max-w-md italic">
+              "Synthesizing complex engineering with immersive design to architect resilient digital ecosystems."
             </p>
-          </motion.div>
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-primaryColor font-Roboto col-span-1"
-          >
-            <h1 className="text-2xl py-1 font-bold uppercase">Social</h1>
-            <div className="py-1">
-              <div className="pt-2 pb-2 flex gap-6 w-3/5">
-                <motion.a
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl hover:text-purple-500 transition-all"
-                  target="_blank"
-                >
-                  <FaInstagram size={30} />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl hover:text-purple-500 transition-all"
-                  href="https://github.com/TanujPandey09"
-                  target="_blank"
-                >
-                  <FaGithub size={30} />
-                </motion.a>
-                <motion.a
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="hover:shadow-xl hover:text-purple-500 transition-all"
-                  href="https://www.linkedin.com/in/tanujp09/"
-                  target="_blank"
-                >
-                  <FaLinkedin size={30} />
-                </motion.a>
+          </div>
+
+          <div className="lg:col-span-6 grid grid-cols-2 md:grid-cols-3 gap-12">
+            <div className="space-y-6">
+              <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Protocols</p>
+              <ul className="space-y-4">
+                <li><a href="/projects" className="text-sm text-[#626c7d] hover:text-[#599692] transition-colors">Archive</a></li>
+                <li><a href="/blogs" className="text-sm text-[#626c7d] hover:text-[#599692] transition-colors">Journal</a></li>
+                <li><a href="/about" className="text-sm text-[#626c7d] hover:text-[#599692] transition-colors">Identity</a></li>
+              </ul>
+            </div>
+
+            <div className="space-y-6">
+              <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Frequency</p>
+              <div className="flex flex-col gap-4">
+                <a href="https://github.com/TanujPandey09" target="_blank" className="text-sm text-[#626c7d] hover:text-white transition-colors flex items-center gap-2">
+                  <FaGithub size={18} /> GitHub
+                </a>
+                <a href="https://linkedin.com/in/tanujp09" target="_blank" className="text-sm text-[#626c7d] hover:text-white transition-colors flex items-center gap-2">
+                  <FaLinkedin size={18} /> LinkedIn
+                </a>
+                <a href="#" className="text-sm text-[#626c7d] hover:text-white transition-colors flex items-center gap-2">
+                  <FaInstagram size={18} /> Instagram
+                </a>
               </div>
             </div>
-          </motion.div>
+
+            <div className="col-span-2 md:col-span-1 space-y-6">
+              <p className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Transmission</p>
+              <p className="text-sm text-[#626c7d]">tanujp09@gmail.com</p>
+              <p className="text-sm text-[#626c7d]">Delhi, India</p>
+            </div>
+          </div>
         </div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="main-footer__lower border border-r-0 border-l-0 border-b-0 pt-8 text-center text-white"
-        >
-          © Copyright 2024 . Made by
-          <a
-            rel="noreferrer"
-            target="_blank"
-            href="https://tanujportfoliodev.netlify.app/"
-            className="hover:text-purple-500 underline"
-          >
-            Tanuj Pandey
-          </a>
-        </motion.div>
+
+        <div className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
+          <div className="text-[10px] font-black text-[#626c7d] uppercase tracking-widest">
+            © {currentYear} Tanuj Pandey . All Systems Operational
+          </div>
+          <div className="flex items-center gap-8">
+            <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.3em]">Latency: 12ms</span>
+            <span className="text-[8px] font-black text-[#599692] uppercase tracking-[0.3em]">Status: encrypted</span>
+          </div>
+        </div>
       </div>
-    </motion.section>
+
+      {/* Background Accent */}
+      <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-[#599692]/5 rounded-full blur-[120px] pointer-events-none"></div>
+    </footer>
   );
 }

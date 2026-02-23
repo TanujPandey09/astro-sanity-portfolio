@@ -1,0 +1,87 @@
+---
+import SectionHeader from "./SectionHeader.astro";
+
+const skillsData = [
+  { name: "React.js", level: 95, color: "#61DAFB" },
+  { name: "Next.js", level: 90, color: "#FFFFFF" },
+  { name: "TypeScript", level: 85, color: "#3178C6" },
+  { name: "JavaScript", level: 95, color: "#F7DF1E" },
+  { name: "Tailwind CSS", level: 90, color: "#38B2AC" },
+  { name: "Node.js", level: 80, color: "#68A063" },
+  { name: "MongoDB", level: 75, color: "#47A248" },
+  { name: "Replit", level: 75, color: "#F26207" },
+  { name: "Git", level: 90, color: "#F05032" },
+];
+
+const segments = [1, 2, 3, 4, 5];
+---
+
+<section id="skills" class="py-32 relative z-10 bg-[#11172a] overflow-hidden">
+  <div class="container mx-auto px-6">
+    <SectionHeader 
+      title="Engineering" 
+      gradientText="Arsenal" 
+      subtitle="A precision-engineered stack for building resilient, high-fidelity digital infrastructure."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        skillsData.map((skill, index) => {
+          // Pre-calculate segments outside the template return to avoid Astro parser issues with < or <=
+          const activeSegmentsCount = Math.floor(skill.level / 20);
+          
+          return (
+            <div 
+              class="group p-8 glass-card border-white/5 hover:border-[#599692]/30 transition-all duration-500 overflow-hidden relative"
+              data-aos="fade-up"
+              data-aos-delay={index * 50}
+            >
+              <div class="absolute -top-12 -right-12 w-24 h-24 bg-[#599692]/5 blur-[40px] rounded-full group-hover:bg-[#599692]/10 transition-all duration-700"></div>
+              
+              <div class="flex items-center justify-between mb-8">
+                 <h3 class="text-xl font-bold text-[#dfe5ec] uppercase tracking-wider group-hover:text-white transition-colors">
+                   {skill.name}
+                 </h3>
+                 <span class="text-[10px] font-black text-[#599692] uppercase tracking-[0.2em]">{skill.level}% Proficiency</span>
+              </div>
+
+              <div class="space-y-4">
+                 <div class="h-[1px] w-full bg-white/5 relative overflow-hidden">
+                    <div 
+                      class="skill-bar absolute left-0 top-0 bottom-0 transition-all duration-1000 ease-out"
+                      style={`width: ${skill.level}%; background-color: ${skill.color}; box-shadow: 0 0 10px ${skill.color}80`}
+                    ></div>
+                 </div>
+                 
+                 <div class="flex gap-2">
+                    {segments.map((s) => (
+                      <div 
+                        class:list={[
+                          "h-1 flex-1 rounded-full transition-all duration-500",
+                          s <= activeSegmentsCount ? "isActive" : "bg-white/5"
+                        ]}
+                        style={s <= activeSegmentsCount ? `background-color: ${skill.color}CC` : ''}
+                      ></div>
+                    ))}
+                 </div>
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .skill-bar {
+    opacity: 0.2;
+  }
+  .group:hover .skill-bar {
+    opacity: 1;
+  }
+  .isActive {
+    /* Base color if no style override */
+    background-color: #599692;
+  }
+</style>

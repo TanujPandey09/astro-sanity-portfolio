@@ -1,302 +1,67 @@
 ---
-import { Link } from "astro-link";
-import { PortableText } from "astro-portabletext";
-const data = Astro.props;
+import ProjectItem from "../ProjectItem.astro";
+import SectionHeader from "../SectionHeader.astro";
+import PremiumBackground from "../PremiumBackground.astro";
+const { projectData } = Astro.props;
 ---
 
-<section class="project-section relative min-h-screen font-Roboto overflow-hidden">
-  <!-- Premium Animated Background -->
-  <div class="fixed inset-0 -z-10">
-    <!-- Base gradient with animation -->
-    <div class="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950 to-slate-900 animate-gradient-shift"></div>
-    
-    <!-- Animated mesh gradient overlay -->
-    <div class="absolute inset-0 opacity-60">
-      <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-500/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob"></div>
-      <div class="absolute top-0 right-1/4 w-96 h-96 bg-violet-500/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-2000"></div>
-      <div class="absolute bottom-0 left-1/3 w-96 h-96 bg-indigo-500/30 rounded-full mix-blend-multiply filter blur-3xl animate-blob animation-delay-4000"></div>
-    </div>
-    
-    <!-- Floating particles -->
-    <div class="particles-container">
-      <div class="particle particle-1"></div>
-      <div class="particle particle-2"></div>
-      <div class="particle particle-3"></div>
-      <div class="particle particle-4"></div>
-      <div class="particle particle-5"></div>
-      <div class="particle particle-6"></div>
-      <div class="particle particle-7"></div>
-      <div class="particle particle-8"></div>
-    </div>
-    
-    <!-- Animated lines -->
-    <div class="lines-container">
-      <div class="line line-1"></div>
-      <div class="line line-2"></div>
-      <div class="line line-3"></div>
-    </div>
-    
-    <!-- Sophisticated grid with animation -->
-    <div class="absolute inset-0 bg-grid-pattern opacity-[0.03] animate-grid-float"></div>
-    
-    <!-- Pulsing rings -->
-    <div class="rings-container">
-      <div class="ring ring-1"></div>
-      <div class="ring ring-2"></div>
-      <div class="ring ring-3"></div>
-    </div>
-    
-    <!-- Radial gradient vignette -->
-    <div class="absolute inset-0 bg-radial-gradient"></div>
-  </div>
+<div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
+  <PremiumBackground />
 
-  <div class="container mx-auto px-4 md:px-8 lg:px-12 mt-6 py-20">
-    <!-- Premium Header -->
-    <div class="text-center mb-20 relative">
-      <div class="inline-block relative">
-        <h1 class="text-6xl md:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight">
-          Featured
-          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-violet-400 to-purple-600 animate-gradient-x">
-            Projects
-          </span>
-        </h1>
-        <!-- Decorative elements -->
-        <div class="absolute -top-8 -left-8 w-20 h-20 border-t-4 border-l-4 border-purple-500/30 rounded-tl-3xl"></div>
-        <div class="absolute -bottom-8 -right-8 w-20 h-20 border-b-4 border-r-4 border-purple-500/30 rounded-br-3xl"></div>
+  <main class="container mx-auto px-6 py-32 relative z-10">
+    <div class="max-w-7xl mx-auto">
+      <SectionHeader 
+        title="Archive" 
+        gradientText="Index" 
+        subtitle="A comprehensive log of technical explorations, architectural blueprints, and high-fidelity deployments."
+      />
+
+      <div class="mt-32 space-y-0">
+        {projectData?.map((project: any, index: number) => (
+          <ProjectItem project={project} index={index} />
+        ))}
       </div>
-      <p class="text-gray-400 text-lg md:text-lg max-w-2xl mx-auto mt-6 leading-relaxed">
-        Crafting exceptional digital experiences through innovative solutions
-      </p>
+
+      <!-- Advanced Stats (Awwwards Style) -->
+      <div class="mt-48 grid grid-cols-2 lg:grid-cols-4 gap-8 py-20 border-t border-white/5">
+         {[
+           { label: "Total Artifacts", value: "48+" },
+           { label: "Lines Composed", value: "2.5M" },
+           { label: "Successful Nodes", value: "100%" },
+           { label: "Uptime Rating", value: "99.9%" }
+         ].map(stat => (
+           <div class="space-y-4">
+              <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-[0.6em]">{stat.label}</p>
+              <h4 class="text-4xl font-black text-white tracking-tighter tabular-nums">{stat.value}</h4>
+           </div>
+         ))}
+      </div>
     </div>
+  </main>
+</div>
 
-    <!-- Premium Projects Grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
-      {
-        data.projectData?.map((projectItem, index) => {
-          return (
-            <article 
-              class="group project-card relative"
-              style={`animation-delay: ${index * 150}ms`}
-            >
-              {/* Premium Card Container */}
-              <div class="relative h-full bg-gradient-to-br from-slate-900/50 to-slate-800/50 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden shadow-2xl transition-all duration-700 hover:shadow-purple-500/20 hover:border-purple-500/30 hover:-translate-y-2">
-                
-                {/* Shine effect overlay */}
-                <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                  <div class="absolute inset-0 bg-gradient-to-br from-transparent via-white/5 to-transparent transform -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-                </div>
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-                {/* Image Section with Advanced Overlay */}
-                <div class="relative h-56 overflow-hidden">
-                  <img
-                    class="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75"
-                    src={`${projectItem?.BackgroundImage?.asset?.url}`}
-                    alt={projectItem?.projectName}
-                    loading="lazy"
-                  />
-                  
-                  {/* Multi-layer gradient overlay */}
-                  <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
-                  <div class="absolute inset-0 bg-gradient-to-br from-purple-600/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                  
-                  {/* Premium badge */}
-                  <div class="absolute top-4 left-4 px-4 py-1.5 bg-purple-600/90 backdrop-blur-sm rounded-full text-white text-xs font-semibold tracking-wider shadow-lg">
-                    FEATURED
-                  </div>
+  gsap.registerPlugin(ScrollTrigger);
 
-                  {/* Floating action button */}
-                  <div class="absolute bottom-4 right-4 w-12 h-12 bg-white/10 backdrop-blur-md rounded-2xl flex items-center justify-center border border-white/20 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 hover:bg-purple-600/30 hover:scale-110">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                    </svg>
-                  </div>
-                </div>
-
-                {/* Content Section */}
-                <Link
-                  href={`/projects/${projectItem.slug?.current}`}
-                  externalInNewTab={true}
-                  class="block"
-                >
-                  <div class="p-6 space-y-4">
-                    {/* Title */}
-                    <h3 class="text-2xl font-bold text-white leading-tight group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-violet-400 transition-all duration-300">
-                      {projectItem?.projectName}
-                    </h3>
-
-                    {/* Description */}
-                    <div class="text-gray-400 text-sm leading-relaxed line-clamp-3">
-                      <PortableText
-                        class="prose prose-sm prose-invert max-w-none"
-                        value={projectItem?.excerpt}
-                      />
-                    </div>
-
-                    {/* Tags */}
-                    <div class="flex flex-wrap gap-2 pt-2">
-                      {projectItem?.tags?.slice(0, 3).map((tagsItem) => {
-                        return (
-                          <span class="inline-flex items-center px-3 py-1 bg-slate-800/60 backdrop-blur-sm border border-purple-500/20 rounded-lg text-xs font-medium text-purple-300 hover:bg-purple-600/20 hover:border-purple-400/40 transition-all duration-300">
-                            {tagsItem}
-                          </span>
-                        );
-                      })}
-                      {projectItem?.tags?.length > 3 && (
-                        <span class="inline-flex items-center px-3 py-1 bg-slate-800/60 backdrop-blur-sm border border-purple-500/20 rounded-lg text-xs font-medium text-purple-300">
-                          +{projectItem.tags.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-
-                {/* Premium Action Bar */}
-                <div class="px-6 pb-6 pt-2 border-t border-white/5">
-                  <div class="flex items-center justify-between">
-                    <a
-                      href={projectItem?.gitHubLink?.current}
-                      class="group/github flex items-center gap-2 px-4 py-2.5 bg-slate-800/60 hover:bg-slate-700/60 border border-white/10 hover:border-purple-500/30 rounded-xl text-sm font-medium text-gray-300 hover:text-white transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <svg class="w-4 h-4 group-hover/github:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                      <span>Code</span>
-                    </a>
-                    
-                    <a 
-                      href={projectItem?.demoLink?.current}
-                      class="group/demo flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 rounded-xl text-sm font-semibold text-white transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 hover:scale-105"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span>Live Demo</span>
-                      <svg class="w-4 h-4 group-hover/demo:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-
-                {/* Corner accent */}
-                <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-              </div>
-            </article>
-          );
-        })
+  const initArchive = () => {
+    // Reveal project items on scroll with GSAP stagger if needed, 
+    // although AOS is already doing some work.
+    // Let's add a custom reveal for the stats
+    gsap.from('.grid > div', {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      stagger: 0.1,
+      ease: "power3.out",
+      scrollTrigger: {
+        trigger: '.grid',
+        start: "top 90%"
       }
-    </div>
+    });
+  };
 
-    {/* Call to Action */}
-    <div class="text-center mt-20">
-      <div class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600/20 to-violet-600/20 backdrop-blur-sm border border-purple-500/30 rounded-2xl">
-        <span class="text-gray-300 text-lg">Want to see more amazing projects?</span>
-        <a href="/projects" class="inline-flex items-center gap-2 px-6 py-2.5 bg-purple-600 hover:bg-purple-500 rounded-xl text-white font-semibold transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/50 hover:scale-105">
-          View All Projects
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-          </svg>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-  /* Advanced Animations */
-  @keyframes blob {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(20px, -50px) scale(1.1); }
-    50% { transform: translate(-20px, 20px) scale(0.9); }
-    75% { transform: translate(50px, 50px) scale(1.05); }
-  }
-
-  @keyframes gradient-x {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  .animate-blob {
-    animation: blob 7s infinite;
-  }
-
-  .animation-delay-2000 {
-    animation-delay: 2s;
-  }
-
-  .animation-delay-4000 {
-    animation-delay: 4s;
-  }
-
-  .animate-gradient-x {
-    background-size: 200% auto;
-    animation: gradient-x 3s ease infinite;
-  }
-
-  /* Background Patterns */
-  .bg-grid-pattern {
-    background-image: 
-      linear-gradient(rgba(139, 92, 246, 0.1) 1.5px, transparent 1.5px),
-      linear-gradient(90deg, rgba(139, 92, 246, 0.1) 1.5px, transparent 1.5px);
-    background-size: 50px 50px;
-  }
-
-  .bg-radial-gradient {
-    background: radial-gradient(circle at 50% 50%, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-  }
-
-  /* Card Entrance Animation */
-  .project-card {
-    animation: fadeInUp 0.6s ease-out forwards;
-    opacity: 0;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Text truncation */
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  /* Smooth scrolling */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Focus states for accessibility */
-  a:focus-visible {
-    outline: 2px solid rgb(168, 85, 247);
-    outline-offset: 4px;
-    border-radius: 12px;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .project-card {
-      animation-delay: 0ms !important;
-    }
-  }
-
-  /* Performance optimization */
-  .project-card {
-    will-change: transform, opacity;
-  }
-
-  /* Prevent layout shift */
-  img {
-    aspect-ratio: 16 / 9;
-  }
-</style>
+  initArchive();
+</script>
