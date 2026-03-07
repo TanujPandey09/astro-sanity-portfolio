@@ -14,35 +14,35 @@ const relatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
 <div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
   <PremiumBackground />
 
-  <main class="container mx-auto px-6 py-32 relative z-10">
+  <main class="container mx-auto px-6 py-16 md:py-32 relative z-10">
     <!-- Header / Meta -->
-    <header class="max-w-5xl mx-auto mb-24" data-aos="fade-down">
-       <div class="flex items-center gap-6 mb-12">
-          <a href="/blogs" class="text-[10px] font-black uppercase tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-colors">Journal Index</a>
-          <div class="h-[1px] w-12 bg-white/10"></div>
-          <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">{new Date(detailsData._createdAt).toLocaleDateString()}</span>
+    <header class="max-w-5xl mx-auto mb-16 md:mb-24" data-aos="fade-down">
+       <div class="flex flex-wrap items-center gap-4 md:gap-6 mb-8 md:mb-12">
+          <a href="/blogs" class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-all">Journal Index</a>
+          <div class="h-[1px] w-8 md:w-12 bg-white/10"></div>
+          <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#599692]">{new Date(detailsData._createdAt).toLocaleDateString()}</span>
        </div>
 
-       <h1 class="font-black text-white uppercase tracking-tighter leading-none mb-12 blog-main-title">
-         {detailsData.projectName}
+       <h1 class="font-black text-white uppercase tracking-tighter leading-none mb-8 md:mb-12 blog-main-title">
+          {detailsData.projectName}
        </h1>
 
-       <div class="flex items-center gap-4">
-          <div class="w-12 h-12 rounded-full overflow-hidden border border-white/10 p-1">
+       <div class="flex items-center gap-3 md:gap-4">
+          <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden border border-white/10 p-1">
              <img src="/img/logo.png" alt="Tanuj" class="w-full h-full object-cover rounded-full grayscale" />
           </div>
           <div>
-             <p class="text-[10px] font-black text-white uppercase tracking-widest">Tanuj Pandey</p>
-             <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-widest">Lead Architect</p>
+             <p class="text-[8px] md:text-[10px] font-black text-white uppercase tracking-widest">Tanuj Pandey</p>
+             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-widest">Lead Architect</p>
           </div>
        </div>
     </header>
 
     <!-- Main Content Grid -->
-    <div class="grid lg:grid-cols-12 gap-20">
-       <article class="lg:col-span-8 space-y-20">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-20">
+       <article class="lg:col-span-8 space-y-12 md:space-y-20">
           {detailsData.BackgroundImage?.asset?.url && (
-            <div class="rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#11172a] shadow-2xl" data-aos="zoom-out">
+            <div class="rounded-3xl md:rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#11172a] shadow-2xl" data-aos="zoom-out">
                <img 
                  src={detailsData.BackgroundImage.asset.url} 
                  alt={detailsData.projectName}
@@ -56,27 +56,27 @@ const relatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
           </div>
        </article>
 
-       <aside class="lg:col-span-4 space-y-16" data-aos="fade-left">
-          <div class="p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl">
-             <h3 class="text-xl font-black text-white uppercase tracking-tighter mb-8 italic">"Related Insights"</h3>
-             <div class="space-y-10">
+       <aside class="lg:col-span-4 space-y-12 md:space-y-16" data-aos="fade-left">
+          <div class="p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 backdrop-blur-3xl">
+             <h3 class="text-lg md:text-xl font-black text-white uppercase tracking-tighter mb-6 md:mb-8 italic">"Related Insights"</h3>
+             <div class="space-y-8 md:space-y-10">
                 {relatedPosts.map((post: any) => (
-                   <a href={`/blogs/${post.slug.current}`} class="group block space-y-4">
+                   <a href={`/blogs/${post.slug.current}`} class="group block space-y-3 md:space-y-4">
                       <div class="flex items-center gap-4">
-                         <span class="text-[10px] font-black text-[#599692]">LOG</span>
+                         <span class="text-[8px] md:text-[10px] font-black text-[#599692]">LOG</span>
                          <div class="h-[1px] flex-1 bg-white/5 group-hover:bg-[#599692] transition-all"></div>
                       </div>
                        <h4 class="font-black text-white uppercase tracking-tight group-hover:text-gradient transition-all related-post-title">{post.projectName}</h4>
-                      <p class="text-[#626c7d] text-xs uppercase tracking-[0.2em] font-black">{new Date(post._createdAt).toLocaleDateString()}</p>
+                      <p class="text-[#626c7d] text-[10px] uppercase tracking-[0.2em] font-black">{new Date(post._createdAt).toLocaleDateString()}</p>
                    </a>
                 ))}
              </div>
           </div>
 
-          <div class="p-10 rounded-[2.5rem] border border-[#599692]/20 bg-[#599692]/5">
-             <h3 class="font-black text-white uppercase tracking-tighter mb-4 italic collaborate-title">Collaborate?</h3>
-             <p class="text-[#626c7d] mb-8 text-sm italic leading-relaxed">"Initiate a transmission if you wish to discuss architectural paradigms or exploratory deployments."</p>
-             <a href="/#contact" class="inline-block px-8 py-4 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] rounded-full hover:bg-[#599692] hover:text-white transition-all">
+          <div class="p-8 md:p-10 rounded-3xl md:rounded-[2.5rem] border border-[#599692]/20 bg-[#599692]/5">
+             <h3 class="font-black text-white uppercase tracking-tighter mb-3 md:mb-4 italic collaborate-title">Collaborate?</h3>
+             <p class="text-[#626c7d] mb-6 md:mb-8 text-xs md:text-sm italic leading-relaxed">"Initiate a transmission if you wish to discuss architectural paradigms or exploratory deployments."</p>
+             <a href="/#contact" class="inline-block px-6 py-3 md:px-8 md:py-4 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] rounded-full hover:bg-[#599692] hover:text-white transition-all text-center w-full sm:w-auto">
                Connect Now
              </a>
           </div>

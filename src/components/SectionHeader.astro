@@ -9,19 +9,19 @@ interface Props {
 const { title, gradientText, subtitle, center = false } = Astro.props;
 ---
 
-<div class={`mb-24 ${center ? 'text-center' : ''}`} data-aos="fade-up">
-  <div class={`flex items-center gap-4 mb-6 ${center ? 'justify-center' : ''}`}>
-    <div class="h-[1px] w-12 bg-gradient-to-r from-transparent to-[#599692]"></div>
-    <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">{title}</span>
-    <div class="h-[1px] w-12 bg-gradient-to-l from-transparent to-[#599692]"></div>
+<div class={`mb-12 md:mb-24 ${center ? 'text-center' : ''}`} data-aos="fade-up">
+  <div class={`flex items-center gap-4 mb-4 md:mb-6 ${center ? 'justify-center' : ''}`}>
+    <div class="h-[1px] w-8 md:w-12 bg-gradient-to-r from-transparent to-[#599692]"></div>
+    <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.5em] text-[#599692]">{title}</span>
+    <div class="h-[1px] w-8 md:w-12 bg-gradient-to-l from-transparent to-[#599692]"></div>
   </div>
   
-  <h2 class="text-white uppercase tracking-tighter mb-8 leading-none">
+  <h2 class="text-white uppercase tracking-tighter mb-6 md:mb-8 leading-none">
     {title} <span class="text-gradient">{gradientText}</span>
   </h2>
   
   {subtitle && (
-    <p class="max-w-2xl text-[#94a3b8] italic font-medium leading-relaxed subtitle-text">
+    <p class={`max-w-2xl text-[#94a3b8] italic font-medium leading-relaxed subtitle-text ${center ? 'mx-auto' : 'mx-auto lg:mx-0'}`}>
       "{subtitle}"
     </p>
   )}

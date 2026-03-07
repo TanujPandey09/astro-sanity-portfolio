@@ -1,19 +1,19 @@
 ---
 ---
 
-<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20">
   <!-- Subtle Background Grid Overlay -->
   <div class="absolute inset-0 bg-[url('/grid-subtle.svg')] opacity-[0.03] pointer-events-none"></div>
 
   <div class="container mx-auto px-6 relative z-20">
     <div class="max-w-7xl mx-auto">
       
-      <div class="grid lg:grid-cols-12 gap-20 items-center">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
         <!-- Text Content -->
-        <div class="lg:col-span-8 order-2 lg:order-1">
-          <div class="mb-8 flex items-center gap-4" data-aos="fade-right">
+        <div class="lg:col-span-8 order-2 lg:order-1 text-center lg:text-left">
+          <div class="mb-8 flex items-center justify-center lg:justify-start gap-4" data-aos="fade-right">
              <div class="w-12 h-[1px] bg-[#599692]"></div>
-             <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">Deployment phase 02 / 2026</span>
+             <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">System Status: Optimal / 2026</span>
           </div>
 
           <div class="relative mb-12" data-aos="fade-up" data-aos-delay="200">
@@ -25,24 +25,24 @@
             <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/5 to-transparent hidden lg:block"></div>
           </div>
 
-          <div class="max-w-2xl mb-16" data-aos="fade-up" data-aos-delay="400">
+          <div class="max-w-2xl mb-16 mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
             <p class="text-lg md:text-xl text-[#626c7d] leading-relaxed italic font-medium">
               "Synthesizing high-fidelity frontend architecture with robust engineering protocol. I build digital infrastructures that scale with the future."
             </p>
           </div>
 
-          <div class="flex flex-wrap gap-12 items-center" data-aos="fade-up" data-aos-delay="600">
+          <div class="flex flex-wrap gap-8 md:gap-12 items-center justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="600">
             <button 
               id="resume-btn"
-              class="group relative px-16 py-8 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-700 hover:scale-105"
+              class="group relative px-10 md:px-16 py-6 md:py-8 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-700 hover:scale-105"
             >
                <span class="relative z-10">Access Intel [Resume]</span>
                <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
             </button>
 
             <a href="#contact" class="group flex items-center gap-6 text-white font-black uppercase text-[10px] tracking-[0.4em] transition-all">
-              Initiate Project
-              <div class="h-[1px] w-12 bg-white/20 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700"></div>
+               <span>Initiate Project</span>
+               <div class="h-[1px] w-8 md:w-12 bg-white/20 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700"></div>
             </a>
           </div>
         </div>
@@ -87,7 +87,8 @@
 
 <style>
   .hero-title {
-    font-size: clamp(var(--h1-mobile), 10vw, var(--h1-desktop));
+    font-size: clamp(var(--h1-mobile), 8vw, var(--h1-desktop));
+    text-wrap: balance;
   }
 
   .text-gradient {

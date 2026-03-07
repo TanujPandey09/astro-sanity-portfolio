@@ -36,17 +36,17 @@ const achievements = [
     <Ticker />
 
     <!-- Achievement Grid -->
-    <div class="py-24" data-aos="fade-up">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-[2rem] overflow-hidden">
+    <div class="py-12 md:py-24" data-aos="fade-up">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-3xl md:rounded-[2rem] overflow-hidden">
         {achievements.map((achievement, index) => (
-          <div class="p-12 bg-[#11172a] text-center group hover:bg-white/[0.02] transition-colors">
+          <div class="p-6 md:p-12 bg-[#11172a] text-center group hover:bg-white/[0.02] transition-colors">
             <div 
-              class="text-5xl md:text-6xl font-black mb-4 tracking-tighter transition-transform duration-700 group-hover:scale-110"
+              class="text-3xl md:text-5xl lg:text-6xl font-black mb-2 md:mb-4 tracking-tighter transition-transform duration-700 group-hover:scale-110"
               style={`color: ${achievement.color}`}
             >
               {achievement.number}
             </div>
-            <div class="text-[10px] text-[#626c7d] font-black uppercase tracking-[0.4em]">{achievement.label}</div>
+            <div class="text-[7px] md:text-[8px] lg:text-[10px] text-[#626c7d] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">{achievement.label}</div>
           </div>
         ))}
       </div>
@@ -58,7 +58,7 @@ const achievements = [
     <Experience />
 
     <!-- Projects Section -->
-    <section id="projects" class="py-32 relative z-10">
+    <section id="projects" class="py-16 md:py-32 relative z-10">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
           title="Portfolio" 
@@ -67,22 +67,22 @@ const achievements = [
         />
         
         <!-- Featured Deliveries (Immersive List) -->
-        <div class="mt-24 space-y-0">
+        <div class="mt-16 md:mt-24 space-y-0">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
         </div>
         
         {projectData?.length > 4 && (
-          <div class="mt-48">
-            <div class="flex items-center justify-between mb-16 px-4">
-               <div class="space-y-2">
-                  <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.5em]">Repository Index</p>
-                  <h3 class="text-3xl font-black text-white uppercase tracking-tighter">Extended Artifacts</h3>
+          <div class="mt-24 md:mt-48">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-12 md:mb-16 px-4 gap-8">
+               <div class="space-y-2 text-center md:text-left">
+                  <p class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.4em] md:tracking-[0.5em]">Repository Index</p>
+                  <h3 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter">Extended Artifacts</h3>
                </div>
                <button 
                  id="expand-repo"
-                 class="group flex items-center gap-4 text-[10px] font-black uppercase tracking-[0.4em] text-[#626c7d] hover:text-[#599692] transition-colors"
+                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-[#626c7d] hover:text-[#599692] transition-colors"
                >
                  Explore Entire Intel
                  <div class="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#599692] transition-all">
@@ -91,14 +91,14 @@ const achievements = [
                </button>
             </div>
 
-            <div id="repo-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="repo-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                {projectData?.slice(4).map((project, index) => (
                  <ProjectCard project={project} index={index} />
                ))}
             </div>
 
-            <div class="mt-32 flex justify-center">
-               <a href="/projects" class="group relative px-12 py-6 border border-white/10 rounded-full text-[10px] font-black uppercase tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#599692]">
+            <div class="mt-16 md:mt-32 flex justify-center">
+               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-white/10 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#599692] text-center">
                   <span class="relative z-10">Access Full Registry Archive</span>
                   <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                </a>
@@ -109,7 +109,7 @@ const achievements = [
     </section>
 
     <!-- Blogs Section -->
-    <section id="blogs" class="py-32 relative z-10">
+    <section id="blogs" class="py-16 md:py-32 relative z-10">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
           title="Journal" 
@@ -117,16 +117,16 @@ const achievements = [
           subtitle="Decoding complexity through technical narrative and architectural analysis."
         />
         
-        <div class="mt-24">
+        <div class="mt-16 md:mt-24">
           {blogData?.slice(0, 4).map((blog, index) => (
             <BlogItem blog={blog} index={index} />
           ))}
         </div>
         
-        <div class="mt-20 flex justify-end">
-           <a href="/blogs" class="group flex items-center gap-6 text-[10px] font-black uppercase tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-colors">
+        <div class="mt-12 md:mt-20 flex justify-center md:justify-end">
+           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-all">
               Explore All Articles
-              <div class="w-12 h-[1px] bg-[#626c7d] group-hover:bg-[#599692] group-hover:w-24 transition-all duration-700"></div>
+              <div class="w-8 md:w-12 h-[1px] bg-[#626c7d] group-hover:bg-[#599692] group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
            </a>
         </div>
       </div>

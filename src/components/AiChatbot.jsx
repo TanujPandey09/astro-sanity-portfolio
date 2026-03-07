@@ -89,7 +89,7 @@ const AIChatbot = () => {
   }
 
   return (
-    <div className="fixed bottom-8 right-8 w-96 bg-[#11172a] border border-white/10 rounded-[2.5rem] shadow-2xl z-[100] overflow-hidden flex flex-col h-[600px] backdrop-blur-3xl">
+    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] sm:w-[calc(100vw-4rem)] md:w-96 bg-[#11172a] border border-white/10 rounded-[2.5rem] shadow-2xl z-[100] overflow-hidden flex flex-col h-[500px] md:h-[600px] backdrop-blur-3xl">
       <div className="p-8 bg-white/5 border-b border-white/5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-3 h-3 rounded-full bg-[#599692] animate-pulse"></div>

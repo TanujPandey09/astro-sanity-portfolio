@@ -8,9 +8,9 @@ import PremiumBackground from "../PremiumBackground.astro";
 <div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
   <PremiumBackground />
 
-  <main class="container mx-auto px-6 py-32 relative z-10">
+  <main class="container mx-auto px-6 py-16 md:py-32 relative z-10">
     <!-- Hero Section -->
-    <section class="grid lg:grid-cols-12 gap-20 items-center mb-48">
+    <section class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-48">
       <div class="lg:col-span-12 mb-12" data-aos="fade-down">
          <SectionHeader 
            title="Identity" 
@@ -20,9 +20,9 @@ import PremiumBackground from "../PremiumBackground.astro";
       </div>
 
       <!-- Image Section -->
-      <div class="lg:col-span-5 relative group" data-aos="fade-right">
+      <div class="lg:col-span-5 relative group mb-12 lg:mb-0" data-aos="fade-right">
         <div class="absolute -inset-4 bg-gradient-to-tr from-[#599692] to-[#626c7d] rounded-[3rem] opacity-20 blur-3xl group-hover:opacity-40 transition-opacity duration-1000"></div>
-        <div class="relative aspect-[4/5] rounded-[3rem] overflow-hidden border border-white/10 p-2 bg-[#11172a]">
+        <div class="relative aspect-[4/5] rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/10 p-2 bg-[#11172a]">
           {aboutData?.[0]?.heroImage?.asset?.url ? (
             <img
               src={aboutData[0].heroImage.asset.url}
@@ -39,48 +39,48 @@ import PremiumBackground from "../PremiumBackground.astro";
       </div>
 
       <!-- Content -->
-      <div class="lg:col-span-7 space-y-12" data-aos="fade-left">
+      <div class="lg:col-span-7 space-y-8 md:space-y-12" data-aos="fade-left">
         <div class="prose-container relative">
-          <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
+          <div class="hidden md:block absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
           <div class="prose prose-xl prose-invert max-w-none">
-             <div class="text-white font-black uppercase tracking-tighter mb-8 leading-tight h2-style">
+             <div class="text-white font-black uppercase tracking-tighter mb-6 md:mb-8 leading-tight h2-style">
                "{aboutData?.[0]?.aboutName || "Architecting digital success through technical mastery."}"
              </div>
-             <div class="prose-content space-y-6">
+             <div class="prose-content space-y-4 md:space-y-6">
                <PortableText value={aboutData?.[0]?.description} />
              </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-8 pt-12">
-          <div class="space-y-2">
-             <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.4em]">Efficiency</p>
-             <p class="text-2xl text-white font-black tabular-nums">98.5%</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 pt-8 md:pt-12">
+          <div class="space-y-1.5 md:space-y-2">
+             <p class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.4em]">Efficiency</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">98.5%</p>
           </div>
-          <div class="space-y-2">
-             <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Availability</p>
-             <p class="text-2xl text-white font-black tabular-nums">24/7</p>
+          <div class="space-y-1.5 md:space-y-2">
+             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Availability</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">24/7</p>
           </div>
-          <div class="space-y-2">
-             <p class="text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Latency</p>
-             <p class="text-2xl text-white font-black tabular-nums">&lt;2ms</p>
+          <div class="space-y-1.5 md:space-y-2">
+             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Latency</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">&lt;2ms</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Services Grid (Awwwards Style) -->
-    <section class="py-32">
-       <div class="grid md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-[3rem] overflow-hidden">
+    <section class="py-12 md:py-32">
+       <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl md:rounded-[3rem] overflow-hidden">
           {[
             { title: "Frontend Architecture", desc: "Crafting high-fidelity, high-performance interfaces with modern frameworks and robust state management." },
             { title: "Creative direction", desc: "Synthesizing visual aesthetics with functional requirements to create immersive digital experiences." },
             { title: "Technical Strategy", desc: "Architecting scalable digital ecosystems that align with business objectives and growth trajectory." }
           ].map((service, i) => (
-            <div class="group p-16 bg-[#11172a] hover:bg-white/[0.02] transition-colors relative">
-               <div class="text-[10px] font-black text-[#599692] mb-8 opacity-40">0{i + 1}</div>
-               <h3 class="text-2xl font-black text-white uppercase tracking-tighter mb-6 group-hover:text-gradient transition-all">{service.title}</h3>
-               <p class="text-[#626c7d] italic leading-relaxed">"{service.desc}"</p>
+            <div class="group p-10 md:p-16 bg-[#11172a] hover:bg-white/[0.02] transition-colors relative">
+               <div class="text-[10px] font-black text-[#599692] mb-6 md:mb-8 opacity-40">0{i + 1}</div>
+               <h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-4 md:mb-6 group-hover:text-gradient transition-all">{service.title}</h3>
+               <p class="text-[#626c7d] italic leading-relaxed text-sm md:text-base">"{service.desc}"</p>
                <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#599692] scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left"></div>
             </div>
           ))}

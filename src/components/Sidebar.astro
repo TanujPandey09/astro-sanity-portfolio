@@ -9,66 +9,102 @@ const query = groq`*[_type == "sideBar"]{
 const [sideBar] = await useSanityClient().fetch(query);
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-700 pointer-events-none" id="main-header">
+<header class="fixed top-0 left-1/2 -translate-x-1/2 w-full z-50 transition-all duration-700 pointer-events-none" id="main-header">
   <!-- Subtle Header Background Blur -->
   <div class="absolute inset-0 header-bg transition-all duration-700"></div>
 
-  <nav class="w-full px-6 py-6 flex items-center justify-between transition-all duration-700 relative z-10 pointer-events-auto" id="nav-container">
+  <nav class="max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-6 flex items-center justify-between transition-all duration-700 relative z-10 pointer-events-auto" id="nav-container">
     
-    <!-- LEFT: System Stats Node -->
-    <div class="hidden lg:flex items-center gap-6 flex-1">
-       
-       
-       <a href="/" class="flex items-center gap-4 group">
-          <div class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center group-hover:border-[#599692] transition-colors overflow-hidden">
-             <span class="text-white font-black text-lg tracking-tighter relative z-10">TP</span>
+    <!-- LEFT: Branded Identity -->
+    <div class="flex-1 flex items-center gap-4">
+       <a href="/" class="flex items-center gap-3 group">
+          <div class="relative w-10 h-10 md:w-11 md:h-11 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center group-hover:border-[#599692]/50 transition-all duration-300 overflow-hidden shadow-lg shadow-black/20">
+             <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-[#599692]/20 to-transparent"></div>
+             <span class="text-white font-black text-lg md:text-xl tracking-tighter relative z-10 group-hover:scale-110 transition-transform duration-300">TP</span>
           </div>
-          <p class="text-[10px] font-black text-white uppercase tracking-[0.4em] group-hover:text-[#599692] transition-colors">Tanuj Pandey</p>
+          <div class="flex flex-col">
+            <span class="text-[10px] md:text-xs font-black text-white uppercase tracking-[0.2em] md:tracking-[0.3em] group-hover:text-[#599692] transition-colors">Tanuj Pandey</span>
+            <span class="text-[7px] md:text-[8px] font-medium text-[#626c7d] uppercase tracking-[0.1em] md:tracking-[0.2em]">Creative Developer</span>
+          </div>
        </a>
     </div>
 
-    <!-- CENTER: Floating Pill Navigation -->
-    <div class="flex-none md:flex-1 flex justify-center order-1 md:order-none">
-       <div class="flex items-center gap-2 p-1 bg-black/40 backdrop-blur-3xl border border-white/5 rounded-full px-4 py-1.5">
-          {sideBar?.sideMenus?.map((menuItem) => (
-             <a 
-               href={menuItem.menuLink.current}
-               class="nav-link px-6 py-2.5 text-[10px] font-black uppercase tracking-[0.3em] text-[#626c7d] hover:text-white transition-all rounded-full relative group"
-             >
-               <span class="relative z-10">{menuItem.menuName}</span>
-               <div class="active-pill absolute inset-0 bg-[#599692]/10 rounded-full scale-0 transition-all duration-500 group-hover:scale-100"></div>
-             </a>
-          ))}
-          
-          <!-- Mobile Menu Trigger (Visible on mobile within the pill) -->
-          <button 
-            id="mobile-trigger"
-            class="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 group ml-2"
-          >
-             <div class="w-5 h-[1.5px] bg-[#599692] transition-all" id="bar-1"></div>
-             <div class="w-5 h-[1.5px] bg-white transition-all" id="bar-2"></div>
-          </button>
+    <!-- CENTER: Floating Pill Navigation (Desktop Only) -->
+    <div class="hidden md:flex flex-none justify-center z-50">
+       <div class="flex items-center gap-2 p-1 bg-black/40 backdrop-blur-3xl border border-white/5 rounded-full px-5 py-2 shadow-2xl shadow-black/80 ring-1 ring-white/5">
+          <div class="flex items-center gap-1">
+            {sideBar?.sideMenus?.map((menuItem) => (
+               <a 
+                 href={menuItem.menuLink.current}
+                 class="nav-link px-6 py-2.5 text-xs font-bold uppercase tracking-[0.2em] text-[#626c7d] hover:text-white transition-all rounded-full relative group"
+               >
+                 <span class="relative z-10">{menuItem.menuName}</span>
+                 <div class="active-pill absolute inset-0 bg-white/10 rounded-full scale-0 transition-all duration-500 group-hover:scale-100"></div>
+                 <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-[#599692] rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+               </a>
+            ))}
+          </div>
        </div>
     </div>
 
-    <!-- RIGHT: Interface Meta -->
-   
+    <!-- RIGHT: CTA (Desktop) / Mobile Toggle -->
+    <div class="flex-1 flex justify-end items-center gap-4">
+       <!-- Desktop CTA -->
+       <a href="/contact" class="hidden md:flex items-center gap-3 px-6 py-2.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all group">
+          <span class="text-[10px] font-black text-white uppercase tracking-[0.2em]">Let's Talk</span>
+          <div class="w-2 h-2 rounded-full bg-[#599692] group-hover:animate-ping"></div>
+       </a>
+
+       <!-- Mobile Trigger -->
+       <button 
+         id="mobile-trigger"
+         class="md:hidden w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex flex-col items-center justify-center gap-1.5 group transition-all hover:border-[#599692]/50 active:scale-90"
+         aria-label="Toggle Menu"
+       >
+          <div class="w-5 h-[2px] bg-[#599692] transition-all duration-300 origin-center" id="bar-1"></div>
+          <div class="w-5 h-[2px] bg-white transition-all duration-300" id="bar-2"></div>
+          <div class="w-5 h-[2px] bg-[#599692] transition-all duration-300 origin-center" id="bar-3"></div>
+       </button>
+    </div>
   </nav>
 
   <!-- Mobile Overlay -->
-  <div id="mobile-overlay" class="fixed inset-0 bg-[#000105]/98 backdrop-blur-2xl z-40 hidden flex-col items-center justify-center pointer-events-auto">
-     <div class="space-y-12 text-center">
+  <div id="mobile-overlay" class="fixed inset-0 bg-[#000105]/95 backdrop-blur-3xl z-[100] hidden flex-col items-center justify-between pointer-events-auto opacity-0 transition-all duration-500 py-20">
+     <!-- Background Glow -->
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-[#599692]/10 rounded-full blur-[120px] pointer-events-none"></div>
+     
+     <div class="flex flex-col items-center space-y-6 text-center w-full px-6 relative z-10">
+        <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.5em] mb-4">Navigation Menu</p>
         {sideBar?.sideMenus?.map((menuItem, index) => (
           <a 
             href={menuItem.menuLink.current}
-            class="mobile-nav-link block text-5xl font-black text-white uppercase tracking-tighter hover:text-[#599692] transition-all relative group"
+            class="mobile-nav-link block text-4xl font-black text-white uppercase tracking-tighter hover:text-[#599692] transition-all relative group py-2"
             style={`animation-delay: ${index * 0.1}s`}
           >
-            {menuItem.menuName}
+            <span class="relative z-10">{menuItem.menuName}</span>
+            <div class="absolute inset-x-[-20px] bottom-2 h-4 bg-[#599692]/5 -z-0 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
           </a>
         ))}
      </div>
-     <button id="close-overlay" class="mt-20 px-8 py-3 border border-white/10 rounded-full text-[8px] font-black uppercase tracking-widest text-white">Terminate [ESC]</button>
+     
+     <div class="flex flex-col items-center gap-8 relative z-10">
+        <div class="flex flex-col items-center gap-4">
+           <a href="/contact" class="px-10 py-4 bg-[#599692] text-white rounded-full font-black text-xs uppercase tracking-[0.3em] hover:scale-105 transition-transform">
+              Start Project
+           </a>
+           <button id="close-overlay" class="text-[10px] font-black uppercase tracking-[0.2em] text-[#626c7d] hover:text-white transition-colors">
+              [ Click to Close ]
+           </button>
+        </div>
+        
+        <div class="flex flex-col items-center gap-3">
+           <div class="flex gap-6 items-center">
+              <div class="w-12 h-[1px] bg-white/10"></div>
+              <p class="text-[8px] font-black uppercase tracking-[0.4em] text-white/40">v4.0.2 System</p>
+              <div class="w-12 h-[1px] bg-white/10"></div>
+           </div>
+        </div>
+     </div>
   </div>
 </header>
 
@@ -87,20 +123,65 @@ const [sideBar] = await useSanityClient().fetch(query);
 
   .nav-link.active .active-pill {
     scale: 1;
-    background: rgba(89, 150, 146, 0.15);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
   }
 
-  .nav-link.active span {
+  .nav-link.active {
     color: white;
   }
 
-  @keyframes slideReveal {
-    from { opacity: 0; transform: translateY(40px); }
-    to { opacity: 1; transform: translateY(0); }
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background: #599692;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #599692;
   }
 
-  .mobile-nav-link {
-    animation: slideReveal 0.8s forwards ease-out;
+  @keyframes slideReveal {
+    from { opacity: 0; transform: translateY(40px) scale(0.9); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  #mobile-overlay.active-menu .mobile-nav-link {
+    animation: slideReveal 0.6s forwards cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #mobile-overlay.active-menu {
+     opacity: 1;
+     transform: translateY(0);
+  }
+
+  /* Hamburger Animation */
+  #mobile-trigger.is-open #bar-1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #mobile-trigger.is-open #bar-2 {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  #mobile-trigger.is-open #bar-3 {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+
+  .mobile-nav-link.active {
+    color: #599692;
+  }
+  
+  .mobile-nav-link.active::before {
+    content: '→';
+    position: absolute;
+    left: -40px;
+    font-size: 0.5em;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
   }
 </style>
 
@@ -112,13 +193,19 @@ const [sideBar] = await useSanityClient().fetch(query);
   const overlay = document.getElementById('mobile-overlay');
   const closeBtn = document.getElementById('close-overlay');
   const navItems = document.querySelectorAll('.nav-link');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-link');
 
   // Scroll Behavior
+  const navContainer = document.getElementById('nav-container');
   window.addEventListener('scroll', () => {
     if (window.scrollY > 50) {
       header?.classList.add('scrolled');
+      navContainer?.classList.remove('md:py-6');
+      navContainer?.classList.add('md:py-3');
     } else {
       header?.classList.remove('scrolled');
+      navContainer?.classList.remove('md:py-3');
+      navContainer?.classList.add('md:py-6');
     }
   });
 
@@ -126,23 +213,45 @@ const [sideBar] = await useSanityClient().fetch(query);
   const openMenu = () => {
     overlay?.classList.remove('hidden');
     overlay?.classList.add('flex');
+    trigger?.classList.add('is-open');
+    setTimeout(() => overlay?.classList.add('active-menu'), 10);
     document.body.style.overflow = 'hidden';
   };
 
   const closeMenu = () => {
-    overlay?.classList.add('hidden');
-    overlay?.classList.remove('flex');
+    overlay?.classList.remove('active-menu');
+    trigger?.classList.remove('is-open');
+    setTimeout(() => {
+      overlay?.classList.add('hidden');
+      overlay?.classList.remove('flex');
+    }, 500);
     document.body.style.overflow = '';
   };
 
-  trigger?.addEventListener('click', openMenu);
+  trigger?.addEventListener('click', () => {
+    if (overlay?.classList.contains('active-menu')) {
+      closeMenu();
+    } else {
+      openMenu();
+    }
+  });
   closeBtn?.addEventListener('click', closeMenu);
+  mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
 
   // Active State Management
   const currentPath = window.location.pathname;
-  navItems.forEach(item => {
+  const allLinks = [...navItems, ...mobileLinks];
+  
+  allLinks.forEach(item => {
     const href = item.getAttribute('href');
     if (href === currentPath || (currentPath === '/' && href === '/')) {
+      item.classList.add('active');
+    } else if (href !== '/' && currentPath.startsWith(href!)) {
       item.classList.add('active');
     }
   });
