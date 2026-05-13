@@ -17,19 +17,37 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
+        const smtpUser = import.meta.env.SMTP_USER || process.env.SMTP_USER;
+        const smtpPass = import.meta.env.SMTP_PASS || process.env.SMTP_PASS;
+        const smtpHost = import.meta.env.SMTP_HOST || process.env.SMTP_HOST || 'smtp.gmail.com';
+        const smtpPort = import.meta.env.SMTP_PORT || process.env.SMTP_PORT || '465';
+        const contactEmail = import.meta.env.CONTACT_EMAIL || process.env.CONTACT_EMAIL || 'tanujp09@gmail.com';
+
+        // Extra check to ensure user provided variables in dashboard
+        if (!smtpUser || !smtpPass) {
+             console.error("Missing SMTP Credentials on Server Environment");
+             return new Response(
+                 JSON.stringify({ 
+                     message: 'Server setup error', 
+                     error: 'SMTP credentials are missing from Netlify environment variables dashboard.' 
+                 }),
+                 { status: 500, headers: { 'Content-Type': 'application/json' } }
+             );
+        }
+
         const transporter = nodemailer.createTransport({
-            host: import.meta.env.SMTP_HOST || 'smtp.gmail.com',
-            port: parseInt(import.meta.env.SMTP_PORT || '465'),
+            host: smtpHost,
+            port: parseInt(smtpPort),
             secure: true,
             auth: {
-                user: import.meta.env.SMTP_USER,
-                pass: (import.meta.env.SMTP_PASS || '').replace(/\s+/g, ''),
+                user: smtpUser,
+                pass: smtpPass.replace(/\s+/g, ''),
             },
         });
 
         const mailOptions = {
-            from: import.meta.env.SMTP_USER,
-            to: import.meta.env.CONTACT_EMAIL || 'tanujp09@gmail.com',
+            from: smtpUser,
+            to: contactEmail,
             replyTo: String(email),
             subject: `[Portfolio Contact] ${subject}`,
             text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
@@ -52,10 +70,13 @@ export const POST: APIRoute = async ({ request }) => {
             JSON.stringify({ message: 'Email sent successfully' }),
             { status: 200, headers: { 'Content-Type': 'application/json' } }
         );
-    } catch (error) {
+    } catch (error: any) {
         console.error('SMTP Error:', error);
         return new Response(
-            JSON.stringify({ message: 'Failed to send email' }),
+            JSON.stringify({ 
+                message: 'Failed to send email',
+                error: error.message || 'Unknown SMTP Error'
+            }),
             { status: 500, headers: { 'Content-Type': 'application/json' } }
         );
     }

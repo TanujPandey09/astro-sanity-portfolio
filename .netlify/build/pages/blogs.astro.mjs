@@ -1,6 +1,7 @@
-import { x as xs, I as Is, $ as $$Layout } from '../chunks/Layout_nRBja8rA.mjs';
+import { $ as $$Layout } from '../chunks/Layout_JzhK-4jy.mjs';
 import { e as createComponent, r as renderTemplate, i as renderComponent } from '../chunks/astro/server_B9UMfF79.mjs';
 import 'kleur/colors';
+import { x as xs, I as Is } from '../chunks/index-d34160a3_F_PySAei.mjs';
 import { jsx, jsxs } from 'react/jsx-runtime';
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';

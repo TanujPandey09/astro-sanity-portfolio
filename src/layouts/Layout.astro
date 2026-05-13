@@ -13,13 +13,44 @@ const { title } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Astro description" />
+    <meta name="description" content="Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, and scalable backend systems." />
+    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, Portfolio, Software Engineer, React, Node.js, Astro, Web Developer, Next.js" />
+    <meta name="author" content="Tanuj Pandey" />
+    
+    <!-- Open Graph / Social Previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tanujdev.netlify.app/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content="Full Stack Engineer specialized in React, Node.js, and modern scalable API solutions. View my 6+ completed builds and professional experience." />
+    <meta property="og:image" content="https://tanujdev.netlify.app/favicon.svg" />
+    
+    <!-- Twitter Card Previews -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://tanujdev.netlify.app/" />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content="Full Stack Engineer specialized in React, Node.js, and modern scalable API solutions. View my 6+ completed builds and professional experience." />
+    <meta property="twitter:image" content="https://tanujdev.netlify.app/favicon.svg" />
+
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
     
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+
+    <!-- Dynamic Web Analytics -->
+    {import.meta.env.PUBLIC_GA_ID && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`} is:inline></script>
+        <script define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }} is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', gaId);
+        </script>
+      </>
+    )}
   </head>
 
   <body>

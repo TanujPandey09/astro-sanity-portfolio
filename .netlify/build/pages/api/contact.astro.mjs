@@ -14,18 +14,24 @@ const POST = async ({ request }) => {
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
+    const smtpUser = "tanujp09@gmail.com";
+    const smtpPass = "deka assy mvuf lqfl";
+    const smtpHost = "smtp.gmail.com";
+    const smtpPort = "465";
+    const contactEmail = "tanujp09@gmail.com";
+    if (!smtpUser || !smtpPass) ;
     const transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: parseInt("465"),
+      host: smtpHost,
+      port: parseInt(smtpPort),
       secure: true,
       auth: {
-        user: "tanujp09@gmail.com",
-        pass: "deka assy mvuf lqfl".replace(/\s+/g, "")
+        user: smtpUser,
+        pass: smtpPass.replace(/\s+/g, "")
       }
     });
     const mailOptions = {
-      from: "tanujp09@gmail.com",
-      to: "tanujp09@gmail.com",
+      from: smtpUser,
+      to: contactEmail,
       replyTo: String(email),
       subject: `[Portfolio Contact] ${subject}`,
       text: `Name: ${name}
@@ -54,7 +60,10 @@ ${message}`,
   } catch (error) {
     console.error("SMTP Error:", error);
     return new Response(
-      JSON.stringify({ message: "Failed to send email" }),
+      JSON.stringify({
+        message: "Failed to send email",
+        error: error.message || "Unknown SMTP Error"
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }

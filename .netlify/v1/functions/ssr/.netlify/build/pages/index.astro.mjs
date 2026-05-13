@@ -1,10 +1,11 @@
-import { x as xs, I as Is, $ as $$Layout } from '../chunks/Layout_nRBja8rA.mjs';
+import { $ as $$Layout } from '../chunks/Layout_JzhK-4jy.mjs';
 import { e as createComponent, r as renderTemplate, m as maybeRenderHead, g as addAttribute, h as createAstro, j as renderScript, i as renderComponent } from '../chunks/astro/server_B9UMfF79.mjs';
 import 'kleur/colors';
+import { x as xs, I as Is } from '../chunks/index-d34160a3_F_PySAei.mjs';
 import { $ as $$ProjectItem } from '../chunks/ProjectItem_CgBRkYAB.mjs';
 import 'clsx';
 /* empty css                                 */
-import { $ as $$PremiumBackground } from '../chunks/PremiumBackground_BPCNfaDv.mjs';
+import { $ as $$PremiumBackground } from '../chunks/PremiumBackground_U7nFS1h6.mjs';
 import { $ as $$SectionHeader } from '../chunks/SectionHeader_BEIwOdCq.mjs';
 export { renderers } from '../renderers.mjs';
 
@@ -17,7 +18,7 @@ const $$BlogItem = createComponent(($$result, $$props, $$slots) => {
 }, "C:/Users/tanuj/astro-sanity-portfolio/src/components/BlogItem.astro", undefined);
 
 const $$Hero = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${maybeRenderHead()}<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20" data-astro-cid-bbe6dxrz> <!-- Subtle Background Grid Overlay --> <div class="absolute inset-0 bg-[url('/grid-subtle.svg')] opacity-[0.03] pointer-events-none" data-astro-cid-bbe6dxrz></div> <div class="container mx-auto px-6 relative z-20" data-astro-cid-bbe6dxrz> <div class="max-w-7xl mx-auto" data-astro-cid-bbe6dxrz> <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center" data-astro-cid-bbe6dxrz> <!-- Text Content --> <div class="lg:col-span-8 order-2 lg:order-1 text-center lg:text-left" data-astro-cid-bbe6dxrz> <div class="mb-8 flex items-center justify-center lg:justify-start gap-4" data-aos="fade-right" data-astro-cid-bbe6dxrz> <div class="w-12 h-[1px] bg-[#599692]" data-astro-cid-bbe6dxrz></div> <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]" data-astro-cid-bbe6dxrz>Full Stack Software Engineer / 4+ YOE</span> </div> <div class="relative mb-12" data-aos="fade-up" data-aos-delay="200" data-astro-cid-bbe6dxrz> <h1 class="hero-title font-black text-white leading-none tracking-tighter uppercase relative z-10 m-0" data-astro-cid-bbe6dxrz>
+  return renderTemplate`${maybeRenderHead()}<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20" data-astro-cid-bbe6dxrz> <!-- Subtle Background Grid Overlay --> <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_-20%,#000_70%,transparent_100%)] pointer-events-none" data-astro-cid-bbe6dxrz></div> <div class="container mx-auto px-6 relative z-20" data-astro-cid-bbe6dxrz> <div class="max-w-7xl mx-auto" data-astro-cid-bbe6dxrz> <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center" data-astro-cid-bbe6dxrz> <!-- Text Content --> <div class="lg:col-span-8 order-2 lg:order-1 text-center lg:text-left" data-astro-cid-bbe6dxrz> <div class="mb-8 flex items-center justify-center lg:justify-start gap-4" data-aos="fade-right" data-astro-cid-bbe6dxrz> <div class="w-12 h-[1px] bg-[#599692]" data-astro-cid-bbe6dxrz></div> <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]" data-astro-cid-bbe6dxrz>Full Stack Software Engineer / 4+ YOE</span> </div> <div class="relative mb-12" data-aos="fade-up" data-aos-delay="200" data-astro-cid-bbe6dxrz> <h1 class="hero-title font-black text-white leading-none tracking-tighter uppercase relative z-10 m-0" data-astro-cid-bbe6dxrz>
 Building Scalable <br data-astro-cid-bbe6dxrz> <span class="text-gradient" data-astro-cid-bbe6dxrz>Engineering</span> Solutions.
 </h1> <!-- Abstract Architectural Line --> <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/5 to-transparent hidden lg:block" data-astro-cid-bbe6dxrz></div> </div> <div class="max-w-2xl mb-16 mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400" data-astro-cid-bbe6dxrz> <p class="text-lg md:text-xl text-[#626c7d] leading-relaxed italic font-medium" data-astro-cid-bbe6dxrz>
 "Leveraging 4+ years of professional experience to engineer robust backend systems and intuitive, high-performance user interfaces that drive real business growth."
@@ -149,7 +150,7 @@ const $$HomeLayout = createComponent(async ($$result, $$props, $$slots) => {
   const projectData = await Is().fetch(query);
   const blogData = await Is().fetch(blogquery);
   const achievements = [
-    { number: "15+", label: "Solutions Built", color: "#599692" },
+    { number: "6+", label: "Solutions Built", color: "#599692" },
     { number: "4+", label: "Years Impact", color: "#626c7d" },
     { number: "25%", label: "UX Performance", color: "#599692" },
     { number: "100%", label: "Satisfaction", color: "#FFFFFF" }

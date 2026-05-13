@@ -1,9 +1,10 @@
-import { x as xs, I as Is, $ as $$Layout } from '../chunks/Layout_nRBja8rA.mjs';
+import { $ as $$Layout } from '../chunks/Layout_JzhK-4jy.mjs';
 import { e as createComponent, r as renderTemplate, m as maybeRenderHead, i as renderComponent, j as renderScript, h as createAstro } from '../chunks/astro/server_B9UMfF79.mjs';
 import 'kleur/colors';
+import { x as xs, I as Is } from '../chunks/index-d34160a3_F_PySAei.mjs';
 import { $ as $$ProjectItem } from '../chunks/ProjectItem_CgBRkYAB.mjs';
 import { $ as $$SectionHeader } from '../chunks/SectionHeader_BEIwOdCq.mjs';
-import { $ as $$PremiumBackground } from '../chunks/PremiumBackground_BPCNfaDv.mjs';
+import { $ as $$PremiumBackground } from '../chunks/PremiumBackground_U7nFS1h6.mjs';
 export { renderers } from '../renderers.mjs';
 
 const $$Astro = createAstro();
@@ -12,7 +13,7 @@ const $$ProjectLayouts = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$ProjectLayouts;
   const { projectData } = Astro2.props;
   return renderTemplate`${maybeRenderHead()}<div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden"> ${renderComponent($$result, "PremiumBackground", $$PremiumBackground, {})} <main class="container mx-auto px-6 py-16 md:py-32 relative z-10"> <div class="max-w-7xl mx-auto"> ${renderComponent($$result, "SectionHeader", $$SectionHeader, { "title": "Complete", "gradientText": "Portfolio", "subtitle": "A detailed showcase of completed platforms, professional client builds, and production-ready web applications." })} <div class="mt-16 md:mt-32 space-y-0"> ${projectData?.map((project, index) => renderTemplate`${renderComponent($$result, "ProjectItem", $$ProjectItem, { "project": project, "index": index })}`)} </div> <!-- Advanced Stats (Awwwards Style) --> <div class="mt-24 md:mt-48 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 py-12 md:py-20 border-t border-white/5"> ${[
-    { label: "Completed Builds", value: "15+" },
+    { label: "Completed Builds", value: "6+" },
     { label: "Commits Pushed", value: "1.2K+" },
     { label: "Success Rate", value: "100%" },
     { label: "Happy Clients", value: "25+" }
