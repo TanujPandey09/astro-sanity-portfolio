@@ -19,9 +19,9 @@ const segments = [1, 2, 3, 4, 5];
 <section id="skills" class="py-16 md:py-32 relative z-10 bg-[#11172a] overflow-hidden">
   <div class="container mx-auto px-6">
     <SectionHeader 
-      title="Engineering" 
-      gradientText="Arsenal" 
-      subtitle="A precision-engineered stack for building resilient, high-fidelity digital infrastructure."
+      title="Technical" 
+      gradientText="Expertise" 
+      subtitle="A comprehensive full-stack skill set centered around modern frameworks, cloud integration, and scalable database architectures."
     />
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
@@ -41,7 +41,9 @@ const segments = [1, 2, 3, 4, 5];
                  <h3 class="skill-name font-bold text-[#dfe5ec] uppercase tracking-wider group-hover:text-white transition-colors">
                    {skill.name}
                  </h3>
-                 <span class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.2em]">{skill.level}% Proficiency</span>
+                 <span class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.2em]">
+                   {skill.level >= 90 ? 'Expert' : skill.level >= 80 ? 'Advanced' : 'Proficient'}
+                 </span>
               </div>
 
               <div class="space-y-4">

@@ -13,9 +13,9 @@ import PremiumBackground from "../PremiumBackground.astro";
     <section class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-48">
       <div class="lg:col-span-12 mb-12" data-aos="fade-down">
          <SectionHeader 
-           title="Identity" 
-           gradientText="Synthesis" 
-           subtitle="Decoding the intersection of technical architecture and creative narrative."
+           title="Professional" 
+           gradientText="Background" 
+           subtitle="Crafting high-performance web products through engineering excellence and strategic full-stack vision."
          />
       </div>
 
@@ -44,7 +44,7 @@ import PremiumBackground from "../PremiumBackground.astro";
           <div class="hidden md:block absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
           <div class="prose prose-xl prose-invert max-w-none">
              <div class="text-white font-black uppercase tracking-tighter mb-6 md:mb-8 leading-tight h2-style">
-               "{aboutData?.[0]?.aboutName || "Architecting digital success through technical mastery."}"
+               "{aboutData?.[0]?.aboutName || "Building robust digital products through clean engineering and technical leadership."}"
              </div>
              <div class="prose-content space-y-4 md:space-y-6">
                <PortableText value={aboutData?.[0]?.description} />
@@ -54,16 +54,16 @@ import PremiumBackground from "../PremiumBackground.astro";
 
         <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 pt-8 md:pt-12">
           <div class="space-y-1.5 md:space-y-2">
-             <p class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.4em]">Efficiency</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">98.5%</p>
+             <p class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.4em]">Experience</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">4+ Years</p>
           </div>
           <div class="space-y-1.5 md:space-y-2">
-             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Availability</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">24/7</p>
+             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Delivered</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">6+ Apps</p>
           </div>
           <div class="space-y-1.5 md:space-y-2">
-             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Latency</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">&lt;2ms</p>
+             <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em]">Role Focus</p>
+             <p class="text-xl md:text-2xl text-white font-black tabular-nums">Full Stack</p>
           </div>
         </div>
       </div>
@@ -73,9 +73,9 @@ import PremiumBackground from "../PremiumBackground.astro";
     <section class="py-12 md:py-32">
        <div class="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5 border border-white/5 rounded-3xl md:rounded-[3rem] overflow-hidden">
           {[
-            { title: "Frontend Architecture", desc: "Crafting high-fidelity, high-performance interfaces with modern frameworks and robust state management." },
-            { title: "Creative direction", desc: "Synthesizing visual aesthetics with functional requirements to create immersive digital experiences." },
-            { title: "Technical Strategy", desc: "Architecting scalable digital ecosystems that align with business objectives and growth trajectory." }
+            { title: "Frontend Engineering", desc: "Building responsive, high-performance user interfaces with React, Next.js, and optimized client-side workflows." },
+            { title: "Backend & APIs", desc: "Developing reliable backend architectures, secure RESTful APIs, and integrated cloud environments." },
+            { title: "Full Stack Integration", desc: "Bridging fluid user interfaces with powerful backends and databases to create cohesive end-to-end applications." }
           ].map((service, i) => (
             <div class="group p-10 md:p-16 bg-[#11172a] hover:bg-white/[0.02] transition-colors relative">
                <div class="text-[10px] font-black text-[#599692] mb-6 md:mb-8 opacity-40">0{i + 1}</div>

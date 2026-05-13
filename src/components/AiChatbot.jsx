@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useEffect, useRef } from 'react';
-import { getChatbotData } from '../lib/sanityClient';
 
 const AIChatbot = () => {
   const [messages, setMessages] = useState([]);
@@ -14,7 +13,14 @@ const AIChatbot = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    getChatbotData().then(setIntents);
+    fetch('/api/chatbot')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setIntents(data);
+        }
+      })
+      .catch(err => console.error("Error loading chatbot data:", err));
   }, []);
 
   useEffect(() => {
@@ -25,7 +31,7 @@ const AIChatbot = () => {
 
   const generateSuggestions = (inputValue) => {
     if (!inputValue.trim()) {
-      setSuggestions(["Architecture", "Experience", "Contact Intel", "Frameworks"]);
+      setSuggestions(["Skills", "Experience", "Contact Info", "Projects"]);
       return;
     }
     const matchingSuggestions = [];
@@ -64,7 +70,7 @@ const AIChatbot = () => {
         intent.userQuestions?.some(q => text.toLowerCase().includes(q.toLowerCase()))
       );
 
-      const response = matched ? matched.botResponse : "I'm processing this frequency but it's unclear. Can you rephrase the request? 🤔";
+      const response = matched ? matched.botResponse : "I couldn't quite catch that. Could you please rephrase or ask something else? 🤔";
 
       setMessages(prev => [...prev, { role: "assistant", content: response }]);
       setIsLoading(false);
@@ -93,7 +99,7 @@ const AIChatbot = () => {
       <div className="p-8 bg-white/5 border-b border-white/5 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="w-3 h-3 rounded-full bg-[#599692] animate-pulse"></div>
-          <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Neural Link Beta</span>
+          <span className="text-[10px] font-black text-white uppercase tracking-[0.4em]">Portfolio Assistant</span>
         </div>
         <button onClick={() => setIsMinimized(true)} className="text-[#626c7d] hover:text-white transition-colors">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M18 6 6 18M6 6l12 12" /></svg>
@@ -108,7 +114,7 @@ const AIChatbot = () => {
             </div>
           </div>
         ))}
-        {isLoading && <div className="text-[10px] font-black text-[#599692] uppercase tracking-widest animate-pulse">Syncing...</div>}
+        {isLoading && <div className="text-[10px] font-black text-[#599692] uppercase tracking-widest animate-pulse">Thinking...</div>}
         <div ref={messagesEndRef} />
       </div>
 
@@ -128,7 +134,7 @@ const AIChatbot = () => {
             value={input}
             onChange={handleInputChange}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Input Frequency..."
+            placeholder="Type a message..."
             className="w-full bg-white/5 border border-white/10 rounded-full py-4 px-8 text-[13px] text-white placeholder-white/20 focus:outline-none focus:border-[#599692] transition-all italic"
           />
           <button onClick={() => handleSend()} className="absolute right-2 top-2 bottom-2 aspect-square bg-white rounded-full flex items-center justify-center text-black hover:bg-[#599692] hover:text-white transition-all">

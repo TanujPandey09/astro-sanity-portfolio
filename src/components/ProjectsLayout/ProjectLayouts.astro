@@ -11,9 +11,9 @@ const { projectData } = Astro.props;
   <main class="container mx-auto px-6 py-16 md:py-32 relative z-10">
     <div class="max-w-7xl mx-auto">
       <SectionHeader 
-        title="Archive" 
-        gradientText="Index" 
-        subtitle="A comprehensive log of technical explorations, architectural blueprints, and high-fidelity deployments."
+        title="Complete" 
+        gradientText="Portfolio" 
+        subtitle="A detailed showcase of completed platforms, professional client builds, and production-ready web applications."
       />
 
       <div class="mt-16 md:mt-32 space-y-0">
@@ -25,10 +25,10 @@ const { projectData } = Astro.props;
       <!-- Advanced Stats (Awwwards Style) -->
       <div class="mt-24 md:mt-48 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 py-12 md:py-20 border-t border-white/5">
          {[
-           { label: "Total Artifacts", value: "48+" },
-           { label: "Lines Composed", value: "2.5M" },
-           { label: "Successful Nodes", value: "100%" },
-           { label: "Uptime Rating", value: "99.9%" }
+           { label: "Completed Builds", value: "6+" },
+           { label: "Commits Pushed", value: "1.2K+" },
+           { label: "Success Rate", value: "100%" },
+           { label: "Happy Clients", value: "25+" }
          ].map(stat => (
            <div class="space-y-4">
               <p class="text-[8px] md:text-[10px] font-black text-[#626c7d] uppercase tracking-[0.4em] md:tracking-[0.6em]">{stat.label}</p>
