@@ -1,7 +1,15 @@
 ---
 import { PortableText } from "astro-portabletext";
 import PremiumBackground from "../PremiumBackground.astro";
+import PortableTextImage from "./PortableTextImage.astro";
+
 const { detailsData, blogData } = Astro.props;
+
+const components = {
+  type: {
+    image: PortableTextImage
+  }
+};
 
 const getRandomPosts = (allPosts: any[], currentPostSlug: string, count = 2) => {
   const otherPosts = allPosts.filter(post => post.slug?.current !== currentPostSlug);
@@ -52,7 +60,7 @@ const relatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
           )}
 
           <div class="prose-custom max-w-4xl" data-aos="fade-up">
-             <PortableText value={detailsData.blogcontent} />
+             <PortableText value={detailsData.blogcontent} components={components} />
           </div>
        </article>
 
@@ -104,7 +112,6 @@ const relatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
     color: var(--secondary-color);
     font-size: var(--p-mobile);
     line-height: var(--line-height-relaxed);
-    font-style: italic;
   }
   @media (min-width: 1024px) {
     .prose-custom {
@@ -113,6 +120,16 @@ const relatedPosts = getRandomPosts(blogData, detailsData.slug?.current);
   }
   .prose-custom :global(p) {
     margin-bottom: var(--space-xl);
+  }
+  .prose-custom :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    max-width: 100%;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   }
   .prose-custom :global(h2) {
     color: white;

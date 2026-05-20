@@ -2,12 +2,19 @@
 const { detailsData } = Astro.props;
 import { PortableText } from "astro-portabletext";
 import PremiumBackground from "../PremiumBackground.astro";
+import PortableTextImage from "../BlogLayout/PortableTextImage.astro";
+
+const components = {
+  type: {
+    image: PortableTextImage
+  }
+};
 ---
 
 <div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
   <PremiumBackground />
 
-  <main class="container mx-auto px-6 py-16 md:py-32 relative z-10">
+  <main class="container mx-auto px-6 pt-32 pb-12 md:pt-48 md:pb-20 relative z-10">
     <!-- Breadcrumb / Meta -->
     <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-down">
        <a href="/projects" class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-all">
@@ -19,64 +26,58 @@ import PremiumBackground from "../PremiumBackground.astro";
        <div class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.5em] opacity-40">Artifact NR. {detailsData?._id?.slice(-4) || "001"}</div>
     </div>
 
-    <!-- Project Identity -->
-    <section class="max-w-7xl mx-auto mb-20 md:mb-32">
-       <div class="grid lg:grid-cols-12 gap-8 md:gap-16 items-center lg:items-end mb-16 md:mb-24 text-center lg:text-left">
-          <div class="lg:col-span-8 space-y-6 md:space-y-8" data-aos="fade-right">
-             <div class="flex items-center gap-3 justify-center lg:justify-start">
-                <div class="h-[1px] w-8 md:w-12 bg-[#599692]"></div>
-                <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-[#599692]">Deployment Log</span>
-             </div>
-             <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tighter leading-none m-0">
-               {detailsData?.projectName}
-             </h1>
-          </div>
-          <div class="lg:col-span-4 flex flex-wrap gap-2 md:gap-4 justify-center lg:justify-end pb-4" data-aos="fade-left">
-             {detailsData?.tags?.map((tag: string) => (
-                <span class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-white/10 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#626c7d]">
-                   {tag}
-                </span>
-             ))}
-          </div>
-       </div>
+    <!-- Project Identity: Switched to a Stacked Flex layout so titles and tags never clash, with scaled clamp size -->
+     <section class="max-w-7xl mx-auto mb-20 md:mb-32">
+        <div class="flex flex-col gap-6 md:gap-8 mb-16 md:mb-20" data-aos="fade-up">
+           <div class="flex items-center gap-3">
+              <div class="h-[1px] w-8 md:w-12 bg-[#599692]"></div>
+              <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-[#599692]">Deployment Log</span>
+           </div>
+           
+           <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tighter leading-none m-0 project-main-title">
+             {detailsData?.projectName}
+           </h1>
 
-       <!-- Hero Image / Artifact -->
-       <div class="relative rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/5 bg-[#11172a] group" data-aos="zoom-out">
-          {detailsData?.BackgroundImage?.asset?.url && (
-            <img 
-              src={detailsData.BackgroundImage.asset.url} 
-              alt={detailsData.projectName}
-              class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
-            />
-          )}
-          <div class="absolute inset-0 bg-gradient-to-t from-[#11172a]/90 md:from-[#11172a]/80 via-transparent to-transparent"></div>
-          
-          <!-- Quick Status UI overlay -->
-          <div class="absolute bottom-6 left-6 right-6 md:bottom-12 md:left-12 md:right-12 flex flex-col md:flex-row justify-between items-center md:items-end gap-6 md:gap-8">
-             <div class="space-y-3 md:space-y-4 hidden sm:block">
-                <p class="text-[8px] md:text-[10px] font-black text-white/40 uppercase tracking-[0.4em]">Node Distribution</p>
-                <div class="flex gap-1.5 md:gap-2">
-                   {[1,2,3,4,5,6].map(i => <div class={`h-1 w-6 md:w-8 rounded-full ${i <= 4 ? 'bg-[#599692]' : 'bg-white/10'}`}></div>)}
-                </div>
-             </div>
-             <div class="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto">
-                {detailsData?.demoLink?.current && (
-                  <a href={detailsData.demoLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] rounded-full hover:bg-[#599692] hover:text-white transition-all duration-500 shadow-2xl text-center">
-                    Live Interface
-                  </a>
-                )}
-                {detailsData?.gitHubLink?.current && (
-                  <a href={detailsData.gitHubLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white/5 backdrop-blur-md border border-white/10 text-white font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] md:tracking-[0.4em] rounded-full hover:bg-white/10 transition-all text-center">
-                    Source Intel
-                  </a>
-                )}
-             </div>
-          </div>
-       </div>
-    </section>
+           <!-- Elegant Action and Info Row: Tags & CTA buttons placed together below title for clean layout -->
+           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/5">
+              <div class="flex flex-wrap gap-2 md:gap-4">
+                 {detailsData?.tags?.map((tag: string) => (
+                    <span class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-white/10 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#626c7d]">
+                       {tag}
+                    </span>
+                 ))}
+              </div>
+              
+              <div class="flex flex-wrap gap-4 w-full sm:w-auto animate-fade-in">
+                 {detailsData?.demoLink?.current && (
+                   <a href={detailsData.demoLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-[#599692] hover:text-white transition-all duration-500 shadow-2xl text-center">
+                     Live Interface
+                   </a>
+                 )}
+                 {detailsData?.gitHubLink?.current && (
+                   <a href={detailsData.gitHubLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-white/10 text-white font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
+                     Source Intel
+                   </a>
+                 )}
+              </div>
+           </div>
+        </div>
 
-    <!-- Project Intelligence -->
-    <section class="max-w-5xl mx-auto py-16 md:py-32 border-t border-white/5">
+        <!-- Hero Image / Artifact: Clean presentation without messy absolute buttons overlaying screenshot content -->
+        <div class="relative rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/5 bg-[#11172a] group" data-aos="zoom-out">
+           {detailsData?.BackgroundImage?.asset?.url && (
+             <img 
+               src={detailsData.BackgroundImage.asset.url} 
+               alt={detailsData.projectName}
+               class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100 shadow-inner"
+             />
+           )}
+           <div class="absolute inset-0 bg-gradient-to-t from-[#11172a]/20 via-transparent to-transparent pointer-events-none"></div>
+        </div>
+     </section>
+
+    <!-- Project Intelligence: Reduced bottom padding to zero to prevent stacking with main & footer padding -->
+    <section class="max-w-5xl mx-auto pt-16 pb-0 md:pt-32 md:pb-0 border-t border-white/5">
        <div class="grid lg:grid-cols-12 gap-12 md:gap-20">
           <div class="lg:col-span-4" data-aos="fade-right">
              <h2 class="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-6 md:mb-8 leading-tight">Technical <br/> <span class="text-gradient">Specifications</span></h2>
@@ -101,7 +102,7 @@ import PremiumBackground from "../PremiumBackground.astro";
           
           <div class="lg:col-span-8" data-aos="fade-left">
              <div class="prose-custom">
-               <PortableText value={detailsData?.projectcontent} />
+               <PortableText value={detailsData?.projectcontent} components={components} />
              </div>
           </div>
        </div>
@@ -110,11 +111,19 @@ import PremiumBackground from "../PremiumBackground.astro";
 </div>
 
 <style>
+  .project-main-title {
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    word-break: break-word;
+  }
+  
   .prose-custom {
-    @apply text-[#626c7d] text-lg md:text-xl leading-relaxed italic;
+    @apply text-[#626c7d] text-lg md:text-xl leading-relaxed;
   }
   .prose-custom :global(p) {
     @apply mb-10;
+  }
+  .prose-custom :global(img) {
+    @apply w-full h-auto rounded-3xl border border-white/5 my-10 max-w-full shadow-2xl;
   }
   .prose-custom :global(h2) {
     @apply text-white text-3xl font-black uppercase tracking-tighter mt-16 mb-8;

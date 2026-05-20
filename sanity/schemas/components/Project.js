@@ -19,17 +19,25 @@ export default {
       title: 'Slug',
       name: 'slug',
       type: 'slug',
-      options:{
-        source:'projectName'
+      options: {
+        source: 'projectName'
       }
     },
-    
+
     {
       title: 'Excerpt',
       name: 'excerpt',
       type: 'array',
-    description: "Add your content here. You can add text, images or videos.",
-      of: [{type: 'block'}],
+      description: "Add your content here. You can add text, images or videos.",
+      of: [
+        { type: 'block' },
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
     },
 
 
@@ -38,14 +46,14 @@ export default {
       name: 'projectcontent',
       type: 'array',
       description: "Add your content here. You can add text, images or videos.",
-      of: [{type: 'block'}, {type: 'image'}],
+      of: [{ type: 'block' }, { type: 'image' }],
     },
 
     {
       title: 'Tags',
       name: 'tags',
       type: 'array',
-      of: [{type: 'string'}],
+      of: [{ type: 'string' }],
     },
 
     {
