@@ -37,8 +37,8 @@ export default {
       title: 'Project Content',
       name: 'projectcontent',
       type: 'array',
-    description: "Add your  here. You can add text, images or videos.",
-      of: [{type: 'block'}],
+      description: "Add your content here. You can add text, images or videos.",
+      of: [{type: 'block'}, {type: 'image'}],
     },
 
     {
