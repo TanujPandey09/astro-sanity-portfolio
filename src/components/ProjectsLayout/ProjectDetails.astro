@@ -38,6 +38,13 @@ const components = {
              {detailsData?.projectName}
            </h1>
 
+           <!-- Elegant Excerpt / Case Study Summary -->
+           {detailsData?.excerpt && (
+             <div class="max-w-4xl text-lg md:text-xl text-[#dfe5ec]/80 leading-relaxed font-light my-2 max-w-3xl" data-aos="fade-up">
+                <PortableText value={detailsData?.excerpt} components={components} />
+             </div>
+           )}
+
            <!-- Elegant Action and Info Row: Tags & CTA buttons placed together below title for clean layout -->
            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/5">
               <div class="flex flex-wrap gap-2 md:gap-4">
