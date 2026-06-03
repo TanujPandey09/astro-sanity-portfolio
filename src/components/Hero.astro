@@ -2,80 +2,59 @@
 ---
 
 <section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20">
+  <!-- Animated Linear Gradient Background -->
+  <div class="absolute inset-0 bg-[linear-gradient(45deg,#11172a,#000105,#0a192f,#11172a)] bg-[length:400%_400%] animate-[gradient-bg_15s_ease_infinite] z-0"></div>
   <!-- Subtle Background Grid Overlay -->
-  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_-20%,#000_70%,transparent_100%)] pointer-events-none"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none z-0"></div>
 
   <div class="container mx-auto px-6 relative z-20">
     <div class="max-w-7xl mx-auto">
       
-      <div class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+      <div class="grid grid-cols-1 items-center">
         <!-- Text Content -->
-        <div class="lg:col-span-8 order-2 lg:order-1 text-center lg:text-left">
-          <div class="mb-8 flex items-center justify-center lg:justify-start gap-4" data-aos="fade-right">
-             <div class="w-12 h-[1px] bg-[#599692]"></div>
-             <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#599692]">Full Stack Software Engineer / 4+ YOE</span>
+        <div class="text-center flex flex-col items-center">
+          <div class="mb-10 flex flex-col md:flex-row items-center justify-center gap-5" data-aos="fade-up">
+             <a href="#contact" class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#11172a] border border-[#599692]/30 hover:border-[#599692] transition-all duration-500 cursor-pointer shadow-[0_0_20px_rgba(89,150,146,0.1)] hover:shadow-[0_0_30px_rgba(89,150,146,0.3)] group relative overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#599692]/0 via-[#599692]/10 to-[#599692]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+                <div class="relative w-2.5 h-2.5">
+                   <div class="absolute inset-0 rounded-full bg-green-500 animate-ping opacity-75"></div>
+                   <div class="relative w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                </div>
+                <span class="text-[9px] font-black uppercase tracking-[0.3em] text-white group-hover:text-green-400 transition-colors">Available for Projects</span>
+             </a>
+             <div class="hidden md:block w-8 h-[1px] bg-[#599692]/40"></div>
+             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-[#626c7d]">Full Stack Software Engineer / 3.5+ YOE</span>
           </div>
 
           <div class="relative mb-12" data-aos="fade-up" data-aos-delay="200">
             <h1 class="hero-title font-black text-white leading-none tracking-tighter uppercase relative z-10 m-0">
               Building Scalable <br/>
               <span class="text-gradient">Engineering</span> Solutions.
-            </h1>
-            <!-- Abstract Architectural Line -->
-            <div class="absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/5 to-transparent hidden lg:block"></div>
           </div>
 
-          <div class="max-w-2xl mb-16 mx-auto lg:mx-0" data-aos="fade-up" data-aos-delay="400">
-            <p class="text-lg md:text-xl text-[#626c7d] leading-relaxed italic font-medium">
-              "Leveraging 4+ years of professional experience to engineer robust backend systems and intuitive, high-performance user interfaces that drive real business growth."
+          <div class="max-w-3xl mb-16 mx-auto" data-aos="fade-up" data-aos-delay="400">
+            <p class="text-lg md:text-xl text-[#626c7d] leading-relaxed italic font-medium text-center">
+              "Building scalable SaaS applications, AI-powered platforms, and complex CRM systems. Passionate about clean architecture, performance optimization, and crafting exceptional user experiences."
             </p>
           </div>
 
-          <div class="flex flex-wrap gap-8 md:gap-12 items-center justify-center lg:justify-start" data-aos="fade-up" data-aos-delay="600">
+          <div class="flex flex-wrap gap-8 md:gap-12 items-center justify-center" data-aos="fade-up" data-aos-delay="600">
             <button 
               id="resume-btn"
-              class="group relative px-10 md:px-16 py-6 md:py-8 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-700 hover:scale-105"
+              class="group relative px-10 md:px-16 py-6 md:py-8 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-700 hover:scale-105 shadow-[0_0_40px_rgba(255,255,255,0.1)] hover:shadow-[0_0_60px_rgba(89,150,146,0.4)]"
             >
-               <span class="relative z-10">Download Resume</span>
+               <span class="relative z-10 group-hover:text-white transition-colors duration-500">Download Resume</span>
                <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
             </button>
 
             <a href="#contact" class="group flex items-center gap-6 text-white font-black uppercase text-[10px] tracking-[0.4em] transition-all">
-               <span>Get In Touch</span>
-               <div class="h-[1px] w-8 md:w-12 bg-white/20 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700"></div>
+               <span class="group-hover:text-[#599692] transition-colors duration-300">Get In Touch</span>
+               <div class="h-[1px] w-8 md:w-12 bg-white/20 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700 shadow-[0_0_10px_rgba(255,255,255,0)] group-hover:shadow-[0_0_15px_#599692]"></div>
             </a>
           </div>
         </div>
 
-        <!-- Professional Technical Visual (Replacing Character Image) -->
-        <div class="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end" data-aos="zoom-out" data-aos-duration="1500">
-           <div class="relative w-full max-w-[400px] aspect-square">
-              <!-- Geometric HUD Design -->
-              <div class="absolute inset-0 border border-white/5 rounded-full animate-[spin_60s_linear_infinite]"></div>
-              <div class="absolute inset-10 border border-[#599692]/10 rounded-full animate-[spin_40s_linear_infinite_reverse]"></div>
-              <div class="absolute inset-20 border border-white/5 rounded-full animate-[spin_20s_linear_infinite]"></div>
-              
-              <!-- Core Focal Point -->
-              <div class="absolute inset-[30%] bg-gradient-to-tr from-[#11172a] to-[#000105] border border-white/10 rounded-2xl backdrop-blur-3xl flex items-center justify-center group">
-                 <div class="w-16 h-16 border border-[#599692]/20 rounded-full flex items-center justify-center animate-pulse">
-                    <div class="w-8 h-8 bg-[#599692] rounded-full blur-xl opacity-40"></div>
-                    <div class="w-2 h-2 bg-[#599692] rounded-full relative z-10 shadow-[0_0_15px_#599692]"></div>
-                 </div>
-                 
-                 <!-- Dynamic Data Nodes -->
-                 <div class="absolute top-8 left-8 w-2 h-2 bg-white/20 rounded-full"></div>
-                 <div class="absolute bottom-8 right-8 w-2 h-2 bg-[#599692]/40 rounded-full"></div>
-              </div>
 
-              <!-- Floating Status Tags -->
-              <div class="absolute top-0 right-0 px-6 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full">
-                 <span class="text-[8px] font-black text-[#599692] uppercase tracking-widest">Experience: 4+ YOE</span>
-              </div>
-              <div class="absolute bottom-10 left-0 px-6 py-2 bg-white/5 backdrop-blur-md border border-white/10 rounded-full">
-                 <span class="text-[8px] font-black text-white/40 uppercase tracking-widest">Focus: Full Stack</span>
-              </div>
-           </div>
-        </div>
       </div>
 
     </div>
@@ -100,6 +79,12 @@
   }
 
   @keyframes gradient-flow {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes gradient-bg {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
     100% { background-position: 0% 50%; }

@@ -63,8 +63,11 @@ export default function Footer() {
             © {currentYear} Tanuj Pandey . All Rights Reserved
           </div>
           <div className="flex items-center gap-6 md:gap-8">
-            <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.3em]">Experience: 4+ YOE</span>
-            <span className="text-[8px] font-black text-[#599692] uppercase tracking-[0.3em]">Open to Work</span>
+            <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.3em]">Experience: 3.5+ YOE</span>
+            <div className="flex items-center gap-2">
+              <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+              <span className="text-[8px] font-black text-[#599692] uppercase tracking-[0.3em]">Available for Projects</span>
+            </div>
           </div>
         </div>
       </div>

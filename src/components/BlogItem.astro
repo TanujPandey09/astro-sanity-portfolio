@@ -3,30 +3,30 @@ const { blog, index } = Astro.props;
 
 ---
 
-<div class="blog-item group relative py-16 border-b border-white/5 last:border-0" data-aos="fade-up" data-aos-delay={index * 50}>
+<div class="blog-item group relative py-16 px-8 border-b border-white/5 last:border-0 hover:bg-white/[0.02] rounded-2xl transition-all duration-500 hover:px-12 -mx-8 hover:shadow-[0_0_40px_rgba(89,150,146,0.05)]" data-aos="fade-up" data-aos-delay={index * 50}>
   <a href={`/blogs/${blog.slug.current}`} class="flex items-center justify-between gap-8">
     <div class="flex-1">
       <div class="flex items-center gap-6 mb-4">
-        <span class="text-[10px] font-black text-[#599692]">JOURNAL {index + 1}</span>
-        <span class="text-[10px] font-black text-[#626c7d] italic">{new Date(blog._createdAt).toLocaleDateString()}</span>
+        <span class="text-[10px] font-black text-[#599692] group-hover:tracking-widest transition-all duration-500">JOURNAL {index + 1}</span>
+        <span class="text-[10px] font-black text-[#626c7d] italic group-hover:text-white/60 transition-colors duration-500">{new Date(blog._createdAt).toLocaleDateString()}</span>
       </div>
       
-      <h3 class="text-white group-hover:text-[#599692] transition-colors uppercase tracking-tight leading-none">
+      <h3 class="text-white group-hover:text-[#599692] transition-colors duration-500 uppercase tracking-tight leading-none group-hover:translate-x-2">
         {blog.projectName}
       </h3>
     </div>
 
-    <div class="hidden md:block w-32 h-32 rounded-full overflow-hidden scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] border-2 border-[#599692]">
+    <div class="hidden md:block w-32 h-32 rounded-full overflow-hidden scale-0 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] border-2 border-[#599692] shadow-[0_0_30px_rgba(89,150,146,0.4)]">
       {blog.FeatureImage?.asset?.url && (
         <img 
           src={blog.FeatureImage.asset.url} 
           alt={blog.title}
-          class="w-full h-full object-cover"
+          class="w-full h-full object-cover group-hover:rotate-6 transition-transform duration-1000"
         />
       )}
     </div>
 
-    <div class="flex items-center justify-center w-12 h-12 rounded-full border border-white/10 group-hover:bg-white group-hover:text-black transition-all duration-500">
+    <div class="flex items-center justify-center w-12 h-12 rounded-full border border-white/10 group-hover:bg-[#599692] group-hover:border-[#599692] group-hover:text-white transition-all duration-500 group-hover:rotate-45">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
         <path d="M5 12h14m-7-7 7 7-7 7"/>
       </svg>

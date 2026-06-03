@@ -2,16 +2,16 @@
 const { project, index } = Astro.props;
 ---
 
-<div class="group relative bg-[#11172a] border border-white/5 rounded-[2rem] overflow-hidden hover:border-[#599692]/30 transition-all duration-700" data-aos="fade-up" data-aos-delay={index * 50}>
+<div class="group relative bg-[#11172a] border border-white/5 rounded-[2rem] overflow-hidden hover:border-[#599692]/30 transition-all duration-700 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(89,150,146,0.2)]" data-aos="fade-up" data-aos-delay={index * 50}>
   <a href={`/projects/${project.slug.current}`} class="block aspect-[4/3] relative overflow-hidden">
     {project.BackgroundImage?.asset?.url && (
       <img 
         src={project.BackgroundImage.asset.url} 
         alt={project.projectName}
-        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110"
+        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-110 group-hover:rotate-1"
       />
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-[#000105] via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#000105] via-[#000105]/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-700"></div>
     
     <div class="absolute bottom-6 left-6 right-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
        <div class="flex flex-wrap gap-2 mb-3 opacity-0 group-hover:opacity-100 transition-opacity">
