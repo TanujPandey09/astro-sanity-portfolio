@@ -19,14 +19,14 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 
 const achievements = [
-  { number: "6+", label: "Solutions Built", color: "#599692" },
-  { number: "3.5+", label: "Years Impact", color: "#626c7d" },
-  { number: "25%", label: "UX Performance", color: "#599692" },
-  { number: "100%", label: "Satisfaction", color: "#FFFFFF" },
+  { number: "6+", label: "Solutions Built", color: "#3B82F6" },
+  { number: "4+", label: "Years Impact", color: "#60A5FA" },
+  { number: "25%", label: "UX Performance", color: "#22D3EE" },
+  { number: "100%", label: "Satisfaction", color: "#F8FAFC" },
 ];
 ---
 
-<div class="relative min-h-screen selection:bg-[#599692]/30">
+<div class="relative min-h-screen selection:bg-[#3B82F6]/30">
   <PremiumBackground />
 
   <div class="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
@@ -39,14 +39,14 @@ const achievements = [
     <div class="py-12 md:py-24" data-aos="fade-up">
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-3xl md:rounded-[2rem] overflow-hidden">
         {achievements.map((achievement, index) => (
-          <div class="p-6 md:p-12 bg-[#11172a] text-center group hover:bg-white/[0.02] transition-colors">
+          <div class="p-6 md:p-12 bg-[#0B1120]/60 backdrop-blur-md text-center group hover:bg-white/[0.02] transition-colors">
             <div 
-              class="text-3xl md:text-5xl lg:text-6xl font-black mb-2 md:mb-4 tracking-tighter transition-transform duration-700 group-hover:scale-110"
+              class="text-3xl md:text-5xl lg:text-6xl font-black mb-2 md:mb-4 tracking-tighter transition-transform duration-700 group-hover:scale-110 font-mono"
               style={`color: ${achievement.color}`}
             >
               {achievement.number}
             </div>
-            <div class="text-[7px] md:text-[8px] lg:text-[10px] text-[#626c7d] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">{achievement.label}</div>
+            <div class="text-[7px] md:text-[8px] lg:text-[10px] text-[#94A3B8] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">{achievement.label}</div>
           </div>
         ))}
       </div>
@@ -66,8 +66,8 @@ const achievements = [
           subtitle="A selection of production-ready applications and custom full-stack platforms built for reliability."
         />
         
-        <!-- Featured Deliveries (Immersive List) -->
-        <div class="mt-16 md:mt-24 space-y-0">
+        <!-- Featured Deliveries (Bento Grid) -->
+        <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
@@ -77,15 +77,15 @@ const achievements = [
           <div class="mt-24 md:mt-48">
             <div class="flex flex-col md:flex-row items-center justify-between mb-12 md:mb-16 px-4 gap-8">
                <div class="space-y-2 text-center md:text-left">
-                  <p class="text-[8px] md:text-[10px] font-black text-[#599692] uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
+                  <p class="text-[8px] md:text-[10px] font-black text-[#3B82F6] uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
                   <h3 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter">Additional Projects</h3>
                </div>
                <button 
                  id="expand-repo"
-                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-[#626c7d] hover:text-[#599692] transition-colors"
+                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-[#94A3B8] hover:text-[#3B82F6] transition-colors"
                >
                  Show All Projects
-                 <div class="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#599692] transition-all">
+                 <div class="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#3B82F6] transition-all">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" id="repo-icon" class="transition-transform duration-500"><path d="m6 9 6 6 6-6"/></svg>
                  </div>
                </button>
@@ -98,9 +98,9 @@ const achievements = [
             </div>
 
             <div class="mt-16 md:mt-32 flex justify-center">
-               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-white/10 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#599692] text-center">
+               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-white/10 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#3B82F6] text-center">
                   <span class="relative z-10">View Full Portfolio</span>
-                  <div class="absolute inset-0 bg-[#599692] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                  <div class="absolute inset-0 bg-[#3B82F6] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                </a>
             </div>
           </div>
@@ -124,9 +124,9 @@ const achievements = [
         </div>
         
         <div class="mt-12 md:mt-20 flex justify-center md:justify-end">
-           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#626c7d] hover:text-[#599692] transition-all">
+           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#94A3B8] hover:text-[#3B82F6] transition-all">
               Explore All Articles
-              <div class="w-8 md:w-12 h-[1px] bg-[#626c7d] group-hover:bg-[#599692] group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
+              <div class="w-8 md:w-12 h-[1px] bg-[#94A3B8] group-hover:bg-[#3B82F6] group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
            </a>
         </div>
       </div>

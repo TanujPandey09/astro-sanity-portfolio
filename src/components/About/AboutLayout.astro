@@ -4,93 +4,242 @@ import { PortableText } from "astro-portabletext";
 import SectionHeader from "../SectionHeader.astro";
 import PremiumBackground from "../PremiumBackground.astro";
 import Skills from "../Skills.astro";
+
+const chapters = [
+  {
+    num: "01",
+    title: "Frontend Foundations",
+    subtitle: "Pixel-Perfect UX & Modern Frameworks",
+    desc: "Mastering the frontend ecosystem to construct fluid user experiences. Designed highly responsive components, state-management architectures, and complex interactive animations using React, Next.js, and Tailwind CSS.",
+    statNum: "99+",
+    statLabel: "Lighthouse Performance Score"
+  },
+  {
+    num: "02",
+    title: "Full Stack Expansion",
+    subtitle: "Robust APIs & Databases",
+    desc: "Expanding to backend architectures, creating production-grade REST & GraphQL APIs using Node.js, Express, and databases such as PostgreSQL and MongoDB. Focused on security, performance, and scaling server operations.",
+    statNum: "20+",
+    statLabel: "Backend Modules Deployed"
+  },
+  {
+    num: "03",
+    title: "AI Product Engineering",
+    subtitle: "LLMs, RAG & Agents",
+    desc: "Integrating advanced AI capabilities into modern applications. Built RAG (Retrieval-Augmented Generation) pipelines, custom prompts, and automated agent workflows using OpenAI, Claude, and vector databases.",
+    statNum: "4+",
+    statLabel: "AI Models Integrated"
+  },
+  {
+    num: "04",
+    title: "Building SaaS Platforms",
+    subtitle: "Enterprise Systems & Founders Vision",
+    desc: "Developing subscription-based software systems, enterprise dashboards, and custom CRM software. Designed multi-tenant platforms, unified databases, and metrics engines that serve as solid growth foundations.",
+    statNum: "5+",
+    statLabel: "SaaS Platforms Launched"
+  }
+];
 ---
 
-<div class="relative min-h-screen selection:bg-[#599692]/30 overflow-hidden">
+<div class="relative min-h-screen selection:bg-[#3B82F6]/30 overflow-hidden">
   <PremiumBackground />
 
-  <main class="container mx-auto px-6 py-16 md:py-32 relative z-10">
-    <!-- Hero Section -->
-    <section class="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center mb-24 md:mb-48">
-      <div class="lg:col-span-12 mb-12" data-aos="fade-down">
-         <SectionHeader 
-           title="Professional" 
-           gradientText="Background" 
-           subtitle="Crafting high-performance web products through engineering excellence and strategic full-stack vision."
-         />
+  <main class="relative z-10">
+    <!-- Hero Section (Option 3: Structured Bento Grid) -->
+    <section class="w-full px-6 md:px-12 lg:px-20 pt-32 pb-16 md:pt-40 md:pb-24 bg-[#050816] relative z-10">
+      
+      <!-- Section Header -->
+      <div class="mb-12 space-y-3" data-aos="fade-up">
+         <span class="text-[9px] font-black uppercase tracking-[0.4em] text-[#3B82F6] block">Overview // Profile</span>
+         <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tighter leading-none m-0">
+           Professional <span class="text-gradient">Background</span>
+         </h1>
+         <p class="text-[#94A3B8] text-xs md:text-sm font-medium tracking-wide">
+           Specialized in building AI-powered SaaS platforms and scalable product architectures.
+         </p>
       </div>
 
-      <!-- Image Section -->
-      <div class="lg:col-span-5 relative group mb-12 lg:mb-0" data-aos="fade-right">
-        <div class="absolute -inset-4 bg-gradient-to-tr from-[#599692] to-[#626c7d] rounded-[3rem] opacity-20 blur-3xl group-hover:opacity-40 transition-opacity duration-1000"></div>
-        <div class="relative aspect-[4/5] rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/10 p-2 bg-[#11172a] shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-          {aboutData?.[0]?.heroImage?.asset?.url ? (
-            <img
-              src={aboutData[0].heroImage.asset.url}
-              alt="Tanuj Pandey"
-              class="w-full h-full object-cover rounded-[2.5rem] grayscale hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100 opacity-80 mix-blend-luminosity hover:mix-blend-normal"
-            />
-          ) : (
-             <div class="w-full h-full bg-[#000105] border border-white/5 flex items-center justify-center rounded-[2.5rem]">
-                <span class="font-mono text-[#599692] text-xs">NO_IMAGE_DATA</span>
-             </div>
-          )}
+      <!-- Bento Grid Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
+         
+         <!-- Cell 1: Widescreen Profile Image (Left) -->
+         <div class="lg:col-span-5 relative group rounded-3xl overflow-hidden border border-white/10 p-2 bg-[#0B1120]/40 min-h-[380px] flex flex-col" data-aos="fade-up">
+            <div class="absolute -inset-4 bg-gradient-to-tr from-[#3B82F6] to-[#22D3EE] rounded-[2.5rem] opacity-5 blur-2xl group-hover:opacity-15 transition-opacity duration-1000"></div>
+            <div class="relative w-full h-full flex-grow rounded-2xl overflow-hidden">
+               {aboutData?.[0]?.heroImage?.asset?.url ? (
+                 <img
+                   src={aboutData[0].heroImage.asset.url}
+                   alt="Tanuj Pandey"
+                   class="w-full h-full object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all duration-700 scale-102 group-hover:scale-100 opacity-90 mix-blend-luminosity group-hover:mix-blend-normal"
+                 />
+               ) : (
+                  <div class="w-full h-full bg-[#050816] flex items-center justify-center rounded-2xl">
+                     <span class="font-mono text-[#3B82F6] text-xs">NO_IMAGE_DATA</span>
+                  </div>
+               )}
+            </div>
+         </div>
+
+         <!-- Cell 2: The Bio Narrative (Right) -->
+         <div class="lg:col-span-7 bg-[#0B1120]/40 border border-white/5 p-8 md:p-10 rounded-3xl flex flex-col justify-between relative overflow-hidden group hover:border-white/10 transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
+            <!-- Accent vertical line -->
+            <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#3B82F6] to-transparent"></div>
+            
+            <div class="space-y-6">
+               <span class="font-mono text-[9px] text-[#3B82F6] uppercase tracking-widest block">// The Narrative</span>
+               <div class="text-white font-black uppercase tracking-tighter leading-tight text-lg md:text-xl italic">
+                 "{aboutData?.[0]?.aboutName || "Building intelligent digital products through clean engineering and technical leadership."}"
+               </div>
+               <div class="prose prose-invert prose-sm md:prose-base max-w-none text-[#94A3B8] leading-relaxed space-y-4">
+                 <PortableText value={aboutData?.[0]?.description} />
+               </div>
+            </div>
+         </div>
+
+         <!-- Cell 3: Tech Matrix & Mastery (Bottom Left) -->
+         <div class="lg:col-span-6 bg-[#0B1120]/40 border border-white/5 p-8 rounded-3xl flex flex-col justify-between group hover:border-white/10 transition-all duration-500" data-aos="fade-up">
+            <div class="space-y-6 w-full">
+               <span class="font-mono text-[9px] text-[#22D3EE] uppercase tracking-widest block">// System Architecture Stack</span>
+               
+               <div class="grid grid-cols-2 gap-4">
+                  <!-- Tag 1 -->
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl flex items-center justify-between hover:border-[#3B82F6]/30 transition-all">
+                     <div class="space-y-1">
+                        <span class="text-[9px] font-mono text-white/40">ENGINE_CORE</span>
+                        <p class="text-xs font-bold text-white uppercase tracking-wider">React / Next.js</p>
+                     </div>
+                     <div class="w-8 h-8 rounded-full border border-[#3B82F6]/50 flex items-center justify-center bg-[#3B82F6]/10">
+                        <span class="w-2 h-2 rounded-full bg-[#3B82F6] animate-pulse"></span>
+                     </div>
+                  </div>
+
+                  <!-- Tag 2 -->
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl flex items-center justify-between hover:border-[#3B82F6]/30 transition-all">
+                     <div class="space-y-1">
+                        <span class="text-[9px] font-mono text-white/40">RUNTIME_ENV</span>
+                        <p class="text-xs font-bold text-white uppercase tracking-wider">Node.js / Express</p>
+                     </div>
+                     <div class="w-8 h-8 rounded-full border border-[#22D3EE]/50 flex items-center justify-center bg-[#22D3EE]/10">
+                        <span class="w-2 h-2 rounded-full bg-[#22D3EE] animate-pulse"></span>
+                     </div>
+                  </div>
+
+                  <!-- Tag 3 -->
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl flex items-center justify-between hover:border-[#3B82F6]/30 transition-all">
+                     <div class="space-y-1">
+                        <span class="text-[9px] font-mono text-white/40">DATA_REPOS</span>
+                        <p class="text-xs font-bold text-white uppercase tracking-wider">Mongo / Postgres</p>
+                     </div>
+                     <div class="w-8 h-8 rounded-full border border-[#3B82F6]/50 flex items-center justify-center bg-[#3B82F6]/10">
+                        <span class="w-2 h-2 rounded-full bg-[#3B82F6]"></span>
+                     </div>
+                  </div>
+
+                  <!-- Tag 4 -->
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl flex items-center justify-between hover:border-[#3B82F6]/30 transition-all">
+                     <div class="space-y-1">
+                        <span class="text-[9px] font-mono text-white/40">AI_MODS</span>
+                        <p class="text-xs font-bold text-white uppercase tracking-wider">RAG / LLM Agents</p>
+                     </div>
+                     <div class="w-8 h-8 rounded-full border border-[#22D3EE]/50 flex items-center justify-center bg-[#22D3EE]/10">
+                        <span class="w-2 h-2 rounded-full bg-[#22D3EE] animate-ping"></span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+         <!-- Cell 4: Dynamic Metrics & Resume (Bottom Right) -->
+         <div class="lg:col-span-6 bg-[#0B1120]/30 border border-white/5 p-8 rounded-3xl flex flex-col justify-between group hover:border-white/10 transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
+            <div class="space-y-6 w-full">
+               <span class="font-mono text-[9px] text-white/40 uppercase tracking-widest block">// Operational Metrics</span>
+               
+               <div class="grid grid-cols-3 gap-4 text-center">
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl">
+                     <p class="text-[8px] font-mono text-[#3B82F6] uppercase tracking-wider mb-1">Experience</p>
+                     <p class="text-xl md:text-2xl text-white font-black font-mono">4+ Years</p>
+                  </div>
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl">
+                     <p class="text-[8px] font-mono text-[#22D3EE] uppercase tracking-wider mb-1">SaaS Devs</p>
+                     <p class="text-xl md:text-2xl text-white font-black">Production</p>
+                  </div>
+                  <div class="bg-[#050816]/60 border border-white/5 p-4 rounded-2xl">
+                     <p class="text-[8px] font-mono text-[#94A3B8] uppercase tracking-wider mb-1">Focus Stack</p>
+                     <p class="text-xl md:text-2xl text-white font-black">Full Stack</p>
+                  </div>
+               </div>
+            </div>
+
+            <div class="pt-6 border-t border-white/5 mt-6 flex items-center justify-between gap-4">
+               <span class="text-[9px] font-mono text-white/30 uppercase tracking-widest">Sys allocation confirmed</span>
+               <button 
+                 id="about-resume-btn"
+                 class="group relative px-8 py-3.5 bg-white text-black font-black uppercase text-[10px] tracking-[0.3em] overflow-hidden rounded-full transition-all duration-500 hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(59,130,246,0.3)]"
+               >
+                  <span class="relative z-10 group-hover:text-white transition-colors duration-500">Resume.pdf</span>
+                  <div class="absolute inset-0 bg-[#3B82F6] translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
+               </button>
+            </div>
+         </div>
+
+      </div>
+
+    <!-- Horizontal Scrolling Journey Timeline Section -->
+    <section id="journey-timeline-section" class="relative py-12 md:py-16 bg-[#050816] overflow-hidden border-y border-white/5">
+      <div class="container mx-auto px-6 mb-8 md:mb-12">
+        <SectionHeader 
+          title="Milestones" 
+          gradientText="Engineering Journey" 
+          subtitle="A cinematic walkthrough of my growth, core chapters, and technical milestones."
+        />
+      </div>
+
+      <!-- Horizontal Scroll Area -->
+      <div class="horizontal-scroll-container flex items-center relative overflow-x-hidden min-h-[380px] md:min-h-[420px]">
+        <div class="timeline-scroll-track flex gap-8 md:gap-12 px-12 md:px-32 relative">
+          <!-- Connector Line -->
+          <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-[#3B82F6]/20 via-[#22D3EE]/20 to-[#3B82F6]/10 -translate-y-1/2 z-0"></div>
           
+          {chapters.map((chapter) => (
+            <div class="timeline-card flex-none w-[320px] md:w-[420px] bg-[#0B1120]/60 backdrop-blur-md border border-white/10 p-8 rounded-3xl relative z-10 group hover:border-[#3B82F6]/30 transition-all duration-500">
+              <!-- Top Header -->
+              <div class="flex items-center justify-between mb-8">
+                <span class="text-sm font-mono text-[#22D3EE] bg-[#22D3EE]/10 px-3 py-1 rounded-full">Chapter {chapter.num}</span>
+                <span class="text-6xl font-black text-white/5 font-mono group-hover:text-[#3B82F6]/10 transition-colors">{chapter.num}</span>
+              </div>
 
-        </div>
-        
-        <!-- Abstract Element -->
-        <div class="absolute -bottom-12 -right-12 w-48 h-48 bg-[#599692]/10 rounded-full blur-[80px] -z-10 group-hover:bg-[#599692]/20 transition-all"></div>
-      </div>
+              <!-- Content -->
+              <h3 class="text-xl md:text-2xl font-black text-white uppercase mb-2 group-hover:text-[#3B82F6] transition-colors">{chapter.title}</h3>
+              <p class="text-xs text-[#22D3EE] font-mono uppercase tracking-wider mb-4">{chapter.subtitle}</p>
+              <p class="text-sm text-[#94A3B8] leading-relaxed mb-6 font-normal">{chapter.desc}</p>
 
-      <!-- Content -->
-      <div class="lg:col-span-7 space-y-8 md:space-y-12" data-aos="fade-left">
-        <div class="prose-container relative">
-          <div class="hidden md:block absolute -left-12 top-0 bottom-0 w-[1px] bg-gradient-to-b from-[#599692] via-white/10 to-transparent opacity-20"></div>
-          <div class="prose prose-xl prose-invert max-w-none">
-             <div class="text-white font-black uppercase tracking-tighter mb-6 md:mb-8 leading-tight h2-style">
-               "{aboutData?.[0]?.aboutName || "Building robust digital products through clean engineering and technical leadership."}"
-             </div>
-             <div class="prose-content space-y-4 md:space-y-6">
-               <PortableText value={aboutData?.[0]?.description} />
-             </div>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 pt-8 md:pt-12">
-          <div class="space-y-1.5 md:space-y-2 border-l border-[#599692]/30 pl-4">
-             <p class="text-[8px] md:text-[10px] font-mono text-[#599692] uppercase tracking-[0.4em]">Experience</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">3.5+ Years</p>
-          </div>
-          <div class="space-y-1.5 md:space-y-2 border-l border-white/10 pl-4">
-             <p class="text-[8px] md:text-[10px] font-mono text-[#626c7d] uppercase tracking-[0.4em]">Architecture</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">Scalable</p>
-          </div>
-          <div class="space-y-1.5 md:space-y-2 border-l border-white/10 pl-4">
-             <p class="text-[8px] md:text-[10px] font-mono text-[#626c7d] uppercase tracking-[0.4em]">Stack Focus</p>
-             <p class="text-xl md:text-2xl text-white font-black tabular-nums">Full Stack</p>
-          </div>
+              <!-- Metric footer inside card -->
+              <div class="border-t border-white/5 pt-4 flex items-center justify-between">
+                <span class="text-[9px] font-black uppercase text-[#94A3B8] tracking-widest">{chapter.statLabel}</span>
+                <span class="text-lg md:text-xl font-black text-white font-mono">{chapter.statNum}</span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
 
-
     <!-- Academic Background (Nerdy/Technical aesthetic) -->
-    <section class="pb-16 md:pb-32 relative z-10" data-aos="fade-up">
-       <div class="max-w-4xl">
-          <div class="flex items-center gap-4 mb-10 md:mb-16">
-             <div class="w-12 h-[1px] bg-[#599692]"></div>
-             <h2 class="text-xl md:text-3xl font-black text-white uppercase tracking-tighter">Academic <span class="text-[#599692]">Foundation</span></h2>
+    <section class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+       <div class="max-w-4xl mx-auto">
+          <div class="flex items-center gap-4 mb-12">
+             <div class="w-12 h-[1px] bg-[#3B82F6]"></div>
+             <h2 class="text-xl md:text-3xl font-black text-white uppercase tracking-tighter">Academic <span class="text-[#22D3EE]">Foundation</span></h2>
           </div>
           
           <div class="space-y-6 md:space-y-8 pl-4 md:pl-8 border-l border-white/10 relative">
              <!-- Master's Degree -->
              <div class="relative group">
-                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#11172a] border-2 border-[#599692] group-hover:bg-[#599692] transition-colors shadow-[0_0_10px_#599692]"></div>
-                <div class="bg-[#11172a]/50 border border-white/5 p-6 md:p-8 rounded-2xl group-hover:border-[#599692]/30 transition-colors">
+                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#050816] border-2 border-[#3B82F6] group-hover:bg-[#3B82F6] transition-colors shadow-[0_0_10px_#3B82F6]"></div>
+                <div class="bg-[#0B1120]/40 border border-white/5 p-6 md:p-8 rounded-2xl group-hover:border-[#3B82F6]/30 transition-colors">
                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
                       <h3 class="text-lg md:text-xl font-bold text-white uppercase tracking-wide">Master of Computer Application</h3>
-                      <span class="font-mono text-[10px] text-[#599692] bg-[#599692]/10 px-3 py-1 rounded-full">2018 – 2020</span>
+                      <span class="font-mono text-[10px] text-[#22D3EE] bg-[#22D3EE]/10 px-3 py-1 rounded-full">2018 – 2020</span>
                    </div>
                    <p class="text-gray-400 font-mono text-sm md:text-base">GBPEC Pauri Garhwal</p>
                 </div>
@@ -98,8 +247,8 @@ import Skills from "../Skills.astro";
 
              <!-- Bachelor's Degree -->
              <div class="relative group">
-                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#11172a] border-2 border-white/20 group-hover:border-[#599692] group-hover:bg-[#599692]/50 transition-colors"></div>
-                <div class="bg-[#11172a]/50 border border-white/5 p-6 md:p-8 rounded-2xl group-hover:border-[#599692]/30 transition-colors">
+                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-[#050816] border-2 border-white/20 group-hover:border-[#3B82F6] group-hover:bg-[#3B82F6]/50 transition-colors"></div>
+                <div class="bg-[#0B1120]/40 border border-white/5 p-6 md:p-8 rounded-2xl group-hover:border-[#3B82F6]/30 transition-colors">
                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
                       <h3 class="text-lg md:text-xl font-bold text-white uppercase tracking-wide">Bachelor of Computer Application</h3>
                       <span class="font-mono text-[10px] text-gray-500 bg-white/5 px-3 py-1 rounded-full">2015 – 2018</span>
@@ -123,18 +272,15 @@ import Skills from "../Skills.astro";
     font-size: clamp(var(--h2-mobile), 5vw, var(--h2-desktop));
   }
   .prose-content {
-    color: #e2e8f0;
+    color: #94a3b8;
     font-size: var(--p-mobile);
     line-height: var(--line-height-relaxed);
-    font-weight: 500;
+    font-weight: 400;
   }
   @media (min-width: 1024px) {
     .prose-content {
       font-size: var(--p-desktop);
     }
-  }
-  .prose p {
-    margin-bottom: var(--space-xl);
   }
 </style>
 
@@ -155,7 +301,50 @@ import Skills from "../Skills.astro";
         start: "top 80%"
       }
     });
+
+    // Resume button listener
+    const resumeBtn = document.querySelector('#about-resume-btn');
+    resumeBtn?.addEventListener('click', () => {
+      const link = document.createElement("a");
+      link.href = "/Resume.pdf";
+      link.target = "_blank";
+      link.download = "resume.pdf";
+      link.click();
+    });
+
+    // Horizontal scroll timeline implementation
+    const track = document.querySelector('.timeline-scroll-track');
+    const section = document.getElementById('journey-timeline-section');
+    if (track && section) {
+      const getScrollAmount = () => {
+        let trackWidth = track.scrollWidth;
+        return Math.min(0, -(trackWidth - window.innerWidth));
+      };
+
+      gsap.to(track, {
+        x: getScrollAmount,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${track.scrollWidth}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+        }
+      });
+    }
   };
 
   initAbout();
+  
+  document.addEventListener('astro:after-swap', () => {
+    initAbout();
+  });
 </script>
+
+<style>
+  .scale-102 {
+    transform: scale(1.02);
+  }
+</style>

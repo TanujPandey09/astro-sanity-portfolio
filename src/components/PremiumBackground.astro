@@ -1,7 +1,10 @@
-<div class="fixed inset-0 -z-10 selection:bg-[#7000FF]/30">
+<div class="fixed inset-0 -z-10 select-none">
   <!-- Deep Base -->
-  <div class="absolute inset-0 bg-[#000105]"></div>
+  <div class="absolute inset-0 bg-[#050816]"></div>
   
+  <!-- ThreeJS Canvas -->
+  <canvas id="three-bg-canvas" class="absolute inset-0 w-full h-full pointer-events-none opacity-80"></canvas>
+
   <!-- Ethereal Glows -->
   <div class="absolute inset-0 overflow-hidden">
     <div class="glow-particle glow-1"></div>
@@ -21,7 +24,7 @@
     position: absolute;
     border-radius: 50%;
     filter: blur(120px);
-    opacity: 0.15;
+    opacity: 0.12;
     mix-blend-mode: screen;
   }
 
@@ -30,8 +33,7 @@
     height: 60vw;
     top: -20%;
     left: -10%;
-    background: radial-gradient(circle, #599692 0%, transparent 70%);
-    animation: float 20s infinite alternate ease-in-out;
+    background: radial-gradient(circle, #3B82F6 0%, transparent 70%);
   }
 
   .glow-2 {
@@ -39,8 +41,7 @@
     height: 50vw;
     bottom: -10%;
     right: -10%;
-    background: radial-gradient(circle, #626c7d 0%, transparent 70%);
-    animation: float 25s infinite alternate-reverse ease-in-out;
+    background: radial-gradient(circle, #60A5FA 0%, transparent 70%);
   }
 
   .glow-3 {
@@ -48,23 +49,19 @@
     height: 40vw;
     top: 40%;
     left: 30%;
-    background: radial-gradient(circle, #599692 0%, transparent 70%);
-    animation: float 15s infinite alternate ease-in-out;
-  }
-
-  @keyframes float {
-    from { transform: translate(0, 0) scale(1); }
-    to { transform: translate(3%, 3%) scale(1.05); }
+    background: radial-gradient(circle, #22D3EE 0%, transparent 70%);
   }
 
   .bg-radial-vignette {
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 1, 5, 0.4) 100%);
+    background: radial-gradient(circle at center, transparent 0%, rgba(5, 8, 22, 0.6) 100%);
   }
 </style>
 
 <script>
+  import * as THREE from 'three';
   import gsap from 'gsap';
   
+  // Ethereal Glows animation
   const initGlows = () => {
     gsap.to('.glow-particle', {
       x: "random(-50, 50)",
@@ -76,5 +73,192 @@
     });
   };
 
+  // Particle texture generation
+  const createCircleTexture = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 16;
+    canvas.height = 16;
+    const ctx = canvas.getContext('2d');
+    if (ctx) {
+      const gradient = ctx.createRadialGradient(8, 8, 0, 8, 8, 8);
+      gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+      gradient.addColorStop(0.3, 'rgba(255, 255, 255, 0.8)');
+      gradient.addColorStop(1, 'rgba(255, 255, 255, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, 16, 16);
+    }
+    return new THREE.CanvasTexture(canvas);
+  };
+
+  const initThreeBg = () => {
+    const canvas = document.getElementById('three-bg-canvas') as HTMLCanvasElement;
+    if (!canvas) return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 2000);
+    camera.position.z = 800;
+
+    const renderer = new THREE.WebGLRenderer({
+      canvas: canvas,
+      alpha: true,
+      antialias: true
+    });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    // Particle geometries
+    const createParticles = (count: number, range: number, size: number, colorPreset: string) => {
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(count * 3);
+      const colors = new Float32Array(count * 3);
+      const initialPositions = new Float32Array(count * 3);
+
+      const color1 = new THREE.Color('#3B82F6'); // primary
+      const color2 = new THREE.Color('#22D3EE'); // accent
+      const color3 = new THREE.Color('#0B1120'); // surface dark
+
+      for (let i = 0; i < count; i++) {
+        const x = (Math.random() - 0.5) * range * 1.5;
+        const y = (Math.random() - 0.5) * range;
+        const z = (Math.random() - 0.5) * range * 2;
+
+        positions[i * 3] = x;
+        positions[i * 3 + 1] = y;
+        positions[i * 3 + 2] = z;
+
+        initialPositions[i * 3] = x;
+        initialPositions[i * 3 + 1] = y;
+        initialPositions[i * 3 + 2] = z;
+
+        // Color mix
+        const mixRatio = Math.random();
+        const finalColor = mixRatio < 0.4 ? color1 : (mixRatio < 0.8 ? color2 : color3);
+        colors[i * 3] = finalColor.r;
+        colors[i * 3 + 1] = finalColor.g;
+        colors[i * 3 + 2] = finalColor.b;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: size,
+        map: createCircleTexture(),
+        transparent: true,
+        blending: THREE.AdditiveBlending,
+        depthWrite: false,
+        vertexColors: true,
+        opacity: colorPreset === 'bright' ? 0.75 : 0.45
+      });
+
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      return { points, initialPositions, count };
+    };
+
+    // Layer 1: Dense, smaller, dimmer particles
+    const layer1 = createParticles(1200, 1200, 2.5, 'dim');
+    // Layer 2: Sparse, larger, brighter foreground particles
+    const layer2 = createParticles(300, 1000, 5.0, 'bright');
+
+    // Track mouse & scroll coordinates
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let scrollY = 0;
+    let targetScrollY = 0;
+
+    const onMouseMove = (e: MouseEvent) => {
+      mouseX = (e.clientX / window.innerWidth) - 0.5;
+      mouseY = (e.clientY / window.innerHeight) - 0.5;
+    };
+
+    const onScroll = () => {
+      targetScrollY = window.scrollY;
+    };
+
+    const onResize = () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onResize);
+
+    let time = 0;
+    let animationFrameId: number;
+
+    const tick = () => {
+      time += 0.002;
+
+      // Smooth mouse interpolation
+      targetX += (mouseX - targetX) * 0.05;
+      targetY += (mouseY - targetY) * 0.05;
+
+      // Smooth scroll interpolation
+      scrollY += (targetScrollY - scrollY) * 0.08;
+
+      // Apply Parallax effect on camera / layers
+      camera.position.x += (targetX * 250 - camera.position.x) * 0.05;
+      camera.position.y += (-targetY * 250 - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+
+      // Rotate layers in opposite directions for depth contrast
+      layer1.points.rotation.y = time * 0.05 + scrollY * 0.0003;
+      layer1.points.rotation.x = time * 0.03;
+
+      layer2.points.rotation.y = -time * 0.08 - scrollY * 0.0005;
+      layer2.points.rotation.x = -time * 0.04;
+
+      // Dynamic Z depth based on scroll (fly through effect)
+      layer1.points.position.z = scrollY * 0.15;
+      layer2.points.position.z = scrollY * 0.35;
+
+      // Gentle floating animation per particle
+      const posAttribute1 = layer1.points.geometry.attributes.position as THREE.BufferAttribute;
+      const posAttribute2 = layer2.points.geometry.attributes.position as THREE.BufferAttribute;
+
+      for (let i = 0; i < layer1.count; i++) {
+        const initY = layer1.initialPositions[i * 3 + 1];
+        posAttribute1.setY(i, initY + Math.sin(time * 5 + i) * 10);
+      }
+      posAttribute1.needsUpdate = true;
+
+      for (let i = 0; i < layer2.count; i++) {
+        const initY = layer2.initialPositions[i * 3 + 1];
+        posAttribute2.setY(i, initY + Math.sin(time * 3 + i) * 15);
+      }
+      posAttribute2.needsUpdate = true;
+
+      renderer.render(scene, camera);
+      animationFrameId = requestAnimationFrame(tick);
+    };
+
+    tick();
+
+    // Cleanup listeners when running astro swaps or if component unmounts
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onResize);
+      cancelAnimationFrame(animationFrameId);
+      renderer.dispose();
+    };
+  };
+
+  // Run on mount
   initGlows();
+  let cleanupThree = initThreeBg();
+
+  // Re-run if page transitions happen (Astro lifecycle)
+  document.addEventListener('astro:after-swap', () => {
+    initGlows();
+    if (cleanupThree) cleanupThree();
+    cleanupThree = initThreeBg();
+  });
 </script>

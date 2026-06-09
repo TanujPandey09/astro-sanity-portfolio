@@ -1,27 +1,46 @@
 ---
 ---
 
-<div id="preloader" class="fixed inset-0 z-[1000] bg-[#000105] flex items-center justify-center overflow-hidden">
-  <div class="relative w-full max-w-md px-12 text-center">
-    <!-- Progress Tracking UI -->
-    <div class="mb-8 flex justify-between items-end">
-       <div class="space-y-2 text-left">
-          <p class="text-[10px] font-black text-[#599692] uppercase tracking-[0.5em]">Initializing</p>
-          <p id="loader-percent" class="text-4xl font-black text-white tracking-tighter tabular-nums">00%</p>
-       </div>
-       <div class="text-right">
-          <p class="text-[10px] font-black text-white/20 uppercase tracking-widest">Portfolio</p>
-          <div id="loader-status" class="text-[10px] font-black text-[#626c7d] uppercase tracking-widest">Fetching Data...</div>
+<div id="preloader" class="fixed inset-0 z-[1000] bg-[#050816] flex flex-col items-center justify-center overflow-hidden">
+  <div class="relative w-full max-w-lg px-8 text-center space-y-8">
+    
+    <!-- Central Glowing Core -->
+    <div class="relative w-24 h-24 mx-auto flex items-center justify-center">
+       <div class="absolute inset-0 rounded-full border border-[#3B82F6]/20 animate-ping duration-1000"></div>
+       <div class="absolute inset-2 rounded-full border border-[#22D3EE]/30 animate-spin duration-[2s]" style="border-top-color: #22D3EE; border-bottom-color: #3B82F6;"></div>
+       <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#22D3EE] p-[1.5px] shadow-[0_0_35px_rgba(34,211,238,0.4)]">
+         <div class="w-full h-full bg-[#050816] rounded-full flex items-center justify-center">
+           <span class="text-xs font-mono font-bold text-[#22D3EE]">TP</span>
+         </div>
        </div>
     </div>
 
-    <!-- Progress Bar -->
-    <div class="h-[2px] w-full bg-white/5 relative overflow-hidden rounded-full">
-       <div id="progress-line" class="absolute top-0 left-0 h-full w-0 bg-[#599692] shadow-[0_0_15px_#599692]"></div>
+    <!-- Progress UI -->
+    <div class="space-y-4">
+      <div class="flex justify-between items-end">
+         <div class="space-y-1 text-left">
+            <p class="text-[9px] font-mono font-bold text-[#3B82F6] uppercase tracking-[0.4em]">System Boot</p>
+            <p id="loader-percent" class="text-5xl font-mono font-black text-white tracking-tighter tabular-nums">00%</p>
+         </div>
+         <div class="text-right">
+            <p class="text-[9px] font-mono font-bold text-[#22D3EE] uppercase tracking-[0.2em] mb-1">State: Active</p>
+            <div id="loader-status" class="text-[10px] font-mono font-bold text-[#94A3B8] uppercase tracking-wider">Configuring core...</div>
+         </div>
+      </div>
+  
+      <!-- Progress Bar -->
+      <div class="h-[2px] w-full bg-white/5 relative overflow-hidden rounded-full">
+         <div id="progress-line" class="absolute top-0 left-0 h-full w-0 bg-gradient-to-r from-[#3B82F6] to-[#22D3EE] shadow-[0_0_15px_#22D3EE]"></div>
+      </div>
     </div>
 
-    <!-- Background Decoration -->
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-white/5 rounded-full -z-10 animate-pulse"></div>
+    <!-- System Console Logs -->
+    <div class="font-mono text-[9px] text-[#94A3B8]/60 text-left bg-black/40 border border-white/5 p-4 rounded-2xl h-28 overflow-y-auto space-y-1.5 scrollbar-none">
+       <div id="log-container"></div>
+    </div>
+
+    <!-- Background Decors -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] border border-white/5 rounded-full -z-10 animate-pulse pointer-events-none"></div>
   </div>
 </div>
 
@@ -38,17 +57,38 @@
   const percentText = document.getElementById('loader-percent');
   const progressLine = document.getElementById('progress-line');
   const statusText = document.getElementById('loader-status');
+  const logContainer = document.getElementById('log-container');
 
   const statuses = [
-    "Loading Components...",
-    "Fetching Project Data...",
-    "Configuring Layout...",
-    "Rendering Interface...",
-    "Ready"
+    "Compiling Core Modules...",
+    "Querying Sanity.io CDN...",
+    "Loading WebGL Physics Engine...",
+    "Constructing Bento Showcase...",
+    "System Interface Ready"
+  ];
+
+  const logLines = [
+    "[SYS] Starting kernel parameters...",
+    "[NET] Connecting to Sanity CDN at fqd3bez7.api.sanity.io...",
+    "[CDN] Fetched 12 project records & 4 technical articles.",
+    "[GL ] Initializing WebGL context and buffer structures...",
+    "[GL ] Compiled particle shaders successfully in 12ms.",
+    "[GS ] Registered ScrollTrigger & horizontal pinning plugins.",
+    "[SYS] Boot sequence complete. Initiating interface..."
   ];
 
   let progress = 0;
+  let printedLogs = new Set();
   
+  const printLog = (text: string) => {
+    if (!logContainer) return;
+    const line = document.createElement('div');
+    line.className = "flex gap-2 items-center text-[#22D3EE]/80 animate-fade-in";
+    line.innerHTML = `<span class="text-[#3B82F6] shrink-0">&gt;</span> <span>${text}</span>`;
+    logContainer.appendChild(line);
+    logContainer.scrollTop = logContainer.scrollHeight;
+  };
+
   const updateLoader = () => {
     const interval = setInterval(() => {
       progress += Math.floor(Math.random() * 5) + 1;
@@ -64,18 +104,30 @@
       
       // Update status text based on progress
       if (statusText) {
-        const statusIndex = Math.floor((progress / 100) * (statuses.length - 1));
+        const statusIndex = Math.min(
+          Math.floor((progress / 100) * statuses.length),
+          statuses.length - 1
+        );
         statusText.textContent = statuses[statusIndex];
       }
-    }, 50);
+
+      // Print logs sequentially
+      const logIdx = Math.floor((progress / 100) * logLines.length);
+      for (let i = 0; i <= logIdx; i++) {
+        if (logLines[i] && !printedLogs.has(i)) {
+          printedLogs.add(i);
+          printLog(logLines[i]);
+        }
+      }
+    }, 55);
   };
 
   const finishLoading = () => {
     const tl = gsap.timeline();
     
-    tl.to('#preloader .max-w-md', {
+    tl.to('#preloader .relative', {
       opacity: 0,
-      y: -20,
+      y: -25,
       duration: 0.8,
       ease: "power4.inOut"
     })

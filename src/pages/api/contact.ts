@@ -53,10 +53,10 @@ export const POST: APIRoute = async ({ request }) => {
             text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
             html: `
         <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
-          <h2 style="color: #599692; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Portfolio Transmission</h2>
+          <h2 style="color: #3B82F6; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Portfolio Transmission</h2>
           <p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
           <p><strong>Subject:</strong> ${subject}</p>
-          <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border-left: 4px solid #599692;">
+          <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border-left: 4px solid #3B82F6;">
             <p style="margin-top: 0; font-weight: bold;">Message:</p>
             <p style="white-space: pre-wrap; color: #333; line-height: 1.6;">${message}</p>
           </div>

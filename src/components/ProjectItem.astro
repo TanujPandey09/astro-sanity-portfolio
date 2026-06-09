@@ -1,84 +1,130 @@
 ---
 const { project, index } = Astro.props;
+
+// Determine grid span classes based on bento index modulo 4 to repeat layout
+const bentoIndex = index % 4;
+let bentoGridClasses = "col-span-1 ";
+if (bentoIndex === 0) {
+  // Sawt AI (Large focus card)
+  bentoGridClasses += "md:col-span-2 md:row-span-2 min-h-[500px] md:min-h-[600px] flex flex-col";
+} else if (bentoIndex === 1) {
+  // CareAI CRM
+  bentoGridClasses += "md:col-span-1 md:row-span-1 min-h-[300px] md:min-h-[350px] flex flex-col";
+} else if (bentoIndex === 2) {
+  // Healthcare SaaS
+  bentoGridClasses += "md:col-span-1 md:row-span-1 min-h-[300px] md:min-h-[350px] flex flex-col";
+} else {
+  // CX Intelligence Platform (Wide horizontal card)
+  bentoGridClasses += "md:col-span-3 md:row-span-1 min-h-[280px] md:min-h-[300px] grid grid-cols-1 md:grid-cols-12";
+}
 ---
 
-<div class="project-item group relative py-12 md:py-20 border-b border-white/5 last:border-0" data-aos="fade-up" data-aos-delay={index * 50}>
-  <a href={`/projects/${project.slug.current}`} class="relative block overflow-visible">
-    <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-      
-      <!-- Project Metadata & Numbering -->
-      <div class="lg:col-span-1 hidden lg:block">
-        <div class="flex flex-col items-center">
-          <span class="text-[10px] font-black text-[#599692] opacity-40 group-hover:opacity-100 transition-opacity">0{index + 1}</span>
-          <div class="w-[1px] h-32 bg-gradient-to-b from-[#599692] to-transparent opacity-20 mt-4 group-hover:h-48 transition-all duration-1000"></div>
-        </div>
-      </div>
-
-      <!-- Main Content -->
-      <div class="lg:col-span-6 space-y-6 md:space-y-8 lg:pl-12">
-        <div class="flex flex-wrap gap-2 md:gap-3">
+{bentoIndex === 3 ? (
+  /* Wide Card: Horizontal Split (Left text, right image) */
+  <div class={`project-item group relative bg-[#0B1120] border border-white/5 rounded-[2rem] overflow-hidden ${bentoGridClasses} transition-all duration-700 hover:border-[#3B82F6]/30 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)]`} data-aos="fade-up" data-aos-delay={index * 100}>
+    <!-- Text Content -->
+    <a href={`/projects/${project.slug.current}`} class="md:col-span-7 p-8 md:p-10 flex flex-col justify-between z-10 w-full h-full cursor-pointer relative">
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-2">
           {project.techStack?.slice(0, 3).map((tech: string) => (
-            <span class="text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] md:tracking-[0.3em] text-[#626c7d] group-hover:text-[#599692] transition-colors">
-              {tech} /
+            <span class="text-[8.5px] font-black uppercase tracking-wider text-[#94A3B8] bg-white/5 border border-white/5 px-2.5 py-1 rounded-full group-hover:text-white transition-colors">
+              {tech}
             </span>
           ))}
         </div>
+        <span class="text-xs font-mono font-bold text-[#3B82F6]">/ 0{index + 1}</span>
+      </div>
 
-        <div class="relative inline-block pr-8">
-          <h3 class="text-white group-hover:text-gradient transition-all duration-700 ease-out transform md:group-hover:translate-x-4">
-            {project.projectName}
-          </h3>
-          <div class="absolute -left-4 md:-left-6 top-1/2 -translate-y-1/2 w-1.5 md:w-2 h-1.5 md:h-2 rounded-full bg-[#599692] scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-        </div>
-
-        <p class="max-w-xl text-[#626c7d] group-hover:text-[#dfe5ec] transition-colors duration-500 italic leading-relaxed text-sm md:text-base">
-          {project.excerpt?.[0]?.children?.[0]?.text || "Building reliable full-stack web solutions with high-performance user interfaces."}
+      <div class="mt-8 space-y-3">
+        <h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300">
+          {project.projectName}
+        </h3>
+        <p class="text-xs md:text-sm text-[#F1F5F9] font-medium leading-relaxed max-w-xl">
+          {project.excerpt?.[0]?.children?.[0]?.text || "Production-ready digital systems built for reliability and performance."}
         </p>
         
-        <div class="flex items-center gap-4 md:gap-6 pt-2 md:pt-4">
-           <div class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-white/20 group-hover:text-white transition-colors">
-             View Project Case Study
-           </div>
-           <div class="h-[1px] w-8 md:w-12 bg-white/10 group-hover:w-24 group-hover:bg-[#599692] transition-all duration-700"></div>
+        <div class="flex items-center gap-3 pt-3">
+          <span class="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-[#3B82F6] group-hover:text-white transition-colors">
+            Explore Case Study
+          </span>
+          <div class="h-[1px] w-6 bg-[#3B82F6] group-hover:w-12 transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
         </div>
+      </div>
+    </a>
+
+    <!-- Image Column -->
+    <div class="md:col-span-5 relative overflow-hidden w-full h-full min-h-[200px] border-t md:border-t-0 md:border-l border-white/5">
+      {project.BackgroundImage?.asset?.url ? (
+        <div class="project-image-wrapper w-full h-full absolute inset-0">
+          <img 
+            src={project.BackgroundImage.asset.url} 
+            alt={project.projectName}
+            class="project-image w-full h-full object-cover transition-all duration-[1.2s] ease-out opacity-90 group-hover:opacity-100 group-hover:scale-105"
+          />
+        </div>
+      ) : (
+        <div class="w-full h-full bg-[#050816]"></div>
+      )}
+      <div class="absolute inset-0 bg-gradient-to-r from-[#0B1120] to-transparent pointer-events-none md:block hidden"></div>
+    </div>
+  </div>
+) : (
+  /* Standard/Large Card: Vertical Split (Top image, bottom text) */
+  <div class={`project-item group relative bg-[#0B1120] border border-white/5 rounded-[2rem] overflow-hidden ${bentoGridClasses} transition-all duration-700 hover:border-[#3B82F6]/30 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)]`} data-aos="fade-up" data-aos-delay={index * 100}>
+    <!-- Top Image Container -->
+    <div class={`relative overflow-hidden w-full ${bentoIndex === 0 ? 'h-[62%]' : 'h-[50%]'} border-b border-white/5`}>
+      {project.BackgroundImage?.asset?.url ? (
+        <div class="project-image-wrapper w-full h-full absolute inset-0">
+          <img 
+            src={project.BackgroundImage.asset.url} 
+            alt={project.projectName}
+            class="project-image w-full h-full object-cover transition-all duration-[1.2s] ease-out opacity-90 group-hover:opacity-100 group-hover:scale-105"
+          />
+        </div>
+      ) : (
+        <div class="w-full h-full bg-[#050816]"></div>
+      )}
+      <div class="absolute inset-0 bg-gradient-to-t from-[#0B1120]/40 to-transparent pointer-events-none"></div>
+    </div>
+
+    <!-- Bottom Text Container -->
+    <a href={`/projects/${project.slug.current}`} class="p-6 md:p-8 flex-1 flex flex-col justify-between z-10 cursor-pointer relative">
+      <div class="flex items-center justify-between">
+        <div class="flex flex-wrap gap-2">
+          {project.techStack?.slice(0, 3).map((tech: string) => (
+            <span class="text-[8.5px] font-black uppercase tracking-wider text-[#94A3B8] bg-white/5 border border-white/5 px-2.5 py-1 rounded-full group-hover:text-white transition-colors">
+              {tech}
+            </span>
+          ))}
+        </div>
+        <span class="text-xs font-mono font-bold text-[#3B82F6]">/ 0{index + 1}</span>
       </div>
 
-      <!-- High-Fidelity Image Preview -->
-      <div class="lg:col-span-5 relative group/img">
-        <div class="project-image-container relative aspect-[16/10] overflow-hidden rounded-2xl md:rounded-[2rem] border border-white/5 bg-[#11172a] shadow-2xl group-hover:shadow-[#599692]/20 transition-all duration-1000">
-          {project.BackgroundImage?.asset?.url && (
-            <img 
-              src={project.BackgroundImage.asset.url} 
-              alt={project.projectName}
-              class="project-image w-full h-full object-cover transition-all duration-700 ease-out grayscale group-hover:grayscale-0 md:group-hover:scale-110"
-            />
-          )}
-          <!-- Overlay Effects -->
-          <div class="absolute inset-0 bg-[#000105]/40 group-hover:bg-transparent transition-all duration-1000 pointer-events-none"></div>
+      <div class="mt-4 space-y-2">
+        <h3 class="text-lg md:text-xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300">
+          {project.projectName}
+        </h3>
+        <p class="text-xs text-[#F1F5F9] font-medium leading-relaxed line-clamp-3">
+          {project.excerpt?.[0]?.children?.[0]?.text || "Production-ready digital systems built for reliability and performance."}
+        </p>
+        
+        <div class="flex items-center gap-3 pt-2">
+          <span class="text-[8px] md:text-[9px] font-black uppercase tracking-[0.2em] text-[#3B82F6] group-hover:text-white transition-colors">
+            Explore Case Study
+          </span>
+          <div class="h-[1px] w-6 bg-[#3B82F6] group-hover:w-12 transition-all duration-500 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
         </div>
       </div>
-    </div>
-  </a>
-</div>
+    </a>
+  </div>
+)}
 
 <style>
   .project-item {
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.5s, box-shadow 0.5s;
   }
-  
   .project-item:hover {
-    background: rgba(89, 150, 146, 0.02);
-    transform: translateY(-4px);
-  }
-
-  h3 {
-    font-size: clamp(var(--h3-mobile), 4vw, var(--h3-desktop));
-    line-height: var(--line-height-tight);
-  }
-  @media (min-width: 768px) {
-    .project-item:hover {
-      transform: translateY(-8px);
-    }
+    transform: translateY(-6px);
   }
 </style>
 
@@ -86,22 +132,19 @@ const { project, index } = Astro.props;
   import gsap from 'gsap';
 
   const items = document.querySelectorAll('.project-item');
-  
   items.forEach(item => {
-    const imgContainer = item.querySelector('.project-image-container');
     const img = item.querySelector('.project-image');
-
-    if (imgContainer && img) {
+    if (img) {
       item.addEventListener('mousemove', (e: any) => {
         const { clientX, clientY } = e;
-        const rect = imgContainer.getBoundingClientRect();
-        const x = (clientX - rect.left - rect.width / 2) * 0.15;
-        const y = (clientY - rect.top - rect.height / 2) * 0.15;
+        const rect = item.getBoundingClientRect();
+        const x = (clientX - rect.left - rect.width / 2) * 0.05;
+        const y = (clientY - rect.top - rect.height / 2) * 0.05;
 
         gsap.to(img, {
           x: x,
           y: y,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power2.out"
         });
       });
@@ -110,7 +153,7 @@ const { project, index } = Astro.props;
         gsap.to(img, {
           x: 0,
           y: 0,
-          duration: 0.8,
+          duration: 0.6,
           ease: "power2.out"
         });
       });
