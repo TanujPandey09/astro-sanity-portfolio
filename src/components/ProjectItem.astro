@@ -1,5 +1,6 @@
 ---
 const { project, index } = Astro.props;
+import { getTagColor } from "../lib/colors";
 
 // Determine grid span classes based on bento index modulo 4 to repeat layout
 const bentoIndex = index % 4;
@@ -27,7 +28,7 @@ if (bentoIndex === 0) {
       <div class="flex items-center justify-between">
         <div class="flex flex-wrap gap-2">
           {project.techStack?.slice(0, 3).map((tech: string) => (
-            <span class="text-[8.5px] font-black uppercase tracking-wider text-[#94A3B8] bg-white/5 border border-white/5 px-2.5 py-1 rounded-full group-hover:text-white transition-colors">
+            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech)}`}>
               {tech}
             </span>
           ))}
@@ -92,7 +93,7 @@ if (bentoIndex === 0) {
       <div class="flex items-center justify-between">
         <div class="flex flex-wrap gap-2">
           {project.techStack?.slice(0, 3).map((tech: string) => (
-            <span class="text-[8.5px] font-black uppercase tracking-wider text-[#94A3B8] bg-white/5 border border-white/5 px-2.5 py-1 rounded-full group-hover:text-white transition-colors">
+            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech)}`}>
               {tech}
             </span>
           ))}

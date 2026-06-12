@@ -3,6 +3,7 @@ const { detailsData } = Astro.props;
 import { PortableText } from "astro-portabletext";
 import PremiumBackground from "../PremiumBackground.astro";
 import PortableTextImage from "../BlogLayout/PortableTextImage.astro";
+import { getTagColor } from "../../lib/colors";
 
 const components = {
   type: {
@@ -49,7 +50,7 @@ const components = {
            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/5">
               <div class="flex flex-wrap gap-2 md:gap-4">
                  {detailsData?.tags?.map((tag: string) => (
-                    <span class="px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-white/10 text-[8px] md:text-[10px] font-black uppercase tracking-widest text-[#94A3B8]">
+                    <span class={`px-4 py-1.5 md:px-5 md:py-2 rounded-full border text-[8px] md:text-[10px] font-black uppercase tracking-widest ${getTagColor(tag)}`}>
                        {tag}
                     </span>
                  ))}
@@ -134,6 +135,18 @@ const components = {
   }
   .prose-custom :global(h2) {
     @apply text-white text-3xl font-black uppercase tracking-tighter mt-16 mb-8;
+  }
+  .prose-custom :global(ul) {
+    @apply list-disc list-inside mb-10 space-y-3;
+  }
+  .prose-custom :global(ol) {
+    @apply list-decimal list-inside mb-10 space-y-3;
+  }
+  .prose-custom :global(li) {
+    @apply text-[#94A3B8] ml-4;
+  }
+  .prose-custom :global(li::marker) {
+    @apply text-[#3B82F6];
   }
   .prose-custom :global(strong) {
     @apply text-white font-black uppercase;

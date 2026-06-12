@@ -28,10 +28,13 @@ export async function getStaticPaths() {
 }
 const { detailsData } = Astro.props;
 
-
+// Extract a plain text description from Portable Text for SEO
+const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
+  || "View the complete case study for this digital platform built with modern web architecture.";
+  
+const ogImage = detailsData?.BackgroundImage?.asset?.url || "https://tanujdev.netlify.app/favicon.svg";
 ---
 
-<Layout title={`${detailsData?.projectName}`}`>
-
+<Layout title={`${detailsData?.projectName} - Tanuj Pandey`} description={projectDescription} image={ogImage}>
   <ProjectDetails detailsData={detailsData} />
 </Layout>
