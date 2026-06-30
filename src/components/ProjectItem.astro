@@ -1,6 +1,9 @@
 ---
 const { project, index } = Astro.props;
 import { getTagColor } from "../lib/colors";
+import { getCaseStudyBySlug } from "../lib/caseStudies";
+
+const study = getCaseStudyBySlug(project?.slug?.current, project);
 
 // Determine grid span classes based on bento index modulo 4 to repeat layout
 const bentoIndex = index % 4;
@@ -27,9 +30,9 @@ if (bentoIndex === 0) {
     <a href={`/projects/${project.slug.current}`} class="md:col-span-7 p-8 md:p-10 flex flex-col justify-between z-10 w-full h-full cursor-pointer relative">
       <div class="flex items-center justify-between">
         <div class="flex flex-wrap gap-2">
-          {project.techStack?.slice(0, 3).map((tech: string) => (
-            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech)}`}>
-              {tech}
+          {study.technologies.slice(0, 3).map((tech) => (
+            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech.name)}`}>
+              {tech.name}
             </span>
           ))}
         </div>
@@ -37,11 +40,11 @@ if (bentoIndex === 0) {
       </div>
 
       <div class="mt-8 space-y-3">
-        <h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300">
-          {project.projectName}
+        <h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300 font-sans">
+          {study.projectName}
         </h3>
         <p class="text-xs md:text-sm text-[#F1F5F9] font-medium leading-relaxed max-w-xl">
-          {project.excerpt?.[0]?.children?.[0]?.text || "Production-ready digital systems built for reliability and performance."}
+          {study.excerpt}
         </p>
         
         <div class="flex items-center gap-3 pt-3">
@@ -55,11 +58,11 @@ if (bentoIndex === 0) {
 
     <!-- Image Column -->
     <div class="md:col-span-5 relative overflow-hidden w-full h-full min-h-[200px] border-t md:border-t-0 md:border-l border-white/5">
-      {project.BackgroundImage?.asset?.url ? (
+      {study.imageUrl ? (
         <div class="project-image-wrapper w-full h-full absolute inset-0">
           <img 
-            src={project.BackgroundImage.asset.url} 
-            alt={project.projectName}
+            src={study.imageUrl} 
+            alt={study.projectName}
             class="project-image w-full h-full object-cover transition-all duration-[1.2s] ease-out opacity-90 group-hover:opacity-100 group-hover:scale-105"
           />
         </div>
@@ -74,11 +77,11 @@ if (bentoIndex === 0) {
   <div class={`project-item group relative bg-[#0B1120] border border-white/5 rounded-[2rem] overflow-hidden ${bentoGridClasses} transition-all duration-700 hover:border-[#3B82F6]/30 hover:shadow-[0_0_50px_rgba(59,130,246,0.15)]`} data-aos="fade-up" data-aos-delay={index * 100}>
     <!-- Top Image Container -->
     <div class={`relative overflow-hidden w-full ${bentoIndex === 0 ? 'h-[62%]' : 'h-[50%]'} border-b border-white/5`}>
-      {project.BackgroundImage?.asset?.url ? (
+      {study.imageUrl ? (
         <div class="project-image-wrapper w-full h-full absolute inset-0">
           <img 
-            src={project.BackgroundImage.asset.url} 
-            alt={project.projectName}
+            src={study.imageUrl} 
+            alt={study.projectName}
             class="project-image w-full h-full object-cover transition-all duration-[1.2s] ease-out opacity-90 group-hover:opacity-100 group-hover:scale-105"
           />
         </div>
@@ -92,9 +95,9 @@ if (bentoIndex === 0) {
     <a href={`/projects/${project.slug.current}`} class="p-6 md:p-8 flex-1 flex flex-col justify-between z-10 cursor-pointer relative">
       <div class="flex items-center justify-between">
         <div class="flex flex-wrap gap-2">
-          {project.techStack?.slice(0, 3).map((tech: string) => (
-            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech)}`}>
-              {tech}
+          {study.technologies.slice(0, 3).map((tech) => (
+            <span class={`text-[8.5px] font-black uppercase tracking-wider border px-2.5 py-1 rounded-full transition-colors ${getTagColor(tech.name)}`}>
+              {tech.name}
             </span>
           ))}
         </div>
@@ -102,11 +105,11 @@ if (bentoIndex === 0) {
       </div>
 
       <div class="mt-4 space-y-2">
-        <h3 class="text-lg md:text-xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300">
-          {project.projectName}
+        <h3 class="text-lg md:text-xl font-black text-white uppercase tracking-tight group-hover:text-[#3B82F6] transition-colors duration-300 font-sans">
+          {study.projectName}
         </h3>
         <p class="text-xs text-[#F1F5F9] font-medium leading-relaxed line-clamp-3">
-          {project.excerpt?.[0]?.children?.[0]?.text || "Production-ready digital systems built for reliability and performance."}
+          {study.excerpt}
         </p>
         
         <div class="flex items-center gap-3 pt-2">

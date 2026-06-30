@@ -5,8 +5,10 @@ import BlogItem from "./BlogItem.astro";
 import AiChatbot from "./AiChatbot";
 import PremiumBackground from "./PremiumBackground.astro";
 import Hero from "./Hero.astro";
+import Services from "./Services.astro";
 import Skills from "./Skills.astro";
 import Experience from "./Experience.astro";
+import Process from "./Process.astro";
 import Contact from "./Contact.astro";
 import SectionHeader from "./SectionHeader.astro";
 import ProjectCard from "./ProjectCard.astro";
@@ -17,13 +19,6 @@ const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,Feature
 
 const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
-
-const achievements = [
-  { number: "6+", label: "Solutions Built", color: "#3B82F6" },
-  { number: "4+", label: "Years Impact", color: "#60A5FA" },
-  { number: "25%", label: "UX Performance", color: "#22D3EE" },
-  { number: "100%", label: "Satisfaction", color: "#F8FAFC" },
-];
 ---
 
 <div class="relative min-h-screen selection:bg-[#3B82F6]/30">
@@ -35,27 +30,16 @@ const achievements = [
 
     <Ticker />
 
-    <!-- Achievement Grid -->
-    <div class="py-12 md:py-24" data-aos="fade-up">
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-3xl md:rounded-[2rem] overflow-hidden">
-        {achievements.map((achievement, index) => (
-          <div class="p-6 md:p-12 bg-[#0B1120]/60 backdrop-blur-md text-center group hover:bg-white/[0.02] transition-colors">
-            <div 
-              class="text-3xl md:text-5xl lg:text-6xl font-black mb-2 md:mb-4 tracking-tighter transition-transform duration-700 group-hover:scale-110 font-mono"
-              style={`color: ${achievement.color}`}
-            >
-              {achievement.number}
-            </div>
-            <div class="text-[7px] md:text-[8px] lg:text-[10px] text-[#94A3B8] font-black uppercase tracking-[0.3em] md:tracking-[0.4em]">{achievement.label}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <!-- High-Value Bento Services -->
+    <Services />
 
     <!-- Modular Sections -->
     <Skills />
     
     <Experience />
+
+    <!-- Strategic Development Workflow -->
+    <Process />
 
     <!-- Projects Section -->
     <section id="projects" class="py-16 md:py-32 relative z-10">

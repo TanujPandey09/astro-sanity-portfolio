@@ -4,7 +4,10 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				Roboto: ["Roboto Slab", 'serif'],},
+				sans: ["Inter", "sans-serif"],
+				grotesk: ["Space Grotesk", "sans-serif"],
+				Roboto: ["Roboto Slab", 'serif'],
+			},
 
 			backgroundColor:{
 				buttonBg:"#424242",
