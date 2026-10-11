@@ -10,7 +10,7 @@ interface Props {
 const { title, gradientText, subtitle, eyebrow, center = false } = Astro.props;
 ---
 
-<div class={`mb-12 md:mb-16 ${center ? 'text-center' : ''}`} data-aos="fade-up">
+<div class={`mb-8 md:mb-14 ${center ? 'text-center' : ''}`} data-aos="fade-up">
   {eyebrow && (
     <div class={`inline-flex items-center gap-2 mb-3 ${center ? 'justify-center' : ''}`}>
       <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>

@@ -46,63 +46,63 @@ rawLogos.forEach((item: any) => {
 // Streamlined, human-psychology-optimized skill categories (scannable in 3 seconds)
 const skillGroups = [
   {
-    title: "Frontend",
-    subtitle: "Web & Reactive UI",
+    title: "Frontend & Mobile",
+    subtitle: "Web, Native & Reactive UI",
     icon: "code",
     skills: [
-      { name: "React", logo: sanityLogoMap.get('react'), color: "#61DAFB", highlight: true },
+      { name: "React.js", logo: sanityLogoMap.get('react'), color: "#61DAFB", highlight: true },
       { name: "Next.js", color: "#FFFFFF", highlight: true },
       { name: "TypeScript", color: "#3178C6", highlight: true },
+      { name: "React Native", color: "#61DAFB", highlight: true },
       { name: "Tailwind CSS", color: "#38BDF8" },
-      { name: "JavaScript", logo: sanityLogoMap.get('js'), color: "#F7DF1E" },
-      { name: "Redux", logo: sanityLogoMap.get('redux'), color: "#764ABC" },
+      { name: "Redux Toolkit", logo: sanityLogoMap.get('redux'), color: "#764ABC" },
       { name: "Astro", color: "#FF5D01" },
       { name: "HTML5 / CSS3", logo: sanityLogoMap.get('html'), color: "#E34F26" }
     ]
   },
   {
     title: "Backend & APIs",
-    subtitle: "Services & Logic",
+    subtitle: "Services, Real-Time & Auth",
     icon: "server",
     skills: [
       { name: "Node.js", logo: sanityLogoMap.get('node'), color: "#47A248", highlight: true },
       { name: "Express.js", color: "#FFFFFF", highlight: true },
       { name: "REST APIs", logo: sanityLogoMap.get('rest'), color: "#6366F1", highlight: true },
-      { name: "GraphQL", logo: sanityLogoMap.get('graphql'), color: "#E10098" },
-      { name: "WebSockets", color: "#06B6D4" },
-      { name: "Microservices", color: "#A855F7" }
+      { name: "Socket.IO", color: "#010101", highlight: true },
+      { name: "FastAPI", color: "#009688" },
+      { name: "GraphQL", logo: sanityLogoMap.get('graphql'), color: "#E10098" }
     ]
   },
   {
-    title: "Data & CMS",
-    subtitle: "Storage & Content",
+    title: "Databases & Headless CMS",
+    subtitle: "Storage, ORMs & Content",
     icon: "database",
     skills: [
       { name: "PostgreSQL", color: "#336791", highlight: true },
       { name: "MongoDB", color: "#47A248", highlight: true },
-      { name: "Sanity CMS", logo: sanityLogoMap.get('sanity'), color: "#F03E2F", highlight: true },
-      { name: "Prisma ORM", color: "#2D3748" },
-      { name: "Redis", color: "#DC2626" },
-      { name: "Contentful", logo: sanityLogoMap.get('contentful'), color: "#2478CC" }
+      { name: "Prisma ORM", color: "#2D3748", highlight: true },
+      { name: "Sanity.io", logo: sanityLogoMap.get('sanity'), color: "#F03E2F", highlight: true },
+      { name: "Contentful", logo: sanityLogoMap.get('contentful'), color: "#2478CC" },
+      { name: "Strapi", color: "#8E75FF" }
     ]
   },
   {
-    title: "AI & Cloud",
-    subtitle: "Intelligence & Ops",
+    title: "AI, Cloud & Tools",
+    subtitle: "LLMs, Pipelines & Workflow",
     icon: "cpu",
     skills: [
-      { name: "OpenAI API", color: "#10A37F", highlight: true },
-      { name: "Claude 3.5", color: "#D97706", highlight: true },
-      { name: "RAG Pipelines", color: "#5E6AD2", highlight: true },
-      { name: "Docker", color: "#2496ED" },
-      { name: "Netlify / Vercel", color: "#00C7B7" },
-      { name: "Git / CI/CD", color: "#F05032" }
+      { name: "OpenAI APIs", color: "#10A37F", highlight: true },
+      { name: "Claude / Gemini", color: "#D97706", highlight: true },
+      { name: "RAG & Prompts", color: "#5E6AD2", highlight: true },
+      { name: "Git & Vercel", color: "#F05032" },
+      { name: "Figma", color: "#F24E1E" },
+      { name: "shadcn / MUI", color: "#000000" }
     ]
   }
 ];
 ---
 
-<section id="skills" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
+<section id="skills" class="py-16 md:py-18 relative z-10 border-t border-border-subtle">
   <div class="container mx-auto px-4 md:px-8 max-w-7xl">
     
     <!-- Clean, Focused Section Header (Low Cognitive Load) -->

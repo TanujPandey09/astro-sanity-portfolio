@@ -97,7 +97,7 @@ const blogData = await useSanityClient().fetch(blogquery);
     <Process />
 
     <!-- Blogs Section -->
-    <section id="blogs" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
+    <section id="blogs" class="py-16 md:py-20 relative z-10 border-t border-border-subtle">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
           title="Technical" 
@@ -105,7 +105,7 @@ const blogData = await useSanityClient().fetch(blogquery);
           subtitle="Writing about modern software engineering, API designs, and full-stack best practices."
         />
         
-        <div class="mt-16 md:mt-24">
+        <div class="mt-16 md:mt-16">
           {blogData?.slice(0, 4).map((blog, index) => (
             <BlogItem blog={blog} index={index} />
           ))}

@@ -1,15 +1,21 @@
-import { FaInstagram, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { FaEnvelope, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative py-16 md:py-32 border-t border-border-subtle bg-canvas overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+    <footer className="relative py-10 md:py-14 border-t border-border-subtle bg-canvas overflow-hidden">
+      <div className="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
         <div className="grid lg:grid-cols-12 gap-12 md:gap-16 items-start">
 
           <div className="lg:col-span-6 space-y-6 md:space-y-8 text-center lg:text-left">
+            <a href="/" aria-label="Tanuj Pandey - Home" className="inline-flex items-center group mb-2">
+              <div className="relative w-11 h-11 md:w-12 md:h-12 rounded-xl flex items-center justify-center border border-white/10 bg-[#0F233E]/40 group-hover:border-accent-primary/60 group-hover:bg-[#0F233E]/80 transition-all duration-300 overflow-hidden shadow-xl shadow-black/50">
+                <img src="/favicon.svg" alt="Tanuj Pandey Logo" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width="48" height="48" />
+              </div>
+            </a>
+
             <div className="flex items-center gap-3 justify-center lg:justify-start">
               <div className="w-8 h-[1px] bg-accent-primary"></div>
               <span className="text-[10px] font-black uppercase tracking-[0.5em] text-accent-primary">Engineering</span>
@@ -42,8 +48,8 @@ export default function Footer() {
                 <a href="https://linkedin.com/in/tanujdev" target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-text-primary transition-colors flex items-center gap-2">
                   <FaLinkedin size={18} /> LinkedIn
                 </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-sm text-text-muted hover:text-text-primary transition-colors flex items-center gap-2">
-                  <FaInstagram size={18} /> Instagram
+                <a href="mailto:tanujp09@gmail.com" className="text-sm text-text-muted hover:text-text-primary transition-colors flex items-center gap-2">
+                  <FaEnvelope size={18} /> Email
                 </a>
               </div>
             </div>
@@ -52,7 +58,7 @@ export default function Footer() {
               <p className="text-[10px] font-black text-text-primary uppercase tracking-[0.4em]">Location</p>
               <div className="space-y-1">
                 <p className="text-sm text-text-muted">tanujp09@gmail.com</p>
-                <p className="text-sm text-text-muted">Delhi, India</p>
+                <p className="text-sm text-text-muted">Pauri Garhwal, Uttarakhand, India</p>
               </div>
             </div>
           </div>

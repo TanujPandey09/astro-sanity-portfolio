@@ -83,87 +83,103 @@
 
 <script is:inline>
   (function() {
-    const preloader = document.getElementById('tp-preloader');
-    if (!preloader) return;
+    function initPreloader() {
+      const preloader = document.getElementById('tp-preloader');
+      if (!preloader) return;
 
-    // 1. Instant skip if already visited in this browser session
-    try {
-      if (sessionStorage.getItem('tp_intro_loaded')) {
-        preloader.remove();
-        document.documentElement.classList.add('preloader-done');
-        window.dispatchEvent(new Event('portfolio-loaded'));
-        return;
-      }
-    } catch (e) {
-      // Ignore storage restrictions if in private mode
-    }
-
-    // 2. Lock body scroll during intro
-    document.body.style.overflow = 'hidden';
-
-    const percentEl = document.getElementById('loader-percent');
-    const statusEl = document.getElementById('loader-status');
-
-    const statuses = [
-      "Initializing Core...",
-      "Compiling Modules...",
-      "Syncing Interfaces...",
-      "Systems Operational"
-    ];
-
-    let currentVal = 0;
-    const startTime = Date.now();
-    const targetDuration = 850; // 0.85 seconds
-
-    const timer = setInterval(function() {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(Math.round((elapsed / targetDuration) * 100), 100);
-
-      if (percentEl) {
-        percentEl.textContent = progress + '%';
-      }
-
-      if (statusEl) {
-        const idx = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
-        statusEl.textContent = statuses[idx];
-      }
-
-      if (progress >= 100) {
-        clearInterval(timer);
-        dismissLoader();
-      }
-    }, 25);
-
-    function dismissLoader() {
+      // 1. Instant remove if already visited in this browser session
       try {
-        sessionStorage.setItem('tp_intro_loaded', 'true');
+        if (sessionStorage.getItem('tp_intro_loaded') || document.documentElement.classList.contains('preloader-done')) {
+          preloader.remove();
+          document.body.style.overflow = '';
+          document.documentElement.classList.add('preloader-done');
+          window.dispatchEvent(new Event('portfolio-loaded'));
+          return;
+        }
       } catch (e) {}
 
-      document.documentElement.classList.add('preloader-done');
-      preloader.classList.add('curtain-exit');
-      document.body.style.overflow = '';
-      window.dispatchEvent(new Event('portfolio-loaded'));
+      // 2. Lock body scroll during intro
+      document.body.style.overflow = 'hidden';
 
-      // Clean removal after curtain animation finishes
-      setTimeout(function() {
-        if (preloader.parentNode) {
-          preloader.parentNode.removeChild(preloader);
+      const percentEl = document.getElementById('loader-percent');
+      const statusEl = document.getElementById('loader-status');
+
+      const statuses = [
+        "Initializing Core...",
+        "Compiling Modules...",
+        "Syncing Interfaces...",
+        "Systems Operational"
+      ];
+
+      const startTime = Date.now();
+      const targetDuration = 800; // 0.8 seconds snappy
+
+      const timer = setInterval(function() {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(Math.round((elapsed / targetDuration) * 100), 100);
+
+        if (percentEl) {
+          percentEl.textContent = progress + '%';
         }
-      }, 850);
+
+        if (statusEl) {
+          const idx = Math.min(Math.floor((progress / 100) * statuses.length), statuses.length - 1);
+          statusEl.textContent = statuses[idx];
+        }
+
+        if (progress >= 100) {
+          clearInterval(timer);
+          dismissLoader();
+        }
+      }, 25);
+
+      function dismissLoader() {
+        clearInterval(timer);
+        try {
+          sessionStorage.setItem('tp_intro_loaded', 'true');
+        } catch (e) {}
+
+        document.documentElement.classList.add('preloader-done');
+        document.body.style.overflow = '';
+        preloader.classList.add('curtain-exit');
+        window.dispatchEvent(new Event('portfolio-loaded'));
+
+        // Clean removal after curtain animation finishes
+        setTimeout(function() {
+          if (preloader && preloader.parentNode) {
+            preloader.parentNode.removeChild(preloader);
+          }
+        }, 700);
+      }
+
+      // 3. Absolute Hard Safety Fallback (Max 1.2s)
+      setTimeout(function() {
+        clearInterval(timer);
+        document.body.style.overflow = '';
+        if (preloader && preloader.parentNode) {
+          preloader.classList.add('curtain-exit');
+          setTimeout(function() {
+            if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
+          }, 400);
+        }
+      }, 1200);
+
+      // 4. Astro View Transitions lifecycle hooks - never get stuck on navigation
+      document.addEventListener('astro:before-swap', function() {
+        clearInterval(timer);
+        document.body.style.overflow = '';
+        if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
+      }, { once: true });
     }
 
-    // 3. Absolute Hard Safety Fallback:
-    // Guarantees under ANY circumstance that the page is never locked beyond 1.4 seconds!
-    setTimeout(function() {
-      clearInterval(timer);
-      document.body.style.overflow = '';
-      if (preloader.parentNode) {
-        preloader.classList.add('curtain-exit');
-        setTimeout(function() {
-          if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
-        }, 500);
-      }
-    }, 1400);
+    // Run on initial load
+    initPreloader();
 
+    // Clean up if Astro swaps
+    document.addEventListener('astro:after-swap', function() {
+      document.body.style.overflow = '';
+      const lingering = document.getElementById('tp-preloader');
+      if (lingering) lingering.remove();
+    });
   })();
 </script>

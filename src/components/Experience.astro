@@ -8,52 +8,71 @@ const experienceData = [
     type: "Remote",
     badge: "Current Role",
     companyUrl: "https://cxisuite.com/",
-    description: "Architected and delivered Sawt AI, an AI-driven qualitative survey SaaS platform featuring bidirectional RTL layouts. Integrated multi-provider LLM pipelines (GPT-4, Gemini Pro, Grok) with context-aware fallback heuristics. Built CareAI CRM using high-throughput Socket.IO event channels, and designed an enterprise CX Intelligence drag-and-drop survey engine.",
-    metrics: ["Bilingual RTL Support", "3+ AI Reasoning Engines", "Real-time Event Pipelines", "Multi-Tenant CRM Architecture"],
+    description: "Developed and shipped Sawt AI, an AI-powered survey SaaS for the Saudi market with bilingual Arabic/English support and RTL-first UX. Built full-stack features using React.js, Next.js, Node.js, Express.js, and TypeScript, integrating REST APIs and production workflows.",
+    highlights: [
+      "Integrated multiple AI providers (GPT, Gemini, Grok, Perplexity) with robust response validation workflows for consistent, brand-safe outputs.",
+      "Implemented MyFatoorah subscription billing, tier-based access control, API usage tracking, webhooks, analytics, and automated email workflows.",
+      "Built secure backend systems including role-based authentication, rate limiting, audit logging, and bot protection; contributed full-stack CRM with Socket.IO real-time workflows, SLA tracking, and pipelines.",
+      "Developed React Native features and contributed to Thaddi, an Arabic-first football prediction platform, including mobile/web product development and release workflows."
+    ],
+    metrics: ["Sawt AI & Thaddi Released", "Multi-LLM Validation", "MyFatoorah Billing", "Socket.IO Real-Time CRM"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
       { name: "Next.js", color: "#FFFFFF" },
       { name: "Node.js", color: "#68A063" },
-      { name: "Socket.IO", color: "#00F0FF" },
-      { name: "AI Integrations", color: "#818CF8" },
       { name: "TypeScript", color: "#3178C6" },
+      { name: "React Native", color: "#61DAFB" },
+      { name: "Socket.IO", color: "#00F0FF" },
+      { name: "PostgreSQL", color: "#336791" },
+      { name: "OpenAI / Gemini", color: "#10A37F" }
     ],
     logo: "https://cxisuite.com/assets/logo1_1757929917544-2LY1vMCS.png",
   },
   {
-    role: "Frontend Developer — Solo Ownership",
+    role: "Frontend Developer (Solo Ownership)",
     company: "Nasya IT",
     duration: "Feb 2025 - Jul 2025",
     period: "2025",
     type: "Remote",
     badge: "Zero-to-One Launch",
     companyUrl: "https://www.nasyait.com/",
-    description: "Led end-to-end frontend architecture for a multi-stakeholder healthcare ecosystem supporting Super Admins, Doctors, Patients, and Clinics. Designed and deployed 3 role-gated authentication workflows, 10+ core data CRUD modules, and reactive analytics dashboards synchronized over Node.js and MongoDB REST APIs.",
-    metrics: ["10+ Full CRUD Modules", "3 Role-Based Gateways", "Zero-to-Launch Ownership", "99.9% Uptime Client UI"],
+    description: "Solely owned the frontend of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic), covering UI design, development, and user testing without designer or QA support.",
+    highlights: [
+      "Built 3 role-based login flows with secure authentication and 10+ CRUD modules including patient management, appointment scheduling, clinic records, and admin controls.",
+      "Developed data-rich dashboards with reactive filters, charts, and exportable reports; integrated Node.js/MongoDB REST APIs across all roles.",
+      "Delivered end-to-end user experience autonomously from zero to production deployment."
+    ],
+    metrics: ["Solo Frontend Ownership", "10+ Healthcare CRUD Modules", "3 Role-Based Portals", "Responsive Medical Charts"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
       { name: "Node.js", color: "#68A063" },
       { name: "MongoDB", color: "#47A248" },
       { name: "REST APIs", color: "#00F0FF" },
-      { name: "Tailwind CSS", color: "#38BDF8" },
+      { name: "Tailwind CSS", color: "#38BDF8" }
     ],
     logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1763596800&v=beta&t=CGXPjRheeE9w7-_LqT0R1QXLenCDi8JQWjVejhUlBRg",
   },
   {
     role: "React Developer",
     company: "Techmatys",
-    duration: "May 2024 - Sep 2024",
+    duration: "May 2024 - Dec 2024",
     period: "2024",
     type: "Onsite",
     badge: "Enterprise EdTech",
     companyUrl: "https://www.linkedin.com/company/techmatys/",
-    description: "Engineered scalable Student Information System (SIS) web dashboards powering academic workflows. Standardized an internal React and Ant Design component system, eliminating interface regressions and accelerating cross-team feature shipping velocity by 35%.",
-    metrics: ["SIS EdTech Core", "Modular Design System", "+35% Shipping Velocity", "Real-Time Student Analytics"],
+    description: "Built and customized Moodle-based LMS frontends for educational institutions; developed responsive dashboards and reusable React.js components for student, teacher, and administrator workflows.",
+    highlights: [
+      "Created academic management modules for attendance, assessments, course management, and reporting.",
+      "Integrated REST APIs and optimized frontend performance through code splitting and lazy loading.",
+      "Standardized component patterns across student and administrative dashboards."
+    ],
+    metrics: ["Moodle LMS Frontends", "Academic Management Core", "Lazy Loading & Code Splitting", "Enterprise Dashboards"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
+      { name: "Moodle LMS", color: "#FF7800" },
+      { name: "REST APIs", color: "#00F0FF" },
       { name: "Ant Design", color: "#0170FE" },
-      { name: "React Router", color: "#CA4245" },
-      { name: "JavaScript (ES6+)", color: "#F7DF1E" },
+      { name: "JavaScript (ES6+)", color: "#F7DF1E" }
     ],
     logo: "/img/techmatys.jfif",
   },
@@ -65,14 +84,20 @@ const experienceData = [
     type: "Remote",
     badge: "Core Web Vitals & Scale",
     companyUrl: "https://www.scube.co/",
-    description: "Spearheaded frontend development for Breeze SaaS using Next.js (SSR/SSG hybrid) and TypeScript. Architected decoupled GraphQL queries querying headless Sanity CMS content. Audited Core Web Vitals to slash First Contentful Paint by 50% and dramatically boost client retention.",
-    metrics: ["50% Speed Acceleration", "GraphQL & Sanity CMS", "Hybrid SSR/SSG Engine", "Core Web Vitals Optimization"],
+    description: "Built the full frontend of Breeze SaaS using Next.js (SSR/SSG) + TypeScript; integrated REST APIs and GraphQL CMS queries with Sanity.io, Contentful, and Strapi.",
+    highlights: [
+      "Optimized Core Web Vitals (LCP, CLS, FID, TTFB) through image optimization, code splitting, and caching.",
+      "Achieved a 50% improvement in page load speed and a 20% boost in user engagement across production web applications.",
+      "Architected clean headless CMS query pipelines for dynamic content publishing."
+    ],
+    metrics: ["50% Speed Acceleration", "20% Engagement Surge", "Next.js SSR/SSG Engine", "Sanity / Contentful / Strapi"],
     technologies: [
       { name: "Next.js", color: "#FFFFFF" },
       { name: "TypeScript", color: "#3178C6" },
       { name: "GraphQL", color: "#E10098" },
       { name: "Sanity.io", color: "#F03E2F" },
-      { name: "CSS Modules", color: "#2965F1" },
+      { name: "Contentful", color: "#2478CC" },
+      { name: "Strapi", color: "#8E75FF" }
     ],
     logo: "/img/SCUBE.webp",
   },
@@ -281,11 +306,21 @@ const experienceData = [
                   </div>
                 </div>
 
-                <!-- Deep Narrative Description -->
-                <div class="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5">
+                <!-- Deep Narrative & Bullet Points -->
+                <div class="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5 space-y-3.5">
                   <p class="text-text-muted leading-relaxed text-sm sm:text-[15px] font-normal">
                     {exp.description}
                   </p>
+                  {exp.highlights && exp.highlights.length > 0 && (
+                    <ul class="space-y-2 pt-3 border-t border-white/[0.06]">
+                      {exp.highlights.map(point => (
+                        <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-text-muted leading-relaxed">
+                          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0 shadow-[0_0_6px_#5E6AD2]"></span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
 
                 <!-- Core Technologies Utilized -->

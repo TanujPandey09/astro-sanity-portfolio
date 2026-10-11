@@ -39,7 +39,7 @@ const blogDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text
   || detailsData?.projectcontent?.[0]?.children?.[0]?.text 
   || "Read my latest technical deep dive and insights.";
   
-const ogImage = detailsData?.BackgroundImage?.asset?.url || detailsData?.image?.asset?.url || "https://tanujdev.netlify.app/favicon.svg";
+const ogImage = detailsData?.BackgroundImage?.asset?.url || detailsData?.image?.asset?.url || "https://tanujbuilds.site/og-image.jpg";
 ---
 
 <Layout title={`${detailsData.projectName} - Tanuj Pandey`} description={blogDescription} image={ogImage}>

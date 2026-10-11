@@ -1,5 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <circle cx="16" cy="16" r="14" fill="#0A0F1D" stroke="#599692" stroke-width="2"/>
-  <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-weight="900" font-size="12" fill="#FFFFFF" letter-spacing="-0.5">TP</text>
-  <circle cx="16" cy="16" r="15" stroke="#599692" stroke-width="0.5" opacity="0.3"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#0F233E"/><path d="M14 18H69L57 31H46V82L34 72V31H25Z" fill="#FFF"/><path d="M56 31H72Q87 31 87 46V53Q87 66 72 66H58V54H71Q75 54 75 50V47Q75 43 70 43H60Z" fill="#FFF"/><path d="M54 67L68 59V79L54 91Z" fill="#2563EB"/></svg>

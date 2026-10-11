@@ -9,15 +9,23 @@ interface Props {
   description?: string;
   image?: string;
 }
+const siteUrl = "https://tanujbuilds.site";
+const defaultDescription = "Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, scalable backend systems, and AI workflows.";
+const defaultOgImage = `${siteUrl}/og-image.png`;
+
 const { 
   title, 
-  description = "Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, and scalable backend systems.",
-  image = "https://tanujdev.netlify.app/favicon.svg"
+  description = defaultDescription,
+  image = defaultOgImage
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "";
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev.netlify.app").href;
+const canonicalURL = new URL(pathname, siteUrl).href;
+
+// Ensure og:image is always an absolute URL
+const resolvedImage = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
+const isPng = resolvedImage.toLowerCase().endsWith('.png');
 ---
 
 <!DOCTYPE html>
@@ -26,26 +34,48 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, Portfolio, Software Engineer, React, Node.js, Astro, Web Developer, Next.js, TypeScript" />
+        <!-- Core SEO & Search Indexing -->
+    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, AI Solutions Architect, React Developer, Astro, Next.js, Node.js, TypeScript, Sanity CMS, Python, Portfolio, Web Developer Pauri Garhwal Uttarakhand, Software Engineer Portfolio" />
     <meta name="author" content="Tanuj Pandey" />
+    <meta name="creator" content="Tanuj Pandey" />
+    <meta name="publisher" content="Tanuj Pandey" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#080B10" />
+    <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonicalURL} />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     
-    <!-- Open Graph / Social Previews -->
-    <meta property="og:type" content="website" />
+    <!-- Open Graph (OG) / Social Media Previews (LinkedIn, WhatsApp, Facebook) -->
+    <meta property="og:site_name" content="Tanuj Pandey | Full Stack Engineer" />
+    <meta property="og:type" content={pathname.startsWith('/blogs/') ? "article" : "website"} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={image} />
+    <meta property="og:image" content={resolvedImage} />
+    <meta property="og:image:secure_url" content={resolvedImage} />
+    <meta property="og:image:type" content={isPng ? "image/png" : "image/jpeg"} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Tanuj Pandey - Full Stack Engineer & AI Solutions Architect Portfolio" />
+    <meta property="og:locale" content="en_US" />
     
-    <!-- Twitter Card Previews -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={canonicalURL} />
-    <meta property="twitter:title" content={title} />
-    <meta property="twitter:description" content={description} />
-    <meta property="twitter:image" content={image} />
+    <!-- Twitter / X Card Previews -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={resolvedImage} />
+    <meta name="twitter:image:alt" content="Tanuj Pandey - Full Stack Engineer Portfolio" />
+    <meta name="twitter:creator" content="@TanujPandey" />
+    <meta name="twitter:site" content="@TanujPandey" />
 
+    <!-- Official Brand Favicons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     
     <!-- Google Fonts Preconnect & Optimized Async Link -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -57,39 +87,91 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev
     </noscript>
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
-    <title>{title}</title>
 
-    <!-- Structured Data: JSON-LD for SEO -->
+    <!-- Structured Data: JSON-LD for Search Engines & AI Engines (AEO / GEO) -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "Person",
-          "@id": "https://tanujdev.netlify.app/#person",
+          "@id": "https://tanujbuilds.site/#person",
           "name": "Tanuj Pandey",
-          "jobTitle": "Full Stack Engineer",
-          "url": "https://tanujdev.netlify.app",
+          "alternateName": ["Tanuj", "Tanuj Builds"],
+          "jobTitle": "Full Stack Engineer & AI Solutions Architect",
+          "description": "Full Stack Engineer with 4+ years of professional experience building high-performance web applications, scalable APIs, and intelligent AI chatbot workflows.",
+          "url": "https://tanujbuilds.site",
+          "image": "https://tanujbuilds.site/og-image.png",
+          "email": "mailto:tanujp09@gmail.com",
+          "nationality": "Indian",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Pauri Garhwal",
+            "addressRegion": "Uttarakhand",
+            "addressCountry": "India"
+          },
           "sameAs": [
             "https://github.com/TanujPandey09",
-            "https://linkedin.com/in/tanujdev"
+            "https://linkedin.com/in/tanujdev",
+            "https://tanujbuilds.site"
           ],
           "knowsAbout": [
-            "Full-Stack Web Development",
-            "React.js",
-            "Next.js",
-            "Node.js",
-            "TypeScript",
-            "PostgreSQL",
-            "Astro",
-            "AI Agent Workflows"
+            "Full Stack Web Development",
+            "Astro.js Modern Architecture",
+            "React.js & Next.js",
+            "Node.js Backend Engineering",
+            "TypeScript & JavaScript",
+            "Python",
+            "PostgreSQL & Database Design",
+            "Sanity CMS Headless Modeling",
+            "Tailwind CSS Design Systems",
+            "AI Agent & Chatbot Integrations",
+            "REST & GraphQL APIs",
+            "Web Performance & Core Web Vitals Optimization"
+          ],
+          "makesOffer": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Custom Full Stack Web Application Development",
+                "description": "High-velocity web product architecture with modern stacks (Astro, Next.js, React, Node.js)."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "AI Integration & Intelligent Agent Solutions",
+                "description": "Seamless integration of LLMs, conversational assistants, and OpenAI workflows into web applications."
+              }
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Headless CMS & Content Modeling",
+                "description": "Enterprise-ready Sanity CMS integrations with instant previews and live content delivery."
+              }
+            }
           ]
         },
         {
           "@type": "WebSite",
-          "@id": "https://tanujdev.netlify.app/#website",
-          "url": "https://tanujdev.netlify.app",
-          "name": "Tanuj Pandey | Full Stack Engineer Portfolio",
-          "author": { "@id": "https://tanujdev.netlify.app/#person" }
+          "@id": "https://tanujbuilds.site/#website",
+          "url": "https://tanujbuilds.site",
+          "name": "Tanuj Pandey | Full Stack Engineer & AI Solutions Architect",
+          "description": "Official portfolio of Tanuj Pandey featuring full stack web engineering projects, technical case studies, and modern web applications.",
+          "publisher": { "@id": "https://tanujbuilds.site/#person" },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "ProfilePage",
+          "@id": `${canonicalURL}#webpage`,
+          "url": canonicalURL,
+          "name": title,
+          "description": description,
+          "isPartOf": { "@id": "https://tanujbuilds.site/#website" },
+          "mainEntity": { "@id": "https://tanujbuilds.site/#person" }
         }
       ]
     })} />
@@ -106,6 +188,14 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev
         </script>
       </>
     )}
+    <!-- Prevent Loader flash on repeat visits / navigation -->
+    <script is:inline>
+      try {
+        if (sessionStorage.getItem('tp_intro_loaded')) {
+          document.documentElement.classList.add('preloader-done');
+        }
+      } catch (e) {}
+    </script>
   </head>
 
   <body>
@@ -114,8 +204,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev
       Skip to main content
     </a>
 
-    <!-- Magnificent Lightweight Intro Loader -->
-    <Loader />
+    <!-- Magnificent Lightweight Intro Loader (Home page only) -->
+    {isHome && <Loader />}
 
     <!-- Top Navigation Header -->
     <Header />

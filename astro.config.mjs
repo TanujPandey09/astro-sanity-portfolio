@@ -7,14 +7,12 @@ import tailwind from "@astrojs/tailwind";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tanujdev.netlify.app',
+  site: 'https://tanujbuilds.site',
   output: 'server',
   devToolbar: {
     enabled: false
   },
-  adapter: netlify({
-    edgeMiddleware: true
-  }),
+  adapter: netlify(),
   integrations: [sanity({
     projectId: 'fqd3bez7',
     dataset: "production",

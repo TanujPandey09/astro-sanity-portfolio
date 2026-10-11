@@ -32,7 +32,7 @@ const { detailsData } = Astro.props;
 const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
   || "View the complete case study for this digital platform built with modern web architecture.";
   
-const ogImage = detailsData?.BackgroundImage?.asset?.url || "https://tanujdev.netlify.app/favicon.svg";
+const ogImage = detailsData?.BackgroundImage?.asset?.url || "https://tanujbuilds.site/og-image.jpg";
 ---
 
 <Layout title={`${detailsData?.projectName} - Tanuj Pandey`} description={projectDescription} image={ogImage}>

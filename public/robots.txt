@@ -1,4 +1,29 @@
+# Robots.txt for https://tanujbuilds.site
 User-agent: *
 Allow: /
+Disallow: /api/
 
-Sitemap: https://tanujdev.netlify.app/sitemap-index.xml
+# Search Engine & AI / Answer Engine Crawlers (AEO / GEO)
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Sitemap
+Sitemap: https://tanujbuilds.site/sitemap.xml
