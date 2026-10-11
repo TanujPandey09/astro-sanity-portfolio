@@ -77,13 +77,13 @@ export default {
     {
       name: 'gitHubLink',
       title: 'Git Hub Link',
-      type: 'slug',
+      type: 'url',
     },
 
     {
       name: 'demoLink',
       title: 'Demo Link',
-      type: 'slug',
+      type: 'url',
     },
 
     {

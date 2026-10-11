@@ -31,7 +31,9 @@ export default function MySwiper(props) {
                   <img
                     className="max-w-full h-20"
                     src={`${item?.Logo?.asset?.url}`}
-                    alt={`${item?.Logo?.alt}`}
+                    alt={item?.Logo?.alt || "Partner logo"}
+                    loading="lazy"
+                    decoding="async"
                   />
                 </SwiperSlide>
               </>

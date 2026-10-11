@@ -73,23 +73,25 @@ export default function ProjectSlider({ projectData }) {
             transition={{ duration: 0.4, ease: "easeOut" }}
             className="px-3 py-5"
           >
-            <div className="relative py-5 group overflow-hidden rounded-2xl shadow-xl bg-gradient-to-br from-gray-900 to-gray-800">
+            <div className="relative py-5 group overflow-hidden rounded-2xl shadow-card bg-surface-card border border-border-subtle">
 
               {/* Project Image */}
               {projectItem?.BackgroundImage?.asset?.url && (
                 <img
                   src={projectItem.BackgroundImage.asset.url}
-                  alt={projectItem.projectName}
+                  alt={projectItem.projectName || "Project preview"}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-64 object-cover transform transition-transform duration-700 group-hover:scale-110"
                 />
               )}
 
               {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-6">
-                <h3 className="text-2xl font-bold text-white mb-3">{projectItem.projectName}</h3>
+              <div className="absolute inset-0 bg-canvas/80 opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-6">
+                <h3 className="text-2xl font-bold text-text-primary mb-3">{projectItem.projectName}</h3>
 
                 {projectItem?.excerpt && (
-                  <p className="text-gray-300 text-sm mb-4 line-clamp-2">
+                  <p className="text-text-muted text-sm mb-4 line-clamp-2">
                     {projectItem.excerpt[0]?.children?.[0]?.text || ""}
                   </p>
                 )}
@@ -99,7 +101,7 @@ export default function ProjectSlider({ projectData }) {
                   {projectItem?.slug?.current && (
                     <a
                       href={`/projects/${projectItem.slug.current}`}
-                      className="px-4 py-2 rounded-lg bg-indigo-500 text-white text-sm font-medium hover:bg-indigo-600 transition"
+                      className="px-4 py-2 rounded-lg bg-accent-primary text-white text-sm font-medium hover:bg-accent-hover transition"
                     >
                       Read More →
                     </a>
@@ -110,7 +112,7 @@ export default function ProjectSlider({ projectData }) {
                       href={projectItem.demoLink.current}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 rounded-lg bg-white text-gray-900 text-sm font-medium hover:bg-gray-200 transition"
+                      className="px-4 py-2 rounded-lg bg-surface-elevated text-text-primary border border-border-subtle hover:border-border-hover text-sm font-medium transition"
                     >
                       Live Demo →
                     </a>

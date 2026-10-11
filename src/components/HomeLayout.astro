@@ -21,7 +21,7 @@ const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
 ---
 
-<div class="relative min-h-screen selection:bg-[#3B82F6]/30">
+<div class="relative min-h-screen selection:bg-accent-primary/30">
   <PremiumBackground />
 
   <div class="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
@@ -30,46 +30,38 @@ const blogData = await useSanityClient().fetch(blogquery);
 
     <Ticker />
 
-    <!-- High-Value Bento Services -->
-    <Services />
-
-    <!-- Modular Sections -->
-    <Skills />
-    
-    <Experience />
-
-    <!-- Strategic Development Workflow -->
-    <Process />
-
-    <!-- Projects Section -->
-    <section id="projects" class="py-16 md:py-32 relative z-10">
+    <!-- Projects Section (Featured Works Right Upfront) -->
+    <section id="projects" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
+          eyebrow="Showcase // Portfolio"
           title="Featured" 
           gradientText="Projects" 
-          subtitle="A selection of production-ready applications and custom full-stack platforms built for reliability."
+          subtitle="A selection of production-ready applications, AI integrations, and full-stack platforms."
         />
         
         <!-- Featured Deliveries (Bento Grid) -->
-        <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
         </div>
         
         {projectData?.length > 4 && (
-          <div class="mt-24 md:mt-48">
-            <div class="flex flex-col md:flex-row items-center justify-between mb-12 md:mb-16 px-4 gap-8">
+          <div class="mt-16 md:mt-24">
+            <div class="flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12 px-4 gap-8">
                <div class="space-y-2 text-center md:text-left">
-                  <p class="text-[8px] md:text-[10px] font-black text-[#3B82F6] uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
-                  <h3 class="text-2xl md:text-3xl font-black text-white uppercase tracking-tighter">Additional Projects</h3>
+                  <p class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
+                  <h3 class="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-tighter">Additional Projects</h3>
                </div>
                <button 
                  id="expand-repo"
-                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-[#94A3B8] hover:text-[#3B82F6] transition-colors"
+                 aria-label="Show all additional projects"
+                 aria-expanded="false"
+                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-text-muted hover:text-accent-primary transition-colors"
                >
                  Show All Projects
-                 <div class="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#3B82F6] transition-all">
+                 <div class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-accent-primary transition-all">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" id="repo-icon" class="transition-transform duration-500"><path d="m6 9 6 6 6-6"/></svg>
                  </div>
                </button>
@@ -81,10 +73,10 @@ const blogData = await useSanityClient().fetch(blogquery);
                ))}
             </div>
 
-            <div class="mt-16 md:mt-32 flex justify-center">
-               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-white/10 rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-white overflow-hidden transition-all duration-500 hover:border-[#3B82F6] text-center">
+            <div class="mt-10 md:mt-14 flex justify-center">
+               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-border-subtle rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-primary overflow-hidden transition-all duration-500 hover:border-accent-primary text-center shadow-ambient">
                   <span class="relative z-10">View Full Portfolio</span>
-                  <div class="absolute inset-0 bg-[#3B82F6] translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                  <div class="absolute inset-0 bg-accent-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                </a>
             </div>
           </div>
@@ -92,8 +84,20 @@ const blogData = await useSanityClient().fetch(blogquery);
       </div>
     </section>
 
+    <!-- High-Value Bento Services -->
+    <Services />
+
+    <!-- Experience Timeline -->
+    <Experience />
+
+    <!-- Technology Stack -->
+    <Skills />
+
+    <!-- Strategic Development Workflow -->
+    <Process />
+
     <!-- Blogs Section -->
-    <section id="blogs" class="py-16 md:py-32 relative z-10">
+    <section id="blogs" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
           title="Technical" 
@@ -108,9 +112,9 @@ const blogData = await useSanityClient().fetch(blogquery);
         </div>
         
         <div class="mt-12 md:mt-20 flex justify-center md:justify-end">
-           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#94A3B8] hover:text-[#3B82F6] transition-all">
+           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
               Explore All Articles
-              <div class="w-8 md:w-12 h-[1px] bg-[#94A3B8] group-hover:bg-[#3B82F6] group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
+              <div class="w-8 md:w-12 h-[1px] bg-border-subtle group-hover:bg-accent-primary group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
            </a>
         </div>
       </div>
@@ -121,7 +125,7 @@ const blogData = await useSanityClient().fetch(blogquery);
   </div>
 </div>
 
-<AiChatbot client:only="react" />
+<AiChatbot client:idle />
 
 <script>
   import gsap from 'gsap';

@@ -72,19 +72,20 @@ export default function BlogSlider({ blogData }) {
             variants={cardVariants}
             className="px-2 py-4"
           >
-            <div className="h-full rounded-xl blog-card overflow-hidden shadow-lg bg-white dark:bg-gray-800">
+            <div className="h-full rounded-xl blog-card overflow-hidden shadow-card bg-surface-card border border-border-subtle">
               {blogItem?.FeatureImage?.asset?.url && (
                 <div className="relative overflow-hidden h-48 sm:h-56">
                   <img
                     className="w-full h-full object-cover transform transition-transform duration-500 hover:scale-110"
                     src={blogItem.FeatureImage.asset.url}
-                    alt={blogItem.title || "Blog image"}
+                    alt={blogItem.title || blogItem.projectName || "Blog post cover"}
                     loading="lazy"
+                    decoding="async"
                   />
                 </div>
               )}
               <div className="p-4 sm:p-6">
-                <h5 className="mb-3 text-lg sm:text-xl font-bold text-primaryColor line-clamp-2">
+                <h5 className="mb-3 text-lg sm:text-xl font-bold text-text-primary line-clamp-2">
                   {blogItem?.projectName}
                 </h5>
                 {blogItem?.excerpt && (
@@ -94,7 +95,7 @@ export default function BlogSlider({ blogData }) {
                       components={{
                         block: {
                           normal: ({children}) => (
-                            <p className="text-sm sm:text-base text-secondaryColor line-clamp-3">
+                            <p className="text-sm sm:text-base text-text-muted line-clamp-3">
                               {children}
                             </p>
                           )
@@ -106,7 +107,7 @@ export default function BlogSlider({ blogData }) {
                 {blogItem?.slug?.current && (
                   <motion.a 
                     href={`/blogs/${blogItem.slug.current}`}
-                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-buttonBg rounded-lg transition-colors duration-300 hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-accent-primary rounded-lg transition-colors duration-300 hover:bg-accent-hover focus:ring-2 focus:outline-none focus:ring-accent-primary/40"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >

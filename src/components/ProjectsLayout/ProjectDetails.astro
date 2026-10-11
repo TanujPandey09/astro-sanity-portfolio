@@ -4,6 +4,7 @@ import { PortableText } from "astro-portabletext";
 import PremiumBackground from "../PremiumBackground.astro";
 import PortableTextImage from "../BlogLayout/PortableTextImage.astro";
 import { getTagColor } from "../../lib/colors";
+import { optimizeSanityImage } from "../../lib/optimizeImage";
 
 const components = {
   type: {
@@ -12,42 +13,42 @@ const components = {
 };
 ---
 
-<div class="relative min-h-screen selection:bg-[#3B82F6]/30 overflow-hidden bg-[#050816]">
+<div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
   <PremiumBackground />
 
   <main class="container mx-auto px-6 pt-32 pb-12 md:pt-48 md:pb-20 relative z-10">
     <!-- Breadcrumb / Meta -->
     <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-down">
-       <a href="/projects" class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-[#94A3B8] hover:text-[#3B82F6] transition-all">
+       <a href="/projects" class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-2 transition-transform">
             <path d="M19 12H5m7-7-7 7 7 7"/>
           </svg>
           Back to Index
        </a>
-       <div class="text-[8px] md:text-[10px] font-black text-[#3B82F6] uppercase tracking-[0.5em] opacity-40">Artifact NR. {detailsData?._id?.slice(-4) || "001"}</div>
+       <div class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.5em] opacity-40">Artifact NR. {detailsData?._id?.slice(-4) || "001"}</div>
     </div>
 
     <!-- Project Identity -->
      <section class="max-w-7xl mx-auto mb-20 md:mb-32">
         <div class="flex flex-col gap-6 md:gap-8 mb-16 md:mb-20" data-aos="fade-up">
            <div class="flex items-center gap-3">
-              <div class="h-[1px] w-8 md:w-12 bg-[#3B82F6]"></div>
-              <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-[#3B82F6]">Deployment Log</span>
+              <div class="h-[1px] w-8 md:w-12 bg-accent-primary"></div>
+              <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-accent-primary">Deployment Log</span>
            </div>
            
-           <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white uppercase tracking-tighter leading-none m-0 project-main-title">
+           <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-text-primary uppercase tracking-tighter leading-none m-0 project-main-title">
              {detailsData?.projectName}
            </h1>
 
            <!-- Elegant Excerpt / Case Study Summary -->
            {detailsData?.excerpt && (
-             <div class="max-w-4xl text-lg md:text-xl text-[#F1F5F9]/80 leading-relaxed font-light my-2 max-w-3xl" data-aos="fade-up">
+             <div class="max-w-4xl text-lg md:text-xl text-text-muted leading-relaxed font-light my-2 max-w-3xl" data-aos="fade-up">
                 <PortableText value={detailsData?.excerpt} components={components} />
              </div>
            )}
 
            <!-- Elegant Action and Info Row -->
-           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/5">
+           <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-border-subtle">
               <div class="flex flex-wrap gap-2 md:gap-4">
                  {detailsData?.tags?.map((tag: string) => (
                     <span class={`px-4 py-1.5 md:px-5 md:py-2 rounded-full border text-[8px] md:text-[10px] font-black uppercase tracking-widest ${getTagColor(tag)}`}>
@@ -57,52 +58,62 @@ const components = {
               </div>
               
               <div class="flex flex-wrap gap-4 w-full sm:w-auto animate-fade-in">
-                 {detailsData?.demoLink?.current && (
-                   <a href={detailsData.demoLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-[#3B82F6] hover:text-white transition-all duration-500 shadow-2xl text-center">
-                     Live Interface
-                   </a>
-                 )}
-                 {detailsData?.gitHubLink?.current && (
-                   <a href={detailsData.gitHubLink.current} target="_blank" class="px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-white/10 text-white font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-white/10 hover:border-white/20 transition-all duration-300 text-center">
-                     Source Intel
-                   </a>
-                 )}
+                  {detailsData?.demoLink && (
+                    <a 
+                      href={typeof detailsData.demoLink === 'string' ? detailsData.demoLink : detailsData.demoLink.current} 
+                      target="_blank" 
+                      class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-accent-primary hover:text-white transition-all duration-500 shadow-ambient text-center"
+                    >
+                      Live Interface
+                    </a>
+                  )}
+                  {detailsData?.gitHubLink && (
+                    <a 
+                      href={typeof detailsData.gitHubLink === 'string' ? detailsData.gitHubLink : detailsData.gitHubLink.current} 
+                      target="_blank" 
+                      class="px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-border-subtle text-text-primary font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-white/10 hover:border-border-hover transition-all duration-300 text-center"
+                    >
+                      Source Intel
+                    </a>
+                  )}
               </div>
            </div>
         </div>
 
         <!-- Hero Image / Artifact -->
-        <div class="relative rounded-3xl md:rounded-[3rem] overflow-hidden border border-white/5 bg-[#0B1120] group" data-aos="zoom-out">
+        <div class="relative rounded-3xl md:rounded-[3rem] overflow-hidden border border-border-subtle bg-surface-card group" data-aos="zoom-out">
            {detailsData?.BackgroundImage?.asset?.url && (
              <img 
-               src={detailsData.BackgroundImage.asset.url} 
-               alt={detailsData.projectName}
+               src={optimizeSanityImage(detailsData.BackgroundImage.asset.url, 1200, 80)} 
+               alt={detailsData.projectName || "Project preview screenshot"}
+               loading="lazy"
+               decoding="async"
                class="w-full h-auto object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100 shadow-inner opacity-90 group-hover:opacity-100"
              />
            )}
-           <div class="absolute inset-0 bg-gradient-to-t from-[#0B1120]/20 via-transparent to-transparent pointer-events-none"></div>
+           <div class="absolute inset-0 bg-gradient-to-t from-surface-card/20 via-transparent to-transparent pointer-events-none"></div>
         </div>
      </section>
 
     <!-- Project Intelligence -->
-    <section class="max-w-5xl mx-auto pt-16 pb-0 md:pt-32 md:pb-0 border-t border-white/5">
+    <section class="max-w-5xl mx-auto pt-16 pb-0 md:pt-32 md:pb-0 border-t border-border-subtle">
        <div class="grid lg:grid-cols-12 gap-12 md:gap-20">
           <div class="lg:col-span-4" data-aos="fade-right">
-             <h2 class="text-xl md:text-2xl font-black text-white uppercase tracking-tighter mb-6 md:mb-8 leading-tight">Technical <br/> <span class="text-gradient">Specifications</span></h2>
+             <h2 class="text-xl md:text-2xl font-black text-text-primary uppercase tracking-tighter mb-6 md:mb-8 leading-tight">Technical <br/> <span class="text-gradient">Specifications</span></h2>
              <div class="grid grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-[#3B82F6] uppercase tracking-[0.4em]">Architect</p>
-                   <p class="text-xs md:text-sm text-white font-medium uppercase">Tanuj Pandey</p>
+                   <p class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.4em]">Architect</p>
+                   <p class="text-xs md:text-sm text-text-primary font-medium uppercase">Tanuj Pandey</p>
                 </div>
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-[#94A3B8] uppercase tracking-[0.4em]">Date of Launch</p>
-                   <p class="text-xs md:text-sm text-white font-medium uppercase font-mono">{new Date(detailsData?._createdAt).toLocaleDateString()}</p>
+                   <p class="text-[8px] md:text-[10px] font-black text-text-dim uppercase tracking-[0.4em]">Date of Launch</p>
+                   <p class="text-xs md:text-sm text-text-primary font-medium uppercase font-mono">{new Date(detailsData?._createdAt).toLocaleDateString()}</p>
                 </div>
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-[#94A3B8] uppercase tracking-[0.4em]">Status</p>
+                   <p class="text-[8px] md:text-[10px] font-black text-text-dim uppercase tracking-[0.4em]">Status</p>
                    <div class="flex items-center gap-2">
-                      <div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#22D3EE] animate-pulse shadow-[0_0_8px_#22D3EE]"></div>
-                      <p class="text-xs md:text-sm text-white font-medium uppercase tracking-widest">Active</p>
+                      <div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-status-live animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
+                      <p class="text-xs md:text-sm text-text-primary font-medium uppercase tracking-widest">Active</p>
                    </div>
                 </div>
              </div>
@@ -125,30 +136,63 @@ const components = {
   }
   
   .prose-custom {
-    @apply text-[#94A3B8] text-lg md:text-xl leading-relaxed;
+    color: var(--text-muted);
+    font-size: 1.125rem;
+    line-height: 1.75;
+  }
+  @media (min-width: 768px) {
+    .prose-custom {
+      font-size: 1.25rem;
+    }
   }
   .prose-custom :global(p) {
-    @apply mb-10;
+    margin-bottom: 2.5rem;
   }
   .prose-custom :global(img) {
-    @apply w-full h-auto rounded-3xl border border-white/5 my-10 max-w-full shadow-2xl;
+    width: 100%;
+    height: auto;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border-subtle);
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    max-width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   }
   .prose-custom :global(h2) {
-    @apply text-white text-3xl font-black uppercase tracking-tighter mt-16 mb-8;
+    color: var(--text-primary);
+    font-size: 1.875rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+    margin-top: 4rem;
+    margin-bottom: 2rem;
   }
   .prose-custom :global(ul) {
-    @apply list-disc list-inside mb-10 space-y-3;
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 2.5rem;
+  }
+  .prose-custom :global(ul > li + li) {
+    margin-top: 0.75rem;
   }
   .prose-custom :global(ol) {
-    @apply list-decimal list-inside mb-10 space-y-3;
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 2.5rem;
+  }
+  .prose-custom :global(ol > li + li) {
+    margin-top: 0.75rem;
   }
   .prose-custom :global(li) {
-    @apply text-[#94A3B8] ml-4;
+    color: var(--text-muted);
+    margin-left: 1rem;
   }
   .prose-custom :global(li::marker) {
-    @apply text-[#3B82F6];
+    color: var(--accent-primary);
   }
   .prose-custom :global(strong) {
-    @apply text-white font-black uppercase;
+    color: var(--text-primary);
+    font-weight: 900;
+    text-transform: uppercase;
   }
 </style>

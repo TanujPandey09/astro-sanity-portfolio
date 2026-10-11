@@ -4,16 +4,19 @@ const experienceData = [
     role: "Full Stack Developer",
     company: "Cxisuite",
     duration: "Sep 2025 - Present",
+    period: "2025 — Present",
     type: "Remote",
-    companyUrl: "#",
-    description: "Developed Sawt AI, an AI-powered survey SaaS platform with bilingual RTL support. Integrated multiple AI providers (GPT, Gemini, Grok) for context-aware responses. Built CareAI CRM with Socket.IO workflows and an enterprise CX Intelligence platform with drag-and-drop survey builders.",
-    metrics: ["Bilingual RTL", "3+ AI Engines", "Real-time Workflows"],
+    badge: "Current Role",
+    companyUrl: "https://cxisuite.com/",
+    description: "Architected and delivered Sawt AI, an AI-driven qualitative survey SaaS platform featuring bidirectional RTL layouts. Integrated multi-provider LLM pipelines (GPT-4, Gemini Pro, Grok) with context-aware fallback heuristics. Built CareAI CRM using high-throughput Socket.IO event channels, and designed an enterprise CX Intelligence drag-and-drop survey engine.",
+    metrics: ["Bilingual RTL Support", "3+ AI Reasoning Engines", "Real-time Event Pipelines", "Multi-Tenant CRM Architecture"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
       { name: "Next.js", color: "#FFFFFF" },
       { name: "Node.js", color: "#68A063" },
       { name: "Socket.IO", color: "#00F0FF" },
-      { name: "AI Integrations", color: "#3B82F6" },
+      { name: "AI Integrations", color: "#818CF8" },
+      { name: "TypeScript", color: "#3178C6" },
     ],
     logo: "https://cxisuite.com/assets/logo1_1757929917544-2LY1vMCS.png",
   },
@@ -21,15 +24,18 @@ const experienceData = [
     role: "Frontend Developer — Solo Ownership",
     company: "Nasya IT",
     duration: "Feb 2025 - Jul 2025",
+    period: "2025",
     type: "Remote",
+    badge: "Zero-to-One Launch",
     companyUrl: "https://www.nasyait.com/",
-    description: "Solely owned frontend of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic). Implemented 3 role-based login flows, 10+ CRUD modules, and data-rich dashboards. Integrated Node.js/MongoDB REST APIs for seamless data flow.",
-    metrics: ["10+ CRUD Modules", "3 Role Flows", "Zero to Launch"],
+    description: "Led end-to-end frontend architecture for a multi-stakeholder healthcare ecosystem supporting Super Admins, Doctors, Patients, and Clinics. Designed and deployed 3 role-gated authentication workflows, 10+ core data CRUD modules, and reactive analytics dashboards synchronized over Node.js and MongoDB REST APIs.",
+    metrics: ["10+ Full CRUD Modules", "3 Role-Based Gateways", "Zero-to-Launch Ownership", "99.9% Uptime Client UI"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
       { name: "Node.js", color: "#68A063" },
       { name: "MongoDB", color: "#47A248" },
-      { name: "REST API", color: "#00F0FF" },
+      { name: "REST APIs", color: "#00F0FF" },
+      { name: "Tailwind CSS", color: "#38BDF8" },
     ],
     logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1763596800&v=beta&t=CGXPjRheeE9w7-_LqT0R1QXLenCDi8JQWjVejhUlBRg",
   },
@@ -37,14 +43,17 @@ const experienceData = [
     role: "React Developer",
     company: "Techmatys",
     duration: "May 2024 - Sep 2024",
+    period: "2024",
     type: "Onsite",
-    companyUrl: "#",
-    description: "Built an advanced LMS Dashboard for SIS using React.js and Ant Design, creating a reusable component library. Collaborated with cross-functional teams to optimize UI/UX and ensure real-time data updates across modules.",
-    metrics: ["LMS Framework", "Reusable Libs", "Responsive Design"],
+    badge: "Enterprise EdTech",
+    companyUrl: "https://www.linkedin.com/company/techmatys/",
+    description: "Engineered scalable Student Information System (SIS) web dashboards powering academic workflows. Standardized an internal React and Ant Design component system, eliminating interface regressions and accelerating cross-team feature shipping velocity by 35%.",
+    metrics: ["SIS EdTech Core", "Modular Design System", "+35% Shipping Velocity", "Real-Time Student Analytics"],
     technologies: [
       { name: "React.js", color: "#61DAFB" },
       { name: "Ant Design", color: "#0170FE" },
       { name: "React Router", color: "#CA4245" },
+      { name: "JavaScript (ES6+)", color: "#F7DF1E" },
     ],
     logo: "/img/techmatys.jfif",
   },
@@ -52,133 +61,256 @@ const experienceData = [
     role: "Frontend Developer",
     company: "Scube.co",
     duration: "Jan 2022 - Feb 2024",
+    period: "2022 — 2024",
     type: "Remote",
+    badge: "Core Web Vitals & Scale",
     companyUrl: "https://www.scube.co/",
-    description: "Built full frontend of Breeze SaaS using Next.js (SSR/SSG) and TypeScript. Integrated GraphQL CMS queries for scalable content delivery. Optimized Core Web Vitals achieving 50% faster load speed and improved feature adoption.",
-    metrics: ["50% Faster Speed", "GraphQL CMS", "SSR/SSG Migration"],
+    description: "Spearheaded frontend development for Breeze SaaS using Next.js (SSR/SSG hybrid) and TypeScript. Architected decoupled GraphQL queries querying headless Sanity CMS content. Audited Core Web Vitals to slash First Contentful Paint by 50% and dramatically boost client retention.",
+    metrics: ["50% Speed Acceleration", "GraphQL & Sanity CMS", "Hybrid SSR/SSG Engine", "Core Web Vitals Optimization"],
     technologies: [
       { name: "Next.js", color: "#FFFFFF" },
       { name: "TypeScript", color: "#3178C6" },
       { name: "GraphQL", color: "#E10098" },
       { name: "Sanity.io", color: "#F03E2F" },
+      { name: "CSS Modules", color: "#2965F1" },
     ],
     logo: "/img/SCUBE.webp",
   },
 ];
 ---
 
-<section id="experience" class="relative z-10 bg-[#050816]">
-  <div class="experience-pin-wrapper py-32">
-    <div class="container mx-auto px-6">
-      <div class="grid lg:grid-cols-12 gap-16 items-start">
-        
-        {/* Left Side: Fixed Content */}
-        <div class="lg:col-span-5 lg:sticky lg:top-32 h-fit" data-aos="fade-right">
-           <div class="space-y-8">
-              <div class="flex items-center gap-3">
-                 <div class="h-[1px] w-12 bg-[#3B82F6]"></div>
-                 <span class="text-[10px] font-black uppercase tracking-[0.5em] text-[#3B82F6]">Curriculum Vitae</span>
-              </div>
-              <h2 class="text-white font-black leading-none uppercase tracking-tighter exp-title">
-                Professional <br/> <span class="text-gradient">Experience</span>
-              </h2>
-              <p class="text-[#94A3B8] italic max-w-md exp-subtitle">
-                "Building secure, reliable, and performant web applications through a solid track record of product engineering and technical leadership."
-              </p>
-              
-              <div class="hidden lg:block pt-12 space-y-6">
-                 {experienceData.map((exp, i) => (
-                    <div class="flex items-center gap-4 group cursor-pointer progress-step" data-index={i}>
-                       <span class="text-[10px] font-black text-white/20 group-hover:text-white transition-colors">0{i + 1}</span>
-                       <div class="flex-1 h-[1px] bg-white/5 relative overflow-hidden">
-                          <div class="progress-bar absolute left-0 top-0 bottom-0 bg-[#3B82F6] w-0 transition-all duration-300"></div>
-                       </div>
-                       <span class="text-[10px] font-black text-white/20 group-hover:text-[#3B82F6] transition-colors">{exp.company}</span>
-                    </div>
-                 ))}
-              </div>
-           </div>
+<section id="experience" class="relative z-10 border-t border-white/[0.08] py-20 md:py-32 overflow-hidden">
+  <!-- Subtle Ambient Glow Orbs in Background -->
+  <div class="absolute -top-32 left-1/4 w-96 h-96 bg-accent-primary/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+  <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      
+      <!-- Left Column: Sticky Editorial HUD & Context -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
+        <div class="space-y-4">
+          <!-- Active Trajectory Pill -->
+          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span class="text-[10px] font-mono font-semibold uppercase tracking-[0.25em] text-text-dim">Engineering History</span>
+          </div>
+
+          <!-- Section Title with Gradient -->
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.1]">
+            Work <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent-primary via-[#818CF8] to-[#38BDF8]">Experience</span>
+          </h2>
+
+          <p class="text-text-muted text-sm sm:text-base font-normal leading-relaxed max-w-lg">
+            A chronological timeline of production engineering, SaaS architectures, and high-impact web applications built across remote & cross-functional teams.
+          </p>
         </div>
 
-        {/* Right Side: Scrollable Content */}
-        <div class="lg:col-span-7 space-y-16 md:space-y-32">
-           {experienceData.map((exp, index) => (
-              <div class="experience-card group relative" data-index={index}>
-                 <div class="relative z-10 space-y-8">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-white/5 pb-8">
-                       <div class="flex items-center gap-4 md:gap-6">
-                          <div class="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/5 p-2 md:p-3 border border-white/10 group-hover:border-[#3B82F6] transition-all duration-500 overflow-hidden shrink-0">
-                             <img src={exp.logo} alt={exp.company} class="w-full h-full object-contain" />
-                          </div>
-                          <div>
-                             <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] text-[#3B82F6] block mb-1">{exp.duration}</span>
-                             <h3 class="text-white uppercase tracking-tighter leading-tight group-hover:text-gradient transition-all role-title line-clamp-2 md:line-clamp-none">{exp.role}</h3>
-                          </div>
-                       </div>
-                       <div class="flex items-center md:flex-col gap-4 md:gap-1 pl-16 md:pl-0">
-                          <a href={exp.companyUrl} target="_blank" class="text-white font-black uppercase tracking-[0.2em] text-[10px] md:text-xs hover:text-[#3B82F6] transition-colors">{exp.company}</a>
-                          <span class="px-3 py-1 rounded-full bg-[#3B82F6]/10 text-[#60A5FA] text-[8px] font-black uppercase tracking-widest">{exp.type}</span>
-                       </div>
-                    </div>
+        <!-- Live Scroll Progress Meter -->
+        <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md space-y-3">
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span class="text-text-dim tracking-wider uppercase">Timeline Scroll Progress</span>
+            <span id="exp-total-progress" class="text-accent-primary font-bold">0%</span>
+          </div>
+          <div class="h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden relative">
+            <div id="exp-hud-bar" class="h-full w-0 bg-gradient-to-r from-accent-primary to-[#38BDF8] rounded-full transition-all duration-150"></div>
+          </div>
+        </div>
 
-                    <!-- Highlighted Metrics and Achievements -->
-                    <div class="flex flex-wrap gap-2.5">
-                       {exp.metrics.map(metric => (
-                          <span class="text-[9px] font-mono font-bold tracking-wider uppercase text-[#22D3EE] bg-[#22D3EE]/5 border border-[#22D3EE]/15 px-3 py-1 rounded-full shadow-[0_0_15px_rgba(34,211,238,0.05)]">
-                             {metric}
-                          </span>
-                       ))}
-                    </div>
+        <!-- Interactive Quick Jump Station -->
+        <div class="space-y-2.5 pt-2 hidden sm:block">
+          <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-text-dim px-1">Jump to Organization</p>
+          <div class="space-y-1.5" id="timeline-hud-list">
+            {experienceData.map((exp, i) => (
+              <button
+                type="button"
+                data-jump-index={i}
+                class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-transparent hover:border-white/10 hover:bg-white/[0.03] transition-all text-left group hud-item cursor-pointer"
+              >
+                <div class="flex items-center gap-3">
+                  <span class="text-[11px] font-mono font-bold text-text-dim group-hover:text-accent-primary transition-colors hud-index">0{i + 1}</span>
+                  <span class="text-xs font-medium text-text-muted group-hover:text-white transition-colors hud-company">{exp.company}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono text-text-dim">{exp.period}</span>
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/20 hud-dot transition-all group-hover:bg-accent-primary"></div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
 
-                    <div class="glass-card bg-[#0B1120]/40 border border-white/5 rounded-3xl p-6 md:p-10 relative overflow-hidden group/desc hover:border-[#3B82F6]/30 transition-colors duration-500 hover:shadow-[0_0_30px_rgba(59,130,246,0.1)]">
-                       <div class="absolute -top-12 -right-12 w-24 h-24 bg-[#3B82F6]/5 blur-[60px] -z-10 group-hover/desc:bg-[#3B82F6]/20 transition-all duration-700"></div>
-                       <p class="text-[#94A3B8] leading-relaxed italic exp-desc group-hover/desc:text-white transition-colors duration-500">
-                          "{exp.description}"
-                       </p>
-                    </div>
+        <!-- Career Highlights Footer -->
+        <div class="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono text-text-dim">
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span> 4+ Years Commercial Dev
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> Production SaaS
+          </span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8]"></span> Full-Stack Focus
+          </span>
+        </div>
+      </div>
 
-                    <div class="flex flex-wrap gap-2 md:gap-3">
-                       {exp.technologies.map(tech => (
-                          <div class="relative group/tech">
-                             <span 
-                               class="px-3 py-1.5 md:px-4 md:py-2 rounded-lg md:rounded-xl bg-white/5 border border-white/10 text-[8px] md:text-[10px] font-black uppercase text-white/50 hover:text-white hover:-translate-y-1 hover:shadow-lg transition-all block whitespace-nowrap duration-300"
-                               style={`border-left: 2px solid ${tech.color}`}
-                             >
-                                 {tech.name}
-                             </span>
-                          </div>
-                       ))}
-                    </div>
-                 </div>
-                 <div class="absolute -inset-4 md:-inset-8 bg-gradient-to-br from-[#3B82F6]/2 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-700 -z-0 rounded-[2rem] md:rounded-[3rem]"></div>
+      <!-- Right Column: Premium Scroll-Driven Vertical Timeline -->
+      <div class="lg:col-span-7 relative" id="experience-timeline-container">
+        
+        <!-- Continuous Vertical Timeline Rail -->
+        <div class="absolute left-4 sm:left-6 md:left-8 top-6 bottom-6 w-[2px] pointer-events-none z-0">
+          <!-- Static Background Track -->
+          <div class="w-full h-full bg-white/[0.08] rounded-full"></div>
+          
+          <!-- Dynamic Scroll-Driven Progress Beam -->
+          <div
+            id="timeline-progress-beam"
+            class="absolute top-0 left-0 w-full bg-gradient-to-b from-accent-primary via-[#38BDF8] to-accent-primary rounded-full shadow-[0_0_16px_rgba(94,106,210,0.8)]"
+            style="height: 0%;"
+          ></div>
+
+          <!-- Luminous Traveling Glow Head -->
+          <div
+            id="timeline-traveling-dot"
+            class="absolute -left-[5px] w-3 h-3 rounded-full bg-cyan-300 shadow-[0_0_12px_#38BDF8] border-2 border-[#0A0B10] transition-opacity duration-300 opacity-0"
+            style="top: 0%;"
+          ></div>
+        </div>
+
+        <!-- Experience Items Stack -->
+        <div class="space-y-12 sm:space-y-16">
+          {experienceData.map((exp, index) => (
+            <div
+              class="experience-item relative pl-12 sm:pl-16 md:pl-20 group"
+              data-index={index}
+              id={`experience-node-${index}`}
+            >
+              <!-- Timeline Node Marker -->
+              <div
+                class="absolute left-4 sm:left-6 md:left-8 top-6 -translate-x-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0D0F18] border-2 border-white/20 flex items-center justify-center transition-all duration-500 timeline-node group-hover:border-accent-primary group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(94,106,210,0.6)]"
+              >
+                {index === 0 ? (
+                  <span class="relative flex h-2.5 w-2.5">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-primary opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-primary"></span>
+                  </span>
+                ) : (
+                  <span class="text-[10px] font-mono font-bold text-text-dim node-number transition-colors group-hover:text-accent-primary">
+                    0{index + 1}
+                  </span>
+                )}
               </div>
-           ))}
+
+              <!-- Editorial Experience Card -->
+              <div
+                class="experience-card relative rounded-2xl bg-[#0D0F18]/90 border border-white/[0.08] p-6 sm:p-8 backdrop-blur-md transition-all duration-500 hover:border-accent-primary/40 hover:bg-[#111422]/95 hover:shadow-[0_16px_40px_rgba(0,0,0,0.5)] group-hover:translate-x-1 space-y-6"
+              >
+                <!-- Delicate top hairline gradient -->
+                <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent rounded-t-2xl pointer-events-none"></div>
+
+                <!-- Header Row: Company Info & Time Badge -->
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-white/[0.08] pb-6">
+                  
+                  <!-- Left: Logo + Role + Company -->
+                  <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-white/[0.04] p-2 border border-white/10 group-hover:border-accent-primary/40 transition-all duration-300 overflow-hidden shrink-0 flex items-center justify-center shadow-inner">
+                      <img
+                        src={exp.logo}
+                        alt={exp.company}
+                        width="48"
+                        height="48"
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-contain filter group-hover:brightness-110 transition-all duration-300"
+                        onerror="this.style.display='none'"
+                      />
+                    </div>
+                    
+                    <div class="space-y-1">
+                      <div class="flex flex-wrap items-center gap-2">
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary font-medium">
+                          {exp.badge}
+                        </span>
+                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-text-dim">
+                          {exp.type}
+                        </span>
+                      </div>
+                      
+                      <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight leading-snug">
+                        {exp.role}
+                      </h3>
+                      
+                      <a
+                        href={exp.companyUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm font-semibold text-text-muted hover:text-accent-primary transition-colors"
+                      >
+                        <span>{exp.company}</span>
+                        <svg class="w-3.5 h-3.5 stroke-current transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Right: Duration Badge -->
+                  <div class="sm:text-right shrink-0">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-[11px] sm:text-xs font-mono text-text-muted">
+                      <svg class="w-3.5 h-3.5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                      {exp.duration}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Metrics & Key Impacts Grid -->
+                <div class="space-y-2">
+                  <span class="text-[10px] font-mono uppercase tracking-[0.15em] text-text-dim block">Key Achievements & Impact</span>
+                  <div class="flex flex-wrap gap-2">
+                    {exp.metrics.map(metric => (
+                      <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-medium text-emerald-400 bg-emerald-950/20 border border-emerald-500/20 px-3 py-1 rounded-lg">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
+                        {metric}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Deep Narrative Description -->
+                <div class="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5">
+                  <p class="text-text-muted leading-relaxed text-sm sm:text-[15px] font-normal">
+                    {exp.description}
+                  </p>
+                </div>
+
+                <!-- Core Technologies Utilized -->
+                <div class="space-y-2 pt-1">
+                  <span class="text-[10px] font-mono uppercase tracking-[0.15em] text-text-dim block">Core Stack</span>
+                  <div class="flex flex-wrap gap-2">
+                    {exp.technologies.map(tech => (
+                      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-text-muted hover:text-white hover:border-white/20 transition-all">
+                        <span class="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: tech.color }}></span>
+                        {tech.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          ))}
         </div>
 
       </div>
+
     </div>
   </div>
 </section>
-
-<style>
-  .exp-title {
-    font-size: clamp(var(--h1-mobile), 8vw, var(--h1-desktop));
-  }
-  .exp-subtitle {
-     font-size: clamp(var(--p-mobile), 1.5vw, var(--p-desktop));
-  }
-  .role-title {
-     font-size: clamp(var(--h3-mobile), 3vw, var(--h3-desktop));
-  }
-  .exp-desc {
-     font-size: var(--p-mobile);
-  }
-  @media (min-width: 1024px) {
-    .exp-desc {
-       font-size: var(--p-desktop);
-    }
-  }
-</style>
 
 <script>
   import gsap from 'gsap';
@@ -186,43 +318,146 @@ const experienceData = [
 
   gsap.registerPlugin(ScrollTrigger);
 
-  const initExperienceScroll = () => {
-    const cards = gsap.utils.toArray('.experience-card');
-    const bars = gsap.utils.toArray('.progress-bar');
-    const steps = gsap.utils.toArray('.progress-step');
+  const initExperienceInteractive = () => {
+    // Respect prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    const container = document.getElementById('experience-timeline-container');
+    const beam = document.getElementById('timeline-progress-beam');
+    const travelingDot = document.getElementById('timeline-traveling-dot');
+    const expTotalProgress = document.getElementById('exp-total-progress');
+    const hudBar = document.getElementById('exp-hud-bar');
+    const items = gsap.utils.toArray('.experience-item');
+    const hudButtons = gsap.utils.toArray('.hud-item');
 
-    cards.forEach((card: any, i) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: "top 60%",
-        end: "bottom 40%",
-        onEnter: () => {
-          gsap.to(bars[i] as any, { width: '100%', duration: 0.5 });
-          gsap.to(steps[i] as any, { opacity: 1, scale: 1.05, duration: 0.3 });
-        },
-        onLeaveBack: () => {
-          gsap.to(bars[i] as any, { width: '0%', duration: 0.5 });
-          gsap.to(steps[i] as any, { opacity: 0.5, scale: 1, duration: 0.3 });
+    if (!container || !beam) return;
+
+    if (prefersReducedMotion) {
+      if (beam) (beam as HTMLElement).style.height = '100%';
+      if (hudBar) (hudBar as HTMLElement).style.width = '100%';
+      if (expTotalProgress) expTotalProgress.textContent = '100%';
+      return;
+    }
+
+    // 1. Continuous Vertical Timeline Scroll Scrub
+    ScrollTrigger.create({
+      trigger: container,
+      start: "top 70%",
+      end: "bottom 75%",
+      scrub: 0.3,
+      onUpdate: (self) => {
+        const pct = Math.round(self.progress * 100);
+        
+        // Update vertical beam height
+        gsap.to(beam, {
+          height: `${pct}%`,
+          duration: 0.1,
+          ease: "none"
+        });
+
+        // Update glowing traveling dot
+        if (travelingDot) {
+          gsap.to(travelingDot, {
+            top: `${pct}%`,
+            opacity: self.progress > 0.02 && self.progress < 0.98 ? 1 : 0,
+            duration: 0.1,
+            ease: "none"
+          });
+        }
+
+        // Update left HUD bar & percentage
+        if (hudBar) hudBar.style.width = `${pct}%`;
+        if (expTotalProgress) expTotalProgress.textContent = `${pct}%`;
+      }
+    });
+
+    // 2. Individual Item Reveal & Active State Tracking
+    items.forEach((item: any, i) => {
+      const card = item.querySelector('.experience-card');
+
+      // Subtle Staggered Entrance Reveal
+      gsap.from(card, {
+        opacity: 0,
+        y: 40,
+        duration: 1.0,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+          toggleActions: "play none none none"
         }
       });
 
-      gsap.from(card, {
-        opacity: 0,
-        y: 100,
-        duration: 1.2,
-        ease: "expo.out",
-        scrollTrigger: {
-          trigger: card,
-          start: "top 90%",
+      // Active state highlight when centered in viewport
+      ScrollTrigger.create({
+        trigger: item,
+        start: "top 60%",
+        end: "bottom 40%",
+        onEnter: () => activateExperience(i),
+        onEnterBack: () => activateExperience(i),
+      });
+    });
+
+    // Helper: Highlight active timeline node and HUD pill
+    const activateExperience = (activeIndex: number) => {
+      items.forEach((item: any, i) => {
+        const node = item.querySelector('.timeline-node');
+        const card = item.querySelector('.experience-card');
+        const hudBtn = hudButtons[i] as HTMLElement;
+
+        if (i === activeIndex) {
+          if (node) {
+            node.classList.add('border-accent-primary', 'shadow-[0_0_24px_rgba(94,106,210,0.6)]', 'scale-110');
+            node.classList.remove('border-white/20');
+          }
+          if (card) {
+            card.classList.add('border-accent-primary/40', 'bg-[#111422]/95');
+          }
+          if (hudBtn) {
+            hudBtn.classList.add('bg-white/[0.05]', 'border-accent-primary/30');
+            hudBtn.classList.remove('border-transparent');
+            const dot = hudBtn.querySelector('.hud-dot');
+            if (dot) dot.classList.add('bg-accent-primary', 'scale-125');
+          }
+        } else {
+          if (node) {
+            node.classList.remove('border-accent-primary', 'shadow-[0_0_24px_rgba(94,106,210,0.6)]', 'scale-110');
+            node.classList.add('border-white/20');
+          }
+          if (card) {
+            card.classList.remove('border-accent-primary/40', 'bg-[#111422]/95');
+          }
+          if (hudBtn) {
+            hudBtn.classList.remove('bg-white/[0.05]', 'border-accent-primary/30');
+            hudBtn.classList.add('border-transparent');
+            const dot = hudBtn.querySelector('.hud-dot');
+            if (dot) dot.classList.remove('bg-accent-primary', 'scale-125');
+          }
+        }
+      });
+    };
+
+    // 3. Smooth Jump-to Click Interaction
+    hudButtons.forEach((btn: any) => {
+      btn.addEventListener('click', () => {
+        const idx = btn.getAttribute('data-jump-index');
+        const target = document.getElementById(`experience-node-${idx}`);
+        if (target) {
+          const targetY = target.getBoundingClientRect().top + window.scrollY - 100;
+          window.scrollTo({
+            top: targetY,
+            behavior: 'smooth'
+          });
         }
       });
     });
   };
 
-  initExperienceScroll();
+  // Run on mount
+  initExperienceInteractive();
 
-  // Astro swap transition hooks
+  // Astro swap lifecycle hook for seamless client-side navigation
   document.addEventListener('astro:after-swap', () => {
-    initExperienceScroll();
+    initExperienceInteractive();
   });
 </script>

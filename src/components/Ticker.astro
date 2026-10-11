@@ -1,47 +1,35 @@
 ---
+// Minimalist Technical Domain Ticker
+const domains = [
+  "Full-Stack Web Architecture",
+  "Agentic AI & LLM Systems",
+  "High-Performance React & Next.js",
+  "Scalable Node & Express Services",
+  "PostgreSQL & Relational Data",
+  "Real-time WebSockets & Streaming",
+  "Cloud & Container Infrastructure",
+  "Production SaaS Engineering"
+];
 ---
 
-<div class="py-10 bg-gradient-to-r from-transparent via-white/[0.01] to-transparent border-y border-white/5 overflow-hidden whitespace-nowrap group select-none relative z-10">
-  <div class="max-w-7xl mx-auto px-6 mb-4 flex items-center justify-between opacity-40">
-    <span class="text-[8px] font-black uppercase tracking-[0.3em] text-[#94A3B8]">Core Domain Operations</span>
-    <span class="text-[8px] font-mono text-white/30 uppercase tracking-widest">[ SYSTEM STATUS: FULL_THROUGHPUT ]</span>
-  </div>
-
-  <div class="ticker-content inline-block animate-ticker">
-    <!-- First instance -->
+<div class="py-6 border-y border-border-subtle bg-black/20 backdrop-blur-sm overflow-hidden whitespace-nowrap group select-none relative z-10">
+  <div class="ticker-track inline-flex animate-ticker items-center">
+    <!-- Set 1 -->
     <div class="inline-flex items-center gap-6 px-4">
-      {[
-        { name: "Cognitive AI Pipelines", color: "#3B82F6" },
-        { name: "SaaS Product Engineering", color: "#22D3EE" },
-        { name: "Next.js Core Architecture", color: "#FFFFFF" },
-        { name: "Real-time WebSockets (Socket.IO)", color: "#00F0FF" },
-        { name: "HIPAA-Compliant Systems", color: "#10B981" },
-        { name: "GraphQL Headless CMS Data", color: "#E10098" },
-        { name: "High-Concurrency Node APIs", color: "#68A063" },
-        { name: "Web Performance Optimizations", color: "#F59E0B" }
-      ].map(item => (
-        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#0B1120]/40 border border-white/5 hover:border-white/10 transition-colors backdrop-blur-sm">
-          <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${item.color}; box-shadow: 0 0 8px ${item.color}`}></span>
-          <span class="text-xs font-black text-white/70 uppercase tracking-wider">{item.name}</span>
+      {domains.map((item) => (
+        <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/[0.03] border border-border-subtle hover:border-border-hover transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
+          <span class="text-xs font-mono font-medium text-text-primary tracking-wide">{item}</span>
         </div>
       ))}
     </div>
     
-    <!-- Duplicate for seamless looping -->
+    <!-- Set 2 for seamless loop -->
     <div class="inline-flex items-center gap-6 px-4">
-      {[
-        { name: "Cognitive AI Pipelines", color: "#3B82F6" },
-        { name: "SaaS Product Engineering", color: "#22D3EE" },
-        { name: "Next.js Core Architecture", color: "#FFFFFF" },
-        { name: "Real-time WebSockets (Socket.IO)", color: "#00F0FF" },
-        { name: "HIPAA-Compliant Systems", color: "#10B981" },
-        { name: "GraphQL Headless CMS Data", color: "#E10098" },
-        { name: "High-Concurrency Node APIs", color: "#68A063" },
-        { name: "Web Performance Optimizations", color: "#F59E0B" }
-      ].map(item => (
-        <div class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-[#0B1120]/40 border border-white/5 hover:border-white/10 transition-colors backdrop-blur-sm">
-          <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${item.color}; box-shadow: 0 0 8px ${item.color}`}></span>
-          <span class="text-xs font-black text-white/70 uppercase tracking-wider">{item.name}</span>
+      {domains.map((item) => (
+        <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/[0.03] border border-border-subtle hover:border-border-hover transition-colors">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
+          <span class="text-xs font-mono font-medium text-text-primary tracking-wide">{item}</span>
         </div>
       ))}
     </div>
@@ -54,7 +42,7 @@
     100% { transform: translateX(-50%); }
   }
   .animate-ticker {
-    animation: ticker 40s linear infinite;
+    animation: ticker 35s linear infinite;
   }
   .group:hover .animate-ticker {
     animation-play-state: paused;

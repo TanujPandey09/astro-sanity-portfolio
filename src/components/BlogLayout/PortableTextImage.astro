@@ -1,23 +1,25 @@
 ---
 import { urlForImage } from '../BlogLayout/urlforImage';
 
-const {asset, alt} = Astro.props.node
+const {asset, alt} = Astro.props.node;
 
 const hasAsset = !!asset;
-const url = hasAsset ? urlForImage(asset).url() : '';
-const webpUrl = hasAsset ? urlForImage(asset).format('png').url() : '';
+const url = hasAsset ? urlForImage(asset).auto('format').quality(80).url() : '';
+const webpUrl = hasAsset ? urlForImage(asset).format('webp').quality(80).url() : '';
 ---
 
 {hasAsset && (
   <picture>
     <source
       srcset={webpUrl}
-      type="image/png"
+      type="image/webp"
     />
     <img
-      class="responsive__img"
+      class="responsive__img rounded-2xl w-full h-auto object-cover my-6"
       src={url}
-      alt={alt || ""}
+      alt={alt || "Article content illustration"}
+      loading="lazy"
+      decoding="async"
     />
   </picture>
 )}

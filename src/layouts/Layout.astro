@@ -1,7 +1,8 @@
 ---
-import Sidebar from "../components/Sidebar.astro";
-import Footer from "../components/Footer";
+import Header from "../components/Header.astro";
 import Loader from "../components/Loader.astro";
+import Footer from "../components/Footer.astro";
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -13,37 +14,85 @@ const {
   description = "Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, and scalable backend systems.",
   image = "https://tanujdev.netlify.app/favicon.svg"
 } = Astro.props;
+
+const pathname = Astro.url.pathname;
+const isHome = pathname === "/" || pathname === "";
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || "https://tanujdev.netlify.app").href;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, Portfolio, Software Engineer, React, Node.js, Astro, Web Developer, Next.js" />
+    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, Portfolio, Software Engineer, React, Node.js, Astro, Web Developer, Next.js, TypeScript" />
     <meta name="author" content="Tanuj Pandey" />
+    <link rel="canonical" href={canonicalURL} />
     
     <!-- Open Graph / Social Previews -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tanujdev.netlify.app/" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     
     <!-- Twitter Card Previews -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://tanujdev.netlify.app/" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
-    <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/favicon.svg" />
     
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Google Fonts Preconnect & Optimized Async Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    </noscript>
     <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
     <title>{title}</title>
+
+    <!-- Structured Data: JSON-LD for SEO -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://tanujdev.netlify.app/#person",
+          "name": "Tanuj Pandey",
+          "jobTitle": "Full Stack Engineer",
+          "url": "https://tanujdev.netlify.app",
+          "sameAs": [
+            "https://github.com/TanujPandey09",
+            "https://linkedin.com/in/tanujdev"
+          ],
+          "knowsAbout": [
+            "Full-Stack Web Development",
+            "React.js",
+            "Next.js",
+            "Node.js",
+            "TypeScript",
+            "PostgreSQL",
+            "Astro",
+            "AI Agent Workflows"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://tanujdev.netlify.app/#website",
+          "url": "https://tanujdev.netlify.app",
+          "name": "Tanuj Pandey | Full Stack Engineer Portfolio",
+          "author": { "@id": "https://tanujdev.netlify.app/#person" }
+        }
+      ]
+    })} />
 
     <!-- Dynamic Web Analytics -->
     {import.meta.env.PUBLIC_GA_ID && (
@@ -60,23 +109,29 @@ const {
   </head>
 
   <body>
-    <Loader />
-    <Sidebar />
+    <!-- Accessibility Skip Link -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-white focus:text-black focus:font-bold focus:rounded-full focus:shadow-xl">
+      Skip to main content
+    </a>
 
-    <slot />
-    <Footer client:load/>
+    <!-- Magnificent Lightweight Intro Loader -->
+    <Loader />
+
+    <!-- Top Navigation Header -->
+    <Header />
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <Footer />
     <div class="cursor"></div>
     <div class="cursor2"></div>
-
-    <script src="https://unpkg.com/aos@next/dist/aos.js" is:inline></script>
-    <script is:inline>
-      AOS.init();
-    </script>
   </body>
 </html>
 
 <style is:global>
-  @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;900&display=swap");
+  @import 'aos/dist/aos.css';
 
   * {
     margin: 0;
@@ -85,7 +140,7 @@ const {
   }
 
   *:focus-visible {
-    outline: 2px solid var(--primary-color);
+    outline: 2px solid var(--accent-primary, #5E6AD2);
     outline-offset: 4px;
     border-radius: 4px;
   }
@@ -96,32 +151,44 @@ const {
     width: 100%;
   }
 
-  /* Custom Premium Scrollbar */
+  /* Custom Minimalist Scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--bg-deep);
+    background: var(--canvas-bg, #09090B);
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 8px;
-    border: 2px solid var(--bg-deep);
+    background: var(--border-hover, rgba(255, 255, 255, 0.16));
+    border-radius: 6px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-color);
+    background: var(--accent-primary, #5E6AD2);
   }
 
   :root {
-    --primary-color: #3B82F6;
-    --secondary-color: #60A5FA;
-    --accent-color: #22D3EE;
-    --bg-dark: #0B1120;
-    --bg-deep: #050816;
-    --text-primary: #F8FAFC;
-    --text-muted: #94A3B8;
-    --border-color: rgba(255, 255, 255, 0.08);
+    /* Linear Indigo & Obsidian Monochrome Tokens - Calibrated for Depth & Contrast */
+    --canvas-bg: #0A0B10;
+    --surface-card: #131522;
+    --surface-elevated: #1B1E30;
+    --border-subtle: rgba(255, 255, 255, 0.10);
+    --border-hover: rgba(94, 106, 210, 0.40);
+    --text-primary: #FAFAFA;
+    --text-muted: #A2A4B4;
+    --text-dim: #9295A8;
+    --accent-primary: #5E6AD2;
+    --accent-hover: #6E7AE2;
+    --accent-glow: rgba(94, 106, 210, 0.22);
+    --status-live: #10B981;
+
+    /* Legacy Fallback Mappings */
+    --primary-color: var(--accent-primary);
+    --secondary-color: var(--accent-primary);
+    --accent-color: var(--accent-primary);
+    --bg-dark: var(--surface-card);
+    --bg-deep: var(--canvas-bg);
+    --border-color: var(--border-subtle);
 
     /* Headings - Mobile */
     --h1-mobile: 2.25rem;      
@@ -181,7 +248,7 @@ const {
     overflow-x: hidden;
     background-color: var(--bg-deep);
     color: var(--text-muted);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: var(--p-mobile);
     line-height: var(--line-height-normal);
   }
@@ -192,7 +259,6 @@ const {
     font-weight: var(--fw-black);
     line-height: var(--line-height-tight);
     letter-spacing: var(--letter-spacing-tight);
-    text-transform: uppercase;
   }
 
   h1 { font-size: var(--h1-mobile); }
@@ -246,8 +312,8 @@ const {
   }
 
   .hover {
-    background-color: rgba(59, 130, 246, 0.1);
-    border-color: var(--primary-color);
+    background-color: var(--accent-glow);
+    border-color: var(--accent-primary);
     width: 60px;
     height: 60px;
   }
@@ -258,21 +324,25 @@ const {
     background-color: white;
   }
 
-  /* Text Gradients */
+  /* Text Gradients - Refined Silver Sheen */
   .text-gradient {
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 50%, var(--accent-color) 100%);
+    background: linear-gradient(135deg, #FFFFFF 30%, #D4D4D8 70%, #A1A1AA 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
   }
 
-  /* Premium Card (Glassmorphism) */
+  /* Premium Card (Glassmorphism & Depth) */
   .glass-card {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(255, 255, 255, 0.03);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 8px 32px -4px rgba(0, 0, 0, 0.5);
     border-radius: 2rem;
+  }
+
+  .bg-surface-card {
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   }
 
   @media only screen and (max-width: 1024px) {
@@ -312,8 +382,15 @@ const {
   import Lenis from 'lenis';
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import AOS from 'aos';
 
   gsap.registerPlugin(ScrollTrigger);
+
+  // Initialize AOS locally
+  AOS.init({ once: true, duration: 600, disable: 'mobile' });
+  document.addEventListener('astro:after-swap', () => {
+    AOS.refresh();
+  });
 
   // Initialize Lenis smooth scroll
   const lenis = new Lenis({
@@ -374,9 +451,31 @@ const {
   window.addEventListener('load', checkHashAndScroll);
   document.addEventListener('astro:after-swap', checkHashAndScroll);
 
-  const cursor = document.querySelector(".cursor");
-  const cursorinner = document.querySelector(".cursor2");
-  const links = document.querySelectorAll("a, button, .group");
+  // If not on homepage, dispatch portfolio-loaded immediately to trigger header/nav animations
+  window.addEventListener('load', () => {
+    window.dispatchEvent(new Event('portfolio-loaded'));
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    window.dispatchEvent(new Event('portfolio-loaded'));
+  });
+
+  let cursor = document.querySelector(".cursor");
+  let cursorinner = document.querySelector(".cursor2");
+
+  const initCursor = () => {
+    cursor = document.querySelector(".cursor");
+    cursorinner = document.querySelector(".cursor2");
+    
+    // Hide cursor on mobile
+    if (window.innerWidth < 1024) {
+      if (cursor) (cursor as HTMLElement).style.display = 'none';
+      if (cursorinner) (cursorinner as HTMLElement).style.display = 'none';
+    }
+  };
+
+  initCursor();
+  document.addEventListener('astro:after-swap', initCursor);
 
   let mouseX = 0;
   let mouseY = 0;
@@ -384,6 +483,7 @@ const {
   document.addEventListener("mousemove", (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    if (!cursor || !cursorinner) return;
 
     gsap.to(cursor, {
       x: mouseX,
@@ -400,28 +500,35 @@ const {
   });
 
   document.addEventListener("mousedown", () => {
+    if (!cursor || !cursorinner) return;
     gsap.to(cursor, { scale: 0.8, duration: 0.3 });
     gsap.to(cursorinner, { scale: 2, duration: 0.3 });
   });
 
   document.addEventListener("mouseup", () => {
+    if (!cursor || !cursorinner) return;
     gsap.to(cursor, { scale: 1, duration: 0.3 });
     gsap.to(cursorinner, { scale: 1, duration: 0.3 });
   });
 
-  links.forEach((link) => {
-    link.addEventListener("mouseenter", () => {
+  // Use event delegation for hover states
+  document.addEventListener("mouseover", (e) => {
+    const target = (e.target as HTMLElement).closest("a, button, .group, [data-hover-glow]");
+    if (target && cursor && cursorinner) {
       gsap.to(cursor, { 
         width: 80, 
         height: 80, 
-        backgroundColor: "rgba(59, 130, 246, 0.1)",
-        borderColor: "rgba(59, 130, 246, 0.5)",
+        backgroundColor: "rgba(94, 106, 210, 0.08)",
+        borderColor: "rgba(94, 106, 210, 0.4)",
         duration: 0.3 
       });
       gsap.to(cursorinner, { scale: 0.5, opacity: 0, duration: 0.3 });
-    });
-    
-    link.addEventListener("mouseleave", () => {
+    }
+  });
+
+  document.addEventListener("mouseout", (e) => {
+    const target = (e.target as HTMLElement).closest("a, button, .group, [data-hover-glow]");
+    if (target && cursor && cursorinner) {
       gsap.to(cursor, { 
         width: 25, 
         height: 25, 
@@ -430,12 +537,6 @@ const {
         duration: 0.3 
       });
       gsap.to(cursorinner, { scale: 1, opacity: 1, duration: 0.3 });
-    });
+    }
   });
-
-  // Hide cursor on mobile
-  if (window.innerWidth < 1024) {
-    if (cursor) (cursor as HTMLElement).style.display = 'none';
-    if (cursorinner) (cursorinner as HTMLElement).style.display = 'none';
-  }
 </script>

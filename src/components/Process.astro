@@ -2,7 +2,7 @@
 import SectionHeader from "./SectionHeader.astro";
 ---
 
-<section id="process" class="py-24 md:py-32 border-t border-white/5 bg-[#050816] relative z-20">
+<section id="process" class="py-16 md:py-24 border-t border-border-subtle bg-canvas relative z-20">
   <div class="container mx-auto px-4 md:px-8 max-w-7xl">
     
     <SectionHeader 
@@ -11,8 +11,8 @@ import SectionHeader from "./SectionHeader.astro";
       subtitle="How I take complex product concepts from initial scoping to high-performance production builds."
     />
 
-    <!-- Process Flow Grid (Stripe / Linear style card timeline) -->
-    <div class="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative">
+    <!-- Process Flow Grid (Linear style card timeline) -->
+    <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative">
       
       <!-- Connective fine line overlay behind cards on desktop -->
       <div class="hidden lg:block absolute top-[11.5rem] left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none z-0"></div>
@@ -22,31 +22,31 @@ import SectionHeader from "./SectionHeader.astro";
           step: "01",
           title: "Scope & Strategy",
           desc: "We define core user personas, map key workflows, specify features, and lay out the exact product roadmap to maximize initial market launch speed.",
-          color: "#3B82F6"
+          color: "#5E6AD2"
         },
         {
           step: "02",
           title: "System Architecture",
           desc: "Designing secure database models (relational/document), structuring API routes, and establishing robust role-based authentication schemes.",
-          color: "#22D3EE"
+          color: "#5E6AD2"
         },
         {
           step: "03",
           title: "Full-Stack Development",
           desc: "Coding pixel-perfect React/Next.js interfaces, implementing clean modular layouts, and programming fast server endpoints in Node.js.",
-          color: "#A855F7"
+          color: "#5E6AD2"
         },
         {
           step: "04",
           title: "Cognitive AI Integration",
           desc: "Connecting language models, creating fallback routing models, programming conversational RTL layouts, and structuring qualitative RAG flows.",
-          color: "#EC4899"
+          color: "#5E6AD2"
         },
         {
           step: "05",
           title: "Core Web Vitals Tuning",
           desc: "Benchmarking performance with Lighthouse, optimizing image loading, compiling statically where possible, and tuning API responses under 100ms.",
-          color: "#F59E0B"
+          color: "#5E6AD2"
         },
         {
           step: "06",
@@ -55,25 +55,25 @@ import SectionHeader from "./SectionHeader.astro";
           color: "#10B981"
         }
       ].map((phase, i) => (
-        <div class="relative bg-[#0B1120] border border-white/5 hover:border-white/10 rounded-3xl p-8 transition-all duration-500 group hover:shadow-[0_15px_30px_rgba(0,0,0,0.4)] z-10" data-aos="fade-up" data-aos-delay={i * 75}>
+        <div class="relative bg-surface-card border border-border-subtle hover:border-border-hover rounded-3xl p-8 transition-all duration-500 group hover:shadow-ambient z-10" data-aos="fade-up" data-aos-delay={i * 75}>
           <div class="absolute -right-16 -top-16 w-32 h-32 rounded-full blur-[50px] opacity-0 group-hover:opacity-10 transition-opacity duration-700" style={`background-color: ${phase.color}`}></div>
           
           <div class="flex items-center justify-between mb-6">
             <span class="text-3xl md:text-4xl font-mono font-black text-white/5 group-hover:text-white/10 transition-colors">{phase.step}</span>
-            <div class="w-8 h-8 rounded-full border border-white/5 flex items-center justify-center bg-white/[0.01]">
-              <span class="w-2 h-2 rounded-full transition-transform duration-500 group-hover:scale-125" style={`background-color: ${phase.color}; box-shadow: 0 0 8px ${phase.color}`}></span>
+            <div class="w-8 h-8 rounded-full border border-border-subtle flex items-center justify-center bg-white/[0.01]">
+              <span class="w-2 h-2 rounded-full transition-transform duration-500 group-hover:scale-125" style={`background-color: ${phase.color}; box-shadow: 0 0 6px ${phase.color}`}></span>
             </div>
           </div>
           
-          <h4 class="text-lg md:text-xl font-black text-white uppercase tracking-tight mb-3 font-sans">{phase.title}</h4>
-          <p class="text-xs md:text-sm text-[#94A3B8] leading-relaxed font-light">{phase.desc}</p>
+          <h3 class="text-lg md:text-xl font-black text-text-primary uppercase tracking-tight mb-3 font-sans">{phase.title}</h3>
+          <p class="text-xs md:text-sm text-text-muted leading-relaxed font-light">{phase.desc}</p>
         </div>
       ))}
       
     </div>
 
     <!-- Client Core Benefits Badge Grid -->
-    <div class="mt-20 md:mt-28 p-8 md:p-12 rounded-[2rem] bg-gradient-to-br from-[#0B1120] via-white/[0.01] to-[#050816] border border-white/5 grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+    <div class="mt-20 md:mt-28 p-8 md:p-12 rounded-[2rem] bg-surface-card border border-border-subtle grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
       {[
         {
           label: "Zero Handoff Friction",
@@ -90,10 +90,10 @@ import SectionHeader from "./SectionHeader.astro";
       ].map(benefit => (
         <div class="space-y-3">
           <div class="flex items-center gap-2">
-            <span class="text-[#3B82F6] font-bold text-xs font-mono">✓</span>
-            <h5 class="text-xs font-black uppercase text-white tracking-widest">{benefit.label}</h5>
+            <span class="text-accent-primary font-bold text-xs font-mono">✓</span>
+            <h5 class="text-xs font-black uppercase text-text-primary tracking-widest">{benefit.label}</h5>
           </div>
-          <p class="text-xs text-[#94A3B8] leading-relaxed font-light">{benefit.text}</p>
+          <p class="text-xs text-text-muted leading-relaxed font-light">{benefit.text}</p>
         </div>
       ))}
     </div>

@@ -1,0 +1,308 @@
+---
+import { useSanityClient, groq } from "astro-sanity";
+
+const query = groq`*[_type == "sideBar"]{
+  ...,
+  sideMenus[]->
+}`;
+
+let sideBar = null;
+try {
+  const result = await useSanityClient().fetch(query);
+  sideBar = result?.[0] || null;
+} catch (err) {
+  console.warn("Could not fetch sidebar/header from Sanity:", err);
+}
+
+// Built-in resilient fallbacks so navigation is never blank
+const defaultMenus = [
+  { menuName: "Home", menuLink: { current: "/" } },
+  { menuName: "Projects", menuLink: { current: "/projects" } },
+  { menuName: "About", menuLink: { current: "/about" } },
+  { menuName: "Blog", menuLink: { current: "/blogs" } }
+];
+
+const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
+  ? sideBar.sideMenus
+  : defaultMenus;
+---
+
+<header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 pointer-events-none" id="main-header">
+  <!-- Subtle Header Background Blur -->
+  <div class="absolute inset-0 header-bg transition-all duration-500"></div>
+
+  <nav aria-label="Main Navigation" class="max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between transition-all duration-500 relative z-10 pointer-events-auto" id="nav-container">
+    
+    <!-- LEFT: Branded Identity -->
+    <div class="flex-1 flex items-center gap-4">
+       <a href="/" aria-label="Tanuj Pandey - Home" class="flex items-center gap-3 group">
+          <div class="relative w-10 h-10 md:w-11 md:h-11 bg-white/[0.04] border border-white/10 rounded-xl flex items-center justify-center group-hover:border-accent-primary/60 group-hover:bg-white/[0.08] transition-all duration-300 overflow-hidden shadow-lg shadow-black/30">
+             <div class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-accent-primary/30 to-transparent"></div>
+             <span class="text-white font-black text-lg md:text-xl tracking-tighter relative z-10 group-hover:scale-105 transition-transform duration-300">TP</span>
+          </div>
+          <div class="flex flex-col">
+             <span class="text-[10px] md:text-xs font-black text-white uppercase tracking-[0.2em] md:tracking-[0.25em] group-hover:text-accent-primary transition-colors">Tanuj Pandey</span>
+             <span class="text-[7px] md:text-[8px] font-medium text-text-dim uppercase tracking-[0.1em] md:tracking-[0.15em]">Full Stack Engineer</span>
+          </div>
+       </a>
+    </div>
+
+    <!-- CENTER: Floating Modern Navigation (Desktop Only) -->
+    <div class="hidden md:flex flex-none justify-center z-50">
+       <div class="flex items-center gap-1.5 p-1.5 bg-[#090A10]/90 backdrop-blur-2xl border border-white/10 rounded-2xl px-3 py-1.5 shadow-2xl shadow-black/80 ring-1 ring-white/5">
+          <div class="flex items-center gap-1" id="desktop-nav-menu">
+            {menuItems.map((menuItem) => (
+               <a 
+                 href={menuItem.menuLink?.current || menuItem.menuLink || "/"}
+                 class="nav-link px-4 py-2 text-xs font-semibold tracking-wider text-text-muted hover:text-white transition-all duration-300 rounded-xl relative group flex items-center gap-2"
+               >
+                 <span class="relative z-10">{menuItem.menuName}</span>
+                 <div class="nav-hover-pill absolute inset-0 bg-white/[0.06] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></div>
+                 <div class="nav-active-pill absolute inset-0 bg-accent-primary/20 border border-accent-primary/50 rounded-xl opacity-0 shadow-[0_0_16px_rgba(94,106,210,0.35)] transition-all duration-300 pointer-events-none"></div>
+                 <div class="nav-active-dot w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38BDF8] opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+               </a>
+            ))}
+          </div>
+       </div>
+    </div>
+
+    <!-- RIGHT: CTA (Desktop) / Mobile Toggle -->
+    <div class="flex-1 flex justify-end items-center gap-4">
+       <!-- Desktop CTA -->
+       <a 
+         href="/#contact" 
+         aria-label="Contact Tanuj Pandey" 
+         class="hidden md:inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/[0.04] hover:bg-accent-primary/20 border border-white/10 hover:border-accent-primary/50 rounded-xl transition-all duration-300 group shadow-sm hover:shadow-[0_0_20px_rgba(94,106,210,0.3)] active:scale-95"
+       >
+          <span class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-white transition-colors">Let's Talk</span>
+          <div class="w-2 h-2 rounded-full bg-accent-primary group-hover:bg-cyan-400 group-hover:scale-125 transition-all duration-300"></div>
+       </a>
+
+       <!-- Mobile Trigger -->
+       <button 
+         id="mobile-trigger"
+         class="md:hidden w-11 h-11 bg-white/5 border border-white/10 rounded-xl flex flex-col items-center justify-center gap-1.5 group transition-all hover:border-accent-primary/50 active:scale-90 cursor-pointer"
+         aria-label="Toggle Menu"
+         aria-expanded="false"
+       >
+          <div class="w-5 h-[2px] bg-accent-primary transition-all duration-300 origin-center" id="bar-1"></div>
+          <div class="w-5 h-[2px] bg-white transition-all duration-300" id="bar-2"></div>
+          <div class="w-5 h-[2px] bg-accent-primary transition-all duration-300 origin-center" id="bar-3"></div>
+       </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Overlay -->
+  <div id="mobile-overlay" class="fixed inset-0 bg-canvas/95 backdrop-blur-3xl z-[100] hidden flex-col items-center justify-between pointer-events-auto opacity-0 transition-all duration-500 py-20">
+     <!-- Background Glow -->
+     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-accent-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+     
+     <div class="flex flex-col items-center space-y-4 text-center w-full px-6 relative z-10">
+        <p class="text-[10px] font-black text-accent-primary uppercase tracking-[0.5em] mb-4">Navigation Menu</p>
+        {menuItems.map((menuItem, index) => (
+           <a 
+             href={menuItem.menuLink?.current || menuItem.menuLink || "/"}
+             class="mobile-nav-link block text-3xl sm:text-4xl font-extrabold text-white uppercase tracking-tight hover:text-accent-primary px-6 py-3 rounded-xl hover:bg-white/[0.04] transition-all relative group"
+             style={`animation-delay: ${index * 0.1}s`}
+           >
+             <span class="relative z-10">{menuItem.menuName}</span>
+           </a>
+        ))}
+     </div>
+     
+     <div class="flex flex-col items-center gap-8 relative z-10">
+        <div class="flex flex-col items-center gap-4">
+           <a href="/#contact" aria-label="Start Project with Tanuj Pandey" class="px-8 py-3.5 bg-accent-primary hover:bg-accent-primary/90 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 transition-all shadow-ambient">
+              Start Project
+           </a>
+           <button id="close-overlay" aria-label="Close navigation menu" class="text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted hover:text-white transition-colors cursor-pointer">
+              [ Click to Close ]
+           </button>
+        </div>
+        
+        <div class="flex flex-col items-center gap-3">
+           <div class="flex gap-6 items-center">
+              <div class="w-12 h-[1px] bg-white/10"></div>
+              <p class="text-[8px] font-black uppercase tracking-[0.4em] text-white/40">Tanuj Pandey • Portfolio</p>
+              <div class="w-12 h-[1px] bg-white/10"></div>
+           </div>
+        </div>
+     </div>
+  </div>
+</header>
+
+<style>
+  header .header-bg {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+  }
+
+  #main-header.scrolled .header-bg {
+    background: rgba(9, 10, 16, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  /* Smooth CSS entrance without JavaScript blocking or opacity 0 traps */
+  @keyframes headerEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  #nav-container {
+    animation: headerEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  /* Distinct Active Navigation State */
+  .nav-link.active {
+    color: #FFFFFF !important;
+    font-weight: 700;
+  }
+
+  .nav-link.active .nav-active-pill {
+    opacity: 1 !important;
+  }
+
+  .nav-link.active .nav-active-dot {
+    opacity: 1 !important;
+  }
+
+  .nav-link.active .nav-hover-pill {
+    opacity: 0 !important;
+  }
+
+  .mobile-nav-link.active {
+    color: var(--accent-primary, #5E6AD2) !important;
+    background: rgba(94, 106, 210, 0.12);
+  }
+
+  @keyframes slideReveal {
+    from { opacity: 0; transform: translateY(30px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  #mobile-overlay.active-menu .mobile-nav-link {
+    animation: slideReveal 0.5s forwards cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #mobile-overlay.active-menu {
+     opacity: 1;
+     transform: translateY(0);
+  }
+
+  /* Hamburger Animation */
+  #mobile-trigger.is-open #bar-1 {
+    transform: translateY(8px) rotate(45deg);
+  }
+  #mobile-trigger.is-open #bar-2 {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  #mobile-trigger.is-open #bar-3 {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+</style>
+
+<script>
+  function setupHeader() {
+    const header = document.getElementById('main-header');
+    const trigger = document.getElementById('mobile-trigger');
+    const overlay = document.getElementById('mobile-overlay');
+    const closeBtn = document.getElementById('close-overlay');
+    const navItems = document.querySelectorAll('.nav-link');
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const navContainer = document.getElementById('nav-container');
+
+    if (!header || !navContainer) return;
+
+    // Scroll Behavior
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        header.classList.add('scrolled');
+        navContainer.classList.remove('md:py-5');
+        navContainer.classList.add('md:py-3');
+      } else {
+        header.classList.remove('scrolled');
+        navContainer.classList.remove('md:py-3');
+        navContainer.classList.add('md:py-5');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    // Mobile Toggle
+    const openMenu = () => {
+      if (!overlay || !trigger) return;
+      overlay.classList.remove('hidden');
+      overlay.classList.add('flex');
+      trigger.classList.add('is-open');
+      trigger.setAttribute('aria-expanded', 'true');
+      requestAnimationFrame(() => {
+        overlay.classList.add('active-menu');
+      });
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+      if (!overlay || !trigger) return;
+      overlay.classList.remove('active-menu');
+      trigger.classList.remove('is-open');
+      trigger.setAttribute('aria-expanded', 'false');
+      setTimeout(() => {
+        overlay.classList.add('hidden');
+        overlay.classList.remove('flex');
+      }, 350);
+      document.body.style.overflow = '';
+    };
+
+    // Remove existing event listener duplicates if any
+    const newTrigger = trigger.cloneNode(true) as HTMLElement;
+    trigger.parentNode?.replaceChild(newTrigger, trigger);
+    newTrigger.addEventListener('click', () => {
+      if (overlay?.classList.contains('active-menu')) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    closeBtn?.addEventListener('click', closeMenu);
+    mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+    overlay?.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
+    // Close on ESC
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && overlay?.classList.contains('active-menu')) {
+        closeMenu();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+
+    // Active State Management
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    const allLinks = [...navItems, ...mobileLinks];
+    
+    allLinks.forEach(item => {
+      item.classList.remove('active');
+      const rawHref = item.getAttribute('href') || '';
+      const href = rawHref.replace(/\/$/, '') || '/';
+      
+      if (href === currentPath) {
+        item.classList.add('active');
+      } else if (href !== '/' && currentPath.startsWith(href)) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  // Run on initial load and on Astro View Transitions
+  setupHeader();
+  document.addEventListener('astro:page-load', setupHeader);
+</script>

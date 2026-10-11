@@ -12,14 +12,14 @@
 .project-slider .slick-dots li button:before,
 .blog-slider .slick-dots li button:before {
   font-size: 0.75rem;
-  color: #cbd5e1;
+  color: var(--text-muted, #9B9CA4);
   opacity: 0.5;
   transition: all 0.3s ease;
 }
 
 .project-slider .slick-dots li.slick-active button:before,
 .blog-slider .slick-dots li.slick-active button:before {
-  color: #475569;
+  color: var(--accent-primary, #5E6AD2);
   opacity: 1;
 }
 

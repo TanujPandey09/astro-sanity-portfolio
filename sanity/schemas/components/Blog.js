@@ -4,13 +4,13 @@ export default {
   title: 'Blogs',
   fields: [
     {
-      title: 'AdminstrativeTitle',
+      title: 'Administrative Title',
       name: 'adminstrativetitle',
       type: 'string',
     },
 
     {
-      title: 'Blog Name',
+      title: 'Blog Title',
       name: 'projectName',
       type: 'string',
     },

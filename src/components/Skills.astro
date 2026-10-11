@@ -16,350 +16,191 @@ const skillquery = groq`*[_type == "skillsSection"] {
   }
 }[0]`;
 
-const skillsData = await useSanityClient().fetch(skillquery);
-const logos = skillsData?.logoCase || [];
+let skillsData = null;
+try {
+  skillsData = await useSanityClient().fetch(skillquery);
+} catch (err) {
+  console.warn("Could not fetch skillsSection from Sanity:", err);
+}
 
-// Dynamically categorize skills from Sanity based on keywords
-const frontendKeywords = ['react', 'next', 'typescript', 'tailwind', 'css', 'html', 'js', 'javascript', 'frontend', 'ui', 'ux', 'vue', 'svelte', 'astro'];
-const backendKeywords = ['node', 'express', 'postgresql', 'mongodb', 'mongo', 'sql', 'backend', 'api', 'rest', 'graphql', 'database', 'nest', 'django', 'python', 'docker', 'aws', 'cloud'];
-const aiKeywords = ['openai', 'claude', 'ai', 'grok', 'gemini', 'gpt', 'llm', 'rag', 'agent', 'langchain', 'prompt', 'machine', 'learning', 'cognitive'];
+const rawLogos = skillsData?.logoCase || [];
 
-const frontendSkills: any[] = [];
-const backendSkills: any[] = [];
-const aiSkills: any[] = [];
-const otherSkills: any[] = [];
+// Map Sanity logo entries cleanly
+const sanityLogoMap = new Map<string, string>();
+rawLogos.forEach((item: any) => {
+  const title = (item?.adminstrativetitle || item?.Logo?.alt || "").toLowerCase();
+  const url = item?.Logo?.asset?.url;
+  if (!url) return;
+  if (title.includes('react')) sanityLogoMap.set('react', url);
+  else if (title.includes('node')) sanityLogoMap.set('node', url);
+  else if (title.includes('redux')) sanityLogoMap.set('redux', url);
+  else if (title.includes('graphql')) sanityLogoMap.set('graphql', url);
+  else if (title.includes('rest')) sanityLogoMap.set('rest', url);
+  else if (title.includes('sanity')) sanityLogoMap.set('sanity', url);
+  else if (title.includes('contentful')) sanityLogoMap.set('contentful', url);
+  else if (title.includes('js') || title.includes('javascript')) sanityLogoMap.set('js', url);
+  else if (title.includes('html')) sanityLogoMap.set('html', url);
+  else if (title.includes('css')) sanityLogoMap.set('css', url);
+});
 
-logos.forEach((skill: any) => {
-  let rawName = skill?.adminstrativetitle || skill?.Logo?.alt || "Skill";
-  const skillName = rawName.replace(/logo\s*section/ig, '').replace(/^[-:\s]+/, '').trim() || "Skill";
-  const lowerName = skillName.toLowerCase();
-  
-  const skillObj = {
-    name: skillName,
-    icon: skill?.Logo?.asset?.url,
-  };
-
-  if (frontendKeywords.some(kw => lowerName.includes(kw))) {
-    frontendSkills.push(skillObj);
-  } else if (backendKeywords.some(kw => lowerName.includes(kw))) {
-    backendSkills.push(skillObj);
-  } else if (aiKeywords.some(kw => lowerName.includes(kw))) {
-    aiSkills.push(skillObj);
-  } else {
-    otherSkills.push(skillObj);
+// Streamlined, human-psychology-optimized skill categories (scannable in 3 seconds)
+const skillGroups = [
+  {
+    title: "Frontend",
+    subtitle: "Web & Reactive UI",
+    icon: "code",
+    skills: [
+      { name: "React", logo: sanityLogoMap.get('react'), color: "#61DAFB", highlight: true },
+      { name: "Next.js", color: "#FFFFFF", highlight: true },
+      { name: "TypeScript", color: "#3178C6", highlight: true },
+      { name: "Tailwind CSS", color: "#38BDF8" },
+      { name: "JavaScript", logo: sanityLogoMap.get('js'), color: "#F7DF1E" },
+      { name: "Redux", logo: sanityLogoMap.get('redux'), color: "#764ABC" },
+      { name: "Astro", color: "#FF5D01" },
+      { name: "HTML5 / CSS3", logo: sanityLogoMap.get('html'), color: "#E34F26" }
+    ]
+  },
+  {
+    title: "Backend & APIs",
+    subtitle: "Services & Logic",
+    icon: "server",
+    skills: [
+      { name: "Node.js", logo: sanityLogoMap.get('node'), color: "#47A248", highlight: true },
+      { name: "Express.js", color: "#FFFFFF", highlight: true },
+      { name: "REST APIs", logo: sanityLogoMap.get('rest'), color: "#6366F1", highlight: true },
+      { name: "GraphQL", logo: sanityLogoMap.get('graphql'), color: "#E10098" },
+      { name: "WebSockets", color: "#06B6D4" },
+      { name: "Microservices", color: "#A855F7" }
+    ]
+  },
+  {
+    title: "Data & CMS",
+    subtitle: "Storage & Content",
+    icon: "database",
+    skills: [
+      { name: "PostgreSQL", color: "#336791", highlight: true },
+      { name: "MongoDB", color: "#47A248", highlight: true },
+      { name: "Sanity CMS", logo: sanityLogoMap.get('sanity'), color: "#F03E2F", highlight: true },
+      { name: "Prisma ORM", color: "#2D3748" },
+      { name: "Redis", color: "#DC2626" },
+      { name: "Contentful", logo: sanityLogoMap.get('contentful'), color: "#2478CC" }
+    ]
+  },
+  {
+    title: "AI & Cloud",
+    subtitle: "Intelligence & Ops",
+    icon: "cpu",
+    skills: [
+      { name: "OpenAI API", color: "#10A37F", highlight: true },
+      { name: "Claude 3.5", color: "#D97706", highlight: true },
+      { name: "RAG Pipelines", color: "#5E6AD2", highlight: true },
+      { name: "Docker", color: "#2496ED" },
+      { name: "Netlify / Vercel", color: "#00C7B7" },
+      { name: "Git / CI/CD", color: "#F05032" }
+    ]
   }
-});
-
-// Distribute other unclassified skills evenly
-otherSkills.forEach((skill, i) => {
-  if (i % 3 === 0) frontendSkills.push(skill);
-  else if (i % 3 === 1) backendSkills.push(skill);
-  else aiSkills.push(skill);
-});
-
-// Fallback values if Sanity has no skills uploaded yet
-const defaultFrontend = [
-  { name: "React", icon: null, color: "#61DAFB" },
-  { name: "Next.js", icon: null, color: "#FFFFFF" },
-  { name: "TypeScript", icon: null, color: "#3178C6" },
-  { name: "Tailwind", icon: null, color: "#38B2AC" }
 ];
-const defaultBackend = [
-  { name: "Node.js", icon: null, color: "#47A248" },
-  { name: "PostgreSQL", icon: null, color: "#336791" },
-  { name: "MongoDB", icon: null, color: "#47A248" },
-  { name: "Express", icon: null, color: "#FFFFFF" }
-];
-const defaultAI = [
-  { name: "OpenAI", icon: null, color: "#10a37f" },
-  { name: "Claude", icon: null, color: "#f29f05" },
-  { name: "RAG", icon: null, color: "#3B82F6" },
-  { name: "Agents", icon: null, color: "#22D3EE" }
-];
-
-const finalFrontend = frontendSkills.length > 0 ? frontendSkills : defaultFrontend;
-const finalBackend = backendSkills.length > 0 ? backendSkills : defaultBackend;
-const finalAI = aiSkills.length > 0 ? aiSkills : defaultAI;
-
-// Function to compute orbit positions dynamically
-const getOrbitStyle = (index: number, total: number) => {
-  const angle = (index / total) * 2 * Math.PI - Math.PI / 2; // Start at top center
-  const radius = 50; // radius percentage
-  const x = 50 + radius * Math.cos(angle);
-  const y = 50 + radius * Math.sin(angle);
-  return `top: ${y}%; left: ${x}%; transform: translate(-50%, -50%);`;
-};
-
-// Colors helper to assign dynamic indicator dot colors
-const getDotColor = (name: string) => {
-  const lower = name.toLowerCase();
-  if (lower.includes('react')) return '#61DAFB';
-  if (lower.includes('next')) return '#FFFFFF';
-  if (lower.includes('typescript') || lower.includes('ts')) return '#3178C6';
-  if (lower.includes('tailwind')) return '#38B2AC';
-  if (lower.includes('node')) return '#47A248';
-  if (lower.includes('postgres')) return '#336791';
-  if (lower.includes('mongo')) return '#47A248';
-  if (lower.includes('openai')) return '#10a37f';
-  if (lower.includes('claude')) return '#f29f05';
-  if (lower.includes('rag')) return '#3B82F6';
-  if (lower.includes('agent')) return '#22D3EE';
-  return '#3B82F6'; // default electric blue
-};
-
-let skillTitle = skillsData?.adminstrativetitle || "Core";
-let skillHeading = skillsData?.Heading || "Expertise";
-
-const lowerTitle = skillTitle.toLowerCase();
-const lowerHeading = skillHeading.toLowerCase();
-
-if (lowerTitle.includes('section') || lowerTitle.includes('admin') || lowerTitle.includes('skill')) {
-  skillTitle = "Core";
-}
-if (lowerHeading.includes('section') || lowerHeading.includes('admin') || lowerHeading.includes('skill')) {
-  skillHeading = "Expertise";
-}
-if (skillTitle.toLowerCase() === skillHeading.toLowerCase()) {
-  skillTitle = "Technical";
-  skillHeading = "Expertise";
-}
 ---
 
-<section id="skills" class="py-24 md:py-32 relative z-10 bg-[#050816] overflow-hidden border-b border-white/5">
-  <div class="container mx-auto px-6">
-    <SectionHeader 
-      title={skillTitle} 
-      gradientText={skillHeading} 
-      subtitle="Interactive technology orbits showcasing dynamic core competencies loaded directly from Sanity.io CMS."
-    />
-
-    <div class="mt-20 grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 justify-items-center">
-      
-      <!-- Frontend Orbit Hub -->
-      <div class="orbit-hub group relative flex flex-col items-center p-8 bg-[#0B1120]/40 border border-white/5 rounded-[2.5rem] w-full max-w-[380px] h-[450px] overflow-hidden backdrop-blur-md">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#3B82F6]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-        <span class="text-[9px] font-mono text-[#3B82F6] uppercase tracking-[0.3em] mb-4">Architecture</span>
-        <h3 class="text-lg font-black text-white uppercase tracking-tighter mb-12">Frontend Ecosystem</h3>
-        
-        <!-- Orbit Area -->
-        <div class="relative w-60 h-60 flex items-center justify-center">
-          <div class="orbit-ring-frontend absolute w-full h-full rounded-full border border-white/10 flex items-center justify-center">
-            {finalFrontend.map((skill, index) => {
-              const dotColor = getDotColor(skill.name);
-              return (
-                <div 
-                  class="satellite absolute bg-[#0B1120] border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg group-hover:border-[#3B82F6]/50 transition-all duration-300"
-                  style={getOrbitStyle(index, finalFrontend.length)}
-                >
-                  {skill.icon ? (
-                    <img src={skill.icon} alt={skill.name} class="w-3.5 h-3.5 object-contain" />
-                  ) : (
-                    <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${dotColor}; box-shadow: 0 0 8px ${dotColor};`}></span>
-                  )}
-                  <span class="text-[9px] font-black uppercase text-white font-mono">{skill.name}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <!-- Center Core -->
-          <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#22D3EE] p-[1px] shadow-[0_0_30px_rgba(59,130,246,0.3)] group-hover:scale-110 group-hover:shadow-[0_0_50px_rgba(59,130,246,0.6)] transition-all duration-500 z-10 flex items-center justify-center">
-            <div class="w-full h-full bg-[#050816] rounded-full flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2"><path d="M16.5 9.4 7.55 4.24a1.78 1.78 0 0 0-2.5 1.55v12.42a1.78 1.78 0 0 0 2.5 1.55l8.96-5.17a1.78 1.78 0 0 0 0-3.1Z"/></svg>
-            </div>
-          </div>
-        </div>
+<section id="skills" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
+  <div class="container mx-auto px-4 md:px-8 max-w-7xl">
+    
+    <!-- Clean, Focused Section Header (Low Cognitive Load) -->
+    <div class="max-w-3xl mb-12 md:mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-3">
+        <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
+        <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-accent-primary font-semibold">Capabilities</span>
       </div>
-
-      <!-- Backend Orbit Hub -->
-      <div class="orbit-hub group relative flex flex-col items-center p-8 bg-[#0B1120]/40 border border-white/5 rounded-[2.5rem] w-full max-w-[380px] h-[450px] overflow-hidden backdrop-blur-md">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#22D3EE]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-        <span class="text-[9px] font-mono text-[#22D3EE] uppercase tracking-[0.3em] mb-4">Operations</span>
-        <h3 class="text-lg font-black text-white uppercase tracking-tighter mb-12">SaaS & Infrastructure</h3>
-        
-        <!-- Orbit Area -->
-        <div class="relative w-60 h-60 flex items-center justify-center">
-          <div class="orbit-ring-backend absolute w-full h-full rounded-full border border-white/10 flex items-center justify-center">
-            {finalBackend.map((skill, index) => {
-              const dotColor = getDotColor(skill.name);
-              return (
-                <div 
-                  class="satellite absolute bg-[#0B1120] border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg group-hover:border-[#22D3EE]/50 transition-all duration-300"
-                  style={getOrbitStyle(index, finalBackend.length)}
-                >
-                  {skill.icon ? (
-                    <img src={skill.icon} alt={skill.name} class="w-3.5 h-3.5 object-contain" />
-                  ) : (
-                    <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${dotColor}; box-shadow: 0 0 8px ${dotColor};`}></span>
-                  )}
-                  <span class="text-[9px] font-black uppercase text-white font-mono">{skill.name}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <!-- Center Core -->
-          <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#22D3EE] to-[#3B82F6] p-[1px] shadow-[0_0_30px_rgba(34,211,238,0.3)] group-hover:scale-110 group-hover:shadow-[0_0_50px_rgba(34,211,238,0.6)] transition-all duration-500 z-10 flex items-center justify-center">
-            <div class="w-full h-full bg-[#050816] rounded-full flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3B82F6" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- AI Orbit Hub -->
-      <div class="orbit-hub group relative flex flex-col items-center p-8 bg-[#0B1120]/40 border border-white/5 rounded-[2.5rem] w-full max-w-[380px] h-[450px] overflow-hidden backdrop-blur-md">
-        <div class="absolute inset-0 bg-gradient-to-b from-[#22D3EE]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-        <span class="text-[9px] font-mono text-[#22D3EE] uppercase tracking-[0.3em] mb-4">Intelligence</span>
-        <h3 class="text-lg font-black text-white uppercase tracking-tighter mb-12">Cognitive Platforms</h3>
-        
-        <!-- Orbit Area -->
-        <div class="relative w-60 h-60 flex items-center justify-center">
-          <div class="orbit-ring-ai absolute w-full h-full rounded-full border border-white/10 flex items-center justify-center">
-            {finalAI.map((skill, index) => {
-              const dotColor = getDotColor(skill.name);
-              return (
-                <div 
-                  class="satellite absolute bg-[#0B1120] border border-white/10 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-lg group-hover:border-[#22D3EE]/50 transition-all duration-300"
-                  style={getOrbitStyle(index, finalAI.length)}
-                >
-                  {skill.icon ? (
-                    <img src={skill.icon} alt={skill.name} class="w-3.5 h-3.5 object-contain" />
-                  ) : (
-                    <span class="w-1.5 h-1.5 rounded-full" style={`background-color: ${dotColor}; box-shadow: 0 0 8px ${dotColor};`}></span>
-                  )}
-                  <span class="text-[9px] font-black uppercase text-white font-mono">{skill.name}</span>
-                </div>
-              );
-            })}
-          </div>
-
-          <!-- Center Core -->
-          <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-[#3B82F6] to-[#22D3EE] p-[1px] shadow-[0_0_30px_rgba(34,211,238,0.3)] group-hover:scale-110 group-hover:shadow-[0_0_50px_rgba(34,211,238,0.6)] transition-all duration-500 z-10 flex items-center justify-center">
-            <div class="w-full h-full bg-[#050816] rounded-full flex items-center justify-center">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            </div>
-          </div>
-        </div>
-      </div>
-
+      <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+        Core <span class="text-gradient">Expertise</span>
+      </h2>
+      <p class="mt-3 text-text-muted text-sm md:text-base leading-relaxed">
+        The core technologies, frameworks, and architectural tools I use to ship production software.
+      </p>
     </div>
+
+    <!-- 4 Clean, Scannable Domain Cards (Parsed in 3 Seconds) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {skillGroups.map((group) => (
+        <div class="group relative rounded-2xl bg-surface-card border border-white/10 p-6 flex flex-col justify-between hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+          
+          <!-- Subtle Top Ambient Glow on Hover -->
+          <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+
+          <div>
+            <!-- Group Header -->
+            <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/5">
+              <div>
+                <h3 class="text-lg font-bold text-white tracking-tight group-hover:text-accent-primary transition-colors">
+                  {group.title}
+                </h3>
+                <span class="text-[11px] font-mono text-text-dim block mt-0.5">
+                  {group.subtitle}
+                </span>
+              </div>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/5 text-text-muted">
+                {group.skills.length} tools
+              </span>
+            </div>
+
+            <!-- Instant-Recognition Tech Chips -->
+            <div class="flex flex-wrap gap-2">
+              {group.skills.map((skill) => (
+                <div 
+                  class={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 border cursor-default select-none ${
+                    skill.highlight
+                      ? 'bg-white/[0.05] border-white/12 text-white hover:border-accent-primary/60 hover:bg-white/[0.09]'
+                      : 'bg-white/[0.02] border-white/5 text-text-muted hover:border-white/20 hover:text-white'
+                  }`}
+                >
+                  <!-- Real Logo or Brand Accent Dot -->
+                  {skill.logo ? (
+                    <img 
+                      src={skill.logo} 
+                      alt={`${skill.name} logo`} 
+                      width="16" 
+                      height="16" 
+                      loading="lazy" 
+                      decoding="async" 
+                      class="w-4 h-4 object-contain rounded-sm"
+                    />
+                  ) : (
+                    <span 
+                      class="w-2 h-2 rounded-full shrink-0" 
+                      style={`background-color: ${skill.color}; box-shadow: 0 0 8px ${skill.color}80;`}
+                    ></span>
+                  )}
+                  <span class="whitespace-nowrap">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Subtle Bottom Indicator -->
+          <div class="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-text-dim">
+            <span>Production Verified</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/80"></span>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Quick Architectural Focus Bar (Clean & Reassuring) -->
+    <div class="mt-8 p-4 md:p-5 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono text-text-muted">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-accent-primary"></span>
+        <span class="text-white font-semibold">Primary Daily Driver:</span>
+        <span class="text-text-primary">TypeScript • React / Next.js • Node.js • PostgreSQL</span>
+      </div>
+      <div class="flex items-center gap-6 text-[11px] text-text-dim">
+        <span>⚡ Sub-100ms APIs</span>
+        <span>•</span>
+        <span>🔒 Strict Type Safety</span>
+        <span>•</span>
+        <span>🤖 Production AI Integrations</span>
+      </div>
+    </div>
+
   </div>
 </section>
-
-<script>
-  import gsap from 'gsap';
-
-  const initOrbits = () => {
-    // Frontend Rotations
-    const feRing = document.querySelector('.orbit-ring-frontend');
-    const feSats = document.querySelectorAll('.orbit-ring-frontend .satellite');
-    
-    if (feRing) {
-      const rot = gsap.to(feRing, {
-        rotation: 360,
-        duration: 28,
-        repeat: -1,
-        ease: "none"
-      });
-
-      const satRot = gsap.to(feSats, {
-        rotation: -360,
-        duration: 28,
-        repeat: -1,
-        ease: "none"
-      });
-
-      // Pause rotation on hover
-      const feHub = document.querySelector('.orbit-ring-frontend').closest('.orbit-hub');
-      feHub?.addEventListener('mouseenter', () => {
-        rot.timeScale(0.1);
-        satRot.timeScale(0.1);
-      });
-      feHub?.addEventListener('mouseleave', () => {
-        rot.timeScale(1.0);
-        satRot.timeScale(1.0);
-      });
-    }
-
-    // Backend Rotations
-    const beRing = document.querySelector('.orbit-ring-backend');
-    const beSats = document.querySelectorAll('.orbit-ring-backend .satellite');
-    
-    if (beRing) {
-      const rot = gsap.to(beRing, {
-        rotation: -360,
-        duration: 32,
-        repeat: -1,
-        ease: "none"
-      });
-
-      const satRot = gsap.to(beSats, {
-        rotation: 360,
-        duration: 32,
-        repeat: -1,
-        ease: "none"
-      });
-
-      const beHub = document.querySelector('.orbit-ring-backend').closest('.orbit-hub');
-      beHub?.addEventListener('mouseenter', () => {
-        rot.timeScale(0.1);
-        satRot.timeScale(0.1);
-      });
-      beHub?.addEventListener('mouseleave', () => {
-        rot.timeScale(1.0);
-        satRot.timeScale(1.0);
-      });
-    }
-
-    // AI Rotations
-    const aiRing = document.querySelector('.orbit-ring-ai');
-    const aiSats = document.querySelectorAll('.orbit-ring-ai .satellite');
-    
-    if (aiRing) {
-      const rot = gsap.to(aiRing, {
-        rotation: 360,
-        duration: 30,
-        repeat: -1,
-        ease: "none"
-      });
-
-      const satRot = gsap.to(aiSats, {
-        rotation: -360,
-        duration: 30,
-        repeat: -1,
-        ease: "none"
-      });
-
-      const aiHub = document.querySelector('.orbit-ring-ai').closest('.orbit-hub');
-      aiHub?.addEventListener('mouseenter', () => {
-        rot.timeScale(0.1);
-        satRot.timeScale(0.1);
-      });
-      aiHub?.addEventListener('mouseleave', () => {
-        rot.timeScale(1.0);
-        satRot.timeScale(1.0);
-      });
-    }
-  };
-
-  initOrbits();
-
-  // Astro page switch transition hooks
-  document.addEventListener('astro:after-swap', () => {
-    initOrbits();
-  });
-</script>
-
-<style>
-  .orbit-hub {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .orbit-hub:hover {
-    transform: translateY(-8px);
-    border-color: rgba(59, 130, 246, 0.2);
-    box-shadow: 0 20px 40px -10px rgba(59, 130, 246, 0.1);
-  }
-</style>

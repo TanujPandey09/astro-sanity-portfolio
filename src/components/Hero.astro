@@ -1,167 +1,116 @@
 ---
+// High-End Design Engineering Hero Component
 ---
 
-<section id="hero" class="min-h-screen flex items-center justify-center relative overflow-hidden pt-24 pb-16 md:pt-32">
-  <!-- Animated Linear Gradient Background -->
-  <div class="absolute inset-0 bg-[linear-gradient(45deg,#050816,#0B1120,#0b182d,#050816)] bg-[length:400%_400%] animate-[gradient-bg_15s_ease_infinite] z-0"></div>
-  <!-- Subtle Background Grid Overlay -->
-  <div class="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_60%,transparent_100%)] pointer-events-none z-0"></div>
-
+<section id="hero" class="min-h-[calc(100vh-4.5rem)] flex flex-col justify-center relative overflow-hidden pt-16 md:pt-20 pb-8">
   <div class="container mx-auto px-4 md:px-8 relative z-20">
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-5xl mx-auto text-center flex flex-col items-center relative">
       
-      <div class="text-center flex flex-col items-center">
-        <!-- Available Badge -->
-        <div class="mb-8 flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in" data-aos="fade-up">
-           <a href="#contact" class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#0B1120] border border-[#3B82F6]/30 hover:border-[#3B82F6] transition-all duration-500 cursor-pointer shadow-[0_0_20px_rgba(59,130,246,0.1)] hover:shadow-[0_0_30px_rgba(59,130,246,0.3)] group relative overflow-hidden">
-              <div class="absolute inset-0 bg-gradient-to-r from-[#3B82F6]/0 via-[#3B82F6]/10 to-[#3B82F6]/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
-              <div class="relative w-2 h-2">
-                 <div class="absolute inset-0 rounded-full bg-[#22D3EE] animate-ping opacity-75"></div>
-                 <div class="relative w-2 h-2 rounded-full bg-[#22D3EE] shadow-[0_0_10px_#22D3EE]"></div>
-              </div>
-              <span class="text-[9px] font-black uppercase tracking-[0.3em] text-white group-hover:text-[#22D3EE] transition-colors">Available for Projects</span>
-           </a>
-           <div class="hidden sm:block w-6 h-[1px] bg-white/10"></div>
-           <span class="text-[9px] font-black uppercase tracking-[0.4em] text-[#94A3B8]">Full Stack AI & SaaS Architect</span>
-        </div>
+      <!-- Subtle Ambient Hero Spotlight Halo -->
+      <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-accent-primary/20 blur-[100px] pointer-events-none -z-10 rounded-full"></div>
 
-        <!-- Headline -->
-        <div class="relative mb-8 max-w-5xl" data-aos="fade-up" data-aos-delay="150">
-          <h1 class="hero-title font-black text-white leading-[1.05] tracking-tighter uppercase relative z-10 m-0 font-sans">
-            Engineering Cognitive AI <br class="hidden md:inline"/>
-            <span class="text-gradient">& High-Converting</span> <br class="hidden md:inline"/>
-            SaaS Platforms.
-          </h1>
-        </div>
+      <!-- Eyebrow: Minimalist Availability Beacon -->
+      <div class="mb-4 inline-flex items-center gap-2.5 px-4 py-1.5 rounded-xl bg-surface-card/90 border border-white/12 backdrop-blur-md shadow-sm transition-all hover:border-accent-primary/40" data-aos="fade-up">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-text-primary font-medium">Available for New Projects</span>
+        <span class="text-white/20">•</span>
+        <span class="text-[11px] font-mono text-text-muted">Full-Stack Engineer</span>
+      </div>
 
-        <!-- Subheadline -->
-        <div class="max-w-3xl mb-12 mx-auto" data-aos="fade-up" data-aos-delay="250">
-          <p class="text-base sm:text-lg md:text-xl text-[#94A3B8] leading-relaxed font-light text-center">
-            I turn complex software visions into premium, market-ready digital products. Specializing in conversion-led interfaces, agentic AI workflows, and high-performance server architectures for global startups and founders.
-          </p>
-        </div>
+      <!-- Main Headline: Editorial Design Engineering -->
+      <div class="mb-4 max-w-4xl" data-aos="fade-up" data-aos-delay="100">
+        <h1 class="hero-title font-extrabold text-white leading-[1.1] tracking-[-0.035em] text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-sans">
+          Engineering Scalable Systems <br class="hidden sm:inline"/>
+          <span class="text-gradient">& High-Fidelity Products.</span>
+        </h1>
+      </div>
 
-        <!-- CTAs -->
-        <div class="flex flex-wrap gap-6 items-center justify-center mb-16" data-aos="fade-up" data-aos-delay="350">
-          <a 
-            href="#contact"
-            class="group relative px-10 py-5 bg-white text-black font-black uppercase text-[10px] tracking-[0.4em] overflow-hidden rounded-full transition-all duration-500 hover:scale-105 shadow-[0_0_30px_rgba(255,255,255,0.05)] hover:shadow-[0_0_40px_rgba(59,130,246,0.3)] text-center"
-          >
-             <span class="relative z-10 group-hover:text-white transition-colors duration-500">Book Discovery Call</span>
-             <div class="absolute inset-0 bg-[#3B82F6] translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
-          </a>
+      <!-- Subheadline: Crisp, zero AI-fluff, under 20 words -->
+      <div class="max-w-2xl mb-6 mx-auto" data-aos="fade-up" data-aos-delay="200">
+        <p class="text-sm sm:text-base text-text-muted leading-relaxed font-normal">
+          Crafting resilient full-stack architectures, reactive interfaces, and intelligent web applications for modern companies and startups.
+        </p>
+      </div>
 
-          <a href="#projects" class="group flex items-center gap-4 text-white font-black uppercase text-[10px] tracking-[0.4em] transition-all">
-             <span class="group-hover:text-[#3B82F6] transition-colors duration-300">View Case Studies</span>
-             <div class="h-[1px] w-8 bg-white/20 group-hover:w-16 group-hover:bg-[#3B82F6] transition-all duration-500 shadow-[0_0_10px_rgba(255,255,255,0)] group-hover:shadow-[0_0_15px_#3B82F6]"></div>
-          </a>
-        </div>
+      <!-- Island CTAs: Nested Trailing Icon Architecture -->
+      <div class="flex flex-wrap gap-3.5 items-center justify-center mb-8" data-aos="fade-up" data-aos-delay="300">
+        <!-- Primary Action -->
+        <a 
+          href="#projects" 
+          aria-label="View Selected Work projects"
+          class="group relative inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-xl bg-white text-zinc-950 font-bold text-xs uppercase tracking-widest hover:bg-zinc-200 transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.18)] active:scale-[0.98]"
+        >
+          <span>Selected Work</span>
+          <span class="w-7 h-7 rounded-lg bg-zinc-950 text-white flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17L17 7H7M17 7V17"/>
+            </svg>
+          </span>
+        </a>
 
-        <!-- Stats Grid (Aligned to core case studies results) -->
-        <div class="w-full max-w-5xl grid grid-cols-2 md:grid-cols-4 gap-px bg-white/5 border border-white/5 rounded-3xl overflow-hidden mt-6 shadow-[0_0_40px_rgba(0,0,0,0.5)]" data-aos="fade-up" data-aos-delay="450">
-          <div class="p-6 md:p-8 bg-[#0B1120]/40 backdrop-blur-md text-center hover:bg-white/[0.01] transition-all group border-b md:border-b-0 border-r border-white/5">
-             <div class="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight group-hover:text-[#3B82F6] transition-colors font-mono">340%</div>
-             <div class="text-[8px] font-black uppercase tracking-[0.2em] text-[#94A3B8]">Completion Surge</div>
+        <!-- Secondary Action -->
+        <a 
+          href="#contact" 
+          aria-label="Get in Touch with Tanuj Pandey"
+          class="inline-flex items-center px-6 py-3 rounded-xl bg-surface-card/90 border border-white/12 hover:border-accent-primary/60 hover:bg-surface-elevated text-text-primary font-bold text-xs uppercase tracking-widest transition-all duration-300 active:scale-[0.98] shadow-sm"
+        >
+          <span>Get in Touch</span>
+        </a>
+      </div>
+
+      <!-- Double-Bezel Architectural Proof Matrix -->
+      <div class="w-full max-w-4xl p-2 rounded-2xl bg-white/[0.04] border border-white/12 backdrop-blur-md shadow-card" data-aos="fade-up" data-aos-delay="400">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+          
+          <div class="p-4 md:p-5 rounded-xl bg-surface-card border border-border-subtle text-center hover:border-accent-primary/40 transition-all group">
+            <div class="text-2xl md:text-3xl font-extrabold text-text-primary font-mono tracking-tight mb-1 group-hover:text-accent-primary transition-colors">4+ Years</div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-text-muted">Engineering Depth</div>
           </div>
-          <div class="p-6 md:p-8 bg-[#0B1120]/40 backdrop-blur-md text-center hover:bg-white/[0.01] transition-all group border-b md:border-b-0 md:border-r border-white/5">
-             <div class="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight group-hover:text-[#22D3EE] transition-colors font-mono">60%</div>
-             <div class="text-[8px] font-black uppercase tracking-[0.2em] text-[#94A3B8]">Admin Inefficiency Saved</div>
-          </div>
-          <div class="p-6 md:p-8 bg-[#0B1120]/40 backdrop-blur-md text-center hover:bg-white/[0.01] transition-all group border-r border-white/5">
-             <div class="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight group-hover:text-[#3B82F6] transition-colors font-mono">98/100</div>
-             <div class="text-[8px] font-black uppercase tracking-[0.2em] text-[#94A3B8]">Lighthouse Speed Score</div>
-          </div>
-          <div class="p-6 md:p-8 bg-[#0B1120]/40 backdrop-blur-md text-center hover:bg-white/[0.01] transition-all group">
-             <div class="text-3xl md:text-4xl font-black text-white mb-1 tracking-tight group-hover:text-[#22D3EE] transition-colors font-mono">Sub-100ms</div>
-             <div class="text-[8px] font-black uppercase tracking-[0.2em] text-[#94A3B8]">Server Response Latency</div>
-          </div>
-        </div>
 
+          <div class="p-4 md:p-5 rounded-xl bg-surface-card border border-border-subtle text-center hover:border-accent-primary/40 transition-all group">
+            <div class="text-2xl md:text-3xl font-extrabold text-text-primary font-mono tracking-tight mb-1 group-hover:text-accent-primary transition-colors">Full-Stack</div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-text-muted">React · Node · Astro</div>
+          </div>
+
+          <div class="p-4 md:p-5 rounded-xl bg-surface-card border border-border-subtle text-center hover:border-accent-primary/40 transition-all group">
+            <div class="text-2xl md:text-3xl font-extrabold text-text-primary font-mono tracking-tight mb-1 group-hover:text-accent-primary transition-colors">Production</div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-text-muted">SaaS & AI Platforms</div>
+          </div>
+
+          <div class="p-4 md:p-5 rounded-xl bg-surface-card border border-border-subtle text-center hover:border-accent-primary/40 transition-all group">
+            <div class="text-2xl md:text-3xl font-extrabold text-text-primary font-mono tracking-tight mb-1 group-hover:text-accent-primary transition-colors">99+</div>
+            <div class="text-[10px] font-mono uppercase tracking-wider text-text-muted">Lighthouse Velocity</div>
+          </div>
+
+        </div>
       </div>
 
     </div>
   </div>
-  
-  <!-- Section Divider -->
-  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050816] to-transparent z-30 pointer-events-none"></div>
 </section>
-
-<style>
-  .hero-title {
-    font-size: clamp(2rem, 6vw, 4.5rem);
-    text-wrap: balance;
-  }
-
-  .text-gradient {
-    background: linear-gradient(135deg, #3B82F6 0%, #22D3EE 50%, #EC4899 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 200% auto;
-    animation: gradient-flow 5s linear infinite;
-  }
-
-  @keyframes gradient-flow {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  @keyframes gradient-bg {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-</style>
 
 <script>
   import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  window.addEventListener('portfolio-loaded', () => {
-    const tl = gsap.timeline();
-    
-    tl.from('.hero-title', {
-      y: 60,
+  let heroAnimated = false;
+  const animateHero = () => {
+    if (heroAnimated) return;
+    heroAnimated = true;
+    gsap.from('.hero-title', {
+      y: 40,
       opacity: 0,
-      duration: 1.5,
-      ease: "expo.out"
-    })
-    .from('#hero p', {
-      y: 20,
-      opacity: 0,
-      duration: 1,
+      duration: 1.2,
       ease: "power3.out"
-    }, "-=1")
-    .from('#hero a.group', {
-      scale: 0.9,
-      opacity: 0,
-      duration: 0.8,
-      ease: "back.out(1.7)"
-    }, "-=0.6");
-  });
+    });
+  };
 
-  // Hero Parallax Scroll animations
-  gsap.to('#hero .hero-title', {
-    y: 100,
-    ease: "none",
-    scrollTrigger: {
-      trigger: '#hero',
-      start: "top top",
-      end: "bottom top",
-      scrub: true
-    }
-  });
-
-  gsap.to('#hero p', {
-    y: 50,
-    ease: "none",
-    scrollTrigger: {
-      trigger: '#hero',
-      start: "top top",
-      end: "bottom top",
-      scrub: true
-    }
-  });
+  window.addEventListener('portfolio-loaded', animateHero);
+  if (document.readyState === 'complete') {
+    setTimeout(animateHero, 50);
+  } else {
+    window.addEventListener('load', animateHero, { once: true });
+  }
 </script>
