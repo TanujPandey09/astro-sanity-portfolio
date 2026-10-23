@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import PremiumBackground from "../components/PremiumBackground.astro";
 ---
 
-<Layout title="404: Page Not Found | Tanuj Pandey">
+<Layout title="404: Page Not Found | Tanuj Pandey" noindex>
   <div class="relative min-h-screen flex items-center justify-center px-6 overflow-hidden bg-canvas">
     <PremiumBackground />
 
@@ -16,7 +16,7 @@ import PremiumBackground from "../components/PremiumBackground.astro";
       </div>
 
       <p class="text-[10px] font-black text-accent-primary uppercase tracking-[0.6em] mb-4">Error Code 404</p>
-      <h1 class="text-5xl md:text-7xl font-black text-text-primary tracking-tighter mb-6 uppercase">
+        <h1 class="text-4xl md:text-6xl font-black text-text-primary tracking-tighter mb-6 uppercase">
         Endpoint <span class="text-gradient">Unreachable</span>
       </h1>
       

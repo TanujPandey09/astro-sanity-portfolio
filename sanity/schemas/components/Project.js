@@ -85,7 +85,12 @@ export default {
       title: 'Demo Link',
       type: 'url',
     },
-
+    {
+      name: 'gumroadLink',
+      title: 'Gumroad Product Link',
+      description: 'URL of the published Gumroad product page.',
+      type: 'url',
+    },
     {
       name: 'linkTextColor',
       title: 'Link Text Color',

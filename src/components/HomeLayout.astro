@@ -24,7 +24,7 @@ const blogData = await useSanityClient().fetch(blogquery);
 <div class="relative min-h-screen selection:bg-accent-primary/30">
   <PremiumBackground />
 
-  <div class="container mx-auto px-4 md:px-8 lg:px-12 relative z-10">
+  <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
     <!-- Hero Experience -->
     <Hero />
 
@@ -51,14 +51,14 @@ const blogData = await useSanityClient().fetch(blogquery);
           <div class="mt-16 md:mt-24">
             <div class="flex flex-col md:flex-row items-center justify-between mb-8 md:mb-12 px-4 gap-8">
                <div class="space-y-2 text-center md:text-left">
-                  <p class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
+                  <p class="text-[11px] font-black text-accent-primary uppercase tracking-[0.4em] md:tracking-[0.5em]">Project Index</p>
                   <h3 class="text-2xl md:text-3xl font-black text-text-primary uppercase tracking-tighter">Additional Projects</h3>
                </div>
                <button 
                  id="expand-repo"
                  aria-label="Show all additional projects"
                  aria-expanded="false"
-                 class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-text-muted hover:text-accent-primary transition-colors"
+                 class="group flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] md:tracking-[0.4em] text-text-muted hover:text-accent-primary transition-colors"
                >
                  Show All Projects
                  <div class="w-10 h-10 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-accent-primary transition-all">
@@ -74,7 +74,7 @@ const blogData = await useSanityClient().fetch(blogquery);
             </div>
 
             <div class="mt-10 md:mt-14 flex justify-center">
-               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-border-subtle rounded-full text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-primary overflow-hidden transition-all duration-500 hover:border-accent-primary text-center shadow-ambient">
+               <a href="/projects" class="group relative px-10 py-5 md:px-12 md:py-6 border border-border-subtle rounded-full text-[11px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-primary overflow-hidden transition-all duration-500 hover:border-accent-primary text-center shadow-ambient">
                   <span class="relative z-10">View Full Portfolio</span>
                   <div class="absolute inset-0 bg-accent-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
                </a>
@@ -112,7 +112,7 @@ const blogData = await useSanityClient().fetch(blogquery);
         </div>
         
         <div class="mt-12 md:mt-20 flex justify-center md:justify-end">
-           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
+           <a href="/blogs" class="group flex items-center gap-4 md:gap-6 text-[11px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
               Explore All Articles
               <div class="w-8 md:w-12 h-[1px] bg-border-subtle group-hover:bg-accent-primary group-hover:w-20 md:group-hover:w-24 transition-all duration-700"></div>
            </a>

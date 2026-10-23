@@ -3,13 +3,13 @@ const currentYear = new Date().getFullYear();
 ---
 
 <footer class="relative py-10 md:py-10 border-t border-border-subtle bg-canvas overflow-hidden">
-  <div class="max-w-[1440px] mx-auto px-4 md:px-6 relative z-10">
+  <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
     <div class="grid lg:grid-cols-12 gap-8 md:gap-12 items-start">
 
       <div class="lg:col-span-6 space-y-4 md:space-y-5 text-center lg:text-left">
         <!-- Official Brand Logo -->
         <a href="/" aria-label="Tanuj Pandey - Home" class="inline-flex items-center group mb-1">
-          <div class="relative w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center border border-white/10 bg-[#0F233E]/40 group-hover:border-accent-primary/60 group-hover:bg-[#0F233E]/80 transition-all duration-300 overflow-hidden shadow-xl shadow-black/50">
+          <div class="relative w-10 h-10 md:w-11 md:h-11 rounded-xl flex items-center justify-center border border-white/10 bg-surface-elevated/60 group-hover:border-accent-primary/60 group-hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xl shadow-black/50">
              <img src="/favicon.svg" alt="Tanuj Pandey Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" width="44" height="44" />
           </div>
         </a>
@@ -60,7 +60,7 @@ const currentYear = new Date().getFullYear();
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="GitHub Profile" 
-              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-primary/40 hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
+              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-border-hover hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
             >
               <div class="flex items-center gap-2.5">
                 <svg fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 group-hover:scale-110 transition-transform flex-shrink-0" aria-hidden="true">
@@ -75,7 +75,7 @@ const currentYear = new Date().getFullYear();
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="LinkedIn Profile" 
-              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-primary/40 hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
+              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-border-hover hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
             >
               <div class="flex items-center gap-2.5">
                 <svg fill="currentColor" viewBox="0 0 24 24" class="w-4 h-4 group-hover:scale-110 transition-transform" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
@@ -86,7 +86,7 @@ const currentYear = new Date().getFullYear();
             <a 
               href="mailto:tanujp09@gmail.com" 
               aria-label="Direct Email" 
-              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-accent-primary/40 hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
+              class="group px-3 py-2 rounded-xl bg-white/[0.02] border border-white/[0.06] hover:border-border-hover hover:bg-white/[0.06] text-sm text-text-muted hover:text-white transition-all duration-300 flex items-center justify-between"
             >
               <div class="flex items-center gap-2.5">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 group-hover:scale-110 transition-transform"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
@@ -112,15 +112,15 @@ const currentYear = new Date().getFullYear();
         <a href="/" aria-label="Tanuj Pandey - Home" class="w-5 h-5 rounded-md overflow-hidden border border-white/10 hover:border-accent-primary/60 transition-colors inline-flex items-center justify-center flex-shrink-0">
           <img src="/favicon.svg" alt="TP" class="w-full h-full object-cover" width="20" height="20" />
         </a>
-        <span class="text-[9px] md:text-[10px] font-bold text-text-dim uppercase tracking-widest text-center md:text-left">
+        <span class="text-[11px] font-bold text-text-dim uppercase tracking-widest text-center md:text-left">
           &copy; {currentYear} Tanuj Pandey · All Rights Reserved
         </span>
       </div>
       <div class="flex items-center gap-4">
-        <span class="text-[9px] font-mono font-medium text-white/30 uppercase tracking-[0.2em]">Experience: 4+ YOE</span>
-        <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-950/20 border border-emerald-500/20">
+        <span class="text-[11px] font-mono font-medium text-white/30 uppercase tracking-[0.2em]">Experience: 4+ YOE</span>
+        <div class="flex items-center gap-2 px-3 py-1 rounded-lg bg-status-live/10 border border-status-live/20">
           <div class="w-1.5 h-1.5 rounded-full bg-status-live animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-          <span class="text-[9px] font-mono font-bold text-status-live uppercase tracking-wider">Available for Projects</span>
+          <span class="text-[11px] font-mono font-bold text-status-live uppercase tracking-wider">Available for Projects</span>
         </div>
       </div>
     </div>

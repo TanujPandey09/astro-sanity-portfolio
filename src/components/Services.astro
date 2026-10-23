@@ -42,7 +42,7 @@ const services = [
 ---
 
 <section id="services" class="py-16 md:py-24 relative z-20 border-t border-border-subtle">
-  <div class="container mx-auto px-4 md:px-8 max-w-7xl">
+  <div class="w-full">
     
     <SectionHeader 
       eyebrow="Capabilities // Matrix"
@@ -54,7 +54,7 @@ const services = [
     <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {services.map((item, index) => (
         <div 
-          class="group rounded-2xl p-1.5 bg-white/[0.04] border border-white/10 hover:border-accent-primary/50 transition-all duration-500 shadow-card flex flex-col justify-between hover:-translate-y-1.5"
+          class="group rounded-2xl p-1.5 bg-white/[0.04] border border-white/10 hover:border-border-hover transition-all duration-500 shadow-card flex flex-col justify-between hover:-translate-y-1.5"
           data-aos="fade-up"
           data-aos-delay={index * 80}
         >

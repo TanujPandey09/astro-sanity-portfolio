@@ -11,11 +11,33 @@ const query = groq`*[_type == "blogs"]{
     }`;
 
 const blogData = await useSanityClient().fetch(query);
+
+const siteUrl = "https://tanujbuilds.site";
+const itemList = {
+  "@type": "ItemList",
+  "@id": `${siteUrl}/blogs#itemlist`,
+  name: "Tanuj Pandey — Technical Blog",
+  itemListElement: blogData
+    .filter((blog) => blog.slug?.current)
+    .map((blog, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: blog.projectName,
+      url: `${siteUrl}/blogs/${blog.slug.current}`,
+    })),
+};
+
 import Blogs from "../../components/BlogLayout/Blogs";
 
 import Layout from "../../layouts/Layout.astro";
 
 ---
-<Layout title="Blogs | Tanuj Pandey" description="Read my latest technical articles, tutorials, and insights on frontend engineering, backend architecture, and AI integrations.">
+<Layout
+  title="Blogs | Tanuj Pandey"
+  description="Read my latest technical articles, tutorials, and insights on frontend engineering, backend architecture, and AI integrations."
+  schemaType="CollectionPage"
+  jsonLd={itemList}
+  breadcrumbs={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blogs" }]}
+>
   <Blogs blogData={blogData} client:load />
 </Layout>

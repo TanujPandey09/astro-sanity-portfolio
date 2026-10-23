@@ -102,8 +102,8 @@ const skillGroups = [
 ];
 ---
 
-<section id="skills" class="py-16 md:py-18 relative z-10 border-t border-border-subtle">
-  <div class="container mx-auto px-4 md:px-8 max-w-7xl">
+<section id="skills" class="py-16 md:py-20 relative z-10 border-t border-border-subtle">
+  <div class="w-full">
     
     <!-- Clean, Focused Section Header (Low Cognitive Load) -->
     <div class="max-w-3xl mb-12 md:mb-16">
@@ -122,7 +122,7 @@ const skillGroups = [
     <!-- 4 Clean, Scannable Domain Cards (Parsed in 3 Seconds) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {skillGroups.map((group) => (
-        <div class="group relative rounded-2xl bg-surface-card border border-white/10 p-6 flex flex-col justify-between hover:border-accent-primary/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
+        <div class="group relative rounded-2xl bg-surface-card border border-white/10 p-6 flex flex-col justify-between hover:border-border-hover transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/40">
           
           <!-- Subtle Top Ambient Glow on Hover -->
           <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -131,7 +131,7 @@ const skillGroups = [
             <!-- Group Header -->
             <div class="flex items-center justify-between pb-4 mb-5 border-b border-white/5">
               <div>
-                <h3 class="text-lg font-bold text-white tracking-tight group-hover:text-accent-primary transition-colors">
+                <h3 class="text-lg font-bold text-white tracking-tight group-hover:text-white transition-colors">
                   {group.title}
                 </h3>
                 <span class="text-[11px] font-mono text-text-dim block mt-0.5">
@@ -149,7 +149,7 @@ const skillGroups = [
                 <div 
                   class={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 border cursor-default select-none ${
                     skill.highlight
-                      ? 'bg-white/[0.05] border-white/12 text-white hover:border-accent-primary/60 hover:bg-white/[0.09]'
+                      ? 'bg-white/[0.05] border-white/[0.12] text-white hover:border-white/20 hover:bg-white/[0.09]'
                       : 'bg-white/[0.02] border-white/5 text-text-muted hover:border-white/20 hover:text-white'
                   }`}
                 >
@@ -166,8 +166,7 @@ const skillGroups = [
                     />
                   ) : (
                     <span 
-                      class="w-2 h-2 rounded-full shrink-0" 
-                      style={`background-color: ${skill.color}; box-shadow: 0 0 8px ${skill.color}80;`}
+                      class={`w-2 h-2 rounded-full shrink-0 ${skill.highlight ? 'bg-accent-primary' : 'bg-text-dim'}`}
                     ></span>
                   )}
                   <span class="whitespace-nowrap">{skill.name}</span>
@@ -179,7 +178,7 @@ const skillGroups = [
           <!-- Subtle Bottom Indicator -->
           <div class="mt-6 pt-3 border-t border-white/5 flex items-center justify-between text-[10px] font-mono text-text-dim">
             <span>Production Verified</span>
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400/80"></span>
+            <span class="w-1.5 h-1.5 rounded-full bg-text-dim"></span>
           </div>
 
         </div>
@@ -194,11 +193,11 @@ const skillGroups = [
         <span class="text-text-primary">TypeScript • React / Next.js • Node.js • PostgreSQL</span>
       </div>
       <div class="flex items-center gap-6 text-[11px] text-text-dim">
-        <span>⚡ Sub-100ms APIs</span>
+        <span>Sub-100ms APIs</span>
         <span>•</span>
-        <span>🔒 Strict Type Safety</span>
+        <span>Strict Type Safety</span>
         <span>•</span>
-        <span>🤖 Production AI Integrations</span>
+        <span>Production AI Integrations</span>
       </div>
     </div>
 

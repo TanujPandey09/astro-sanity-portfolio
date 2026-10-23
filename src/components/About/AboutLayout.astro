@@ -12,32 +12,32 @@ const chapters = [
     title: "Frontend Foundations",
     subtitle: "Pixel-Perfect UX & Modern Frameworks",
     desc: "Mastering the frontend ecosystem to construct fluid user experiences. Designed highly responsive components, state-management architectures, and complex interactive animations using React, Next.js, and Tailwind CSS.",
-    statNum: "99+",
-    statLabel: "Lighthouse Performance Score"
+    statNum: "React",
+    statLabel: "Primary UI Stack"
   },
   {
     num: "02",
     title: "Full Stack Expansion",
     subtitle: "Robust APIs & Databases",
     desc: "Expanding to backend architectures, creating production-grade REST & GraphQL APIs using Node.js, Express, and databases such as PostgreSQL and MongoDB. Focused on security, performance, and scaling server operations.",
-    statNum: "20+",
-    statLabel: "Backend Modules Deployed"
+    statNum: "Node",
+    statLabel: "Primary API Runtime"
   },
   {
     num: "03",
     title: "AI Product Engineering",
     subtitle: "LLMs, RAG & Agents",
     desc: "Integrating advanced AI capabilities into modern applications. Built RAG (Retrieval-Augmented Generation) pipelines, custom prompts, and automated agent workflows using OpenAI, Claude, and vector databases.",
-    statNum: "4+",
-    statLabel: "AI Models Integrated"
+    statNum: "RAG",
+    statLabel: "Retrieval Pipelines"
   },
   {
     num: "04",
     title: "Building SaaS Platforms",
     subtitle: "Enterprise Systems & Founders Vision",
     desc: "Developing subscription-based software systems, enterprise dashboards, and custom CRM software. Designed multi-tenant platforms, unified databases, and metrics engines that serve as solid growth foundations.",
-    statNum: "5+",
-    statLabel: "SaaS Platforms Launched"
+    statNum: "SaaS",
+    statLabel: "Subscription Platforms"
   }
 ];
 ---
@@ -47,11 +47,11 @@ const chapters = [
 
   <main class="relative z-10">
     <!-- Hero Section (Option 3: Structured Bento Grid) -->
-    <section class="w-full px-6 md:px-12 lg:px-20 pt-32 pb-16 md:pt-40 md:pb-24 bg-canvas relative z-10">
+    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-32 pb-16 md:pt-40 md:pb-24 relative z-10">
       
       <!-- Section Header -->
       <div class="mb-12 space-y-3" data-aos="fade-up">
-         <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-primary block">Overview // Profile</span>
+         <span class="text-[11px] font-black uppercase tracking-[0.4em] text-accent-primary block">Overview // Profile</span>
          <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-text-primary uppercase tracking-tighter leading-none m-0">
            Professional <span class="text-gradient">Background</span>
          </h1>
@@ -65,7 +65,7 @@ const chapters = [
          
          <!-- Cell 1: Widescreen Profile Image (Left) -->
          <div class="lg:col-span-5 relative group rounded-3xl overflow-hidden border border-border-subtle p-2 bg-surface-card min-h-[380px] flex flex-col" data-aos="fade-up">
-            <div class="absolute -inset-4 bg-gradient-to-tr from-accent-primary to-accent-primary/40 rounded-[2.5rem] opacity-5 blur-2xl group-hover:opacity-15 transition-opacity duration-1000"></div>
+            <div class="absolute -inset-4 bg-gradient-to-tr from-accent-primary to-accent-primary/40 rounded-3xl opacity-5 blur-2xl group-hover:opacity-15 transition-opacity duration-1000"></div>
             <div class="relative w-full h-full flex-grow rounded-2xl overflow-hidden">
                {aboutData?.[0]?.heroImage?.asset?.url ? (
                  <img
@@ -91,7 +91,7 @@ const chapters = [
             <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-accent-primary to-transparent"></div>
             
             <div class="space-y-6">
-               <span class="font-mono text-[9px] text-accent-primary uppercase tracking-widest block">// The Narrative</span>
+               <span class="font-mono text-[11px] text-accent-primary uppercase tracking-widest block">// The Narrative</span>
                <div class="text-text-primary font-black uppercase tracking-tighter leading-tight text-lg md:text-xl italic">
                  "{aboutData?.[0]?.aboutName || "Building intelligent digital products through clean engineering and technical leadership."}"
                </div>
@@ -104,13 +104,13 @@ const chapters = [
          <!-- Cell 3: Tech Matrix & Mastery (Bottom Left) -->
          <div class="lg:col-span-6 bg-surface-card border border-border-subtle p-8 rounded-3xl flex flex-col justify-between group hover:border-border-hover transition-all duration-500" data-aos="fade-up">
             <div class="space-y-6 w-full">
-               <span class="font-mono text-[9px] text-accent-primary uppercase tracking-widest block">// System Architecture Stack</span>
+               <span class="font-mono text-[11px] text-accent-primary uppercase tracking-widest block">// System Architecture Stack</span>
                
                <div class="grid grid-cols-2 gap-4">
                   <!-- Tag 1 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-accent-primary/30 transition-all">
+                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
                      <div class="space-y-1">
-                        <span class="text-[9px] font-mono text-text-dim">ENGINE_CORE</span>
+                        <span class="text-[11px] font-mono text-text-dim">ENGINE_CORE</span>
                         <p class="text-xs font-bold text-text-primary uppercase tracking-wider">React / Next.js</p>
                      </div>
                      <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
@@ -119,9 +119,9 @@ const chapters = [
                   </div>
 
                   <!-- Tag 2 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-accent-primary/30 transition-all">
+                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
                      <div class="space-y-1">
-                        <span class="text-[9px] font-mono text-text-dim">RUNTIME_ENV</span>
+                        <span class="text-[11px] font-mono text-text-dim">RUNTIME_ENV</span>
                         <p class="text-xs font-bold text-text-primary uppercase tracking-wider">Node.js / Express</p>
                      </div>
                      <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
@@ -130,9 +130,9 @@ const chapters = [
                   </div>
 
                   <!-- Tag 3 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-accent-primary/30 transition-all">
+                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
                      <div class="space-y-1">
-                        <span class="text-[9px] font-mono text-text-dim">DATA_REPOS</span>
+                        <span class="text-[11px] font-mono text-text-dim">DATA_REPOS</span>
                         <p class="text-xs font-bold text-text-primary uppercase tracking-wider">Mongo / Postgres</p>
                      </div>
                      <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
@@ -141,9 +141,9 @@ const chapters = [
                   </div>
 
                   <!-- Tag 4 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-accent-primary/30 transition-all">
+                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
                      <div class="space-y-1">
-                        <span class="text-[9px] font-mono text-text-dim">AI_MODS</span>
+                        <span class="text-[11px] font-mono text-text-dim">AI_MODS</span>
                         <p class="text-xs font-bold text-text-primary uppercase tracking-wider">RAG / LLM Agents</p>
                      </div>
                      <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
@@ -157,26 +157,26 @@ const chapters = [
          <!-- Cell 4: Dynamic Metrics & Resume (Bottom Right) -->
          <div class="lg:col-span-6 bg-surface-card border border-border-subtle p-8 rounded-3xl flex flex-col justify-between group hover:border-border-hover transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
             <div class="space-y-6 w-full">
-               <span class="font-mono text-[9px] text-text-dim uppercase tracking-widest block">// Operational Metrics</span>
+               <span class="font-mono text-[11px] text-text-dim uppercase tracking-widest block">// Operational Metrics</span>
                
                <div class="grid grid-cols-3 gap-4 text-center">
                   <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[8px] font-mono text-accent-primary uppercase tracking-wider mb-1">Experience</p>
+                     <p class="text-[11px] font-mono text-accent-primary uppercase tracking-wider mb-1">Experience</p>
                      <p class="text-xl md:text-2xl text-text-primary font-black font-mono">4+ Years</p>
                   </div>
                   <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[8px] font-mono text-accent-primary uppercase tracking-wider mb-1">SaaS Devs</p>
+                     <p class="text-[11px] font-mono text-accent-primary uppercase tracking-wider mb-1">SaaS Devs</p>
                      <p class="text-xl md:text-2xl text-text-primary font-black">Production</p>
                   </div>
                   <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[8px] font-mono text-text-muted uppercase tracking-wider mb-1">Focus Stack</p>
+                     <p class="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-1">Focus Stack</p>
                      <p class="text-xl md:text-2xl text-text-primary font-black">Full Stack</p>
                   </div>
                </div>
             </div>
 
             <div class="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between gap-4">
-               <span class="text-[9px] font-mono text-text-dim uppercase tracking-widest">Sys allocation confirmed</span>
+               <span class="text-[11px] font-mono text-text-dim uppercase tracking-widest">Sys allocation confirmed</span>
                <button 
                  id="about-resume-btn"
                  aria-label="Download Resume PDF"
@@ -192,7 +192,7 @@ const chapters = [
 
     <!-- Horizontal Scrolling Journey Timeline Section -->
     <section id="journey-timeline-section" class="relative py-12 md:py-16 bg-canvas overflow-hidden border-y border-border-subtle">
-      <div class="container mx-auto px-6 mb-8 md:mb-12">
+      <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 mb-8 md:mb-12">
         <SectionHeader 
           title="Milestones" 
           gradientText="Engineering Journey" 
@@ -207,21 +207,21 @@ const chapters = [
           <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-primary/20 via-accent-primary/10 to-transparent -translate-y-1/2 z-0"></div>
           
           {chapters.map((chapter) => (
-            <div class="timeline-card flex-none w-[320px] md:w-[420px] bg-surface-card/80 backdrop-blur-md border border-border-subtle p-8 rounded-3xl relative z-10 group hover:border-accent-primary/30 transition-all duration-500">
+            <div class="timeline-card flex-none w-[320px] md:w-[420px] bg-surface-card/80 backdrop-blur-md border border-border-subtle p-8 rounded-3xl relative z-10 group hover:border-border-hover transition-all duration-500">
               <!-- Top Header -->
               <div class="flex items-center justify-between mb-8">
                 <span class="text-sm font-mono text-accent-primary bg-accent-primary/10 px-3 py-1 rounded-full">Chapter {chapter.num}</span>
-                <span class="text-6xl font-black text-white/5 font-mono group-hover:text-accent-primary/10 transition-colors">{chapter.num}</span>
+                <span class="text-6xl font-black text-white/5 font-mono group-hover:text-white/10 transition-colors">{chapter.num}</span>
               </div>
 
               <!-- Content -->
-              <h3 class="text-xl md:text-2xl font-black text-text-primary uppercase mb-2 group-hover:text-accent-primary transition-colors">{chapter.title}</h3>
+              <h3 class="text-xl md:text-2xl font-black text-text-primary uppercase mb-2 group-hover:text-white transition-colors">{chapter.title}</h3>
               <p class="text-xs text-accent-primary font-mono uppercase tracking-wider mb-4">{chapter.subtitle}</p>
               <p class="text-sm text-text-muted leading-relaxed mb-6 font-normal">{chapter.desc}</p>
 
               <!-- Metric footer inside card -->
               <div class="border-t border-border-subtle pt-4 flex items-center justify-between">
-                <span class="text-[9px] font-black uppercase text-text-dim tracking-widest">{chapter.statLabel}</span>
+                <span class="text-[11px] font-black uppercase text-text-dim tracking-widest">{chapter.statLabel}</span>
                 <span class="text-lg md:text-xl font-black text-text-primary font-mono">{chapter.statNum}</span>
               </div>
             </div>
@@ -231,7 +231,7 @@ const chapters = [
     </section>
 
     <!-- Academic Background (Nerdy/Technical aesthetic) -->
-    <section class="container mx-auto px-6 py-24 md:py-32 relative z-10">
+    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-24 md:py-32 relative z-10">
        <div class="max-w-4xl mx-auto">
           <div class="flex items-center gap-4 mb-12">
              <div class="w-12 h-[1px] bg-accent-primary"></div>
@@ -242,7 +242,7 @@ const chapters = [
              <!-- Master's Degree -->
              <div class="relative group">
                 <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-canvas border-2 border-accent-primary group-hover:bg-accent-primary transition-colors shadow-[0_0_10px_rgba(94,106,210,0.4)]"></div>
-                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-accent-primary/30 transition-colors">
+                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-border-hover transition-colors">
                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
                       <h3 class="text-lg md:text-xl font-bold text-text-primary uppercase tracking-wide">Master of Computer Application</h3>
                       <span class="font-mono text-[10px] text-accent-primary bg-accent-primary/10 px-3 py-1 rounded-full">2018 – 2020</span>
@@ -254,7 +254,7 @@ const chapters = [
              <!-- Bachelor's Degree -->
              <div class="relative group">
                 <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-canvas border-2 border-border-subtle group-hover:border-accent-primary group-hover:bg-accent-primary/50 transition-colors"></div>
-                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-accent-primary/30 transition-colors">
+                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-border-hover transition-colors">
                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
                       <h3 class="text-lg md:text-xl font-bold text-text-primary uppercase tracking-wide">Bachelor of Computer Application</h3>
                       <span class="font-mono text-[10px] text-text-dim bg-surface-elevated px-3 py-1 rounded-full">2015 – 2018</span>
@@ -268,7 +268,7 @@ const chapters = [
   </main>
   
   <!-- Skills Section added to About page -->
-  <div class="relative z-20">
+  <div class="relative z-20 mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8">
     <Skills />
   </div>
 </div>

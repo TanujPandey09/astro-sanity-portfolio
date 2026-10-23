@@ -2,10 +2,10 @@
 // Bulletproof, Ultra-Reliable Magnificent Portfolio Intro Loader
 ---
 
-<div id="tp-preloader" class="fixed inset-0 z-[99999] bg-[#07080D] flex flex-col items-center justify-center overflow-hidden select-none">
+<div id="tp-preloader" class="fixed inset-0 z-[99999] bg-canvas flex flex-col items-center justify-center overflow-hidden select-none">
   <!-- Subtle Ambient Core Glow -->
-  <div class="absolute w-[500px] h-[500px] rounded-full bg-accent-primary/15 blur-[140px] pointer-events-none -z-10"></div>
-  <div class="absolute w-[300px] h-[300px] rounded-full bg-cyan-500/10 blur-[100px] pointer-events-none -z-10"></div>
+  <div class="absolute w-[500px] h-[500px] rounded-full bg-accent-glow blur-[140px] pointer-events-none -z-10"></div>
+  <div class="absolute w-[300px] h-[300px] rounded-full bg-accent-primary/5 blur-[100px] pointer-events-none -z-10"></div>
 
   <!-- Central Holographic Brand Emblem -->
   <div class="loader-content flex flex-col items-center relative z-10 transition-all duration-300">
@@ -14,20 +14,20 @@
     <div class="relative w-24 h-24 flex items-center justify-center mb-8">
       <!-- Spinning Track -->
       <div class="absolute inset-0 rounded-full border border-white/5"></div>
-      <div class="absolute inset-0 rounded-full border border-transparent border-t-accent-primary border-b-cyan-400 animate-spin" style="animation-duration: 1.4s;"></div>
-      <div class="absolute inset-2 rounded-full border border-transparent border-l-indigo-400/50 border-r-transparent animate-spin" style="animation-duration: 2.2s; animation-direction: reverse;"></div>
+      <div class="absolute inset-0 rounded-full border border-transparent border-t-accent-primary border-b-white/20 animate-spin" style="animation-duration: 1.4s;"></div>
+      <div class="absolute inset-2 rounded-full border border-transparent border-l-accent-primary/30 border-r-transparent animate-spin" style="animation-duration: 2.2s; animation-direction: reverse;"></div>
 
       <!-- Machined Inner Core -->
-      <div class="relative w-14 h-14 rounded-2xl bg-[#0D0F18] border border-white/15 flex items-center justify-center shadow-2xl shadow-black overflow-hidden">
+      <div class="relative w-14 h-14 rounded-2xl bg-surface-card border border-white/[0.15] flex items-center justify-center shadow-2xl shadow-black overflow-hidden">
         <div class="absolute inset-0 bg-gradient-to-t from-accent-primary/20 via-transparent to-white/5"></div>
         <span class="text-white font-black text-xl tracking-tighter relative z-10 font-sans">TP</span>
-        <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_6px_#10B981]"></span>
+        <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-status-live" style="box-shadow: 0 0 6px rgba(16, 185, 129, 0.5);"></span>
       </div>
     </div>
 
     <!-- Identity & Progress Telemetry -->
     <div class="text-center space-y-3 w-64 sm:w-72">
-      <div class="flex items-center justify-between text-[9px] font-mono uppercase tracking-[0.25em] text-text-dim px-1">
+      <div class="flex items-center justify-between text-[11px] font-mono uppercase tracking-[0.25em] text-text-dim px-1">
         <span>Tanuj Pandey</span>
         <span id="loader-percent" class="font-bold text-white tracking-widest tabular-nums text-xs">0%</span>
       </div>
@@ -36,12 +36,12 @@
       <div class="h-[2px] w-full bg-white/[0.08] rounded-full overflow-hidden relative">
         <div 
           id="loader-progress-bar" 
-          class="laser-beam absolute top-0 left-0 h-full bg-gradient-to-r from-accent-primary via-cyan-400 to-indigo-400 rounded-full shadow-[0_0_12px_#38BDF8]"
+          class="laser-beam absolute top-0 left-0 h-full bg-accent-primary rounded-full" style="box-shadow: 0 0 10px rgba(94, 106, 210, 0.45);"
         ></div>
       </div>
 
       <!-- Micro Status Line -->
-      <p id="loader-status" class="text-[9px] font-mono uppercase tracking-[0.2em] text-accent-primary font-medium">
+      <p id="loader-status" class="text-[11px] font-mono uppercase tracking-[0.2em] text-accent-primary font-medium">
         Initializing Core...
       </p>
     </div>
@@ -53,7 +53,7 @@
   /* CSS-Driven Hardware Acceleration: Runs even if JS is delayed */
   .laser-beam {
     width: 0%;
-    animation: fillLaser 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation: fillLaser 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   @keyframes fillLaser {
@@ -72,7 +72,7 @@
 
   #tp-preloader.curtain-exit {
     transform: translateY(-100%);
-    transition: transform 0.65s cubic-bezier(0.77, 0, 0.175, 1) 0.15s;
+    transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
     pointer-events: none;
   }
 
@@ -91,16 +91,13 @@
       try {
         if (sessionStorage.getItem('tp_intro_loaded') || document.documentElement.classList.contains('preloader-done')) {
           preloader.remove();
-          document.body.style.overflow = '';
           document.documentElement.classList.add('preloader-done');
           window.dispatchEvent(new Event('portfolio-loaded'));
           return;
         }
       } catch (e) {}
 
-      // 2. Lock body scroll during intro
-      document.body.style.overflow = 'hidden';
-
+      // 2. Non-blocking intro: never lock scroll or gate content
       const percentEl = document.getElementById('loader-percent');
       const statusEl = document.getElementById('loader-status');
 
@@ -112,7 +109,7 @@
       ];
 
       const startTime = Date.now();
-      const targetDuration = 800; // 0.8 seconds snappy
+      const targetDuration = 280;
 
       const timer = setInterval(function() {
         const elapsed = Date.now() - startTime;
@@ -140,7 +137,6 @@
         } catch (e) {}
 
         document.documentElement.classList.add('preloader-done');
-        document.body.style.overflow = '';
         preloader.classList.add('curtain-exit');
         window.dispatchEvent(new Event('portfolio-loaded'));
 
@@ -149,25 +145,23 @@
           if (preloader && preloader.parentNode) {
             preloader.parentNode.removeChild(preloader);
           }
-        }, 700);
+        }, 500);
       }
 
-      // 3. Absolute Hard Safety Fallback (Max 1.2s)
+      // 3. Hard safety fallback (max 700ms)
       setTimeout(function() {
         clearInterval(timer);
-        document.body.style.overflow = '';
         if (preloader && preloader.parentNode) {
           preloader.classList.add('curtain-exit');
           setTimeout(function() {
             if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
           }, 400);
         }
-      }, 1200);
+      }, 700);
 
       // 4. Astro View Transitions lifecycle hooks - never get stuck on navigation
       document.addEventListener('astro:before-swap', function() {
         clearInterval(timer);
-        document.body.style.overflow = '';
         if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
       }, { once: true });
     }
@@ -177,7 +171,6 @@
 
     // Clean up if Astro swaps
     document.addEventListener('astro:after-swap', function() {
-      document.body.style.overflow = '';
       const lingering = document.getElementById('tp-preloader');
       if (lingering) lingering.remove();
     });

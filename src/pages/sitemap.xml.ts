@@ -22,10 +22,10 @@ export const GET: APIRoute = async () => {
   const currentDate = new Date().toISOString().split('T')[0];
 
   const staticPages = [
-    { url: `${siteUrl}/`, changefreq: 'weekly', priority: '1.0', lastmod: currentDate },
-    { url: `${siteUrl}/projects`, changefreq: 'weekly', priority: '0.9', lastmod: currentDate },
-    { url: `${siteUrl}/about`, changefreq: 'monthly', priority: '0.8', lastmod: currentDate },
-    { url: `${siteUrl}/blogs`, changefreq: 'weekly', priority: '0.8', lastmod: currentDate },
+    { url: `${siteUrl}/`, changefreq: 'weekly', priority: '1.0' },
+    { url: `${siteUrl}/projects`, changefreq: 'weekly', priority: '0.9' },
+    { url: `${siteUrl}/about`, changefreq: 'monthly', priority: '0.8' },
+    { url: `${siteUrl}/blogs`, changefreq: 'weekly', priority: '0.8' },
   ];
 
   const projectUrls = projects
@@ -54,8 +54,7 @@ ${allUrls
   .map(
     (item) => `  <url>
     <loc>${item.url}</loc>
-    <lastmod>${item.lastmod}</lastmod>
-    <changefreq>${item.changefreq}</changefreq>
+    ${'lastmod' in item ? `<lastmod>${item.lastmod}</lastmod>\n    ` : ''}<changefreq>${item.changefreq}</changefreq>
     <priority>${item.priority}</priority>
   </url>`
   )

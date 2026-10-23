@@ -38,7 +38,12 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <div class="">
-  <Layout title="About | Tanuj Pandey" description="Learn more about Tanuj Pandey's professional journey, technical expertise, and passion for building scalable web applications.">
+  <Layout
+    title="About | Tanuj Pandey"
+    description="Learn more about Tanuj Pandey's professional journey, technical expertise, and passion for building scalable web applications."
+    schemaType="AboutPage"
+    breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]}
+  >
     <AboutLayout aboutData={aboutData} skillData={skillData} />
   </Layout>
 </div>

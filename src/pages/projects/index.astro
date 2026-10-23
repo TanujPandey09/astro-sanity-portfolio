@@ -12,10 +12,32 @@ const query = groq`*[_type == "projects"]{
     }`;
 
 const projectData = await useSanityClient().fetch(query);
+
+const siteUrl = "https://tanujbuilds.site";
+const itemList = {
+  "@type": "ItemList",
+  "@id": `${siteUrl}/projects#itemlist`,
+  name: "Tanuj Pandey — Projects & Case Studies",
+  itemListElement: projectData
+    .filter((project) => project.slug?.current)
+    .map((project, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: project.projectName,
+      url: `${siteUrl}/projects/${project.slug.current}`,
+    })),
+};
+
 import ProjectLayouts from "../../components/ProjectsLayout/ProjectLayouts.astro";
 
 ---
 
-  <Layout title="Projects | Tanuj Pandey" description="Explore my portfolio of professional web development projects, SaaS builds, and frontend case studies.">
+  <Layout
+    title="Projects | Tanuj Pandey"
+    description="Explore my portfolio of professional web development projects, SaaS builds, and frontend case studies."
+    schemaType="CollectionPage"
+    jsonLd={itemList}
+    breadcrumbs={[{ name: "Home", path: "/" }, { name: "Projects", path: "/projects" }]}
+  >
     <ProjectLayouts projectData={projectData} />
   </Layout>

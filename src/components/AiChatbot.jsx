@@ -138,7 +138,7 @@ const AIChatbot = () => {
     })
     .catch(err => {
       console.error("Chat error:", err);
-      setMessages(prev => [...prev, { role: "assistant", content: "Apologies, my intelligence core went offline. Please try again! ⚡" }]);
+      setMessages(prev => [...prev, { role: "assistant", content: "Apologies, my intelligence core went offline. Please try again." }]);
       setIsLoading(false);
     });
   };
@@ -166,7 +166,7 @@ const AIChatbot = () => {
           {hasNewMessage && (
             <span className="absolute -top-1.5 -right-1.5 flex h-4.5 w-4.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-primary opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-4.5 w-4.5 bg-white text-[9px] text-accent-primary font-black items-center justify-center">1</span>
+              <span className="relative inline-flex rounded-full h-4.5 w-4.5 bg-white text-[11px] text-accent-primary font-black items-center justify-center">1</span>
             </span>
           )}
         </button>
@@ -175,7 +175,7 @@ const AIChatbot = () => {
   }
 
   return (
-    <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] sm:w-[380px] bg-canvas/95 border border-border-subtle rounded-[2rem] shadow-ambient z-[100] overflow-hidden flex flex-col h-[520px] md:h-[620px] backdrop-blur-2xl transition-all duration-500">
+          <div className="fixed bottom-4 right-4 md:bottom-8 md:right-8 w-[calc(100vw-2rem)] sm:w-[380px] bg-canvas/95 border border-border-subtle rounded-2xl shadow-ambient z-[100] overflow-hidden flex flex-col h-[520px] md:h-[620px] backdrop-blur-2xl transition-all duration-500">
       
       {/* Header bar */}
       <div className="px-6 py-5 bg-white/5 border-b border-border-subtle flex items-center justify-between">
@@ -186,7 +186,7 @@ const AIChatbot = () => {
           </div>
           <div className="flex flex-col">
             <span className="text-[10px] font-black text-text-primary uppercase tracking-[0.25em]">Tanuj's Assistant</span>
-            <span className="text-[7px] font-mono text-text-dim uppercase tracking-widest">Sys_Status: Active // Lat: 12ms</span>
+              <span className="text-[11px] font-mono text-text-dim uppercase tracking-widest">Sys_Status: Active // Lat: 12ms</span>
           </div>
         </div>
         <button 
@@ -249,7 +249,7 @@ const AIChatbot = () => {
               <button 
                 key={i} 
                 onClick={() => { setInput(""); handleSend(s); }} 
-                className="px-3.5 py-1.5 bg-surface-card border border-border-subtle text-[9px] text-text-dim font-mono uppercase tracking-wider rounded-full hover:bg-accent-primary/10 hover:text-accent-primary hover:border-accent-primary/30 transition-all active:scale-95"
+                className="px-3.5 py-1.5 bg-surface-card border border-border-subtle text-[11px] text-text-dim font-mono uppercase tracking-wider rounded-full hover:bg-accent-primary/10 hover:text-accent-primary hover:border-accent-primary/30 transition-all active:scale-95"
               >
                 {s}
               </button>

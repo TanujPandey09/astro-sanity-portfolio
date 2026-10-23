@@ -16,16 +16,16 @@ const components = {
 <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
   <PremiumBackground />
 
-  <main class="container mx-auto px-6 pt-32 pb-12 md:pt-48 md:pb-20 relative z-10">
+  <main class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-32 pb-12 md:pt-40 md:pb-20 relative z-10">
     <!-- Breadcrumb / Meta -->
     <div class="mb-12 md:mb-16 flex flex-col md:flex-row items-center justify-between gap-6" data-aos="fade-down">
-       <a href="/projects" class="group flex items-center gap-4 text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
+       <a href="/projects" class="group flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-muted hover:text-accent-primary transition-all">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" class="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-2 transition-transform">
             <path d="M19 12H5m7-7-7 7 7 7"/>
           </svg>
           Back to Index
        </a>
-       <div class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.5em] opacity-40">Artifact NR. {detailsData?._id?.slice(-4) || "001"}</div>
+       <div class="text-[11px] font-black text-accent-primary uppercase tracking-[0.5em] opacity-40">Artifact NR. {detailsData?._id?.slice(-4) || "001"}</div>
     </div>
 
     <!-- Project Identity -->
@@ -33,10 +33,10 @@ const components = {
         <div class="flex flex-col gap-6 md:gap-8 mb-16 md:mb-20" data-aos="fade-up">
            <div class="flex items-center gap-3">
               <div class="h-[1px] w-8 md:w-12 bg-accent-primary"></div>
-              <span class="text-[8px] md:text-[10px] font-black uppercase tracking-[0.4em] text-accent-primary">Deployment Log</span>
+              <span class="text-[11px] font-black uppercase tracking-[0.4em] text-accent-primary">Deployment Log</span>
            </div>
            
-           <h1 class="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-text-primary uppercase tracking-tighter leading-none m-0 project-main-title">
+           <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-text-primary uppercase tracking-tighter leading-none m-0 project-main-title">
              {detailsData?.projectName}
            </h1>
 
@@ -51,18 +51,29 @@ const components = {
            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-border-subtle">
               <div class="flex flex-wrap gap-2 md:gap-4">
                  {detailsData?.tags?.map((tag: string) => (
-                    <span class={`px-4 py-1.5 md:px-5 md:py-2 rounded-full border text-[8px] md:text-[10px] font-black uppercase tracking-widest ${getTagColor(tag)}`}>
+                    <span class={`px-4 py-1.5 md:px-5 md:py-2 rounded-full border text-[11px] font-black uppercase tracking-widest ${getTagColor(tag)}`}>
                        {tag}
                     </span>
                  ))}
               </div>
               
               <div class="flex flex-wrap gap-4 w-full sm:w-auto animate-fade-in">
+                  {detailsData?.gumroadLink && (
+                    <a 
+                      href={typeof detailsData.gumroadLink === 'string' ? detailsData.gumroadLink : detailsData.gumroadLink.current} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      class="px-8 py-4 md:px-10 md:py-5 bg-accent-primary text-white font-black uppercase text-[11px] tracking-[0.3em] rounded-full hover:bg-accent-hover transition-all duration-500 shadow-ambient text-center"
+                    >
+                      Get on Gumroad
+                    </a>
+                  )}
                   {detailsData?.demoLink && (
                     <a 
                       href={typeof detailsData.demoLink === 'string' ? detailsData.demoLink : detailsData.demoLink.current} 
                       target="_blank" 
-                      class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-accent-primary hover:text-white transition-all duration-500 shadow-ambient text-center"
+                      rel="noopener noreferrer"
+                      class="px-8 py-4 md:px-10 md:py-5 bg-white text-black font-black uppercase text-[11px] tracking-[0.3em] rounded-full hover:bg-white/90 transition-all duration-500 shadow-ambient text-center"
                     >
                       Live Interface
                     </a>
@@ -71,7 +82,8 @@ const components = {
                     <a 
                       href={typeof detailsData.gitHubLink === 'string' ? detailsData.gitHubLink : detailsData.gitHubLink.current} 
                       target="_blank" 
-                      class="px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-border-subtle text-text-primary font-black uppercase text-[8px] md:text-[10px] tracking-[0.3em] rounded-full hover:bg-white/10 hover:border-border-hover transition-all duration-300 text-center"
+                      rel="noopener noreferrer"
+                      class="px-8 py-4 md:px-10 md:py-5 bg-white/5 border border-border-subtle text-text-primary font-black uppercase text-[11px] tracking-[0.3em] rounded-full hover:bg-white/10 hover:border-border-hover transition-all duration-300 text-center"
                     >
                       Source Intel
                     </a>
@@ -81,7 +93,7 @@ const components = {
         </div>
 
         <!-- Hero Image / Artifact -->
-        <div class="relative rounded-3xl md:rounded-[3rem] overflow-hidden border border-border-subtle bg-surface-card group" data-aos="zoom-out">
+        <div class="relative rounded-3xl overflow-hidden border border-border-subtle bg-surface-card group" data-aos="zoom-out">
            {detailsData?.BackgroundImage?.asset?.url && (
              <img 
                src={optimizeSanityImage(detailsData.BackgroundImage.asset.url, 1200, 80)} 
@@ -102,15 +114,15 @@ const components = {
              <h2 class="text-xl md:text-2xl font-black text-text-primary uppercase tracking-tighter mb-6 md:mb-8 leading-tight">Technical <br/> <span class="text-gradient">Specifications</span></h2>
              <div class="grid grid-cols-2 lg:grid-cols-1 gap-6 md:gap-8">
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-accent-primary uppercase tracking-[0.4em]">Architect</p>
+                   <p class="text-[11px] font-black text-accent-primary uppercase tracking-[0.4em]">Architect</p>
                    <p class="text-xs md:text-sm text-text-primary font-medium uppercase">Tanuj Pandey</p>
                 </div>
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-text-dim uppercase tracking-[0.4em]">Date of Launch</p>
+                   <p class="text-[11px] font-black text-text-dim uppercase tracking-[0.4em]">Date of Launch</p>
                    <p class="text-xs md:text-sm text-text-primary font-medium uppercase font-mono">{new Date(detailsData?._createdAt).toLocaleDateString()}</p>
                 </div>
                 <div class="space-y-1.5 md:space-y-2">
-                   <p class="text-[8px] md:text-[10px] font-black text-text-dim uppercase tracking-[0.4em]">Status</p>
+                   <p class="text-[11px] font-black text-text-dim uppercase tracking-[0.4em]">Status</p>
                    <div class="flex items-center gap-2">
                       <div class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-status-live animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
                       <p class="text-xs md:text-sm text-text-primary font-medium uppercase tracking-widest">Active</p>

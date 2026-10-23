@@ -1,1 +1,2 @@
-netlify.toml
+# Additional redirect rules can be added here.
+# @astrojs/netlify appends its generated rules to this file at build time.

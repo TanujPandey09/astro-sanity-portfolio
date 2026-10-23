@@ -65,14 +65,14 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 md:mt-32 pt-8 md:pt-12 border-t border-border-subtle flex flex-col md:flex-row justify-between items-center gap-6 md:gap-8">
-          <div className="text-[9px] md:text-[10px] font-black text-text-dim uppercase tracking-widest text-center md:text-left">
+          <div className="text-[11px] font-black text-text-dim uppercase tracking-widest text-center md:text-left">
             © {currentYear} Tanuj Pandey . All Rights Reserved
           </div>
           <div className="flex items-center gap-6 md:gap-8">
-            <span className="text-[8px] font-black text-white/20 uppercase tracking-[0.3em]">Experience: 4+ YOE</span>
+            <span className="text-[11px] font-black text-white/20 uppercase tracking-[0.3em]">Experience: 4+ YOE</span>
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-status-live animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></div>
-              <span className="text-[8px] font-black text-status-live uppercase tracking-[0.3em]">Available for Projects</span>
+              <span className="text-[11px] font-black text-status-live uppercase tracking-[0.3em]">Available for Projects</span>
             </div>
           </div>
         </div>

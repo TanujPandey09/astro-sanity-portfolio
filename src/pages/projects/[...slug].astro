@@ -31,10 +31,52 @@ const { detailsData } = Astro.props;
 // Extract a plain text description from Portable Text for SEO
 const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
   || "View the complete case study for this digital platform built with modern web architecture.";
-  
-const ogImage = detailsData?.BackgroundImage?.asset?.url || "https://tanujbuilds.site/og-image.jpg";
+
+const siteUrl = "https://tanujbuilds.site";
+const slug = detailsData?.slug?.current;
+const canonicalURL = `${siteUrl}/projects/${slug}`;
+const ogImage = detailsData?.BackgroundImage?.asset?.url;
+
+const projectJsonLd = {
+  "@type": "SoftwareApplication",
+  "@id": `${canonicalURL}#project`,
+  name: detailsData?.projectName,
+  description: projectDescription,
+  applicationCategory: "WebApplication",
+  operatingSystem: "Web",
+  url: detailsData?.demoLink || canonicalURL,
+  author: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
+  publisher: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
+  mainEntityOfPage: { "@id": `${canonicalURL}#webpage` },
+  ...(ogImage ? { image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}` } : {}),
+  ...(detailsData?.gitHubLink ? { codeRepository: detailsData.gitHubLink } : {}),
+  ...(detailsData?.gumroadLink
+    ? {
+        offers: {
+          "@type": "Offer",
+          url: detailsData.gumroadLink,
+          availability: "https://schema.org/InStock",
+        },
+      }
+    : {}),
+  ...(detailsData?.tags?.length ? { keywords: detailsData.tags.join(", ") } : {}),
+  ...(detailsData?._createdAt ? { dateCreated: detailsData._createdAt } : {}),
+  ...(detailsData?._updatedAt ? { dateModified: detailsData._updatedAt } : {}),
+};
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Projects", path: "/projects" },
+  { name: detailsData?.projectName || "Project", path: `/projects/${slug}` },
+];
 ---
 
-<Layout title={`${detailsData?.projectName} - Tanuj Pandey`} description={projectDescription} image={ogImage}>
+<Layout
+  title={`${detailsData?.projectName} - Tanuj Pandey`}
+  description={projectDescription}
+  image={ogImage}
+  breadcrumbs={breadcrumbs}
+  jsonLd={projectJsonLd}
+>
   <ProjectDetails detailsData={detailsData} />
 </Layout>

@@ -8,24 +8,173 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  type?: "website" | "article" | "profile";
+  noindex?: boolean;
+  schemaType?: "WebPage" | "ProfilePage" | "CollectionPage" | "AboutPage";
+  article?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
+  breadcrumbs?: Array<{ name: string; path: string }>;
+  jsonLd?: Record<string, any> | Record<string, any>[];
 }
 const siteUrl = "https://tanujbuilds.site";
 const defaultDescription = "Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, scalable backend systems, and AI workflows.";
-const defaultOgImage = `${siteUrl}/og-image.png`;
+const defaultOgImage = `${siteUrl}/og-image-dark.png`;
 
 const { 
   title, 
   description = defaultDescription,
-  image = defaultOgImage
+  image = defaultOgImage,
+  type,
+  noindex = false,
+  schemaType,
+  article,
+  breadcrumbs,
+  jsonLd,
 } = Astro.props;
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "";
-const canonicalURL = new URL(pathname, siteUrl).href;
+const canonicalPath = pathname === "/" || pathname === "" ? "/" : pathname.replace(/\/+$/, "");
+const canonicalURL = new URL(canonicalPath, siteUrl).href;
 
-// Ensure og:image is always an absolute URL
+// Ensure og:image is always an absolute URL and sized for social previews
 const resolvedImage = image.startsWith('http') ? image : `${siteUrl}${image.startsWith('/') ? '' : '/'}${image}`;
-const isPng = resolvedImage.toLowerCase().endsWith('.png');
+const isSanityImage = resolvedImage.includes('cdn.sanity.io');
+const ogImage = isSanityImage
+  ? `${resolvedImage}${resolvedImage.includes('?') ? '&' : '?'}fm=jpg&fit=crop&w=1200&h=630&q=80`
+  : resolvedImage;
+const resolvedImagePath = resolvedImage.split('?')[0];
+const hasKnownImageDimensions = isSanityImage || resolvedImagePath === `${siteUrl}/og-image-dark.png`;
+const ogImageType = isSanityImage
+  ? 'image/jpeg'
+  : /\.png$/i.test(resolvedImagePath)
+    ? 'image/png'
+    : /\.webp$/i.test(resolvedImagePath)
+      ? 'image/webp'
+      : 'image/jpeg';
+const ogType = type ?? (pathname.startsWith('/blogs/') && pathname !== '/blogs/' ? 'article' : 'website');
+const robotsContent = noindex
+  ? 'noindex, nofollow'
+  : 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1';
+
+const personId = `${siteUrl}/#person`;
+const websiteId = `${siteUrl}/#website`;
+const webpageId = `${canonicalURL}#webpage`;
+const additionalNodes = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const primaryNode = additionalNodes.find((node: any) => node?.['@id'] && node?.['@type'] !== 'BreadcrumbList');
+const pageSchemaType = schemaType || (isHome ? 'ProfilePage' : 'WebPage');
+const pageSchema = {
+  "@type": pageSchemaType,
+  "@id": webpageId,
+  "url": canonicalURL,
+  "name": title,
+  "description": description,
+  "isPartOf": { "@id": websiteId },
+  "inLanguage": "en-US",
+  ...(primaryNode
+    ? { mainEntity: { "@id": primaryNode['@id'] } }
+    : pageSchemaType === 'ProfilePage'
+      ? { mainEntity: { "@id": personId } }
+      : { about: { "@id": personId } }),
+};
+const breadcrumbSchema = breadcrumbs?.length
+  ? {
+      "@type": "BreadcrumbList",
+      "@id": `${canonicalURL}#breadcrumb`,
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: crumb.name,
+        item: new URL(crumb.path, siteUrl).href,
+      })),
+    }
+  : null;
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      "name": "Tanuj Pandey",
+      "alternateName": ["Tanuj", "Tanuj Builds"],
+      "jobTitle": "Full Stack Engineer & AI Solutions Architect",
+      "description": "Full Stack Engineer with 4+ years of professional experience building high-performance web applications, scalable APIs, and intelligent AI chatbot workflows.",
+      "url": siteUrl,
+      "image": defaultOgImage,
+      "email": "mailto:tanujp09@gmail.com",
+      "nationality": "Indian",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Pauri Garhwal",
+        "addressRegion": "Uttarakhand",
+        "addressCountry": "India"
+      },
+      "sameAs": [
+        "https://github.com/TanujPandey09",
+        "https://linkedin.com/in/tanujdev",
+        "https://x.com/TanujPandey",
+        siteUrl
+      ],
+      "knowsAbout": [
+        "Full Stack Web Development",
+        "Astro.js Modern Architecture",
+        "React.js & Next.js",
+        "Node.js Backend Engineering",
+        "TypeScript & JavaScript",
+        "Python",
+        "PostgreSQL & Database Design",
+        "Sanity CMS Headless Modeling",
+        "Tailwind CSS Design Systems",
+        "AI Agent & Chatbot Integrations",
+        "REST & GraphQL APIs",
+        "Web Performance & Core Web Vitals Optimization"
+      ],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Custom Full Stack Web Application Development",
+            "description": "High-velocity web product architecture with modern stacks (Astro, Next.js, React, Node.js)."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "AI Integration & Intelligent Agent Solutions",
+            "description": "Seamless integration of LLMs, conversational assistants, and OpenAI workflows into web applications."
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Headless CMS & Content Modeling",
+            "description": "Enterprise-ready Sanity CMS integrations with instant previews and live content delivery."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": websiteId,
+      "url": siteUrl,
+      "name": "Tanuj Pandey | Full Stack Engineer & AI Solutions Architect",
+      "description": "Official portfolio of Tanuj Pandey featuring full stack web engineering projects, technical case studies, and modern web applications.",
+      "publisher": { "@id": personId },
+      "inLanguage": "en-US"
+    },
+    pageSchema,
+    ...(breadcrumbSchema ? [breadcrumbSchema] : []),
+    ...additionalNodes,
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -39,35 +188,48 @@ const isPng = resolvedImage.toLowerCase().endsWith('.png');
     <meta name="author" content="Tanuj Pandey" />
     <meta name="creator" content="Tanuj Pandey" />
     <meta name="publisher" content="Tanuj Pandey" />
-    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="bingbot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    <meta name="theme-color" content="#080B10" />
+    <meta name="robots" content={robotsContent} />
+    <meta name="googlebot" content={robotsContent} />
+    <meta name="bingbot" content={robotsContent} />
+    <meta name="theme-color" content="#09090B" />
     <meta name="color-scheme" content="dark" />
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Tanuj Pandey — Blog" href={`${siteUrl}/rss.xml`} />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
+      <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
+    )}
+    {import.meta.env.PUBLIC_BING_SITE_VERIFICATION && (
+      <meta name="msvalidate.01" content={import.meta.env.PUBLIC_BING_SITE_VERIFICATION} />
+    )}
     
     <!-- Open Graph (OG) / Social Media Previews (LinkedIn, WhatsApp, Facebook) -->
     <meta property="og:site_name" content="Tanuj Pandey | Full Stack Engineer" />
-    <meta property="og:type" content={pathname.startsWith('/blogs/') ? "article" : "website"} />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={resolvedImage} />
-    <meta property="og:image:secure_url" content={resolvedImage} />
-    <meta property="og:image:type" content={isPng ? "image/png" : "image/jpeg"} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Tanuj Pandey - Full Stack Engineer & AI Solutions Architect Portfolio" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:secure_url" content={ogImage} />
+    <meta property="og:image:type" content={ogImageType} />
+    {hasKnownImageDimensions && <meta property="og:image:width" content="1200" />}
+    {hasKnownImageDimensions && <meta property="og:image:height" content="630" />}
+    <meta property="og:image:alt" content={title} />
     <meta property="og:locale" content="en_US" />
+    {article?.publishedTime && <meta property="article:published_time" content={article.publishedTime} />}
+    {article?.modifiedTime && <meta property="article:modified_time" content={article.modifiedTime} />}
+    {article?.author && <meta property="article:author" content={article.author} />}
+    {article?.section && <meta property="article:section" content={article.section} />}
+    {article?.tags?.map((tag) => <meta property="article:tag" content={tag} />)}
     
     <!-- Twitter / X Card Previews -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content={canonicalURL} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={resolvedImage} />
-    <meta name="twitter:image:alt" content="Tanuj Pandey - Full Stack Engineer Portfolio" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content={title} />
     <meta name="twitter:creator" content="@TanujPandey" />
     <meta name="twitter:site" content="@TanujPandey" />
 
@@ -89,103 +251,41 @@ const isPng = resolvedImage.toLowerCase().endsWith('.png');
     <ClientRouter />
 
     <!-- Structured Data: JSON-LD for Search Engines & AI Engines (AEO / GEO) -->
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "Person",
-          "@id": "https://tanujbuilds.site/#person",
-          "name": "Tanuj Pandey",
-          "alternateName": ["Tanuj", "Tanuj Builds"],
-          "jobTitle": "Full Stack Engineer & AI Solutions Architect",
-          "description": "Full Stack Engineer with 4+ years of professional experience building high-performance web applications, scalable APIs, and intelligent AI chatbot workflows.",
-          "url": "https://tanujbuilds.site",
-          "image": "https://tanujbuilds.site/og-image.png",
-          "email": "mailto:tanujp09@gmail.com",
-          "nationality": "Indian",
-          "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Pauri Garhwal",
-            "addressRegion": "Uttarakhand",
-            "addressCountry": "India"
-          },
-          "sameAs": [
-            "https://github.com/TanujPandey09",
-            "https://linkedin.com/in/tanujdev",
-            "https://tanujbuilds.site"
-          ],
-          "knowsAbout": [
-            "Full Stack Web Development",
-            "Astro.js Modern Architecture",
-            "React.js & Next.js",
-            "Node.js Backend Engineering",
-            "TypeScript & JavaScript",
-            "Python",
-            "PostgreSQL & Database Design",
-            "Sanity CMS Headless Modeling",
-            "Tailwind CSS Design Systems",
-            "AI Agent & Chatbot Integrations",
-            "REST & GraphQL APIs",
-            "Web Performance & Core Web Vitals Optimization"
-          ],
-          "makesOffer": [
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Custom Full Stack Web Application Development",
-                "description": "High-velocity web product architecture with modern stacks (Astro, Next.js, React, Node.js)."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "AI Integration & Intelligent Agent Solutions",
-                "description": "Seamless integration of LLMs, conversational assistants, and OpenAI workflows into web applications."
-              }
-            },
-            {
-              "@type": "Offer",
-              "itemOffered": {
-                "@type": "Service",
-                "name": "Headless CMS & Content Modeling",
-                "description": "Enterprise-ready Sanity CMS integrations with instant previews and live content delivery."
-              }
-            }
-          ]
-        },
-        {
-          "@type": "WebSite",
-          "@id": "https://tanujbuilds.site/#website",
-          "url": "https://tanujbuilds.site",
-          "name": "Tanuj Pandey | Full Stack Engineer & AI Solutions Architect",
-          "description": "Official portfolio of Tanuj Pandey featuring full stack web engineering projects, technical case studies, and modern web applications.",
-          "publisher": { "@id": "https://tanujbuilds.site/#person" },
-          "inLanguage": "en-US"
-        },
-        {
-          "@type": "ProfilePage",
-          "@id": `${canonicalURL}#webpage`,
-          "url": canonicalURL,
-          "name": title,
-          "description": description,
-          "isPartOf": { "@id": "https://tanujbuilds.site/#website" },
-          "mainEntity": { "@id": "https://tanujbuilds.site/#person" }
-        }
-      ]
-    })} />
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(structuredData)} />
 
-    <!-- Dynamic Web Analytics -->
+    <!-- Dynamic Web Analytics (GA4, SPA-aware) -->
     {import.meta.env.PUBLIC_GA_ID && (
       <>
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`} is:inline></script>
-        <script define:vars={{ gaId: import.meta.env.PUBLIC_GA_ID }} is:inline>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', gaId);
-        </script>
+        <script
+          is:inline
+          data-ga-id={import.meta.env.PUBLIC_GA_ID}
+          set:html={`
+(function () {
+  var id = document.currentScript && document.currentScript.getAttribute("data-ga-id");
+  if (!id) return;
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+  gtag("js", new Date());
+  gtag("config", id, { send_page_view: false });
+  if (window.__gaTrackingBound) return;
+  window.__gaTrackingBound = true;
+  document.addEventListener("astro:page-load", function () {
+    gtag("event", "page_view", {
+      page_location: window.location.href,
+      page_path: window.location.pathname + window.location.search,
+      page_title: document.title
+    });
+  });
+  document.addEventListener("click", function (event) {
+    var target = event.target;
+    var link = target && target.closest ? target.closest('a[href^="http"]') : null;
+    if (!link || link.hostname === window.location.hostname) return;
+    gtag("event", "outbound_click", { link_url: link.href, link_domain: link.hostname });
+  });
+})();
+`}
+        ></script>
       </>
     )}
     <!-- Prevent Loader flash on repeat visits / navigation -->
@@ -258,19 +358,26 @@ const isPng = resolvedImage.toLowerCase().endsWith('.png');
   }
 
   :root {
-    /* Linear Indigo & Obsidian Monochrome Tokens - Calibrated for Depth & Contrast */
-    --canvas-bg: #0A0B10;
-    --surface-card: #131522;
-    --surface-elevated: #1B1E30;
-    --border-subtle: rgba(255, 255, 255, 0.10);
-    --border-hover: rgba(94, 106, 210, 0.40);
-    --text-primary: #FAFAFA;
-    --text-muted: #A2A4B4;
-    --text-dim: #9295A8;
-    --accent-primary: #5E6AD2;
-    --accent-hover: #6E7AE2;
-    --accent-glow: rgba(94, 106, 210, 0.22);
-    --status-live: #10B981;
+    /* Linear Indigo & Obsidian Monochrome Tokens - neutral obsidian, one accent */
+    --canvas-bg-rgb: 9 9 11;
+    --surface-card-rgb: 17 18 21;
+    --surface-elevated-rgb: 24 25 30;
+    --text-primary-rgb: 250 250 250;
+    --accent-primary-rgb: 94 106 210;
+    --status-live-rgb: 16 185 129;
+
+    --canvas-bg: rgb(var(--canvas-bg-rgb));
+    --surface-card: rgb(var(--surface-card-rgb));
+    --surface-elevated: rgb(var(--surface-elevated-rgb));
+    --border-subtle: rgba(255, 255, 255, 0.07);
+    --border-hover: rgba(255, 255, 255, 0.16);
+    --text-primary: rgb(var(--text-primary-rgb));
+    --text-muted: #9B9CA4;
+    --text-dim: #82848F;
+    --accent-primary: rgb(var(--accent-primary-rgb));
+    --accent-hover: #828FFF;
+    --accent-glow: rgba(94, 106, 210, 0.15);
+    --status-live: rgb(var(--status-live-rgb));
 
     /* Legacy Fallback Mappings */
     --primary-color: var(--accent-primary);

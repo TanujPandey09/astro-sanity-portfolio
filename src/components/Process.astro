@@ -2,8 +2,8 @@
 import SectionHeader from "./SectionHeader.astro";
 ---
 
-<section id="process" class="py-16 md:py-18 border-t border-border-subtle bg-canvas relative z-20">
-  <div class="container mx-auto px-4 md:px-8 max-w-7xl">
+<section id="process" class="py-16 md:py-20 border-t border-border-subtle bg-canvas relative z-20">
+  <div class="w-full">
     
     <SectionHeader 
       title="Development" 
@@ -52,7 +52,7 @@ import SectionHeader from "./SectionHeader.astro";
           step: "06",
           title: "Deployment & Launch",
           desc: "Configuring containerized pipelines, launching on CDN edges, and setting up error reporting dashboards for seamless hands-off operations.",
-          color: "#10B981"
+          color: "#5E6AD2"
         }
       ].map((phase, i) => (
         <div class="relative bg-surface-card border border-border-subtle hover:border-border-hover rounded-3xl p-8 transition-all duration-500 group hover:shadow-ambient z-10" data-aos="fade-up" data-aos-delay={i * 75}>
@@ -73,7 +73,7 @@ import SectionHeader from "./SectionHeader.astro";
     </div>
 
     <!-- Client Core Benefits Badge Grid -->
-    <div class="mt-20 md:mt-28 p-8 md:p-12 rounded-[2rem] bg-surface-card border border-border-subtle grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
+    <div class="mt-20 md:mt-28 p-8 md:p-12 rounded-2xl bg-surface-card border border-border-subtle grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
       {[
         {
           label: "Zero Handoff Friction",

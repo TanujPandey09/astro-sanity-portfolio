@@ -31,7 +31,7 @@ const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
   <!-- Subtle Header Background Blur -->
   <div class="absolute inset-0 header-bg transition-all duration-500"></div>
 
-  <nav aria-label="Main Navigation" class="max-w-[1440px] mx-auto px-4 md:px-6 py-4 md:py-5 flex items-center justify-between transition-all duration-500 relative z-10 pointer-events-auto" id="nav-container">
+  <nav aria-label="Main Navigation" class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-4 md:py-5 flex items-center justify-between transition-all duration-500 relative z-10 pointer-events-auto" id="nav-container">
     
     <!-- LEFT: Branded Identity -->
     <div class="flex-1 flex items-center gap-4">
@@ -44,7 +44,7 @@ const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
 
     <!-- CENTER: Floating Modern Navigation (Desktop Only) -->
     <div class="hidden md:flex flex-none justify-center z-50">
-       <div class="flex items-center gap-1.5 p-1.5 bg-[#090A10]/90 backdrop-blur-2xl border border-white/10 rounded-2xl px-3 py-1.5 shadow-2xl shadow-black/80 ring-1 ring-white/5">
+       <div class="flex items-center gap-1.5 p-1.5 bg-canvas/90 backdrop-blur-2xl border border-white/10 rounded-2xl px-3 py-1.5 shadow-2xl shadow-black/80 ring-1 ring-white/5">
           <div class="flex items-center gap-1" id="desktop-nav-menu">
             {menuItems.map((menuItem) => (
                <a 
@@ -53,8 +53,8 @@ const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
                >
                  <span class="relative z-10">{menuItem.menuName}</span>
                  <div class="nav-hover-pill absolute inset-0 bg-white/[0.06] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"></div>
-                 <div class="nav-active-pill absolute inset-0 bg-accent-primary/20 border border-accent-primary/50 rounded-xl opacity-0 shadow-[0_0_16px_rgba(94,106,210,0.35)] transition-all duration-300 pointer-events-none"></div>
-                 <div class="nav-active-dot w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#38BDF8] opacity-0 transition-opacity duration-300 pointer-events-none"></div>
+                 <div class="nav-active-pill absolute inset-0 bg-accent-primary/20 border border-accent-primary/50 rounded-xl opacity-0 shadow-[0_0_16px_rgba(94,106,210,0.25)] transition-all duration-300 pointer-events-none"></div>
+                 <div class="nav-active-dot w-1.5 h-1.5 rounded-full bg-accent-primary shadow-[0_0_8px_rgba(94,106,210,0.6)] opacity-0 transition-opacity duration-300 pointer-events-none"></div>
                </a>
             ))}
           </div>
@@ -70,7 +70,7 @@ const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
          class="hidden md:inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/[0.04] hover:bg-accent-primary/20 border border-white/10 hover:border-accent-primary/50 rounded-xl transition-all duration-300 group shadow-sm hover:shadow-[0_0_20px_rgba(94,106,210,0.3)] active:scale-95"
        >
           <span class="text-xs font-bold text-white uppercase tracking-wider group-hover:text-white transition-colors">Let's Talk</span>
-          <div class="w-2 h-2 rounded-full bg-accent-primary group-hover:bg-cyan-400 group-hover:scale-125 transition-all duration-300"></div>
+           <div class="w-2 h-2 rounded-full bg-accent-primary group-hover:bg-accent-hover group-hover:scale-125 transition-all duration-300"></div>
        </a>
 
        <!-- Mobile Trigger -->
@@ -118,7 +118,7 @@ const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
         <div class="flex flex-col items-center gap-3">
            <div class="flex gap-6 items-center">
               <div class="w-12 h-[1px] bg-white/10"></div>
-              <p class="text-[8px] font-black uppercase tracking-[0.4em] text-white/40">Tanuj Pandey • Portfolio</p>
+              <p class="text-[11px] font-black uppercase tracking-[0.4em] text-white/40">Tanuj Pandey • Portfolio</p>
               <div class="w-12 h-[1px] bg-white/10"></div>
            </div>
         </div>

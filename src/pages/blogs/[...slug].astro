@@ -36,12 +36,52 @@ const { detailsData, blogData } = Astro.props;
 
 // Extract description for SEO
 const blogDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
-  || detailsData?.projectcontent?.[0]?.children?.[0]?.text 
+  || detailsData?.blogcontent?.[0]?.children?.[0]?.text 
   || "Read my latest technical deep dive and insights.";
-  
-const ogImage = detailsData?.BackgroundImage?.asset?.url || detailsData?.image?.asset?.url || "https://tanujbuilds.site/og-image.jpg";
+
+const siteUrl = "https://tanujbuilds.site";
+const slug = detailsData?.slug?.current;
+const canonicalURL = `${siteUrl}/blogs/${slug}`;
+const ogImage = detailsData?.BackgroundImage?.asset?.url || detailsData?.image?.asset?.url;
+const publishedTime = detailsData?._createdAt;
+const modifiedTime = detailsData?._updatedAt;
+
+const blogJsonLd = {
+  "@type": "BlogPosting",
+  "@id": `${canonicalURL}#article`,
+  headline: detailsData?.projectName,
+  description: blogDescription,
+  ...(publishedTime ? { datePublished: publishedTime } : {}),
+  ...(modifiedTime ? { dateModified: modifiedTime } : {}),
+  author: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
+  publisher: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
+  mainEntityOfPage: { "@id": `${canonicalURL}#webpage` },
+  ...(ogImage ? { image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}` } : {}),
+  ...(detailsData?.Category ? { articleSection: detailsData.Category } : {}),
+  ...(detailsData?.tags?.length ? { keywords: detailsData.tags.join(", ") } : {}),
+};
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Blog", path: "/blogs" },
+  { name: detailsData?.projectName || "Article", path: `/blogs/${slug}` },
+];
 ---
 
-<Layout title={`${detailsData.projectName} - Tanuj Pandey`} description={blogDescription} image={ogImage}>
+<Layout
+  title={`${detailsData.projectName} - Tanuj Pandey`}
+  description={blogDescription}
+  image={ogImage}
+  type="article"
+  article={{
+    publishedTime,
+    modifiedTime,
+    author: "Tanuj Pandey",
+    section: detailsData?.Category,
+    tags: detailsData?.tags,
+  }}
+  breadcrumbs={breadcrumbs}
+  jsonLd={blogJsonLd}
+>
   <BlogDetails detailsData={detailsData} blogData={blogData} />
 </Layout>
