@@ -2,7 +2,10 @@
 import { useSanityClient, groq } from "astro-sanity";
 import Layout from "../../layouts/Layout.astro";
 
-const query = groq`*[_type == "projects"]{
+const query = groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
+  "lumina-dental-premium-dental-website-template",
+  "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
+])]{
         ...,
         BackgroundImage{
       asset->{

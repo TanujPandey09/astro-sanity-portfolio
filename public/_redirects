@@ -1,2 +1,7 @@
 # Additional redirect rules can be added here.
+# Permanent 301 redirects for templates moved to dedicated /templates section
+/projects/lumina-dental-premium-dental-website-template /templates/lumina-dental-premium-dental-website-template 301
+/projects/apex-luxury-ultra-luxury-real-estate-and-architectural-web-template /templates/apex-luxury-ultra-luxury-real-estate-and-architectural-web-template 301
+
 # @astrojs/netlify appends its generated rules to this file at build time.
+

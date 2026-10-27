@@ -18,13 +18,35 @@ try {
 const defaultMenus = [
   { menuName: "Home", menuLink: { current: "/" } },
   { menuName: "Projects", menuLink: { current: "/projects" } },
+  { menuName: "Templates", menuLink: { current: "/templates" } },
   { menuName: "About", menuLink: { current: "/about" } },
   { menuName: "Blog", menuLink: { current: "/blogs" } }
 ];
 
-const menuItems = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
-  ? sideBar.sideMenus
+const rawMenus = (sideBar?.sideMenus && sideBar.sideMenus.length > 0)
+  ? [...sideBar.sideMenus]
   : defaultMenus;
+
+const hasTemplates = rawMenus.some((item) => {
+  const name = (item.menuName || "").toLowerCase();
+  const link = (typeof item.menuLink === "string" ? item.menuLink : item.menuLink?.current || "").toLowerCase();
+  return name === "templates" || link.includes("templates");
+});
+
+if (!hasTemplates) {
+  const projIdx = rawMenus.findIndex((item) => {
+    const name = (item.menuName || "").toLowerCase();
+    const link = (typeof item.menuLink === "string" ? item.menuLink : item.menuLink?.current || "").toLowerCase();
+    return name.includes("project") || link.includes("project");
+  });
+  if (projIdx !== -1) {
+    rawMenus.splice(projIdx + 1, 0, { menuName: "Templates", menuLink: { current: "/templates" } });
+  } else {
+    rawMenus.push({ menuName: "Templates", menuLink: { current: "/templates" } });
+  }
+}
+
+const menuItems = rawMenus;
 ---
 
 <header class="fixed top-0 left-0 w-full z-50 transition-all duration-500 pointer-events-none" id="main-header">

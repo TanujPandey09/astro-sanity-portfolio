@@ -1,0 +1,409 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import PremiumBackground from "../../components/PremiumBackground.astro";
+import PortableTextImage from "../../components/BlogLayout/PortableTextImage.astro";
+import { PortableText } from "astro-portabletext";
+import { fetchAllTemplates, type TemplateItem } from "../../lib/templates";
+import { optimizeSanityImage } from "../../lib/optimizeImage";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const templates = await fetchAllTemplates();
+  return templates.map((template) => ({
+    params: { slug: template.slug.current },
+    props: { template },
+  }));
+}
+
+interface Props {
+  template: TemplateItem;
+}
+
+const { template } = Astro.props;
+
+const siteUrl = "https://tanujbuilds.site";
+const slug = template.slug.current;
+const canonicalURL = `${siteUrl}/templates/${slug}`;
+
+const rawImageUrl = template.imageUrl || "/img/custom-project.webp";
+const ogImage = rawImageUrl.includes("cdn.sanity.io")
+  ? optimizeSanityImage(rawImageUrl, 1200, 80)
+  : rawImageUrl;
+
+const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
+
+const productJsonLd = {
+  "@type": "Product",
+  "@id": `${canonicalURL}#product`,
+  name: template.templateName,
+  description: template.tagline || "Production-ready website template engineered with modern web architecture.",
+  image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`,
+  category: "SoftwareApplication",
+  brand: {
+    "@type": "Person",
+    "@id": `${siteUrl}/#person`,
+    name: "Tanuj Pandey",
+  },
+  offers: {
+    "@type": "Offer",
+    price: priceNumeric,
+    priceCurrency: "USD",
+    availability: "https://schema.org/InStock",
+    url: template.gumroadLink || canonicalURL,
+    seller: {
+      "@type": "Person",
+      name: "Tanuj Pandey",
+    },
+  },
+  ...(template.tags?.length ? { keywords: template.tags.join(", ") } : {}),
+  ...(template._createdAt ? { releaseDate: template._createdAt } : {}),
+};
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Templates", path: "/templates" },
+  { name: template.templateName, path: `/templates/${slug}` },
+];
+
+const portableTextComponents = {
+  type: {
+    image: PortableTextImage,
+  },
+};
+---
+
+<Layout
+  title={`${template.templateName} — Website Template | Tanuj Pandey`}
+  description={template.tagline || `Download ${template.templateName}, a production-ready website template by Tanuj Pandey.`}
+  image={ogImage}
+  breadcrumbs={breadcrumbs}
+  jsonLd={productJsonLd}
+>
+  <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
+    <PremiumBackground />
+
+    <main class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-32 pb-20 md:pt-40 md:pb-28 relative z-10">
+      
+      <!-- Top Navigation & Breadcrumb -->
+      <div class="mb-10 md:mb-14 flex flex-col md:flex-row items-start md:items-center justify-between gap-4" data-aos="fade-down">
+        <a 
+          href="/templates" 
+          class="group inline-flex items-center gap-3 text-xs font-mono uppercase tracking-[0.25em] text-text-muted hover:text-white transition-colors"
+        >
+          <span class="w-7 h-7 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-accent-primary transition-colors">
+            ←
+          </span>
+          <span>Back to All Templates</span>
+        </a>
+
+        <div class="flex items-center gap-2">
+          {template.badge && (
+            <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-accent-primary/20 border border-accent-primary/40 text-accent-primary">
+              {template.badge}
+            </span>
+          )}
+          <span class="px-3 py-1 rounded-full text-[10px] font-mono uppercase tracking-wider bg-white/5 border border-white/10 text-text-muted">
+            Commercial License
+          </span>
+        </div>
+      </div>
+
+      <!-- Hero Header Section -->
+      <section class="max-w-5xl mb-12 md:mb-16" data-aos="fade-up">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="h-[1px] w-8 bg-accent-primary"></div>
+          <span class="text-[11px] font-mono uppercase tracking-[0.3em] text-accent-primary">Digital Product / Template</span>
+        </div>
+
+        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-text-primary uppercase tracking-tight leading-[1.08] mb-6">
+          {template.templateName}
+        </h1>
+
+        <p class="text-base sm:text-lg md:text-xl text-text-muted font-normal leading-relaxed max-w-3xl mb-8">
+          {template.tagline}
+        </p>
+
+        <!-- Tech Stack Pills -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          {template.tags?.map((tag: string) => (
+            <span class="px-3.5 py-1.5 rounded-lg text-xs font-mono bg-white/[0.05] border border-white/10 text-text-muted">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        <!-- Hero Actions Bar -->
+        <div class="flex flex-wrap items-center gap-4 pt-6 border-t border-border-subtle">
+          <div class="flex items-baseline gap-2 mr-2">
+            <span class="text-3xl md:text-4xl font-bold font-mono text-white tracking-tight">{template.price}</span>
+            {template.originalPrice && (
+              <span class="text-base font-mono line-through text-text-dim">{template.originalPrice}</span>
+            )}
+          </div>
+
+          {template.gumroadLink && (
+            <a 
+              href={template.gumroadLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="group/btn px-8 py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] bg-accent-primary hover:bg-accent-hover text-white transition-all duration-300 shadow-xl shadow-accent-primary/25 flex items-center gap-3"
+            >
+              <span>Get on Gumroad</span>
+              <span class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center text-xs transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+                ↗
+              </span>
+            </a>
+          )}
+
+          {template.demoLink && (
+            <a 
+              href={template.demoLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-7 py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] bg-white text-black hover:bg-white/90 transition-all duration-300 shadow-ambient flex items-center gap-2"
+            >
+              <span>Live Interactive Preview</span>
+              <span class="text-xs">↗</span>
+            </a>
+          )}
+
+          {template.gitHubLink && (
+            <a 
+              href={template.gitHubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-6 py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] bg-white/5 border border-white/10 text-text-primary hover:bg-white/10 transition-colors"
+            >
+              GitHub Preview
+            </a>
+          )}
+        </div>
+      </section>
+
+      <!-- Main Showcase Mockup (Double-Bezel Frame) -->
+      <section class="mb-20 md:mb-28" data-aos="zoom-out">
+        <div class="rounded-3xl p-2 md:p-3 bg-white/[0.04] border border-white/10 shadow-2xl">
+          <div class="rounded-2xl bg-surface-card overflow-hidden border border-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.1)]">
+            <!-- Simulated Browser Header Bar -->
+            <div class="px-5 py-3.5 bg-black/40 border-b border-border-subtle flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-white/15"></div>
+                <div class="w-3 h-3 rounded-full bg-white/15"></div>
+                <div class="w-3 h-3 rounded-full bg-white/15"></div>
+              </div>
+              <div class="px-4 py-1 rounded-md bg-white/5 border border-white/10 text-[11px] font-mono text-text-dim max-w-sm truncate text-center hidden sm:block">
+                {template.demoLink || `tanujbuilds.site/templates/${slug}`}
+              </div>
+              <div class="text-[10px] font-mono text-text-dim">
+                100% Responsive
+              </div>
+            </div>
+
+            <!-- Preview Image -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[16/8.5] bg-surface-elevated overflow-hidden">
+              {ogImage && (
+                <img 
+                  src={ogImage} 
+                  alt={`${template.templateName} preview`}
+                  class="w-full h-full object-cover object-top"
+                  loading="eager"
+                />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2-Column Split: Content & Features vs. Sticky Purchase Card -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14">
+        
+        <!-- LEFT: Product Deep Dive (8 Cols) -->
+        <div class="lg:col-span-8 space-y-16">
+          
+          <!-- Key Highlights Grid -->
+          {template.highlights && template.highlights.length > 0 && (
+            <section class="space-y-6">
+              <div class="flex items-center gap-3">
+                <div class="h-[1px] w-6 bg-accent-primary"></div>
+                <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-accent-primary">Core Highlights</h2>
+              </div>
+              <h3 class="text-2xl font-bold text-text-primary tracking-tight">Key Capabilities & Architecture</h3>
+              
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+                {template.highlights.map((highlight: string) => (
+                  <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/10 flex items-start gap-3.5">
+                    <div class="w-6 h-6 rounded-full bg-accent-primary/20 text-accent-primary flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-bold">
+                      ✓
+                    </div>
+                    <p class="text-xs md:text-sm text-text-muted leading-relaxed font-normal">
+                      {highlight}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- What's in the Box -->
+          {template.included && template.included.length > 0 && (
+            <section class="space-y-6 pt-10 border-t border-border-subtle">
+              <div class="flex items-center gap-3">
+                <div class="h-[1px] w-6 bg-accent-primary"></div>
+                <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-accent-primary">Package Contents</h2>
+              </div>
+              <h3 class="text-2xl font-bold text-text-primary tracking-tight">What's Included in Your Download</h3>
+
+              <div class="rounded-2xl p-6 bg-surface-card border border-white/10 space-y-3.5">
+                {template.included.map((item: string) => (
+                  <div class="flex items-center gap-3 text-xs md:text-sm text-text-primary">
+                    <svg class="w-4 h-4 text-emerald-400 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <!-- Detailed Template Breakdown / PortableText -->
+          {template.content && (
+            <section class="space-y-6 pt-10 border-t border-border-subtle prose prose-invert max-w-none">
+              <div class="flex items-center gap-3 not-prose">
+                <div class="h-[1px] w-6 bg-accent-primary"></div>
+                <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-accent-primary">Design & Engineering</h2>
+              </div>
+              <div class="template-portable-text leading-relaxed text-text-muted text-base space-y-4">
+                <PortableText value={template.content} components={portableTextComponents} />
+              </div>
+            </section>
+          )}
+
+          <!-- FAQ & Licensing Accordion / Grid -->
+          <section class="space-y-6 pt-10 border-t border-border-subtle">
+            <div class="flex items-center gap-3">
+              <div class="h-[1px] w-6 bg-accent-primary"></div>
+              <h2 class="text-xs font-mono uppercase tracking-[0.3em] text-accent-primary">Licensing & Support</h2>
+            </div>
+            <h3 class="text-2xl font-bold text-text-primary tracking-tight">Frequently Asked Questions</h3>
+
+            <div class="space-y-4 mt-6">
+              <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10">
+                <h4 class="text-sm font-bold text-text-primary mb-2">Can I use this template for commercial client projects?</h4>
+                <p class="text-xs md:text-sm text-text-muted leading-relaxed">
+                  Yes, absolutely. The included commercial license grants you full rights to build and deploy unlimited websites for both personal usage and paying client projects.
+                </p>
+              </div>
+
+              <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10">
+                <h4 class="text-sm font-bold text-text-primary mb-2">How do I receive updates?</h4>
+                <p class="text-xs md:text-sm text-text-muted leading-relaxed">
+                  When updates, dependency upgrades, or bug fixes are published, Gumroad automatically sends you an email with instant access to the updated zip bundle.
+                </p>
+              </div>
+
+              <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10">
+                <h4 class="text-sm font-bold text-text-primary mb-2">Need help with setup or custom feature development?</h4>
+                <p class="text-xs md:text-sm text-text-muted leading-relaxed">
+                  You can contact me directly at <a href="mailto:tanujp09@gmail.com" class="text-accent-primary hover:underline">tanujp09@gmail.com</a>. I offer support for installation questions and can be hired for custom integrations.
+                </p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT: Sticky Purchase Box (4 Cols) -->
+        <div class="lg:col-span-4">
+          <div class="sticky top-28 rounded-2xl p-6 md:p-8 bg-surface-card border border-white/10 shadow-2xl space-y-6">
+            
+            <div class="space-y-2">
+              <span class="text-[10px] font-mono uppercase tracking-widest text-text-dim">Commercial License</span>
+              <div class="flex items-baseline justify-between">
+                <span class="text-4xl font-bold font-mono text-white">{template.price}</span>
+                {template.originalPrice && (
+                  <span class="text-sm font-mono line-through text-text-dim">{template.originalPrice}</span>
+                )}
+              </div>
+              <p class="text-xs text-emerald-400 font-mono">One-time payment • Lifetime access</p>
+            </div>
+
+            <div class="pt-4 border-t border-border-subtle space-y-3">
+              {template.gumroadLink ? (
+                <a 
+                  href={template.gumroadLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group/btn w-full py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] bg-accent-primary hover:bg-accent-hover text-white transition-all duration-300 shadow-xl shadow-accent-primary/25 flex items-center justify-center gap-2"
+                >
+                  <span>Buy on Gumroad</span>
+                  <span class="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center text-[10px] transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">
+                    ↗
+                  </span>
+                </a>
+              ) : (
+                <a 
+                  href="/#contact"
+                  class="w-full py-4 rounded-xl text-xs font-bold uppercase tracking-[0.2em] bg-accent-primary text-white text-center block"
+                >
+                  Contact For Purchase
+                </a>
+              )}
+
+              {template.demoLink && (
+                <a 
+                  href={template.demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-full py-3.5 rounded-xl text-xs font-semibold bg-white/5 border border-white/10 text-text-primary hover:text-white hover:bg-white/10 transition-colors flex items-center justify-center gap-2"
+                >
+                  <span>Live Interactive Demo</span>
+                  <span class="text-xs">↗</span>
+                </a>
+              )}
+            </div>
+
+            <!-- Guarantee Checklist -->
+            <div class="pt-6 border-t border-border-subtle/70 space-y-2.5 text-xs text-text-muted">
+              <div class="flex items-center gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Instant Zip Download after checkout</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Complete TypeScript / React code</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Figma design assets (if included)</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Setup guide & documentation</span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <span class="text-emerald-400 font-bold">✓</span>
+                <span>Direct developer support response</span>
+              </div>
+            </div>
+
+            <!-- Author signature -->
+            <div class="pt-6 border-t border-border-subtle/70 flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full bg-accent-primary/20 border border-accent-primary/40 flex items-center justify-center text-xs font-bold text-accent-primary">
+                TP
+              </div>
+              <div>
+                <p class="text-xs font-semibold text-text-primary">Created by Tanuj Pandey</p>
+                <p class="text-[10px] text-text-dim">Full Stack Engineer & Template Author</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+  </div>
+</Layout>

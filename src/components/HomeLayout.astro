@@ -13,12 +13,19 @@ import Contact from "./Contact.astro";
 import SectionHeader from "./SectionHeader.astro";
 import ProjectCard from "./ProjectCard.astro";
 import Ticker from "./Ticker.astro";
+import TemplateCard from "./TemplateCard.astro";
 
-const query = groq`*[_type == "projects"]{...,BackgroundImage{asset->{url}}}`;
+import { fetchAllTemplates } from "../lib/templates";
+
+const query = groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
+  "lumina-dental-premium-dental-website-template",
+  "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
+])]{...,BackgroundImage{asset->{url}}}`;
 const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}}}`;
 
 const projectData = await useSanityClient().fetch(query);
 const blogData = await useSanityClient().fetch(blogquery);
+const templatesData = await fetchAllTemplates();
 ---
 
 <div class="relative min-h-screen selection:bg-accent-primary/30">
@@ -95,6 +102,36 @@ const blogData = await useSanityClient().fetch(blogquery);
 
     <!-- Strategic Development Workflow -->
     <Process />
+
+    <!-- Commercial Templates & Digital Products Section -->
+    {templatesData && templatesData.length > 0 && (
+      <section id="templates" class="py-16 md:py-24 relative z-10 border-t border-border-subtle">
+        <div class="max-w-7xl mx-auto">
+          <SectionHeader 
+            eyebrow="Digital Products // Commercial Templates"
+            title="Featured" 
+            gradientText="Templates" 
+            subtitle="Commercial-ready web templates and boilerplates engineered with React, Next.js, and TypeScript. Ready to deploy for client projects."
+          />
+
+          <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {templatesData.slice(0, 2).map((template, index) => (
+              <TemplateCard template={template} index={index} />
+            ))}
+          </div>
+
+          <div class="mt-12 md:mt-16 flex justify-center">
+            <a 
+              href="/templates" 
+              class="group relative px-10 py-5 md:px-12 md:py-6 border border-border-subtle rounded-full text-[11px] font-black uppercase tracking-[0.4em] md:tracking-[0.5em] text-text-primary overflow-hidden transition-all duration-500 hover:border-accent-primary text-center shadow-ambient"
+            >
+              <span class="relative z-10">Explore All Templates</span>
+              <div class="absolute inset-0 bg-accent-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+            </a>
+          </div>
+        </div>
+      </section>
+    )}
 
     <!-- Blogs Section -->
     <section id="blogs" class="py-16 md:py-20 relative z-10 border-t border-border-subtle">

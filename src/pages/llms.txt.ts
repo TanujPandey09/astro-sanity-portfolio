@@ -65,7 +65,7 @@ export const GET: APIRoute = async () => {
   const productLines = products
     .map((project) => {
       const description = clean(portableTextToPlainText(project.excerpt));
-      return `- [${clean(project.projectName)}](${project.gumroadLink})${description ? `: ${description}` : ""}`;
+      return `- [${clean(project.projectName)}](${siteUrl}/templates/${project.slug!.current})${description ? `: ${description}` : ""} (Gumroad: ${project.gumroadLink})`;
     })
     .join("\n");
 
@@ -80,16 +80,17 @@ export const GET: APIRoute = async () => {
 
 > Full Stack Engineer and AI Solutions Architect with 4+ years of experience building secure, high-performance web applications, scalable APIs, headless CMS integrations, and AI chatbot workflows.
 
-## About
+## Navigation
 - [About Tanuj Pandey](${siteUrl}/about): Background, technical expertise, and professional experience.
-- [Projects](${siteUrl}/projects): Portfolio of production web applications and case studies.
+- [Projects](${siteUrl}/projects): Portfolio of production web applications and custom case studies.
+- [Templates](${siteUrl}/templates): Production-ready commercial website templates available on Gumroad.
 - [Blog](${siteUrl}/blogs): Technical articles on Astro, React, Node.js, Sanity CMS, and AI integrations.
 
 ## Case Studies
 ${projectLines || "- No case studies published yet."}
 
-## Products
-${productLines || "- No products published yet."}
+## Commercial Website Templates
+${productLines || "- No templates published yet."}
 
 ## Writing
 ${blogLines || "- No articles published yet."}

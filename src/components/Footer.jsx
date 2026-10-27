@@ -34,6 +34,7 @@ export default function Footer() {
               <p className="text-[10px] font-black text-text-primary uppercase tracking-[0.4em]">Navigation</p>
               <ul className="space-y-3 md:space-y-4">
                 <li><a href="/projects" className="text-sm text-text-muted hover:text-accent-primary transition-colors">Portfolio</a></li>
+                <li><a href="/templates" className="text-sm text-text-muted hover:text-accent-primary transition-colors">Templates</a></li>
                 <li><a href="/blogs" className="text-sm text-text-muted hover:text-accent-primary transition-colors">Blog</a></li>
                 <li><a href="/about" className="text-sm text-text-muted hover:text-accent-primary transition-colors">About</a></li>
               </ul>

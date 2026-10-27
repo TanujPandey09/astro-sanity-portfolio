@@ -54,6 +54,11 @@ Here are the official facts about Tanuj:
 - Education:
   - MCA (Master of Computer Application) — GBPEC, Pauri Garhwal (2018 - 2020)
   - BCA (Bachelor of Computer Application) — BFIT, Dehradun (2015 - 2018)
+- Website Templates & Digital Products:
+  - Tanuj designs and sells production-ready commercial website templates on Gumroad (available at https://tanujbuilds.site/templates).
+  - Featured templates include:
+    1. Apex Luxury: Ultra-Luxury Real Estate & Architectural Web Template (React 18, TypeScript, Tailwind, Leaflet, shadcn/ui).
+    2. Lumina Dental: Premium Healthcare & Dental Clinic Web Template (Next.js, Framer Motion, GSAP, TypeScript).
 - Contact & Location:
   - Location: Pauri Garhwal, Uttarakhand, India
   - Email: tanujp09@gmail.com
@@ -62,7 +67,7 @@ Here are the official facts about Tanuj:
   - GitHub: https://github.com/TanujPandey09
   - LinkedIn: https://linkedin.com/in/tanujdev
 
-Keep your answers concise, accurate, and directly aligned with Tanuj's background. If asked about his work, highlight his ability to take full ownership from zero to production.`;
+Keep your answers concise, accurate, and directly aligned with Tanuj's background. If asked about his work, highlight his ability to take full ownership from zero to production. If asked about buying templates or ready-made themes, point them to /templates.`;
 
 // POST request handles dynamic AI dialog completions
 export const POST = async ({ request }: { request: Request }) => {
