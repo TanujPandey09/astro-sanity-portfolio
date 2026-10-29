@@ -439,15 +439,35 @@ const structuredData = {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
   }
 
   body {
     overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+    position: relative;
     background-color: var(--bg-deep);
     color: var(--text-muted);
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: var(--p-mobile);
     line-height: var(--line-height-normal);
+  }
+
+  #main-content {
+    overflow-x: hidden;
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    [data-aos] {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -583,19 +603,14 @@ const structuredData = {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Initialize AOS locally
-  AOS.init({ once: true, duration: 600, disable: 'mobile' });
-
   // When AOS is disabled (mobile) it strips the [data-aos] attributes once and
-  // never enables its MutationObserver. After a ClientRouter navigation the
-  // freshly swapped-in [data-aos] nodes would therefore stay at opacity:0
-  // (the hero included) and only JS-driven sections would ever appear.
-  // Re-sync on every page load so new nodes always resolve to a visible state.
+  // never enables its MutationObserver. Strip [data-aos] on mobile viewports
+  // BEFORE initializing AOS so off-axis transforms never widen the mobile viewport.
   const isAOSDisabled = () =>
     window.matchMedia('(max-width: 767px)').matches ||
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-  const syncAOS = () => {
+  const stripMobileAOS = () => {
     if (isAOSDisabled()) {
       document.querySelectorAll('[data-aos]').forEach((el) => {
         el.removeAttribute('data-aos');
@@ -603,6 +618,17 @@ const structuredData = {
         el.removeAttribute('data-aos-duration');
         el.removeAttribute('data-aos-easing');
       });
+    }
+  };
+
+  stripMobileAOS();
+
+  // Initialize AOS locally (disabled on <768px viewports and mobile devices)
+  AOS.init({ once: true, duration: 600, disable: isAOSDisabled });
+
+  const syncAOS = () => {
+    if (isAOSDisabled()) {
+      stripMobileAOS();
     } else {
       AOS.refreshHard();
     }

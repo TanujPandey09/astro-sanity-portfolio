@@ -18,10 +18,10 @@ const { projectData = [] } = Astro.props;
       
       <!-- Section Header -->
       <SectionHeader 
-        eyebrow="Portfolio // Showcase"
-        title="Complete" 
-        gradientText="Projects" 
-        subtitle="A comprehensive showcase of production applications, enterprise SaaS platforms, and client deliveries."
+        eyebrow="Portfolio Index"
+        title="Shipped" 
+        gradientText="Case Studies" 
+        subtitle="Production SaaS platforms, multi-LLM applications, and full-stack web architectures engineered end to end."
       />
 
       <!-- Bento Grid displaying all projects directly in SSR -->
@@ -37,13 +37,13 @@ const { projectData = [] } = Astro.props;
       <!-- Closing Note -->
       <div class="mt-20 md:mt-28 py-10 md:py-14 border-t border-border-subtle flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="space-y-2">
-          <p class="text-[11px] font-mono uppercase tracking-[0.3em] text-text-dim">Portfolio // Index</p>
+          <p class="text-[11px] font-mono uppercase tracking-[0.2em] text-text-dim">Archive Summary</p>
           <p class="text-xl md:text-2xl font-semibold text-text-primary tracking-tight max-w-xl">
             {projectData.length} production builds, shipped end to end.
           </p>
         </div>
-        <a href="/#contact" class="group inline-flex items-center gap-3 text-[11px] font-mono uppercase tracking-[0.3em] text-text-muted hover:text-white transition-colors">
-          Start a project
+        <a href="/#contact" class="group inline-flex items-center gap-3 text-xs font-mono uppercase tracking-wider text-text-muted hover:text-white transition-colors">
+          <span>Start a Project</span>
           <span class="w-8 h-8 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-border-hover transition-colors">↗</span>
         </a>
       </div>

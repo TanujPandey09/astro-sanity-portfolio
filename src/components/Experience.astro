@@ -3,496 +3,396 @@ const experienceData = [
   {
     role: "Full Stack Developer",
     company: "Cxisuite",
-    duration: "Sep 2025 - Present",
+    duration: "Sep 2025 — Present",
     period: "2025 — Present",
     type: "Remote",
+    isCurrent: true,
     badge: "Current Role",
+    headlineOutcome: "Sawt AI & Multi-LLM SaaS",
     companyUrl: "https://cxisuite.com/",
-    description: "Developed and shipped Sawt AI, an AI-powered survey SaaS for the Saudi market with bilingual Arabic/English support and RTL-first UX. Built full-stack features using React.js, Next.js, Node.js, Express.js, and TypeScript, integrating REST APIs and production workflows.",
+    description: "Architected and shipped Sawt AI, a bilingual Arabic/English AI survey SaaS for the Saudi market, alongside real-time CRM and mobile platforms.",
     highlights: [
-      "Integrated multiple AI providers (GPT, Gemini, Grok, Perplexity) with robust response validation workflows for consistent, brand-safe outputs.",
-      "Implemented MyFatoorah subscription billing, tier-based access control, API usage tracking, webhooks, analytics, and automated email workflows.",
-      "Built secure backend systems including role-based authentication, rate limiting, audit logging, and bot protection; contributed full-stack CRM with Socket.IO real-time workflows, SLA tracking, and pipelines.",
-      "Developed React Native features and contributed to Thaddi, an Arabic-first football prediction platform, including mobile/web product development and release workflows."
+      "Integrated multi-LLM pipelines (GPT, Gemini, Grok, Perplexity) with response validation and MyFatoorah subscription billing, webhooks, and tier access control.",
+      "Engineered role-based auth, rate limiting, audit logging, and a real-time CRM using Socket.IO with live SLA tracking.",
+      "Contributed React Native mobile and web release workflows for Thaddi, an Arabic-first football prediction platform."
     ],
-    metrics: ["Sawt AI & Thaddi Released", "Multi-LLM Validation", "MyFatoorah Billing", "Socket.IO Real-Time CRM"],
-    technologies: [
-      { name: "React.js", color: "#61DAFB" },
-      { name: "Next.js", color: "#FFFFFF" },
-      { name: "Node.js", color: "#68A063" },
-      { name: "TypeScript", color: "#3178C6" },
-      { name: "React Native", color: "#61DAFB" },
-      { name: "Socket.IO", color: "#00F0FF" },
-      { name: "PostgreSQL", color: "#336791" },
-      { name: "OpenAI / Gemini", color: "#10A37F" }
+    kpis: [
+      { value: "4+ LLMs", label: "Orchestrated in Production" },
+      { value: "Real-Time", label: "Socket.IO CRM & Billing" }
     ],
+    technologies: ["React.js", "Next.js", "Node.js", "TypeScript", "React Native", "Socket.IO", "PostgreSQL", "OpenAI / Gemini"],
     logo: "https://cxisuite.com/assets/logo1_1757929917544-2LY1vMCS.png",
   },
   {
-    role: "Frontend Developer (Solo Ownership)",
+    role: "Frontend Developer",
     company: "Nasya IT",
-    duration: "Feb 2025 - Jul 2025",
+    duration: "Feb 2025 — Jul 2025",
     period: "2025",
     type: "Remote",
-    badge: "Zero-to-One Launch",
+    isCurrent: false,
+    badge: "Solo Ownership",
+    headlineOutcome: "Multi-Role Healthcare SaaS",
     companyUrl: "https://www.nasyait.com/",
-    description: "Solely owned the frontend of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic), covering UI design, development, and user testing without designer or QA support.",
+    description: "Solely owned the frontend architecture of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic) from UI design through production release.",
     highlights: [
-      "Built 3 role-based login flows with secure authentication and 10+ CRUD modules including patient management, appointment scheduling, clinic records, and admin controls.",
-      "Developed data-rich dashboards with reactive filters, charts, and exportable reports; integrated Node.js/MongoDB REST APIs across all roles.",
-      "Delivered end-to-end user experience autonomously from zero to production deployment."
+      "Built 3 role-based authentication portals and 10+ CRUD modules covering patient records, appointment scheduling, and clinic operations.",
+      "Developed interactive medical dashboards with reactive filters, charting, and exportable reports connected to Node.js and MongoDB APIs.",
+      "Shipped the complete frontend autonomously from zero to production without dedicated designer or QA support."
     ],
-    metrics: ["Solo Frontend Ownership", "10+ Healthcare CRUD Modules", "3 Role-Based Portals", "Responsive Medical Charts"],
-    technologies: [
-      { name: "React.js", color: "#61DAFB" },
-      { name: "Node.js", color: "#68A063" },
-      { name: "MongoDB", color: "#47A248" },
-      { name: "REST APIs", color: "#00F0FF" },
-      { name: "Tailwind CSS", color: "#38BDF8" }
+    kpis: [
+      { value: "10+ Modules", label: "Healthcare CRUD & Charts" },
+      { value: "4 Portals", label: "Admin, Doctor, Patient, Clinic" }
     ],
+    technologies: ["React.js", "Node.js", "MongoDB", "REST APIs", "Tailwind CSS"],
     logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1763596800&v=beta&t=CGXPjRheeE9w7-_LqT0R1QXLenCDi8JQWjVejhUlBRg",
   },
   {
     role: "React Developer",
     company: "Techmatys",
-    duration: "May 2024 - Dec 2024",
+    duration: "May 2024 — Dec 2024",
     period: "2024",
     type: "Onsite",
+    isCurrent: false,
     badge: "Enterprise EdTech",
+    headlineOutcome: "Moodle LMS & React Dashboards",
     companyUrl: "https://www.linkedin.com/company/techmatys/",
-    description: "Built and customized Moodle-based LMS frontends for educational institutions; developed responsive dashboards and reusable React.js components for student, teacher, and administrator workflows.",
+    description: "Engineered and customized Moodle-based LMS frontends and reusable React.js dashboard systems for institutional student, teacher, and admin workflows.",
     highlights: [
-      "Created academic management modules for attendance, assessments, course management, and reporting.",
-      "Integrated REST APIs and optimized frontend performance through code splitting and lazy loading.",
-      "Standardized component patterns across student and administrative dashboards."
+      "Built academic management modules for attendance tracking, grading assessments, course scheduling, and institutional reporting.",
+      "Integrated REST APIs and accelerated dashboard load times via route-level code splitting and lazy loading.",
+      "Standardized reusable UI component patterns across student and administrative portals."
     ],
-    metrics: ["Moodle LMS Frontends", "Academic Management Core", "Lazy Loading & Code Splitting", "Enterprise Dashboards"],
-    technologies: [
-      { name: "React.js", color: "#61DAFB" },
-      { name: "Moodle LMS", color: "#FF7800" },
-      { name: "REST APIs", color: "#00F0FF" },
-      { name: "Ant Design", color: "#0170FE" },
-      { name: "JavaScript (ES6+)", color: "#F7DF1E" }
+    kpis: [
+      { value: "3 Roles", label: "Student, Teacher & Admin UI" },
+      { value: "Code-Split", label: "Lazy-Loaded LMS Bundles" }
     ],
+    technologies: ["React.js", "Moodle LMS", "REST APIs", "Ant Design", "JavaScript (ES6+)"],
     logo: "/img/techmatys.jfif",
   },
   {
     role: "Frontend Developer",
     company: "Scube.co",
-    duration: "Jan 2022 - Feb 2024",
+    duration: "Jan 2022 — Feb 2024",
     period: "2022 — 2024",
     type: "Remote",
-    badge: "Core Web Vitals & Scale",
+    isCurrent: false,
+    badge: "Core Web Vitals",
+    headlineOutcome: "50% Faster Next.js SaaS",
     companyUrl: "https://www.scube.co/",
-    description: "Built the full frontend of Breeze SaaS using Next.js (SSR/SSG) + TypeScript; integrated REST APIs and GraphQL CMS queries with Sanity.io, Contentful, and Strapi.",
+    description: "Built the production frontend of Breeze SaaS using Next.js (SSR/SSG) and TypeScript, integrating GraphQL and headless CMS pipelines.",
     highlights: [
-      "Optimized Core Web Vitals (LCP, CLS, FID, TTFB) through image optimization, code splitting, and caching.",
-      "Achieved a 50% improvement in page load speed and a 20% boost in user engagement across production web applications.",
-      "Architected clean headless CMS query pipelines for dynamic content publishing."
+      "Optimized Core Web Vitals (LCP, CLS, TTFB) via next/image optimization, code splitting, and edge caching strategies.",
+      "Delivered a 50% improvement in page load speed and a 20% increase in user engagement across production web properties.",
+      "Architected headless CMS content pipelines across Sanity.io, Contentful, and Strapi."
     ],
-    metrics: ["50% Speed Acceleration", "20% Engagement Surge", "Next.js SSR/SSG Engine", "Sanity / Contentful / Strapi"],
-    technologies: [
-      { name: "Next.js", color: "#FFFFFF" },
-      { name: "TypeScript", color: "#3178C6" },
-      { name: "GraphQL", color: "#E10098" },
-      { name: "Sanity.io", color: "#F03E2F" },
-      { name: "Contentful", color: "#2478CC" },
-      { name: "Strapi", color: "#8E75FF" }
+    kpis: [
+      { value: "50% Faster", label: "Core Web Vitals & LCP" },
+      { value: "+20% Lift", label: "Production User Engagement" }
     ],
+    technologies: ["Next.js", "TypeScript", "GraphQL", "Sanity.io", "Contentful", "Strapi"],
     logo: "/img/SCUBE.webp",
   },
 ];
 ---
 
-<section id="experience" class="relative z-10 border-t border-white/[0.08] py-20 md:py-32 overflow-hidden">
-  <!-- Subtle Ambient Glow Orbs in Background -->
-  <div class="absolute -top-32 left-1/4 w-96 h-96 bg-accent-primary/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
-  <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-accent-primary/5 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<section id="experience" class="relative z-10 border-t border-white/[0.08] py-14 sm:py-20 md:py-24 overflow-hidden">
+  <!-- Subtle Ambient Spotlight -->
+  <div class="absolute -top-24 left-1/3 w-96 h-96 bg-accent-primary/5 rounded-full blur-[130px] pointer-events-none -z-10"></div>
 
-  <div class="w-full">
-    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-      
-      <!-- Left Column: Sticky Editorial HUD & Context -->
-      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
-        <div class="space-y-4">
-          <!-- Active Trajectory Pill -->
-          <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
-            <span class="relative flex h-2 w-2">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-status-live opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2 w-2 bg-status-live"></span>
-            </span>
-            <span class="text-[10px] font-mono font-semibold uppercase tracking-[0.25em] text-text-dim">Engineering History</span>
+  <div class="w-full max-w-7xl mx-auto">
+    <!-- Editorial Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8 sm:mb-10">
+      <div>
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-primary/10 border border-accent-primary/20 mb-3">
+          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
+          <span class="text-[10px] font-mono uppercase tracking-[0.2em] text-accent-primary font-semibold">Career Ledger</span>
+        </div>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.08]">
+          Work <span class="text-gradient">Experience</span>
+        </h2>
+        <p class="mt-2.5 text-text-muted text-sm sm:text-base font-normal leading-relaxed max-w-2xl">
+          4+ years shipping commercial SaaS products, multi-role healthcare portals, and production AI systems.
+        </p>
+      </div>
+
+      <div class="shrink-0 flex items-center gap-3">
+        <a
+          href="/Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group inline-flex items-center gap-2.5 pl-4 pr-3 py-2 rounded-full bg-surface-card hover:bg-surface-elevated border border-white/[0.10] hover:border-accent-primary/40 text-xs font-mono font-semibold text-text-primary transition-all shadow-sm"
+        >
+          <span>Download CV</span>
+          <span class="w-5 h-5 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center text-[10px] text-accent-hover transition-all">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Framer-Style Double-Bezel Interactive Experience Ledger (Single-Open Accordion = Zero Long Scroll) -->
+    <div class="rounded-[22px] sm:rounded-[26px] p-1.5 bg-white/[0.03] border border-white/[0.09] shadow-card">
+      <div class="rounded-[17px] sm:rounded-[21px] bg-surface-card border border-white/[0.05] overflow-hidden divide-y divide-white/[0.07]">
+        
+        <!-- Top Architectural Metadata Strip -->
+        <div class="px-4 sm:px-7 py-3 bg-white/[0.015] flex items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono text-text-dim">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-status-live"></span>
+            <span>04 PRODUCTION ROLES · 2022 — 2026</span>
           </div>
-
-          <!-- Section Title with Gradient -->
-          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-[1.1]">
-            Work <span class="text-gradient">Experience</span>
-          </h2>
-
-          <p class="text-text-muted text-sm sm:text-base font-normal leading-relaxed max-w-lg">
-            A chronological timeline of production engineering, SaaS architectures, and high-impact web applications built across remote & cross-functional teams.
-          </p>
+          <span class="hidden sm:inline text-text-dim">SELECT ANY ROLE TO EXPAND ARCHITECTURE</span>
+          <span class="sm:hidden text-text-dim">TAP ROLE TO EXPAND</span>
         </div>
 
-        <!-- Live Scroll Progress Meter -->
-        <div class="p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] backdrop-blur-md space-y-3">
-          <div class="flex items-center justify-between text-xs font-mono">
-            <span class="text-text-dim tracking-wider uppercase">Timeline Scroll Progress</span>
-            <span id="exp-total-progress" class="text-accent-primary font-bold">0%</span>
-          </div>
-          <div class="h-1.5 w-full bg-white/[0.06] rounded-full overflow-hidden relative">
-            <div id="exp-hud-bar" class="h-full w-0 bg-accent-primary rounded-full transition-all duration-150"></div>
-          </div>
-        </div>
-
-        <!-- Interactive Quick Jump Station -->
-        <div class="space-y-2.5 pt-2 hidden sm:block">
-          <p class="text-[10px] font-mono uppercase tracking-[0.2em] text-text-dim px-1">Jump to Organization</p>
-          <div class="space-y-1.5" id="timeline-hud-list">
-            {experienceData.map((exp, i) => (
+        <!-- Accordion Rows (All 4 Companies Always Visible; 1 Expanded at a Time) -->
+        {experienceData.map((exp, index) => {
+          const isFirst = index === 0;
+          return (
+            <div
+              class={`exp-ledger-item group transition-colors duration-300 ${
+                isFirst ? "is-open bg-surface-elevated/40" : "hover:bg-white/[0.015]"
+              }`}
+              data-exp-item={index}
+            >
+              <!-- Interactive Row Header Button -->
               <button
                 type="button"
-                data-jump-index={i}
-                class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-transparent hover:border-white/10 hover:bg-white/[0.03] transition-all text-left group hud-item cursor-pointer"
+                aria-expanded={isFirst ? "true" : "false"}
+                aria-controls={`exp-drawer-${index}`}
+                id={`exp-trigger-${index}`}
+                data-exp-trigger={index}
+                class="w-full text-left px-4 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-3 sm:gap-6 cursor-pointer focus:outline-none"
               >
-                <div class="flex items-center gap-3">
-                  <span class="text-[11px] font-mono font-bold text-text-dim group-hover:text-accent-primary transition-colors hud-index">{String(i + 1).padStart(2, "0")}</span>
-                  <span class="text-xs font-medium text-text-muted group-hover:text-white transition-colors hud-company">{exp.company}</span>
-                </div>
-                <div class="flex items-center gap-2">
-                  <span class="text-[10px] font-mono text-text-dim">{exp.period}</span>
-                  <div class="w-1.5 h-1.5 rounded-full bg-white/20 hud-dot transition-all group-hover:bg-accent-primary"></div>
-                </div>
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <!-- Career Highlights Footer -->
-        <div class="pt-2 flex flex-wrap items-center gap-3 text-xs font-mono text-text-dim">
-          <span class="inline-flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span> 4+ Years Commercial Dev
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-text-dim"></span> Production SaaS
-          </span>
-          <span class="inline-flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-text-dim"></span> Full-Stack Focus
-          </span>
-        </div>
-      </div>
-
-      <!-- Right Column: Premium Scroll-Driven Vertical Timeline -->
-      <div class="lg:col-span-7 relative" id="experience-timeline-container">
-        
-        <!-- Continuous Vertical Timeline Rail -->
-        <div class="absolute left-4 sm:left-6 md:left-8 top-6 bottom-6 w-[2px] pointer-events-none z-0">
-          <!-- Static Background Track -->
-          <div class="w-full h-full bg-white/[0.08] rounded-full"></div>
-          
-          <!-- Dynamic Scroll-Driven Progress Beam -->
-          <div
-            id="timeline-progress-beam"
-            class="absolute top-0 left-0 w-full bg-accent-primary rounded-full shadow-[0_0_12px_rgba(94,106,210,0.45)]"
-            style="height: 0%;"
-          ></div>
-
-          <!-- Luminous Traveling Glow Head -->
-          <div
-            id="timeline-traveling-dot"
-            class="absolute -left-[5px] w-3 h-3 rounded-full bg-accent-hover shadow-[0_0_10px_rgba(94,106,210,0.55)] border-2 border-canvas transition-opacity duration-300 opacity-0"
-            style="top: 0%;"
-          ></div>
-        </div>
-
-        <!-- Experience Items Stack -->
-        <div class="space-y-12 sm:space-y-16">
-          {experienceData.map((exp, index) => (
-            <div
-              class="experience-item relative pl-12 sm:pl-16 md:pl-20 group"
-              data-index={index}
-              id={`experience-node-${index}`}
-            >
-              <!-- Timeline Node Marker -->
-              <div
-                class="absolute left-4 sm:left-6 md:left-8 top-6 -translate-x-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-canvas border-2 border-white/20 flex items-center justify-center transition-all duration-500 timeline-node group-hover:border-accent-primary group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(94,106,210,0.35)]"
-              >
-                {index === 0 ? (
-                  <span class="relative flex h-2.5 w-2.5">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-primary opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-accent-primary"></span>
-                  </span>
-                ) : (
-                  <span class="text-[10px] font-mono font-bold text-text-dim node-number transition-colors group-hover:text-accent-primary">
+                <!-- Left: Index + Logo + Role + Company -->
+                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                  <span class={`exp-idx hidden xs:inline-flex font-mono text-xs font-bold tabular-nums transition-colors ${
+                    isFirst ? "text-accent-hover" : "text-text-dim group-hover:text-text-muted"
+                  }`}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                )}
-              </div>
 
-              <!-- Editorial Experience Card -->
-              <div
-                class="experience-card relative rounded-2xl bg-surface-card/90 border border-white/[0.08] p-6 sm:p-8 backdrop-blur-md transition-all duration-500 hover:border-border-hover hover:bg-surface-elevated/95 hover:shadow-[0_16px_40px_rgba(0,0,0,0.5)] group-hover:translate-x-1 space-y-6"
-              >
-                <!-- Delicate top hairline gradient -->
-                <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/15 to-transparent rounded-t-2xl pointer-events-none"></div>
+                  <!-- Machined Logo Container -->
+                  <div class={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-white/[0.04] p-2 border transition-all duration-300 shrink-0 flex items-center justify-center overflow-hidden ${
+                    isFirst ? "border-accent-primary/40 shadow-[0_0_18px_rgba(94,106,210,0.18)]" : "border-white/10 group-hover:border-white/20"
+                  }`}>
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-contain"
+                      onerror="this.style.display='none'"
+                    />
+                  </div>
 
-                <!-- Header Row: Company Info & Time Badge -->
-                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-white/[0.08] pb-6">
-                  
-                  <!-- Left: Logo + Role + Company -->
-                  <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-xl bg-white/[0.04] p-2 border border-white/10 group-hover:border-border-hover transition-all duration-300 overflow-hidden shrink-0 flex items-center justify-center shadow-inner">
-                      <img
-                        src={exp.logo}
-                        alt={exp.company}
-                        width="48"
-                        height="48"
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-full object-contain filter group-hover:brightness-110 transition-all duration-300"
-                        onerror="this.style.display='none'"
-                      />
-                    </div>
-                    
-                    <div class="space-y-1">
-                      <div class="flex flex-wrap items-center gap-2">
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-accent-primary/10 border border-accent-primary/20 text-accent-primary font-medium">
-                          {exp.badge}
-                        </span>
-                        <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-text-dim">
-                          {exp.type}
-                        </span>
-                      </div>
-                      
-                      <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight leading-snug">
+                  <!-- Role & Company Title -->
+                  <div class="min-w-0">
+                    <div class="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                      <h3 class="text-sm sm:text-lg font-bold text-white tracking-tight truncate">
                         {exp.role}
                       </h3>
-                      
-                      <a
-                        href={exp.companyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="inline-flex items-center gap-1.5 font-mono text-xs sm:text-sm font-semibold text-text-muted hover:text-accent-primary transition-colors"
-                      >
-                        <span>{exp.company}</span>
-                        <svg class="w-3.5 h-3.5 stroke-current transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
+                      <span class="text-white/20 hidden sm:inline">·</span>
+                      <span class="text-xs sm:text-sm font-mono font-semibold text-accent-hover truncate">
+                        {exp.company}
+                      </span>
+                      {exp.isCurrent ? (
+                        <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-0.5 rounded-full bg-status-live/10 border border-status-live/25 text-status-live font-medium">
+                          <span class="w-1.5 h-1.5 rounded-full bg-status-live animate-pulse"></span>
+                          {exp.badge}
+                        </span>
+                      ) : (
+                        <span class="hidden md:inline-flex text-[10px] font-mono px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-text-muted">
+                          {exp.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <!-- Mobile Subline: Period & Type -->
+                    <div class="flex sm:hidden items-center gap-2 mt-0.5 text-[11px] font-mono text-text-dim">
+                      <span>{exp.duration}</span>
+                      <span>·</span>
+                      <span>{exp.type}</span>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Right: Duration Badge -->
-                  <div class="sm:text-right shrink-0">
-                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.03] border border-white/10 text-[11px] sm:text-xs font-mono text-text-muted">
-                      <svg class="w-3.5 h-3.5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      {exp.duration}
-                    </span>
+                <!-- Right: Key Outcome Pill (Desktop) + Duration + Animated Expand Button -->
+                <div class="flex items-center gap-3 sm:gap-5 shrink-0">
+                  <span class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.07] text-[11px] font-mono text-text-muted">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
+                    {exp.headlineOutcome}
+                  </span>
+
+                  <div class="hidden sm:flex flex-col items-end text-right">
+                    <span class="text-xs font-mono font-medium text-text-primary tabular-nums">{exp.duration}</span>
+                    <span class="text-[10px] font-mono text-text-dim">{exp.type}</span>
+                  </div>
+
+                  <!-- Sleek Framer Circular Plus/Minus Toggle -->
+                  <span class={`exp-chevron w-8 h-8 sm:w-9 sm:h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                    isFirst
+                      ? "bg-accent-primary text-white border-accent-primary rotate-180 shadow-[0_0_15px_rgba(94,106,210,0.4)]"
+                      : "bg-white/[0.03] text-text-muted border-white/10 group-hover:border-white/25 group-hover:text-white"
+                  }`}>
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </div>
+              </button>
+
+              <!-- Smooth CSS Grid Accordion Drawer -->
+              <div
+                id={`exp-drawer-${index}`}
+                role="region"
+                aria-labelledby={`exp-trigger-${index}`}
+                class={`exp-drawer grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
+                  isFirst ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div class="overflow-hidden">
+                  <div class="px-4 sm:px-7 pb-5 sm:pb-7 pt-1">
+                    <!-- Inner Framer Bento Split -->
+                    <div class="grid lg:grid-cols-12 gap-4 sm:gap-5 p-4 sm:p-5 rounded-2xl bg-canvas/60 border border-white/[0.07]">
+                      
+                      <!-- Left (7 Cols): Executive Summary & 3 Key Engineering Deliverables -->
+                      <div class="lg:col-span-7 space-y-3.5 min-w-0">
+                        <p class="text-xs sm:text-sm text-text-primary font-medium leading-relaxed">
+                          {exp.description}
+                        </p>
+
+                        <ul class="space-y-2 pt-2.5 border-t border-white/[0.06]">
+                          {exp.highlights.map((point) => (
+                            <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-text-muted leading-relaxed">
+                              <span class="w-1.5 h-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0"></span>
+                              <span>{point}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      <!-- Right (5 Cols): Verified Impact KPIs + Stack + Company Link -->
+                      <div class="lg:col-span-5 flex flex-col justify-between gap-4 p-3.5 sm:p-4 rounded-xl bg-surface-card border border-white/[0.06] min-w-0">
+                        <div class="space-y-3.5">
+                          <!-- 2x1 KPI Bento Tiles -->
+                          <div class="grid grid-cols-2 gap-2.5">
+                            {exp.kpis.map((kpi) => (
+                              <div class="p-2.5 sm:p-3 rounded-lg bg-surface-elevated/80 border border-white/[0.06]">
+                                <div class="text-sm sm:text-base font-bold font-mono text-white tracking-tight">
+                                  {kpi.value}
+                                </div>
+                                <div class="text-[10px] font-mono text-text-dim mt-0.5 leading-tight">
+                                  {kpi.label}
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+
+                          <!-- Core Stack Pills -->
+                          <div class="space-y-1.5">
+                            <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-text-dim block">Production Stack</span>
+                            <div class="flex flex-wrap gap-1.5">
+                              {exp.technologies.map((tech) => (
+                                <span class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.08] text-[11px] font-mono text-text-muted">
+                                  {tech}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Footer Link -->
+                        <div class="pt-2.5 border-t border-white/[0.06] flex items-center justify-between">
+                          <span class="text-[10px] font-mono text-text-dim">{exp.badge}</span>
+                          <a
+                            href={exp.companyUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-accent-hover hover:text-white transition-colors"
+                          >
+                            <span>Visit {exp.company}</span>
+                            <span>↗</span>
+                          </a>
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
                 </div>
-
-                <!-- Metrics & Key Impacts Grid -->
-                <div class="space-y-2">
-                  <span class="text-[10px] font-mono uppercase tracking-[0.15em] text-text-dim block">Key Achievements & Impact</span>
-                  <div class="flex flex-wrap gap-2">
-                    {exp.metrics.map(metric => (
-                      <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-medium text-text-muted bg-white/[0.03] border border-white/10 px-3 py-1 rounded-lg">
-                        <span class="w-1.5 h-1.5 rounded-full bg-accent-primary shrink-0"></span>
-                        {metric}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                <!-- Deep Narrative & Bullet Points -->
-                <div class="rounded-xl bg-white/[0.02] border border-white/[0.05] p-5 space-y-3.5">
-                  <p class="text-text-muted leading-relaxed text-sm sm:text-[15px] font-normal">
-                    {exp.description}
-                  </p>
-                  {exp.highlights && exp.highlights.length > 0 && (
-                    <ul class="space-y-2 pt-3 border-t border-white/[0.06]">
-                      {exp.highlights.map(point => (
-                        <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-text-muted leading-relaxed">
-                          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0"></span>
-                          <span>{point}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-
-                <!-- Core Technologies Utilized -->
-                <div class="space-y-2 pt-1">
-                  <span class="text-[10px] font-mono uppercase tracking-[0.15em] text-text-dim block">Core Stack</span>
-                  <div class="flex flex-wrap gap-2">
-                    {exp.technologies.map(tech => (
-                      <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/[0.08] text-xs font-mono text-text-muted hover:text-white hover:border-white/20 transition-all">
-                        <span class="w-2 h-2 rounded-full shrink-0 bg-text-dim"></span>
-                        {tech.name}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
               </div>
+
             </div>
-          ))}
-        </div>
+          );
+        })}
 
       </div>
-
     </div>
   </div>
 </section>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  const initExperienceLedger = () => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-exp-item]'));
+    const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-exp-trigger]'));
 
-  gsap.registerPlugin(ScrollTrigger);
+    if (!items.length || !triggers.length) return;
 
-  const initExperienceInteractive = () => {
-    // Respect prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    const container = document.getElementById('experience-timeline-container');
-    const beam = document.getElementById('timeline-progress-beam');
-    const travelingDot = document.getElementById('timeline-traveling-dot');
-    const expTotalProgress = document.getElementById('exp-total-progress');
-    const hudBar = document.getElementById('exp-hud-bar');
-    const items = gsap.utils.toArray('.experience-item');
-    const hudButtons = gsap.utils.toArray('.hud-item');
+    const openRow = (targetIdx: number) => {
+      items.forEach((item, idx) => {
+        const trigger = item.querySelector<HTMLButtonElement>('[data-exp-trigger]');
+        const drawer = item.querySelector<HTMLElement>('.exp-drawer');
+        const chevron = item.querySelector<HTMLElement>('.exp-chevron');
+        const idxLabel = item.querySelector<HTMLElement>('.exp-idx');
 
-    if (!container || !beam) return;
+        const isOpen = idx === targetIdx;
 
-    if (prefersReducedMotion) {
-      if (beam) (beam as HTMLElement).style.height = '100%';
-      if (hudBar) (hudBar as HTMLElement).style.width = '100%';
-      if (expTotalProgress) expTotalProgress.textContent = '100%';
-      return;
-    }
+        item.classList.toggle('is-open', isOpen);
+        item.classList.toggle('bg-surface-elevated/40', isOpen);
+        item.classList.toggle('hover:bg-white/[0.015]', !isOpen);
 
-    // 1. Continuous Vertical Timeline Scroll Scrub
-    ScrollTrigger.create({
-      trigger: container,
-      start: "top 70%",
-      end: "bottom 75%",
-      scrub: 0.3,
-      onUpdate: (self) => {
-        const pct = Math.round(self.progress * 100);
-        
-        // Update vertical beam height
-        gsap.to(beam, {
-          height: `${pct}%`,
-          duration: 0.1,
-          ease: "none"
-        });
-
-        // Update glowing traveling dot
-        if (travelingDot) {
-          gsap.to(travelingDot, {
-            top: `${pct}%`,
-            opacity: self.progress > 0.02 && self.progress < 0.98 ? 1 : 0,
-            duration: 0.1,
-            ease: "none"
-          });
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
         }
 
-        // Update left HUD bar & percentage
-        if (hudBar) hudBar.style.width = `${pct}%`;
-        if (expTotalProgress) expTotalProgress.textContent = `${pct}%`;
-      }
-    });
-
-    // 2. Individual Item Reveal & Active State Tracking
-    items.forEach((item: any, i) => {
-      const card = item.querySelector('.experience-card');
-
-      // Subtle Staggered Entrance Reveal
-      gsap.from(card, {
-        opacity: 0,
-        y: 40,
-        duration: 1.0,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: item,
-          start: "top 85%",
-          toggleActions: "play none none none"
+        if (drawer) {
+          drawer.classList.toggle('grid-rows-[1fr]', isOpen);
+          drawer.classList.toggle('opacity-100', isOpen);
+          drawer.classList.toggle('grid-rows-[0fr]', !isOpen);
+          drawer.classList.toggle('opacity-0', !isOpen);
         }
-      });
 
-      // Active state highlight when centered in viewport
-      ScrollTrigger.create({
-        trigger: item,
-        start: "top 60%",
-        end: "bottom 40%",
-        onEnter: () => activateExperience(i),
-        onEnterBack: () => activateExperience(i),
-      });
-    });
+        if (chevron) {
+          chevron.classList.toggle('bg-accent-primary', isOpen);
+          chevron.classList.toggle('text-white', isOpen);
+          chevron.classList.toggle('border-accent-primary', isOpen);
+          chevron.classList.toggle('rotate-180', isOpen);
+          chevron.classList.toggle('shadow-[0_0_15px_rgba(94,106,210,0.4)]', isOpen);
 
-    // Helper: Highlight active timeline node and HUD pill
-    const activateExperience = (activeIndex: number) => {
-      items.forEach((item: any, i) => {
-        const node = item.querySelector('.timeline-node');
-        const card = item.querySelector('.experience-card');
-        const hudBtn = hudButtons[i] as HTMLElement;
+          chevron.classList.toggle('bg-white/[0.03]', !isOpen);
+          chevron.classList.toggle('text-text-muted', !isOpen);
+          chevron.classList.toggle('border-white/10', !isOpen);
+        }
 
-        if (i === activeIndex) {
-          if (node) {
-            node.classList.add('border-accent-primary', 'shadow-[0_0_24px_rgba(94,106,210,0.6)]', 'scale-110');
-            node.classList.remove('border-white/20');
-          }
-          if (card) {
-            card.classList.add('border-border-hover', 'bg-surface-elevated/95');
-          }
-          if (hudBtn) {
-            hudBtn.classList.add('bg-white/[0.05]', 'border-accent-primary/30');
-            hudBtn.classList.remove('border-transparent');
-            const dot = hudBtn.querySelector('.hud-dot');
-            if (dot) dot.classList.add('bg-accent-primary', 'scale-125');
-          }
-        } else {
-          if (node) {
-            node.classList.remove('border-accent-primary', 'shadow-[0_0_24px_rgba(94,106,210,0.6)]', 'scale-110');
-            node.classList.add('border-white/20');
-          }
-          if (card) {
-            card.classList.remove('border-border-hover', 'bg-surface-elevated/95');
-          }
-          if (hudBtn) {
-            hudBtn.classList.remove('bg-white/[0.05]', 'border-accent-primary/30');
-            hudBtn.classList.add('border-transparent');
-            const dot = hudBtn.querySelector('.hud-dot');
-            if (dot) dot.classList.remove('bg-accent-primary', 'scale-125');
-          }
+        if (idxLabel) {
+          idxLabel.classList.toggle('text-accent-hover', isOpen);
+          idxLabel.classList.toggle('text-text-dim', !isOpen);
         }
       });
     };
 
-    // 3. Smooth Jump-to Click Interaction
-    hudButtons.forEach((btn: any) => {
-      btn.addEventListener('click', () => {
-        const idx = btn.getAttribute('data-jump-index');
-        const target = document.getElementById(`experience-node-${idx}`);
-        if (target) {
-          const targetY = target.getBoundingClientRect().top + window.scrollY - 100;
-          window.scrollTo({
-            top: targetY,
-            behavior: 'smooth'
-          });
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const idx = Number(trigger.getAttribute('data-exp-trigger') || 0);
+        const parentItem = items[idx];
+        const alreadyOpen = parentItem?.classList.contains('is-open');
+        // Keep one open for consistent single-screen height, or toggle if user clicks another row
+        if (!alreadyOpen) {
+          openRow(idx);
         }
       });
     });
   };
 
-  // Run on mount
-  initExperienceInteractive();
-
-  // Astro swap lifecycle hook for seamless client-side navigation
-  document.addEventListener('astro:after-swap', () => {
-    initExperienceInteractive();
-  });
+  initExperienceLedger();
+  document.addEventListener('astro:after-swap', initExperienceLedger);
 </script>

@@ -1,101 +1,108 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
+
+const phases = [
+  {
+    step: "01",
+    tag: "Days 1 - 3",
+    title: "Scope & System Design",
+    desc: "Map user roles, relational database schemas, API contracts, and milestone deliverables before writing application code."
+  },
+  {
+    step: "02",
+    tag: "Core Sprints",
+    title: "Full-Stack & AI Build",
+    desc: "Ship typed React/Next.js interfaces, Node.js services, and validated multi-LLM or real-time Socket.IO workflows in weekly increments."
+  },
+  {
+    step: "03",
+    tag: "Pre-Launch",
+    title: "Performance & Security QA",
+    desc: "Tune Core Web Vitals for 99+ Lighthouse scores, enforce RBAC permissions, rate limits, and end-to-end payment webhook testing."
+  },
+  {
+    step: "04",
+    tag: "Handoff",
+    title: "Production Release",
+    desc: "Deploy zero-downtime CI/CD pipelines, configure monitoring and audit logs, and deliver clean documentation for your team."
+  }
+];
+
+const guarantees = [
+  {
+    label: "Single-Engineer Ownership",
+    text: "I handle database modeling, backend APIs, LLM orchestration, and frontend UI directly so features ship without handoff bottlenecks."
+  },
+  {
+    label: "Async-First Communication",
+    text: "Clear written updates, staging preview links on every PR, and direct Slack or GitHub collaboration with founders and product leads."
+  },
+  {
+    label: "Production-Ready Codebase",
+    text: "Strict TypeScript, modular component architecture, and clean Git history designed so future engineers can onboard in hours."
+  }
+];
 ---
 
-<section id="process" class="py-16 md:py-20 border-t border-border-subtle bg-canvas relative z-20">
+<section id="process" class="py-14 sm:py-20 md:py-28 border-t border-border-subtle bg-canvas relative z-20">
   <div class="w-full">
     
     <SectionHeader 
-      title="Development" 
-      gradientText="Process" 
-      subtitle="How I take complex product concepts from initial scoping to high-performance production builds."
+      title="How Projects Go From" 
+      gradientText="Spec to Production" 
+      subtitle="A predictable four-stage execution pipeline built for startup speed and production reliability."
     />
 
-    <!-- Process Flow Grid (Linear style card timeline) -->
-    <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 relative">
-      
-      <!-- Connective fine line overlay behind cards on desktop -->
-      <div class="hidden lg:block absolute top-[11.5rem] left-8 right-8 h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none z-0"></div>
+    <!-- 4-Step Horizontal Execution Pipeline (Vercel / Framer Agency Archetype) -->
+    <div class="mt-8 sm:mt-12 md:mt-16 relative">
+      <!-- Connective horizontal hairline on desktop -->
+      <div class="hidden lg:block absolute top-10 left-10 right-10 h-[1px] bg-gradient-to-r from-border-subtle via-accent-primary/40 to-border-subtle pointer-events-none z-0"></div>
 
-      {[
-        {
-          step: "01",
-          title: "Scope & Strategy",
-          desc: "We define core user personas, map key workflows, specify features, and lay out the exact product roadmap to maximize initial market launch speed.",
-          color: "#5E6AD2"
-        },
-        {
-          step: "02",
-          title: "System Architecture",
-          desc: "Designing secure database models (relational/document), structuring API routes, and establishing robust role-based authentication schemes.",
-          color: "#5E6AD2"
-        },
-        {
-          step: "03",
-          title: "Full-Stack Development",
-          desc: "Coding pixel-perfect React/Next.js interfaces, implementing clean modular layouts, and programming fast server endpoints in Node.js.",
-          color: "#5E6AD2"
-        },
-        {
-          step: "04",
-          title: "Cognitive AI Integration",
-          desc: "Connecting language models, creating fallback routing models, programming conversational RTL layouts, and structuring qualitative RAG flows.",
-          color: "#5E6AD2"
-        },
-        {
-          step: "05",
-          title: "Core Web Vitals Tuning",
-          desc: "Benchmarking performance with Lighthouse, optimizing image loading, compiling statically where possible, and tuning API responses under 100ms.",
-          color: "#5E6AD2"
-        },
-        {
-          step: "06",
-          title: "Deployment & Launch",
-          desc: "Configuring containerized pipelines, launching on CDN edges, and setting up error reporting dashboards for seamless hands-off operations.",
-          color: "#5E6AD2"
-        }
-      ].map((phase, i) => (
-        <div class="relative bg-surface-card border border-border-subtle hover:border-border-hover rounded-3xl p-8 transition-all duration-500 group hover:shadow-ambient z-10" data-aos="fade-up" data-aos-delay={i * 75}>
-          <div class="absolute -right-16 -top-16 w-32 h-32 rounded-full blur-[50px] opacity-0 group-hover:opacity-10 transition-opacity duration-700" style={`background-color: ${phase.color}`}></div>
-          
-          <div class="flex items-center justify-between mb-6">
-            <span class="text-3xl md:text-4xl font-mono font-black text-white/5 group-hover:text-white/10 transition-colors">{phase.step}</span>
-            <div class="w-8 h-8 rounded-full border border-border-subtle flex items-center justify-center bg-white/[0.01]">
-              <span class="w-2 h-2 rounded-full transition-transform duration-500 group-hover:scale-125" style={`background-color: ${phase.color}; box-shadow: 0 0 6px ${phase.color}`}></span>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 relative z-10">
+        {phases.map((phase, i) => (
+          <div class="group rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] hover:border-border-hover transition-all duration-500 shadow-card" data-aos="fade-up" data-aos-delay={i * 70}>
+            <div class="rounded-xl bg-surface-card p-6 h-full flex flex-col justify-between border border-white/[0.05] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
+              <div>
+                <div class="flex items-center justify-between mb-6">
+                  <div class="w-9 h-9 rounded-xl bg-surface-elevated border border-white/10 group-hover:border-accent-primary/50 flex items-center justify-center font-mono text-xs font-bold text-text-primary group-hover:text-accent-hover transition-colors tabular-nums">
+                    {phase.step}
+                  </div>
+                  <span class="text-[11px] font-mono text-text-dim px-2.5 py-0.5 rounded-md bg-white/[0.03] border border-border-subtle">
+                    {phase.tag}
+                  </span>
+                </div>
+
+                <h3 class="text-lg font-bold text-text-primary tracking-tight mb-2.5">
+                  {phase.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-text-muted leading-relaxed">
+                  {phase.desc}
+                </p>
+              </div>
+
+              <div class="mt-6 pt-3.5 border-t border-border-subtle flex items-center justify-between text-[11px] font-mono text-text-dim">
+                <span>Stage {phase.step}</span>
+                <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform">→</span>
+              </div>
             </div>
           </div>
-          
-          <h3 class="text-lg md:text-xl font-black text-text-primary uppercase tracking-tight mb-3 font-sans">{phase.title}</h3>
-          <p class="text-xs md:text-sm text-text-muted leading-relaxed font-light">{phase.desc}</p>
-        </div>
-      ))}
-      
+        ))}
+      </div>
     </div>
 
-    <!-- Client Core Benefits Badge Grid -->
-    <div class="mt-20 md:mt-28 p-8 md:p-12 rounded-2xl bg-surface-card border border-border-subtle grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
-      {[
-        {
-          label: "Zero Handoff Friction",
-          text: "I handle both high-end UX design and backend architectures directly, meaning features ship faster without team translation delays."
-        },
-        {
-          label: "Direct Collaboration",
-          text: "No account managers or middle project coordinators. You interface directly with the systems engineer crafting your product."
-        },
-        {
-          label: "Enterprise Engineering",
-          text: "Every module is engineered with robust typescript types, complete separation of concerns, and clean architectural design patterns."
-        }
-      ].map(benefit => (
-        <div class="space-y-3">
-          <div class="flex items-center gap-2">
-            <span class="text-accent-primary font-bold text-xs font-mono">✓</span>
-            <h5 class="text-xs font-black uppercase text-text-primary tracking-widest">{benefit.label}</h5>
+    <!-- Client Core Benefits Bar -->
+    <div class="mt-8 rounded-2xl p-1.5 bg-white/[0.02] border border-white/[0.08]" data-aos="fade-up">
+      <div class="rounded-xl p-6 md:p-8 bg-surface-card border border-white/[0.04] grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-border-subtle">
+        {guarantees.map((benefit, idx) => (
+          <div class={`space-y-2 ${idx > 0 ? 'pt-5 md:pt-0 md:pl-8' : ''}`}>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-status-live"></span>
+              <h4 class="text-sm font-bold text-text-primary tracking-tight">{benefit.label}</h4>
+            </div>
+            <p class="text-xs sm:text-sm text-text-muted leading-relaxed">{benefit.text}</p>
           </div>
-          <p class="text-xs text-text-muted leading-relaxed font-light">{benefit.text}</p>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
 
   </div>

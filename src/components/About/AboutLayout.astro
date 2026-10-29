@@ -10,34 +10,34 @@ const chapters = [
   {
     num: "01",
     title: "Frontend Foundations",
-    subtitle: "Pixel-Perfect UX & Modern Frameworks",
-    desc: "Mastering the frontend ecosystem to construct fluid user experiences. Designed highly responsive components, state-management architectures, and complex interactive animations using React, Next.js, and Tailwind CSS.",
-    statNum: "React",
-    statLabel: "Primary UI Stack"
+    subtitle: "Component Systems & Core Web Vitals",
+    desc: "Built responsive React and Next.js applications at Scube.co and Techmatys, cutting page load times by 50% and standardizing reusable UI libraries across enterprise dashboards.",
+    statNum: "React / Next.js",
+    statLabel: "UI Architecture"
   },
   {
     num: "02",
-    title: "Full Stack Expansion",
-    subtitle: "Robust APIs & Databases",
-    desc: "Expanding to backend architectures, creating production-grade REST & GraphQL APIs using Node.js, Express, and databases such as PostgreSQL and MongoDB. Focused on security, performance, and scaling server operations.",
-    statNum: "Node",
-    statLabel: "Primary API Runtime"
+    title: "Solo SaaS Ownership",
+    subtitle: "Multi-Role Healthcare Platforms",
+    desc: "Owned the entire frontend architecture at Nasya IT across Super Admin, Doctor, Patient, and Clinic portals, shipping 10+ CRUD modules and real-time reporting from zero to launch.",
+    statNum: "10+ Modules",
+    statLabel: "Zero-to-One Delivery"
   },
   {
     num: "03",
-    title: "AI Product Engineering",
-    subtitle: "LLMs, RAG & Agents",
-    desc: "Integrating advanced AI capabilities into modern applications. Built RAG (Retrieval-Augmented Generation) pipelines, custom prompts, and automated agent workflows using OpenAI, Claude, and vector databases.",
-    statNum: "RAG",
-    statLabel: "Retrieval Pipelines"
+    title: "Multi-LLM & AI Engineering",
+    subtitle: "RAG, Validation & Bilingual RTL UX",
+    desc: "Engineered Sawt AI at Cxisuite with OpenAI, Gemini, Grok, and Perplexity integrations, automated output validation, Arabic/English RTL interfaces, and MyFatoorah subscription billing.",
+    statNum: "Multi-LLM",
+    statLabel: "Production AI Workflows"
   },
   {
     num: "04",
-    title: "Building SaaS Platforms",
-    subtitle: "Enterprise Systems & Founders Vision",
-    desc: "Developing subscription-based software systems, enterprise dashboards, and custom CRM software. Designed multi-tenant platforms, unified databases, and metrics engines that serve as solid growth foundations.",
-    statNum: "SaaS",
-    statLabel: "Subscription Platforms"
+    title: "Real-Time Full-Stack Systems",
+    subtitle: "Socket.IO CRMs & Scalable APIs",
+    desc: "Designed event-driven Node.js and PostgreSQL backends with Socket.IO live pipelines, SLA tracking, role-based access control, rate limiting, and audit logging.",
+    statNum: "Full-Stack",
+    statLabel: "End-to-End Systems"
   }
 ];
 ---
@@ -46,17 +46,17 @@ const chapters = [
   <PremiumBackground />
 
   <main class="relative z-10">
-    <!-- Hero Section (Option 3: Structured Bento Grid) -->
-    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-32 pb-16 md:pt-40 md:pb-24 relative z-10">
+    <!-- Hero Section: Structured Bento Grid -->
+    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-28 pb-16 md:pt-36 md:pb-24 relative z-10">
       
       <!-- Section Header -->
       <div class="mb-12 space-y-3" data-aos="fade-up">
-         <span class="text-[11px] font-black uppercase tracking-[0.4em] text-accent-primary block">Overview // Profile</span>
-         <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-text-primary uppercase tracking-tighter leading-none m-0">
-           Professional <span class="text-gradient">Background</span>
+         <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-accent-hover block">About · Tanuj Pandey</span>
+         <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary tracking-tight leading-[1.08] m-0">
+           Engineering <span class="text-gradient">Background</span>
          </h1>
-         <p class="text-text-muted text-xs md:text-sm font-medium tracking-wide">
-           Specialized in building AI-powered SaaS platforms and scalable product architectures.
+         <p class="text-text-muted text-sm md:text-base max-w-2xl">
+           Full-Stack Engineer with 4+ years of commercial experience building multi-LLM SaaS products, real-time CRM systems, and high-performance web applications.
          </p>
       </div>
 
@@ -64,9 +64,8 @@ const chapters = [
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
          
          <!-- Cell 1: Widescreen Profile Image (Left) -->
-         <div class="lg:col-span-5 relative group rounded-3xl overflow-hidden border border-border-subtle p-2 bg-surface-card min-h-[380px] flex flex-col" data-aos="fade-up">
-            <div class="absolute -inset-4 bg-gradient-to-tr from-accent-primary to-accent-primary/40 rounded-3xl opacity-5 blur-2xl group-hover:opacity-15 transition-opacity duration-1000"></div>
-            <div class="relative w-full h-full flex-grow rounded-2xl overflow-hidden">
+         <div class="lg:col-span-5 relative group rounded-2xl overflow-hidden border border-white/[0.09] p-1.5 bg-white/[0.03] min-h-[260px] sm:min-h-[360px] flex flex-col" data-aos="fade-up">
+            <div class="relative w-full h-full flex-grow rounded-xl overflow-hidden bg-surface-card">
                {aboutData?.[0]?.heroImage?.asset?.url ? (
                  <img
                    src={optimizeSanityImage(aboutData[0].heroImage.asset.url, 800, 80)}
@@ -75,154 +74,143 @@ const chapters = [
                    decoding="async"
                    width="600"
                    height="600"
-                   class="w-full h-full object-cover rounded-2xl grayscale group-hover:grayscale-0 transition-all duration-700 scale-102 group-hover:scale-100 opacity-90 mix-blend-luminosity group-hover:mix-blend-normal"
+                   class="w-full h-full object-cover rounded-xl grayscale group-hover:grayscale-0 transition-all duration-700 opacity-90 group-hover:opacity-100"
                  />
                ) : (
-                  <div class="w-full h-full bg-surface-elevated flex items-center justify-center rounded-2xl">
-                     <span class="font-mono text-accent-primary text-xs">NO_IMAGE_DATA</span>
+                  <div class="w-full h-full bg-surface-elevated flex items-center justify-center rounded-xl">
+                     <span class="font-mono text-text-dim text-xs">Tanuj Pandey</span>
                   </div>
                )}
             </div>
          </div>
 
          <!-- Cell 2: The Bio Narrative (Right) -->
-         <div class="lg:col-span-7 bg-surface-card border border-border-subtle p-8 md:p-10 rounded-3xl flex flex-col justify-between relative overflow-hidden group hover:border-border-hover transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
-            <!-- Accent vertical line -->
-            <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-gradient-to-b from-accent-primary to-transparent"></div>
-            
-            <div class="space-y-6">
-               <span class="font-mono text-[11px] text-accent-primary uppercase tracking-widest block">// The Narrative</span>
-               <div class="text-text-primary font-black uppercase tracking-tighter leading-tight text-lg md:text-xl italic">
-                 "{aboutData?.[0]?.aboutName || "Building intelligent digital products through clean engineering and technical leadership."}"
-               </div>
-               <div class="prose prose-invert prose-sm md:prose-base max-w-none text-text-muted leading-relaxed space-y-4">
-                 <PortableText value={aboutData?.[0]?.description} />
-               </div>
+         <div class="lg:col-span-7 rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] flex flex-col" data-aos="fade-up" data-aos-delay="80">
+            <div class="bg-surface-card border border-white/[0.05] p-5 sm:p-7 md:p-9 rounded-xl h-full flex flex-col justify-between relative overflow-hidden">
+              <div class="space-y-4 sm:space-y-5">
+                 <span class="font-mono text-xs text-accent-hover block">Engineering Philosophy</span>
+                 <h2 class="text-text-primary font-bold tracking-tight leading-snug text-lg sm:text-xl md:text-2xl">
+                   {aboutData?.[0]?.aboutName || "Shipping resilient software where backend architecture and frontend craft meet."}
+                 </h2>
+                 <div class="prose prose-invert prose-sm md:prose-base max-w-none text-text-muted leading-relaxed space-y-4">
+                   <PortableText value={aboutData?.[0]?.description} />
+                 </div>
+              </div>
             </div>
          </div>
 
-         <!-- Cell 3: Tech Matrix & Mastery (Bottom Left) -->
-         <div class="lg:col-span-6 bg-surface-card border border-border-subtle p-8 rounded-3xl flex flex-col justify-between group hover:border-border-hover transition-all duration-500" data-aos="fade-up">
-            <div class="space-y-6 w-full">
-               <span class="font-mono text-[11px] text-accent-primary uppercase tracking-widest block">// System Architecture Stack</span>
-               
-               <div class="grid grid-cols-2 gap-4">
-                  <!-- Tag 1 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
-                     <div class="space-y-1">
-                        <span class="text-[11px] font-mono text-text-dim">ENGINE_CORE</span>
-                        <p class="text-xs font-bold text-text-primary uppercase tracking-wider">React / Next.js</p>
+         <!-- Cell 3: Core Architecture Stack (Bottom Left) -->
+         <div class="lg:col-span-6 rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09]" data-aos="fade-up">
+            <div class="bg-surface-card border border-white/[0.05] p-5 sm:p-7 rounded-xl h-full flex flex-col justify-between">
+               <div class="space-y-4 sm:space-y-5 w-full">
+                  <span class="font-mono text-xs text-text-dim block">Primary Production Stack</span>
+                  
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3.5 sm:p-4 rounded-xl flex items-center justify-between">
+                        <div class="space-y-0.5">
+                           <span class="text-[11px] font-mono text-text-dim">Frontend &amp; SSR</span>
+                           <p class="text-xs font-bold text-text-primary">React, Next.js &amp; Astro</p>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-accent-primary shrink-0"></span>
                      </div>
-                     <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
-                        <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse"></span>
-                     </div>
-                  </div>
 
-                  <!-- Tag 2 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
-                     <div class="space-y-1">
-                        <span class="text-[11px] font-mono text-text-dim">RUNTIME_ENV</span>
-                        <p class="text-xs font-bold text-text-primary uppercase tracking-wider">Node.js / Express</p>
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3.5 sm:p-4 rounded-xl flex items-center justify-between">
+                        <div class="space-y-0.5">
+                           <span class="text-[11px] font-mono text-text-dim">Backend &amp; Realtime</span>
+                           <p class="text-xs font-bold text-text-primary">Node.js, Express &amp; Socket.IO</p>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-accent-primary shrink-0"></span>
                      </div>
-                     <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
-                        <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse"></span>
-                     </div>
-                  </div>
 
-                  <!-- Tag 3 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
-                     <div class="space-y-1">
-                        <span class="text-[11px] font-mono text-text-dim">DATA_REPOS</span>
-                        <p class="text-xs font-bold text-text-primary uppercase tracking-wider">Mongo / Postgres</p>
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3.5 sm:p-4 rounded-xl flex items-center justify-between">
+                        <div class="space-y-0.5">
+                           <span class="text-[11px] font-mono text-text-dim">Data &amp; CMS</span>
+                           <p class="text-xs font-bold text-text-primary">PostgreSQL, MongoDB &amp; Sanity</p>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-accent-primary shrink-0"></span>
                      </div>
-                     <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
-                        <span class="w-2 h-2 rounded-full bg-accent-primary"></span>
-                     </div>
-                  </div>
 
-                  <!-- Tag 4 -->
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl flex items-center justify-between hover:border-border-hover transition-all">
-                     <div class="space-y-1">
-                        <span class="text-[11px] font-mono text-text-dim">AI_MODS</span>
-                        <p class="text-xs font-bold text-text-primary uppercase tracking-wider">RAG / LLM Agents</p>
-                     </div>
-                     <div class="w-8 h-8 rounded-full border border-accent-primary/50 flex items-center justify-center bg-accent-primary/10">
-                        <span class="w-2 h-2 rounded-full bg-accent-primary animate-ping"></span>
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3.5 sm:p-4 rounded-xl flex items-center justify-between">
+                        <div class="space-y-0.5">
+                           <span class="text-[11px] font-mono text-text-dim">AI &amp; LLMs</span>
+                           <p class="text-xs font-bold text-text-primary">OpenAI, Gemini &amp; RAG</p>
+                        </div>
+                        <span class="w-2 h-2 rounded-full bg-status-live shrink-0"></span>
                      </div>
                   </div>
                </div>
             </div>
          </div>
 
-         <!-- Cell 4: Dynamic Metrics & Resume (Bottom Right) -->
-         <div class="lg:col-span-6 bg-surface-card border border-border-subtle p-8 rounded-3xl flex flex-col justify-between group hover:border-border-hover transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
-            <div class="space-y-6 w-full">
-               <span class="font-mono text-[11px] text-text-dim uppercase tracking-widest block">// Operational Metrics</span>
-               
-               <div class="grid grid-cols-3 gap-4 text-center">
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[11px] font-mono text-accent-primary uppercase tracking-wider mb-1">Experience</p>
-                     <p class="text-xl md:text-2xl text-text-primary font-black font-mono">4+ Years</p>
-                  </div>
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[11px] font-mono text-accent-primary uppercase tracking-wider mb-1">SaaS Devs</p>
-                     <p class="text-xl md:text-2xl text-text-primary font-black">Production</p>
-                  </div>
-                  <div class="bg-surface-elevated border border-border-subtle p-4 rounded-2xl">
-                     <p class="text-[11px] font-mono text-text-muted uppercase tracking-wider mb-1">Focus Stack</p>
-                     <p class="text-xl md:text-2xl text-text-primary font-black">Full Stack</p>
+         <!-- Cell 4: Verified Career Metrics & Resume (Bottom Right) -->
+         <div class="lg:col-span-6 rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09]" data-aos="fade-up" data-aos-delay="80">
+            <div class="bg-surface-card border border-white/[0.05] p-5 sm:p-7 rounded-xl h-full flex flex-col justify-between">
+               <div class="space-y-4 sm:space-y-5 w-full">
+                  <span class="font-mono text-xs text-text-dim block">Career Snapshot</span>
+                  
+                  <div class="grid grid-cols-3 gap-2 sm:gap-3.5 text-center">
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3 sm:p-4 rounded-xl">
+                        <p class="text-[10px] sm:text-[11px] font-mono text-text-dim mb-1">Experience</p>
+                        <p class="text-sm sm:text-lg md:text-xl text-text-primary font-bold font-mono tabular-nums whitespace-nowrap">4+ Yrs</p>
+                     </div>
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3 sm:p-4 rounded-xl">
+                        <p class="text-[10px] sm:text-[11px] font-mono text-text-dim mb-1">Speed Gain</p>
+                        <p class="text-sm sm:text-lg md:text-xl text-text-primary font-bold font-mono tabular-nums whitespace-nowrap">+50%</p>
+                     </div>
+                     <div class="bg-surface-elevated/70 border border-border-subtle p-3 sm:p-4 rounded-xl">
+                        <p class="text-[10px] sm:text-[11px] font-mono text-text-dim mb-1">Delivery</p>
+                        <p class="text-sm sm:text-lg md:text-xl text-text-primary font-bold whitespace-nowrap">Full-Stack</p>
+                     </div>
                   </div>
                </div>
-            </div>
 
-            <div class="pt-6 border-t border-border-subtle mt-6 flex items-center justify-between gap-4">
-               <span class="text-[11px] font-mono text-text-dim uppercase tracking-widest">Sys allocation confirmed</span>
-               <button 
-                 id="about-resume-btn"
-                 aria-label="Download Resume PDF"
-                 class="group relative px-8 py-3.5 bg-white text-black font-black uppercase text-[10px] tracking-[0.3em] overflow-hidden rounded-full transition-all duration-500 hover:scale-105 shadow-card hover:shadow-[0_0_30px_rgba(94,106,210,0.3)]"
-               >
-                  <span class="relative z-10 group-hover:text-white transition-colors duration-500">Resume.pdf</span>
-                  <div class="absolute inset-0 bg-accent-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 -z-0"></div>
-               </button>
+               <div class="pt-4 sm:pt-5 border-t border-border-subtle mt-5 sm:mt-6 flex flex-col xs:flex-row sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+                  <span class="text-xs font-mono text-text-muted text-center sm:text-left">Full curriculum vitae</span>
+                  <button 
+                    id="about-resume-btn"
+                    aria-label="Download Resume PDF"
+                    class="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 bg-text-primary text-canvas font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 hover:bg-white cursor-pointer"
+                  >
+                     <span>Download Resume</span>
+                     <span>↗</span>
+                  </button>
+               </div>
             </div>
          </div>
 
       </div>
+    </section>
 
     <!-- Horizontal Scrolling Journey Timeline Section -->
-    <section id="journey-timeline-section" class="relative py-12 md:py-16 bg-canvas overflow-hidden border-y border-border-subtle">
+    <section id="journey-timeline-section" class="relative py-16 md:py-20 bg-canvas overflow-hidden border-y border-border-subtle">
       <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 mb-8 md:mb-12">
         <SectionHeader 
-          title="Milestones" 
-          gradientText="Engineering Journey" 
-          subtitle="A cinematic walkthrough of my growth, core chapters, and technical milestones."
+          title="Career" 
+          gradientText="Progression" 
+          subtitle="Four chapters of commercial engineering across frontend systems, full-stack SaaS, and production AI."
         />
       </div>
 
-      <!-- Horizontal Scroll Area -->
-      <div class="horizontal-scroll-container flex items-center relative overflow-x-hidden min-h-[380px] md:min-h-[420px]">
-        <div class="timeline-scroll-track flex gap-8 md:gap-12 px-12 md:px-32 relative">
+      <!-- Horizontal Scroll Area (Native swipe on mobile, GSAP pin on desktop) -->
+      <div class="horizontal-scroll-container flex items-center relative overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory md:snap-none pb-4 md:pb-0 min-h-[320px] md:min-h-[400px]">
+        <div class="timeline-scroll-track flex gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-20 relative">
           <!-- Connector Line -->
-          <div class="absolute top-1/2 left-0 right-0 h-[2px] bg-gradient-to-r from-accent-primary/20 via-accent-primary/10 to-transparent -translate-y-1/2 z-0"></div>
+          <div class="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-gradient-to-r from-accent-primary/30 via-white/10 to-transparent -translate-y-1/2 z-0"></div>
           
           {chapters.map((chapter) => (
-            <div class="timeline-card flex-none w-[320px] md:w-[420px] bg-surface-card/80 backdrop-blur-md border border-border-subtle p-8 rounded-3xl relative z-10 group hover:border-border-hover transition-all duration-500">
-              <!-- Top Header -->
-              <div class="flex items-center justify-between mb-8">
-                <span class="text-sm font-mono text-accent-primary bg-accent-primary/10 px-3 py-1 rounded-full">Chapter {chapter.num}</span>
-                <span class="text-6xl font-black text-white/5 font-mono group-hover:text-white/10 transition-colors">{chapter.num}</span>
+            <div class="timeline-card snap-center flex-none w-[285px] sm:w-[320px] md:w-[400px] bg-surface-card border border-white/[0.09] p-5 sm:p-7 rounded-2xl relative z-10 group hover:border-border-hover transition-all duration-500">
+              <div class="flex items-center justify-between mb-6">
+                <span class="text-xs font-mono text-accent-hover bg-accent-primary/10 border border-accent-primary/20 px-3 py-1 rounded-full">Chapter {chapter.num}</span>
+                <span class="text-3xl font-bold text-white/10 font-mono tabular-nums">{chapter.num}</span>
               </div>
 
-              <!-- Content -->
-              <h3 class="text-xl md:text-2xl font-black text-text-primary uppercase mb-2 group-hover:text-white transition-colors">{chapter.title}</h3>
-              <p class="text-xs text-accent-primary font-mono uppercase tracking-wider mb-4">{chapter.subtitle}</p>
-              <p class="text-sm text-text-muted leading-relaxed mb-6 font-normal">{chapter.desc}</p>
+              <h3 class="text-xl font-bold text-text-primary tracking-tight mb-1.5">{chapter.title}</h3>
+              <p class="text-xs text-accent-hover font-mono mb-3.5">{chapter.subtitle}</p>
+              <p class="text-xs sm:text-sm text-text-muted leading-relaxed mb-6">{chapter.desc}</p>
 
-              <!-- Metric footer inside card -->
-              <div class="border-t border-border-subtle pt-4 flex items-center justify-between">
-                <span class="text-[11px] font-black uppercase text-text-dim tracking-widest">{chapter.statLabel}</span>
-                <span class="text-lg md:text-xl font-black text-text-primary font-mono">{chapter.statNum}</span>
+              <div class="border-t border-border-subtle pt-4 flex items-center justify-between text-xs font-mono">
+                <span class="text-text-dim">{chapter.statLabel}</span>
+                <span class="text-text-primary font-semibold">{chapter.statNum}</span>
               </div>
             </div>
           ))}
@@ -230,36 +218,32 @@ const chapters = [
       </div>
     </section>
 
-    <!-- Academic Background (Nerdy/Technical aesthetic) -->
-    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-24 md:py-32 relative z-10">
+    <!-- Academic Background -->
+    <section class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-20 md:py-28 relative z-10">
        <div class="max-w-4xl mx-auto">
-          <div class="flex items-center gap-4 mb-12">
-             <div class="w-12 h-[1px] bg-accent-primary"></div>
-             <h2 class="text-xl md:text-3xl font-black text-text-primary uppercase tracking-tighter">Academic <span class="text-accent-primary">Foundation</span></h2>
+          <div class="mb-10">
+             <h2 class="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">Education</h2>
+             <p class="text-xs sm:text-sm text-text-muted mt-1">Academic foundation in computer science and software engineering.</p>
           </div>
           
-          <div class="space-y-6 md:space-y-8 pl-4 md:pl-8 border-l border-border-subtle relative">
-             <!-- Master's Degree -->
-             <div class="relative group">
-                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-canvas border-2 border-accent-primary group-hover:bg-accent-primary transition-colors shadow-[0_0_10px_rgba(94,106,210,0.4)]"></div>
-                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-border-hover transition-colors">
-                   <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
-                      <h3 class="text-lg md:text-xl font-bold text-text-primary uppercase tracking-wide">Master of Computer Application</h3>
-                      <span class="font-mono text-[10px] text-accent-primary bg-accent-primary/10 px-3 py-1 rounded-full">2018 – 2020</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+             <div class="rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09]">
+                <div class="bg-surface-card border border-white/[0.05] p-6 rounded-xl h-full flex flex-col justify-between">
+                   <div>
+                      <span class="font-mono text-xs text-accent-hover bg-accent-primary/10 px-2.5 py-1 rounded-md inline-block mb-3 tabular-nums">2018 - 2020</span>
+                      <h3 class="text-lg font-bold text-text-primary tracking-tight">Master of Computer Applications (MCA)</h3>
                    </div>
-                   <p class="text-text-muted font-mono text-sm md:text-base">GBPEC Pauri Garhwal</p>
+                   <p class="text-text-muted font-mono text-xs mt-4 pt-3 border-t border-border-subtle">GBPEC Pauri Garhwal</p>
                 </div>
              </div>
 
-             <!-- Bachelor's Degree -->
-             <div class="relative group">
-                <div class="absolute -left-[21px] md:-left-[37px] top-1.5 w-3 h-3 rounded-full bg-canvas border-2 border-border-subtle group-hover:border-accent-primary group-hover:bg-accent-primary/50 transition-colors"></div>
-                <div class="bg-surface-card border border-border-subtle p-6 md:p-8 rounded-2xl group-hover:border-border-hover transition-colors">
-                   <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 md:gap-4 mb-4">
-                      <h3 class="text-lg md:text-xl font-bold text-text-primary uppercase tracking-wide">Bachelor of Computer Application</h3>
-                      <span class="font-mono text-[10px] text-text-dim bg-surface-elevated px-3 py-1 rounded-full">2015 – 2018</span>
+             <div class="rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09]">
+                <div class="bg-surface-card border border-white/[0.05] p-6 rounded-xl h-full flex flex-col justify-between">
+                   <div>
+                      <span class="font-mono text-xs text-text-dim bg-surface-elevated px-2.5 py-1 rounded-md inline-block mb-3 tabular-nums">2015 - 2018</span>
+                      <h3 class="text-lg font-bold text-text-primary tracking-tight">Bachelor of Computer Applications (BCA)</h3>
                    </div>
-                   <p class="text-text-muted font-mono text-sm md:text-base">BFIT Dehradun</p>
+                   <p class="text-text-muted font-mono text-xs mt-4 pt-3 border-t border-border-subtle">BFIT Dehradun</p>
                 </div>
              </div>
           </div>
@@ -267,28 +251,10 @@ const chapters = [
     </section>
   </main>
   
-  <!-- Skills Section added to About page -->
   <div class="relative z-20 mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8">
     <Skills />
   </div>
 </div>
-
-<style>
-  .h2-style {
-    font-size: clamp(var(--h2-mobile), 5vw, var(--h2-desktop));
-  }
-  .prose-content {
-    color: var(--text-muted);
-    font-size: var(--p-mobile);
-    line-height: var(--line-height-relaxed);
-    font-weight: 400;
-  }
-  @media (min-width: 1024px) {
-    .prose-content {
-      font-size: var(--p-desktop);
-    }
-  }
-</style>
 
 <script>
   import gsap from 'gsap';
@@ -297,18 +263,6 @@ const chapters = [
   gsap.registerPlugin(ScrollTrigger);
 
   const initAbout = () => {
-    gsap.from('.prose-container', {
-      opacity: 0,
-      x: 50,
-      duration: 1.5,
-      ease: "power4.out",
-      scrollTrigger: {
-        trigger: '.prose-container',
-        start: "top 80%"
-      }
-    });
-
-    // Resume button listener
     const resumeBtn = document.querySelector('#about-resume-btn');
     resumeBtn?.addEventListener('click', () => {
       const link = document.createElement("a");
@@ -318,10 +272,9 @@ const chapters = [
       link.click();
     });
 
-    // Horizontal scroll timeline implementation
     const track = document.querySelector('.timeline-scroll-track');
     const section = document.getElementById('journey-timeline-section');
-    if (track && section) {
+    if (track && section && window.innerWidth >= 768) {
       const getScrollAmount = () => {
         let trackWidth = track.scrollWidth;
         return Math.min(0, -(trackWidth - window.innerWidth));
@@ -343,14 +296,5 @@ const chapters = [
   };
 
   initAbout();
-  
-  document.addEventListener('astro:after-swap', () => {
-    initAbout();
-  });
+  document.addEventListener('astro:after-swap', initAbout);
 </script>
-
-<style>
-  .scale-102 {
-    transform: scale(1.02);
-  }
-</style>
