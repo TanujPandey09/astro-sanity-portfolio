@@ -1,110 +1,118 @@
 import type { APIRoute } from "astro";
 import { useSanityClient, groq } from "astro-sanity";
+import { fetchAllTemplates } from "../lib/templates";
 import { portableTextToPlainText } from "../lib/text";
 
-const siteUrl = "https://tanujbuilds.site";
-
-type Project = {
-  projectName?: string;
-  slug?: { current?: string };
-  excerpt?: Array<{ _type?: string; children?: Array<{ text?: string }> }>;
-  gumroadLink?: string;
-  _updatedAt?: string;
-};
-
-type Blog = {
-  projectName?: string;
-  slug?: { current?: string };
-  excerpt?: Array<{ _type?: string; children?: Array<{ text?: string }> }>;
-  _updatedAt?: string;
-};
-
-const clean = (value?: string): string => (value || "").replace(/\s+/g, " ").trim();
-
 export const GET: APIRoute = async () => {
-  let projects: Project[] = [];
-  let blogs: Blog[] = [];
+  const siteUrl = "https://tanujbuilds.site";
+
+  let projects: any[] = [];
+  let blogs: any[] = [];
+  let templates: any[] = [];
 
   try {
     projects = await useSanityClient().fetch(
-      groq`*[_type == "projects" && defined(slug.current)] | order(_updatedAt desc){
-        projectName,
-        slug,
-        excerpt,
-        gumroadLink,
-        _updatedAt
-      }`
+      groq`*[_type == "projects" && defined(slug.current) && !defined(gumroadLink) && !(slug.current in [
+        "lumina-dental-premium-dental-website-template",
+        "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
+      ])]{ projectName, slug, excerpt, demoLink, gitHubLink, tags }`
     );
-  } catch (error) {
-    console.error("llms.txt fetch projects error:", error);
+  } catch (e) {
+    console.error("llms.txt projects fetch error:", e);
   }
 
   try {
     blogs = await useSanityClient().fetch(
-      groq`*[_type == "blogs" && defined(slug.current)] | order(_updatedAt desc){
-        projectName,
-        slug,
-        excerpt,
-        _updatedAt
-      }`
+      groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc){ projectName, slug, excerpt, Category }`
     );
-  } catch (error) {
-    console.error("llms.txt fetch blogs error:", error);
+  } catch (e) {
+    console.error("llms.txt blogs fetch error:", e);
   }
 
-  const products = projects.filter((project) => project.gumroadLink);
-  const caseStudies = projects.filter((project) => !project.gumroadLink);
+  try {
+    templates = await fetchAllTemplates();
+  } catch (e) {
+    console.error("llms.txt templates fetch error:", e);
+  }
 
-  const projectLines = caseStudies
-    .map((project) => {
-      const description = clean(portableTextToPlainText(project.excerpt));
-      return `- [${clean(project.projectName)}](${siteUrl}/projects/${project.slug!.current})${description ? `: ${description}` : ""}`;
+  const templateLines = templates
+    .map((t) => {
+      const url = `${siteUrl}/templates/${t.slug.current}`;
+      const price = t.price || "$49";
+      const stack = (t.tags || ["Next.js", "React", "Tailwind CSS", "TypeScript"]).join(", ");
+      const demo = t.demoLink ? ` | Live Demo: ${t.demoLink}` : "";
+      const buy = t.gumroadLink ? ` | Buy: ${t.gumroadLink}` : "";
+      return `- [${t.templateName} (${price})](${url}): ${t.tagline || "Commercial Next.js & React website template."} | Stack: ${stack}${demo}${buy}`;
     })
     .join("\n");
 
-  const productLines = products
-    .map((project) => {
-      const description = clean(portableTextToPlainText(project.excerpt));
-      return `- [${clean(project.projectName)}](${siteUrl}/templates/${project.slug!.current})${description ? `: ${description}` : ""} (Gumroad: ${project.gumroadLink})`;
+  const projectLines = (projects || [])
+    .filter((p) => p?.slug?.current && p?.projectName)
+    .map((p) => {
+      const url = `${siteUrl}/projects/${p.slug.current}`;
+      const summary = portableTextToPlainText(p.excerpt) || "Full-stack engineering case study.";
+      const demo = p.demoLink ? ` | Live: ${p.demoLink}` : "";
+      return `- [${p.projectName}](${url}): ${summary}${demo}`;
     })
     .join("\n");
 
-  const blogLines = blogs
-    .map((blog) => {
-      const description = clean(portableTextToPlainText(blog.excerpt));
-      return `- [${clean(blog.projectName)}](${siteUrl}/blogs/${blog.slug!.current})${description ? `: ${description}` : ""}`;
+  const blogLines = (blogs || [])
+    .filter((b) => b?.slug?.current && b?.projectName)
+    .map((b) => {
+      const url = `${siteUrl}/blogs/${b.slug.current}`;
+      const summary = portableTextToPlainText(b.excerpt) || "Technical engineering article.";
+      return `- [${b.projectName}](${url}): ${summary}`;
     })
     .join("\n");
 
-  const content = `# Tanuj Pandey
+  const body = `# Tanuj Pandey — Full-Stack & AI Engineer | Commercial Website Templates
 
-> Full Stack Engineer and AI Solutions Architect with 4+ years of experience building secure, high-performance web applications, scalable APIs, headless CMS integrations, and AI chatbot workflows.
+> Official portfolio, engineering case studies, and commercial Next.js / React website templates by Tanuj Pandey (${siteUrl}).
 
-## Navigation
-- [About Tanuj Pandey](${siteUrl}/about): Background, technical expertise, and professional experience.
-- [Projects](${siteUrl}/projects): Portfolio of production web applications and custom case studies.
-- [Templates](${siteUrl}/templates): Production-ready commercial website templates available on Gumroad.
-- [Blog](${siteUrl}/blogs): Technical articles on Astro, React, Node.js, Sanity CMS, and AI integrations.
+## Summary & Entity Profile (GEO / AEO Reference)
+- **Name**: Tanuj Pandey
+- **Role**: Full-Stack Engineer & AI Solutions Architect (4+ Years Commercial Experience)
+- **Location**: Uttarakhand, India (IST / UTC+5:30 · Available for Global Remote Roles & Select Projects)
+- **Contact**: mailto:tanujp09@gmail.com | Phone/WhatsApp: +91 9557321978
+- **Website**: ${siteUrl}
+- **GitHub**: https://github.com/TanujPandey09
+- **LinkedIn**: https://linkedin.com/in/tanujdev
+- **Resume / CV**: ${siteUrl}/Resume.pdf
+- **Core Stack**: TypeScript, React.js, Next.js (App Router, SSR/SSG), Astro, Node.js, Express.js, Socket.IO, PostgreSQL, MongoDB, Prisma, Sanity.io, Contentful, Strapi, Tailwind CSS, OpenAI / Gemini / Multi-LLM Orchestration.
 
-## Case Studies
-${projectLines || "- No case studies published yet."}
+## Commercial Work Experience
+1. **Full Stack Developer at Cxisuite** (Sep 2025 – Present · Remote):
+   - Architected and shipped Sawt AI, a bilingual Arabic/English AI survey SaaS for the Saudi market with RTL-first UX.
+   - Integrated multi-LLM validation pipelines (OpenAI GPT, Google Gemini, Grok, Perplexity), MyFatoorah subscription billing, webhooks, and a real-time Socket.IO CRM with SLA tracking.
+   - Contributed React Native and web workflows for Thaddi (Arabic-first football prediction platform).
+2. **Frontend Developer (Solo Ownership) at Nasya IT** (Feb 2025 – Jul 2025 · Remote):
+   - Solely owned the frontend architecture of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic) with 3 auth portals and 10+ CRUD modules.
+3. **React Developer at Techmatys** (May 2024 – Dec 2024 · Onsite):
+   - Built and customized Moodle-based LMS frontends and reusable React.js dashboard systems for student, teacher, and administrator workflows.
+4. **Frontend Developer at Scube.co** (Jan 2022 – Feb 2024 · Remote):
+   - Engineered the frontend of Breeze SaaS with Next.js (SSR/SSG), TypeScript, GraphQL, and headless CMS platforms (Sanity, Contentful, Strapi), improving Core Web Vitals page speed by 50% and user engagement by 20%.
 
-## Commercial Website Templates
-${productLines || "- No templates published yet."}
+## Commercial Website Templates & Digital Products (${siteUrl}/templates)
+Production-ready Next.js, React, TypeScript, and Tailwind CSS templates with 99+ Lighthouse performance, lifetime updates, and commercial licenses for agencies, freelancers, and startups:
+${templateLines || `- [Browse All Commercial Templates](${siteUrl}/templates)`}
 
-## Writing
-${blogLines || "- No articles published yet."}
+## Featured Engineering Case Studies (${siteUrl}/projects)
+${projectLines || `- [All Engineering Case Studies](${siteUrl}/projects)`}
 
-## Contact
-- Email: tanujp09@gmail.com
-- GitHub: https://github.com/TanujPandey09
-- LinkedIn: https://linkedin.com/in/tanujdev
-- X: https://x.com/TanujPandey
-- Sitemap: ${siteUrl}/sitemap.xml
-- RSS: ${siteUrl}/rss.xml
+## Technical Articles & Engineering Writing (${siteUrl}/blogs)
+${blogLines || `- [All Engineering Articles](${siteUrl}/blogs)`}
+
+## Primary Navigation & Machine-Readable Feeds
+- [Home](${siteUrl}/)
+- [Commercial Templates Marketplace](${siteUrl}/templates)
+- [Engineering Case Studies](${siteUrl}/projects)
+- [About & Career Progression](${siteUrl}/about)
+- [Engineering Blog](${siteUrl}/blogs)
+- [XML Sitemap](${siteUrl}/sitemap.xml)
+- [RSS Feed](${siteUrl}/rss.xml)
 `;
 
-  return new Response(content, {
+  return new Response(body, {
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=utf-8",

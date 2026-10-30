@@ -60,6 +60,46 @@ const productJsonLd = {
   ...(template._createdAt ? { releaseDate: template._createdAt } : {}),
 };
 
+const faqJsonLd = {
+  "@type": "FAQPage",
+  "@id": `${canonicalURL}#faq`,
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: `Can I use ${template.templateName} for commercial client projects?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, the included commercial license grants full rights to build and deploy unlimited websites for both personal usage and paying client projects."
+      }
+    },
+    {
+      "@type": "Question",
+      name: `How do I receive updates for ${template.templateName}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "When updates, dependency upgrades, or bug fixes are published, Gumroad automatically emails you with instant access to the updated source code bundle."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Can I hire Tanuj Pandey for custom setup or feature integration?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, you can contact Tanuj Pandey directly at tanujp09@gmail.com for installation assistance, custom backend/CMS integration, or bespoke full-stack development."
+      }
+    }
+  ]
+};
+
+const pageKeywords = [
+  template.templateName,
+  `${template.category || "Website"} Next.js Template`,
+  `${template.category || "Modern"} React Template`,
+  ...(template.tags || ["Next.js", "React", "TypeScript", "Tailwind CSS"]),
+  "Commercial Website Template",
+  "Tanuj Pandey"
+];
+
 const breadcrumbs = [
   { name: "Home", path: "/" },
   { name: "Templates", path: "/templates" },
@@ -74,11 +114,12 @@ const portableTextComponents = {
 ---
 
 <Layout
-  title={`${template.templateName} — Website Template | Tanuj Pandey`}
-  description={template.tagline || `Download ${template.templateName}, a production-ready website template by Tanuj Pandey.`}
+  title={`${template.templateName} — ${template.category || "Next.js & React"} Website Template | Tanuj Pandey`}
+  description={template.tagline || `Download ${template.templateName}, a production-ready Next.js & React website template by Tanuj Pandey with 99+ Lighthouse performance and commercial license.`}
   image={ogImage}
+  keywords={pageKeywords}
   breadcrumbs={breadcrumbs}
-  jsonLd={productJsonLd}
+  jsonLd={[productJsonLd, faqJsonLd]}
 >
   <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
     <PremiumBackground />

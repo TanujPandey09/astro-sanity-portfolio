@@ -11,15 +11,76 @@ const siteUrl = "https://tanujbuilds.site";
 const itemList = {
   "@type": "ItemList",
   "@id": `${siteUrl}/templates#itemlist`,
-  name: "Tanuj Pandey — Website Templates & Digital Products",
-  description: "Production-ready website templates engineered with modern web architecture, clean code, and commercial licenses.",
-  itemListElement: templates.map((template, index) => ({
-    "@type": "ListItem",
-    position: index + 1,
-    name: template.templateName,
-    url: `${siteUrl}/templates/${template.slug.current}`,
-  })),
+  name: "Tanuj Pandey — Commercial Next.js & React Website Templates",
+  description: "Production-ready Next.js, React, TypeScript, and Tailwind CSS website templates with 99+ Lighthouse performance, lifetime updates, and commercial licenses.",
+  itemListElement: templates.map((template, index) => {
+    const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
+    return {
+      "@type": "ListItem",
+      position: index + 1,
+      name: template.templateName,
+      url: `${siteUrl}/templates/${template.slug.current}`,
+      item: {
+        "@type": "Product",
+        name: template.templateName,
+        description: template.tagline,
+        url: `${siteUrl}/templates/${template.slug.current}`,
+        category: "SoftwareApplication",
+        brand: { "@type": "Person", name: "Tanuj Pandey" },
+        offers: {
+          "@type": "Offer",
+          price: priceNumeric,
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+          url: template.gumroadLink || `${siteUrl}/templates/${template.slug.current}`,
+        },
+      },
+    };
+  }),
 };
+
+const templatesFaqJsonLd = {
+  "@type": "FAQPage",
+  "@id": `${siteUrl}/templates#faq`,
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What tech stack are these commercial website templates built with?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "All templates are built with modern production stacks including Next.js, React.js, TypeScript, Tailwind CSS, Framer Motion, and GSAP, engineered for 99+ Google PageSpeed and Core Web Vitals performance."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Does the purchase include a commercial license for client projects?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Every template includes an unlimited commercial license allowing you to build and deploy both personal projects and paying client websites with zero recurring royalties."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Do I get lifetime updates and source code access?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. You receive instant access to the full TypeScript/React source code, design tokens, setup documentation, and free lifetime updates via Gumroad."
+      }
+    }
+  ]
+};
+
+const templateKeywords = [
+  "Next.js Website Templates",
+  "React Tailwind CSS Templates",
+  "Commercial Website Templates",
+  "Luxury Real Estate Next.js Template",
+  "Dental Clinic Website Template Next.js",
+  "Healthcare React Website Template",
+  "TypeScript SaaS Templates",
+  "High PageSpeed Website Templates",
+  "Tanuj Pandey Templates"
+];
 
 const breadcrumbs = [
   { name: "Home", path: "/" },
@@ -28,10 +89,11 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title="Website Templates & Digital Products | Tanuj Pandey"
-  description="Explore production-ready, beautifully engineered website templates built with Next.js, React, and Tailwind CSS. Commercial license & lifetime updates included."
+  title="Commercial Next.js & React Website Templates | Tanuj Pandey"
+  description="Download production-ready Next.js, React, TypeScript, and Tailwind CSS website templates for Real Estate, Healthcare, and SaaS. 99+ Lighthouse scores & commercial license included."
   schemaType="CollectionPage"
-  jsonLd={itemList}
+  keywords={templateKeywords}
+  jsonLd={[itemList, templatesFaqJsonLd]}
   breadcrumbs={breadcrumbs}
 >
   <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
@@ -132,6 +194,39 @@ const breadcrumbs = [
             <h3 class="text-base font-bold text-text-primary mb-2">Lifetime Updates</h3>
             <p class="text-xs text-text-muted leading-relaxed">
               Access future dependency upgrades, bug fixes, and layout iterations at no extra charge via Gumroad.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- AEO / SEO Frequently Asked Questions Section -->
+      <section class="mt-20 md:mt-28 pt-16 border-t border-border-subtle max-w-4xl mx-auto">
+        <div class="text-center mb-10">
+          <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-accent-primary mb-2">Licensing &amp; Architecture FAQ</p>
+          <h2 class="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
+            Frequently Asked Questions
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
+            <h3 class="text-sm font-bold text-text-primary mb-2">What tech stack powers these templates?</h3>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Built with Next.js, React.js, TypeScript, Tailwind CSS, and GSAP/Framer Motion, achieving 99+ Google PageSpeed and Core Web Vitals scores out of the box.
+            </p>
+          </div>
+
+          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
+            <h3 class="text-sm font-bold text-text-primary mb-2">Can I use them for paying client projects?</h3>
+            <p class="text-xs text-text-muted leading-relaxed">
+              Yes. Every download includes a full commercial license to deploy unlimited personal and client websites with zero recurring royalties.
+            </p>
+          </div>
+
+          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
+            <h3 class="text-sm font-bold text-text-primary mb-2">How are source files and updates delivered?</h3>
+            <p class="text-xs text-text-muted leading-relaxed">
+              You receive an instant zip download with full TypeScript source code and documentation after checkout, plus automatic lifetime updates via Gumroad.
             </p>
           </div>
         </div>

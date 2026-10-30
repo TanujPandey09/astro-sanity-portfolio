@@ -44,5 +44,14 @@ User-agent: PerplexityBot
 Allow: /
 Disallow: /api/
 
-# Sitemap
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+
+# Sitemap & LLM Knowledge Index (GEO / AEO)
 Sitemap: https://tanujbuilds.site/sitemap.xml
+# LLMs Context: https://tanujbuilds.site/llms.txt

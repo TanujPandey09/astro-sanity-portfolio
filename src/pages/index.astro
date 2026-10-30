@@ -1,40 +1,46 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import AIChatbot from "../components/AiChatbot";
-
-import { useSanityClient, groq } from "astro-sanity";
-
 import HomeLayout from "../components/HomeLayout.astro";
 
-const query = groq`*[_type == "about"]{
-        ...,
-        heroImage{
-      asset->{
-        url
+const siteUrl = "https://tanujbuilds.site";
+
+const homeFaqJsonLd = {
+  "@type": "FAQPage",
+  "@id": `${siteUrl}/#faq`,
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Who is Tanuj Pandey and what does he specialize in?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Tanuj Pandey is a Full-Stack & AI Engineer with 4+ years of commercial experience building production SaaS platforms, multi-LLM AI applications (OpenAI, Gemini, Grok, Perplexity), real-time Node.js/Socket.IO backends, and high-performance React and Next.js interfaces."
       }
-      },
-    }`;
-
-
-
-const skillquery = groq`*[_type == "skillsSection"] {
-  ...,
-  logoCase[]-> {
-    Logo {
-      ...,
-      asset-> {
-        ...,
-        url,
-      
-      },
-    
-   
+    },
+    {
+      "@type": "Question",
+      name: "What commercial website templates does Tanuj Pandey offer?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Tanuj Pandey builds and sells production-ready Next.js, React, TypeScript, and Tailwind CSS website templates at https://tanujbuilds.site/templates, including Apex Luxury (Real Estate & Architecture Web Template) and Lumina Dental (Healthcare & Clinic Platform), complete with 99+ Lighthouse scores, lifetime updates, and commercial licenses."
+      }
+    },
+    {
+      "@type": "Question",
+      name: "Is Tanuj Pandey available for full-stack engineering roles or custom SaaS development?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes, Tanuj Pandey is available for remote senior full-stack and AI engineering roles as well as custom SaaS product development. You can contact him directly at tanujp09@gmail.com."
+      }
     }
-  }
-}`;
-
-
+  ]
+};
 ---
-<Layout title="Tanuj Pandey | Full Stack Engineer" schemaType="ProfilePage">
-  <HomeLayout/>
+
+<Layout
+  title="Tanuj Pandey | Full-Stack & AI Engineer · Next.js, React, Node.js & SaaS Templates"
+  description="Full-Stack & AI Engineer with 4+ years shipping multi-LLM SaaS platforms, real-time Node.js backends, Next.js interfaces, and commercial website templates."
+  schemaType="ProfilePage"
+  jsonLd={homeFaqJsonLd}
+>
+  <HomeLayout />
 </Layout>

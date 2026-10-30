@@ -11,6 +11,7 @@ interface Props {
   type?: "website" | "article" | "profile";
   noindex?: boolean;
   schemaType?: "WebPage" | "ProfilePage" | "CollectionPage" | "AboutPage";
+  keywords?: string | string[];
   article?: {
     publishedTime?: string;
     modifiedTime?: string;
@@ -22,7 +23,8 @@ interface Props {
   jsonLd?: Record<string, any> | Record<string, any>[];
 }
 const siteUrl = "https://tanujbuilds.site";
-const defaultDescription = "Tanuj Pandey is a professional Full Stack Engineer with 4+ years of experience building secure, performant web products, interactive user interfaces, scalable backend systems, and AI workflows.";
+const defaultDescription = "Tanuj Pandey is a Full-Stack & AI Engineer (4+ years experience) building multi-LLM SaaS platforms, real-time Node.js backends, high-performance Next.js & React applications, and commercial website templates.";
+const defaultKeywords = "Tanuj Pandey, Full Stack Engineer, AI Solutions Architect, React Developer, Next.js Developer, Astro, Node.js, TypeScript, Sanity CMS, Commercial Website Templates, Next.js Templates, Luxury Real Estate Website Template, Dental Clinic Website Template, SaaS Engineer India";
 const defaultOgImage = `${siteUrl}/og-image-dark.png`;
 
 const { 
@@ -32,10 +34,15 @@ const {
   type,
   noindex = false,
   schemaType,
+  keywords,
   article,
   breadcrumbs,
   jsonLd,
 } = Astro.props;
+
+const resolvedKeywords = Array.isArray(keywords)
+  ? keywords.join(", ")
+  : keywords || defaultKeywords;
 
 const pathname = Astro.url.pathname;
 const isHome = pathname === "/" || pathname === "";
@@ -122,41 +129,48 @@ const structuredData = {
       ],
       "knowsAbout": [
         "Full Stack Web Development",
+        "Multi-LLM Orchestration (OpenAI, Gemini, Grok, Perplexity)",
+        "React.js & Next.js (SSR/SSG)",
         "Astro.js Modern Architecture",
-        "React.js & Next.js",
-        "Node.js Backend Engineering",
+        "Node.js, Express.js & Socket.IO Real-Time Backends",
         "TypeScript & JavaScript",
-        "Python",
-        "PostgreSQL & Database Design",
-        "Sanity CMS Headless Modeling",
+        "PostgreSQL, MongoDB & Prisma ORM",
+        "Sanity CMS, Contentful & Strapi Headless Modeling",
         "Tailwind CSS Design Systems",
-        "AI Agent & Chatbot Integrations",
+        "Commercial Next.js & React Website Templates",
         "REST & GraphQL APIs",
         "Web Performance & Core Web Vitals Optimization"
       ],
+      "worksFor": {
+        "@type": "Organization",
+        "name": "Cxisuite",
+        "url": "https://cxisuite.com/"
+      },
       "makesOffer": [
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Custom Full Stack Web Application Development",
-            "description": "High-velocity web product architecture with modern stacks (Astro, Next.js, React, Node.js)."
+            "name": "Custom Full-Stack SaaS & Web Application Development",
+            "description": "End-to-end SaaS architecture using Next.js, React, Node.js, TypeScript, and PostgreSQL."
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "AI Integration & Intelligent Agent Solutions",
-            "description": "Seamless integration of LLMs, conversational assistants, and OpenAI workflows into web applications."
+            "name": "Multi-LLM AI Integration & Agentic Workflows",
+            "description": "Production LLM pipelines, RAG architectures, output validation, and bilingual RTL AI interfaces."
           }
         },
         {
           "@type": "Offer",
+          "url": `${siteUrl}/templates`,
           "itemOffered": {
-            "@type": "Service",
-            "name": "Headless CMS & Content Modeling",
-            "description": "Enterprise-ready Sanity CMS integrations with instant previews and live content delivery."
+            "@type": "SoftwareApplication",
+            "name": "Commercial Next.js & React Website Templates",
+            "applicationCategory": "WebApplication",
+            "description": "Production-ready Next.js, React, and Tailwind CSS templates with 99+ Lighthouse scores and commercial licenses."
           }
         }
       ]
@@ -183,8 +197,8 @@ const structuredData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-        <!-- Core SEO & Search Indexing -->
-    <meta name="keywords" content="Tanuj Pandey, Full Stack Engineer, AI Solutions Architect, React Developer, Astro, Next.js, Node.js, TypeScript, Sanity CMS, Python, Portfolio, Web Developer Pauri Garhwal Uttarakhand, Software Engineer Portfolio" />
+    <!-- Core SEO & Search Indexing -->
+    <meta name="keywords" content={resolvedKeywords} />
     <meta name="author" content="Tanuj Pandey" />
     <meta name="creator" content="Tanuj Pandey" />
     <meta name="publisher" content="Tanuj Pandey" />
@@ -196,6 +210,7 @@ const structuredData = {
     <link rel="canonical" href={canonicalURL} />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="Tanuj Pandey — Blog" href={`${siteUrl}/rss.xml`} />
+    <link rel="alternate" type="text/plain" title="LLMs Context & Entity Index" href={`${siteUrl}/llms.txt`} />
     <link rel="manifest" href="/manifest.webmanifest" />
     {import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION && (
       <meta name="google-site-verification" content={import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION} />
