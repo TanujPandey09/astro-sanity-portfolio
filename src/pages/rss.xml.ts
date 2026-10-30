@@ -1,6 +1,9 @@
 import type { APIRoute } from "astro";
 import { useSanityClient, groq } from "astro-sanity";
+import { client as fallbackSanityClient } from "../lib/sanityClient.js";
 import { escapeXml, portableTextToPlainText } from "../lib/text";
+
+export const prerender = true;
 
 const siteUrl = "https://tanujbuilds.site";
 
@@ -14,10 +17,11 @@ type Blog = {
 };
 
 export const GET: APIRoute = async () => {
+  const sanity = useSanityClient() || fallbackSanityClient;
   let blogs: Blog[] = [];
 
   try {
-    blogs = await useSanityClient().fetch(
+    blogs = await sanity.fetch(
       groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc){
         projectName,
         slug,

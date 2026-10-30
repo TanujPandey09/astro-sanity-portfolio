@@ -1,17 +1,21 @@
 import type { APIRoute } from "astro";
 import { useSanityClient, groq } from "astro-sanity";
+import { client as fallbackSanityClient } from "../lib/sanityClient.js";
 import { fetchAllTemplates } from "../lib/templates";
 import { portableTextToPlainText } from "../lib/text";
 
+export const prerender = true;
+
 export const GET: APIRoute = async () => {
   const siteUrl = "https://tanujbuilds.site";
+  const sanity = useSanityClient() || fallbackSanityClient;
 
   let projects: any[] = [];
   let blogs: any[] = [];
   let templates: any[] = [];
 
   try {
-    projects = await useSanityClient().fetch(
+    projects = await sanity.fetch(
       groq`*[_type == "projects" && defined(slug.current) && !defined(gumroadLink) && !(slug.current in [
         "lumina-dental-premium-dental-website-template",
         "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
@@ -22,7 +26,7 @@ export const GET: APIRoute = async () => {
   }
 
   try {
-    blogs = await useSanityClient().fetch(
+    blogs = await sanity.fetch(
       groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc){ projectName, slug, excerpt, Category }`
     );
   } catch (e) {

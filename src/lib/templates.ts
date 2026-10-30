@@ -1,4 +1,5 @@
 import { useSanityClient, groq } from "astro-sanity";
+import { client as fallbackSanityClient } from "./sanityClient.js";
 
 export interface TemplateItem {
   _id: string;
@@ -113,7 +114,7 @@ export const normalizeTemplate = (item: any): TemplateItem => {
 
 export async function fetchAllTemplates(): Promise<TemplateItem[]> {
   try {
-    const client = useSanityClient();
+    const client = useSanityClient() || fallbackSanityClient;
 
     // 1. Fetch any newly created templates from `templates` schema
     const newTemplatesQuery = groq`*[_type == "templates"] | order(_createdAt desc){
@@ -155,7 +156,7 @@ export async function fetchAllTemplates(): Promise<TemplateItem[]> {
 
 export async function fetchTemplateBySlug(slug: string): Promise<TemplateItem | null> {
   try {
-    const client = useSanityClient();
+    const client = useSanityClient() || fallbackSanityClient;
 
     // Check templates first
     const templateQuery = groq`*[_type == "templates" && slug.current == $slug][0]{
