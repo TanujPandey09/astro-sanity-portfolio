@@ -15,6 +15,8 @@ const itemList = {
   description: "Production-ready Next.js, React, TypeScript, and Tailwind CSS website templates with 99+ Lighthouse performance, lifetime updates, and commercial licenses.",
   itemListElement: templates.map((template, index) => {
     const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
+    const rawImg = template.imageUrl || "/og-image-dark.png";
+    const resolvedImg = rawImg.startsWith("http") ? rawImg : `${siteUrl}${rawImg.startsWith("/") ? "" : "/"}${rawImg}`;
     return {
       "@type": "ListItem",
       position: index + 1,
@@ -23,16 +25,57 @@ const itemList = {
       item: {
         "@type": "Product",
         name: template.templateName,
-        description: template.tagline,
+        description: template.tagline || "Production-ready commercial website template engineered with Next.js, React, and Tailwind CSS.",
+        image: [resolvedImg],
         url: `${siteUrl}/templates/${template.slug.current}`,
+        sku: template.slug.current,
         category: "SoftwareApplication",
-        brand: { "@type": "Person", name: "Tanuj Pandey" },
+        brand: {
+          "@type": "Brand",
+          name: "Tanuj Builds",
+        },
         offers: {
           "@type": "Offer",
           price: priceNumeric,
           priceCurrency: "USD",
           availability: "https://schema.org/InStock",
           url: template.gumroadLink || `${siteUrl}/templates/${template.slug.current}`,
+          seller: {
+            "@type": "Organization",
+            name: "Tanuj Builds",
+          },
+          hasMerchantReturnPolicy: {
+            "@type": "MerchantReturnPolicy",
+            applicableCountry: "US",
+            returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+          },
+          shippingDetails: {
+            "@type": "OfferShippingDetails",
+            shippingRate: {
+              "@type": "MonetaryAmount",
+              value: "0",
+              currency: "USD",
+            },
+            shippingDestination: {
+              "@type": "DefinedRegion",
+              addressCountry: "US",
+            },
+            deliveryTime: {
+              "@type": "ShippingDeliveryTime",
+              handlingTime: {
+                "@type": "QuantitativeValue",
+                minValue: 0,
+                maxValue: 0,
+                unitCode: "DAY",
+              },
+              transitTime: {
+                "@type": "QuantitativeValue",
+                minValue: 0,
+                maxValue: 0,
+                unitCode: "DAY",
+              },
+            },
+          },
         },
       },
     };

@@ -33,17 +33,20 @@ const ogImage = rawImageUrl.includes("cdn.sanity.io")
 
 const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
 
+const resolvedProductImage = ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage.startsWith("/") ? "" : "/"}${ogImage}`;
+
 const productJsonLd = {
   "@type": "Product",
   "@id": `${canonicalURL}#product`,
   name: template.templateName,
   description: template.tagline || "Production-ready website template engineered with modern web architecture.",
-  image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}`,
+  image: [resolvedProductImage],
+  url: canonicalURL,
+  sku: slug,
   category: "SoftwareApplication",
   brand: {
-    "@type": "Person",
-    "@id": `${siteUrl}/#person`,
-    name: "Tanuj Pandey",
+    "@type": "Brand",
+    name: "Tanuj Builds",
   },
   offers: {
     "@type": "Offer",
@@ -52,8 +55,40 @@ const productJsonLd = {
     availability: "https://schema.org/InStock",
     url: template.gumroadLink || canonicalURL,
     seller: {
-      "@type": "Person",
-      name: "Tanuj Pandey",
+      "@type": "Organization",
+      name: "Tanuj Builds",
+    },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "US",
+      returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
+    },
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: {
+        "@type": "MonetaryAmount",
+        value: "0",
+        currency: "USD",
+      },
+      shippingDestination: {
+        "@type": "DefinedRegion",
+        addressCountry: "US",
+      },
+      deliveryTime: {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: {
+          "@type": "QuantitativeValue",
+          minValue: 0,
+          maxValue: 0,
+          unitCode: "DAY",
+        },
+        transitTime: {
+          "@type": "QuantitativeValue",
+          minValue: 0,
+          maxValue: 0,
+          unitCode: "DAY",
+        },
+      },
     },
   },
   ...(template.tags?.length ? { keywords: template.tags.join(", ") } : {}),
