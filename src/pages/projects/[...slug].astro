@@ -4,23 +4,21 @@ import ProjectDetails from "../../components/ProjectsLayout/ProjectDetails.astro
 import Layout from "../../layouts/Layout.astro";
 export const prerender = true;
 
-
 export async function getStaticPaths() {
   const blogs = await useSanityClient().fetch(
-  groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
-    "lumina-dental-premium-dental-website-template",
-    "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
-  ])]{
-        ...,
-        BackgroundImage{
-      asset->{
-        url
-      }
+    groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
+      "lumina-dental-premium-dental-website-template",
+      "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
+    ])]{
+      ...,
+      BackgroundImage{
+        asset->{
+          url
+        }
       },
     }`
   );
-  return blogs.map((items) => {
-   
+  return blogs.map((items: any) => {
     return {
       params: { slug: items.slug?.current },
       props: {
@@ -32,13 +30,16 @@ export async function getStaticPaths() {
 const { detailsData } = Astro.props;
 
 // Extract a plain text description from Portable Text for SEO
-const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
-  || "View the complete case study for this digital platform built with modern web architecture.";
+const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text
+  || "View the complete engineering case study for this production platform built with modern web architecture.";
 
 const siteUrl = "https://tanujbuilds.site";
 const slug = detailsData?.slug?.current;
 const canonicalURL = `${siteUrl}/projects/${slug}`;
 const ogImage = detailsData?.BackgroundImage?.asset?.url;
+const demoUrl = typeof detailsData?.demoLink === "string" ? detailsData.demoLink : detailsData?.demoLink?.current;
+const githubUrl = typeof detailsData?.gitHubLink === "string" ? detailsData.gitHubLink : detailsData?.gitHubLink?.current;
+const gumroadUrl = typeof detailsData?.gumroadLink === "string" ? detailsData.gumroadLink : detailsData?.gumroadLink?.current;
 
 const projectJsonLd = {
   "@type": "SoftwareApplication",
@@ -47,17 +48,17 @@ const projectJsonLd = {
   description: projectDescription,
   applicationCategory: "WebApplication",
   operatingSystem: "Web",
-  url: detailsData?.demoLink || canonicalURL,
+  url: demoUrl || canonicalURL,
   author: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
   publisher: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
   mainEntityOfPage: { "@id": `${canonicalURL}#webpage` },
   ...(ogImage ? { image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}` } : {}),
-  ...(detailsData?.gitHubLink ? { codeRepository: detailsData.gitHubLink } : {}),
-  ...(detailsData?.gumroadLink
+  ...(githubUrl ? { codeRepository: githubUrl } : {}),
+  ...(gumroadUrl
     ? {
         offers: {
           "@type": "Offer",
-          url: detailsData.gumroadLink,
+          url: gumroadUrl,
           availability: "https://schema.org/InStock",
         },
       }
@@ -75,7 +76,7 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title={`${detailsData?.projectName} - Tanuj Pandey`}
+  title={`${detailsData?.projectName} — Case Study | Tanuj Pandey`}
   description={projectDescription}
   image={ogImage}
   breadcrumbs={breadcrumbs}

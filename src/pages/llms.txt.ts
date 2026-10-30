@@ -55,7 +55,8 @@ export const GET: APIRoute = async () => {
     .map((p) => {
       const url = `${siteUrl}/projects/${p.slug.current}`;
       const summary = portableTextToPlainText(p.excerpt) || "Full-stack engineering case study.";
-      const demo = p.demoLink ? ` | Live: ${p.demoLink}` : "";
+      const demoUrl = typeof p.demoLink === "string" ? p.demoLink : p.demoLink?.current;
+      const demo = demoUrl ? ` | Live: ${demoUrl}` : "";
       return `- [${p.projectName}](${url}): ${summary}${demo}`;
     })
     .join("\n");
