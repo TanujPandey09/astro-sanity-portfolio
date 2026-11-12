@@ -52,6 +52,7 @@ export const GET: APIRoute = async () => {
 
   const staticPages = [
     { url: `${siteUrl}/`, changefreq: 'weekly', priority: '1.0' },
+    { url: `${siteUrl}/agency`, changefreq: 'weekly', priority: '0.95' },
     { url: `${siteUrl}/projects`, changefreq: 'weekly', priority: '0.9' },
     { url: `${siteUrl}/templates`, changefreq: 'weekly', priority: '0.9' },
     { url: `${siteUrl}/about`, changefreq: 'monthly', priority: '0.8' },

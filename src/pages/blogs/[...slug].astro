@@ -1,55 +1,134 @@
 ---
-import { useSanityClient, groq } from "astro-sanity";
+export const prerender = false;
 
+import { useSanityClient, groq } from "astro-sanity";
+import { fallbackSanityClient } from "../../lib/sanityClient.js";
 import BlogDetails from "../../components/BlogLayout/BlogDetails.astro";
 import Layout from "../../layouts/Layout.astro";
-export const prerender = true;
 
 export async function getStaticPaths() {
-  const blogs = await useSanityClient().fetch(
-    groq`*[_type == "blogs"]{
-      ...,
-      image{
-        asset->{
-          url
-        }
-      },
-      BackgroundImage{
-        asset->{
-          url
-        }
-      },
-    }`
-  );
-  return blogs.map((items) => {
-    return {
-      params: { slug: items.slug?.current },
+  const query = groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc) {
+    ...,
+    image{
+      asset->{
+        url
+      }
+    },
+    FeatureImage{
+      asset->{
+        url
+      }
+    },
+    BackgroundImage{
+      asset->{
+        url
+      }
+    }
+  }`;
+
+  let blogs: any[] = [];
+  try {
+    blogs = await useSanityClient().fetch(query);
+    if (!Array.isArray(blogs) || blogs.length === 0) {
+      blogs = await fallbackSanityClient.fetch(query);
+    }
+  } catch {
+    try {
+      blogs = await fallbackSanityClient.fetch(query);
+    } catch {
+      blogs = [];
+    }
+  }
+
+  return (blogs || [])
+    .filter((item) => item?.slug?.current)
+    .map((item) => ({
+      params: { slug: String(item.slug.current).replace(/^\/+|\/+$/g, "") },
       props: {
-        detailsData: items,
-        blogData: blogs, // Pass all blogs data to access it in the component
+        detailsData: item,
+        blogData: blogs,
       },
-    };
-  });
+    }));
 }
 
-const { detailsData, blogData } = Astro.props;
+const rawSlug = Astro.params.slug || "";
+const cleanSlug = rawSlug.replace(/^\/+|\/+$/g, "");
+
+const allBlogsQuery = groq`*[_type == "blogs"] | order(_createdAt desc) {
+  ...,
+  image{
+    asset->{
+      url
+    }
+  },
+  FeatureImage{
+    asset->{
+      url
+    }
+  },
+  BackgroundImage{
+    asset->{
+      url
+    }
+  }
+}`;
+
+let blogData: any[] = Array.isArray(Astro.props?.blogData) ? Astro.props.blogData : [];
+if (blogData.length === 0) {
+  try {
+    blogData = await useSanityClient().fetch(allBlogsQuery);
+    if (!Array.isArray(blogData) || blogData.length === 0) {
+      blogData = await fallbackSanityClient.fetch(allBlogsQuery);
+    }
+  } catch (err) {
+    try {
+      blogData = await fallbackSanityClient.fetch(allBlogsQuery);
+    } catch (fallbackErr) {
+      console.error("Failed to fetch blog post data:", fallbackErr);
+      blogData = [];
+    }
+  }
+}
+
+const detailsData =
+  Astro.props?.detailsData ||
+  blogData.find(
+    (item) =>
+      String(item?.slug?.current || "").replace(/^\/+|\/+$/g, "") === cleanSlug
+  ) ||
+  blogData.find((item) => item?.slug?.current === rawSlug);
+
+if (!detailsData) {
+  return Astro.redirect("/blogs");
+}
 
 // Extract description for SEO
-const blogDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text 
-  || detailsData?.blogcontent?.[0]?.children?.[0]?.text 
-  || "Read my latest technical deep dive and insights.";
+const blogDescription =
+  detailsData?.excerpt
+    ?.map((b: any) => b?.children?.map((c: any) => c?.text).join(""))
+    .filter(Boolean)
+    .join(" ") ||
+  detailsData?.blogcontent
+    ?.map((b: any) => b?.children?.map((c: any) => c?.text).join(""))
+    .filter(Boolean)
+    .join(" ")
+    .slice(0, 160) ||
+  "Read this technical deep dive and engineering guide by Tanuj Pandey.";
 
 const siteUrl = "https://tanujbuilds.site";
-const slug = detailsData?.slug?.current;
+const slug = String(detailsData?.slug?.current || cleanSlug).replace(/^\/+|\/+$/g, "");
 const canonicalURL = `${siteUrl}/blogs/${slug}`;
-const ogImage = detailsData?.BackgroundImage?.asset?.url || detailsData?.image?.asset?.url;
+const ogImage =
+  detailsData?.BackgroundImage?.asset?.url ||
+  detailsData?.FeatureImage?.asset?.url ||
+  detailsData?.image?.asset?.url;
 const publishedTime = detailsData?._createdAt;
 const modifiedTime = detailsData?._updatedAt;
 
 const blogJsonLd = {
   "@type": "BlogPosting",
   "@id": `${canonicalURL}#article`,
-  headline: detailsData?.projectName,
+  headline: detailsData?.projectName || "Engineering Article",
   description: blogDescription,
   ...(publishedTime ? { datePublished: publishedTime } : {}),
   ...(modifiedTime ? { dateModified: modifiedTime } : {}),
@@ -69,7 +148,7 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title={`${detailsData.projectName} - Tanuj Pandey`}
+  title={`${detailsData?.projectName || "Blog Article"} | Tanuj Pandey`}
   description={blogDescription}
   image={ogImage}
   type="article"

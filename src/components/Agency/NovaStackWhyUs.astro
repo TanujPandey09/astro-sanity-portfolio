@@ -1,0 +1,142 @@
+---
+// NovaStack Why Us: 6 Core Engineering Pillars
+const pillars = [
+  {
+    number: "01",
+    title: "Full-Stack Engineering Capabilities",
+    summary: "Complete stack mastery from database schemas and REST/GraphQL APIs to responsive, accessible client interfaces.",
+    benefit: "Eliminates cross-team communication overhead, mismatched API contracts, and sluggish delivery cycles."
+  },
+  {
+    number: "02",
+    title: "AI-First Implementation",
+    summary: "Practical, deterministic AI systems: multi-LLM orchestration, contextual RAG, structured JSON validation, and automated workflows.",
+    benefit: "We treat AI as a core architectural asset rather than an ad-hoc gimmick, keeping token costs down and outputs reliable."
+  },
+  {
+    number: "03",
+    title: "Scalable Architecture",
+    summary: "Modular codebases, ACID-compliant databases, edge caching, and stateless APIs engineered to scale under real production loads.",
+    benefit: "Your software won't need an expensive ground-up rebuild when user traffic grows from 1,000 to 100,000 active sessions."
+  },
+  {
+    number: "04",
+    title: "Modern Technology Stack",
+    summary: "Built exclusively with Next.js, React 19, TypeScript, Node.js, and PostgreSQL. Zero legacy bloat, zero proprietary lock-in.",
+    benefit: "Clean, maintainable codebases that your internal developers or future hires can easily adopt, extend, and maintain."
+  },
+  {
+    number: "05",
+    title: "Direct Founder Communication",
+    summary: "You work directly with senior engineering leadership. No non-technical account managers, no telephone games, no excuses.",
+    benefit: "Direct technical accountability, immediate answers to architectural queries, and daily/weekly transparent progress updates."
+  },
+  {
+    number: "06",
+    title: "End-to-End Product Delivery",
+    summary: "We own the complete product lifecycle from discovery and architecture to UI/UX design, sprint development, QA, and deployment.",
+    benefit: "A singular, accountable partner who delivers a working, revenue-ready production system on time and within agreed scope."
+  }
+];
+---
+
+<section id="why-us" class="py-16 sm:py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3 shadow-2xs">
+        // THE NOVASTACK ADVANTAGE
+      </div>
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
+        Engineered for Founders Who Care About Code Quality.
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
+        Most agencies operate with non-technical middlemen, outsource code overseas, or deliver fragile prototypes that crumble in production. NovaStack was founded to provide an engineering-first alternative.
+      </p>
+    </div>
+
+    <!-- 6 Pillars Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {pillars.map((pillar) => (
+        <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono font-bold text-[#0284C7] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded">
+                PILLAR {pillar.number}
+              </span>
+              <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+            </div>
+
+            <h3 class="font-grotesk font-bold text-xl text-slate-900 tracking-tight mb-3">
+              {pillar.title}
+            </h3>
+
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+              {pillar.summary}
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100">
+            <span class="block text-[11px] font-mono text-slate-500">
+              <strong class="text-slate-800 font-semibold font-sans">Business Value:</strong> {pillar.benefit}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Traditional Agency vs NovaStack Comparison Table -->
+    <div class="mt-12 sm:mt-16 rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
+      <div class="p-5 sm:p-6 bg-slate-50 border-b border-slate-200">
+        <h3 class="font-grotesk font-bold text-lg text-slate-900">
+          How We Compare to Traditional Digital Agencies
+        </h3>
+        <p class="text-xs text-slate-500 font-sans mt-0.5">
+          A side-by-side breakdown of operational differences.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs sm:text-sm font-sans">
+          <thead class="bg-slate-100/60 font-mono text-[11px] uppercase tracking-wider text-slate-600 border-b border-slate-200">
+            <tr>
+              <th class="py-3.5 px-4 sm:px-6">Dimension</th>
+              <th class="py-3.5 px-4 sm:px-6 text-slate-500">Typical Agency Model</th>
+              <th class="py-3.5 px-4 sm:px-6 text-[#0284C7] font-bold">The NovaStack Approach</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-slate-700">
+            <tr>
+              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Communication</td>
+              <td class="py-3 px-4 sm:px-6 text-slate-500">Filtered through non-technical account managers</td>
+              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Direct Slack/Teams access to senior engineering leadership</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Code Quality &amp; Types</td>
+              <td class="py-3 px-4 sm:px-6 text-slate-500">Inconsistent, loose JavaScript, heavy technical debt</td>
+              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Strict TypeScript, modular components, clean Git branches</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">AI Implementation</td>
+              <td class="py-3 px-4 sm:px-6 text-slate-500">Basic API wrappers without caching or evaluation</td>
+              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Multi-LLM routing, structured outputs, prompt caching &amp; guardrails</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Codebase Ownership</td>
+              <td class="py-3 px-4 sm:px-6 text-slate-500">Often held in agency repos with proprietary lock-in</td>
+              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">100% full IP and repository transfer on day one</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Speed to Market</td>
+              <td class="py-3 px-4 sm:px-6 text-slate-500">3 to 6 months of scope creep and delayed meetings</td>
+              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Production-ready MVPs shipped in 4 to 8 weeks</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+

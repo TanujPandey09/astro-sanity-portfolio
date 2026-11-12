@@ -4,39 +4,43 @@ import { optimizeSanityImage } from "../lib/optimizeImage";
 const { project, index } = Astro.props;
 
 const projectName = project?.projectName || "Custom Project";
-const rawImageUrl = project?.BackgroundImage?.asset?.url;
+const rawImageUrl = project?.BackgroundImage?.asset?.url || project?.FeatureImage?.asset?.url;
 const imageUrl = optimizeSanityImage(rawImageUrl, 800, 80);
 const rawTags = project?.tags || project?.techStack || [];
-const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['Full-Stack', 'Production'];
+const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STACK', 'PRODUCTION'];
 ---
 
-<div class="group relative bg-surface-card border border-border-subtle rounded-2xl overflow-hidden hover:border-border-hover transition-all duration-700 hover:-translate-y-2 hover:shadow-ambient" data-aos="fade-up" data-aos-delay={index * 50}>
-  <a href={`/projects/${project.slug?.current}`} aria-label={`View project details for ${projectName}`} class="block aspect-[4/3] relative overflow-hidden">
+<div class="group relative bg-[#111726] border border-white/[0.10] rounded-[20px] overflow-hidden hover:border-accent-primary/40 transition-all duration-500 hover:-translate-y-1 shadow-[0_20px_50px_rgba(0,0,0,0.6)]" data-aos="fade-up" data-aos-delay={index * 50}>
+  <a href={`/projects/${project.slug?.current}`} aria-label={`View project details for ${projectName}`} class="block aspect-[16/10] relative overflow-hidden bg-[#0B0F17]">
     {imageUrl && (
       <img 
         src={imageUrl} 
         alt={projectName}
         loading="lazy"
         decoding="async"
-        class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-85 group-hover:opacity-100"
       />
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-canvas via-canvas/20 to-transparent opacity-90 group-hover:opacity-60 transition-opacity duration-700"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#111726] via-[#111726]/30 to-transparent"></div>
+
+    <!-- 4 Corner HUD Crosshairs -->
+    <div class="pointer-events-none absolute inset-3 z-10">
+      <span class="absolute top-0 left-0 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+      <span class="absolute top-0 left-0 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+      <span class="absolute top-0 right-0 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+      <span class="absolute top-0 right-0 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+    </div>
     
-    <div class="absolute bottom-6 left-6 right-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-       <div class="flex flex-wrap gap-2 mb-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          {tags.slice(0, 2).map((tech: string) => (
-            <span class="text-[11px] font-black uppercase tracking-widest px-2 py-1 bg-white/5 border border-border-subtle rounded-full text-text-muted">{tech}</span>
-          ))}
+    <div class="absolute bottom-4 left-4 right-4 z-20">
+       <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <div class="flex gap-1.5">
+            {tags.slice(0, 2).map((tech: string) => (
+              <span class="text-[10px] font-mono uppercase tracking-[0.06em] px-2 py-0.5 bg-white/[0.06] border border-white/10 rounded-full text-[#94A3B8]">{tech}</span>
+            ))}
+          </div>
+          <span class="text-xs font-mono text-accent-primary font-bold">↗</span>
        </div>
-       <h3 class="text-text-primary uppercase tracking-tighter project-card-title font-sans">{projectName}</h3>
+       <h3 class="text-[#F8FAFC] font-grotesk font-bold text-lg sm:text-xl tracking-[-0.03em] truncate">{projectName}</h3>
     </div>
   </a>
 </div>
-
-<style>
-  .project-card-title {
-    font-size: clamp(var(--h4-mobile), 1.5vw, var(--h4-desktop));
-    font-weight: var(--fw-bold);
-  }
-</style>

@@ -155,30 +155,29 @@ export async function fetchAllTemplates(): Promise<TemplateItem[]> {
 }
 
 export async function fetchTemplateBySlug(slug: string): Promise<TemplateItem | null> {
-  try {
-    const client = useSanityClient() || fallbackSanityClient;
+  const templateQuery = groq`*[_type == "templates" && slug.current == $slug][0]{
+    ...,
+    thumbnailImage{ asset->{ url } },
+    BackgroundImage{ asset->{ url } },
+    gallery[]{ asset->{ url } }
+  }`;
 
-    // Check templates first
-    const templateQuery = groq`*[_type == "templates" && slug.current == $slug][0]{
-      ...,
-      thumbnailImage{ asset->{ url } },
-      BackgroundImage{ asset->{ url } },
-      gallery[]{ asset->{ url } }
-    }`;
-    const item = await client.fetch(templateQuery, { slug });
-    if (item) return normalizeTemplate(item);
+  const projectQuery = groq`*[_type == "projects" && slug.current == $slug][0]{
+    ...,
+    BackgroundImage{ asset->{ url } }
+  }`;
 
-    // Fallback to projects query
-    const projectQuery = groq`*[_type == "projects" && slug.current == $slug][0]{
-      ...,
-      BackgroundImage{ asset->{ url } }
-    }`;
-    const legacyItem = await client.fetch(projectQuery, { slug });
-    if (legacyItem) return normalizeTemplate(legacyItem);
+  const clients = [useSanityClient(), fallbackSanityClient].filter(Boolean);
+  for (const client of clients) {
+    try {
+      const item = await client.fetch(templateQuery, { slug });
+      if (item) return normalizeTemplate(item);
 
-    return null;
-  } catch (error) {
-    console.error(`Failed to fetch template for slug ${slug}:`, error);
-    return null;
+      const legacyItem = await client.fetch(projectQuery, { slug });
+      if (legacyItem) return normalizeTemplate(legacyItem);
+    } catch (error) {
+      console.error(`Failed to fetch template for slug ${slug}:`, error);
+    }
   }
+  return null;
 }

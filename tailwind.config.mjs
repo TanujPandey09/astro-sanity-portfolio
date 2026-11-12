@@ -35,9 +35,22 @@ export default {
 					primary: "rgb(var(--accent-primary-rgb) / <alpha-value>)",
 					hover: "var(--accent-hover)",
 					glow: "var(--accent-glow)",
+					cyan: "var(--accent-cyan)",
 				},
 				status: {
 					live: "rgb(var(--status-live-rgb) / <alpha-value>)",
+				},
+				dev: {
+					canvas: "#0B0F17",
+					card: "#111726",
+					elevated: "#1A2236",
+					white: "#F8FAFC",
+					slate: "#94A3B8",
+					dim: "#64748B",
+					indigo: "#5E6AD2",
+					cyan: "#38BDF8",
+					emerald: "#10B981",
+					border: "rgba(255, 255, 255, 0.08)",
 				},
 				// Direct aliases for flat utility naming (e.g., text-muted, text-primary, border-subtle)
 				'canvas-bg': "rgb(var(--canvas-bg-rgb) / <alpha-value>)",
@@ -54,6 +67,7 @@ export default {
 				'accent-primary': "rgb(var(--accent-primary-rgb) / <alpha-value>)",
 				'accent-hover': "var(--accent-hover)",
 				'accent-glow': "var(--accent-glow)",
+				'accent-cyan': "var(--accent-cyan)",
 				'status-live': "rgb(var(--status-live-rgb) / <alpha-value>)",
 			},
 			borderColor: {

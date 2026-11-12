@@ -1,5 +1,6 @@
 ---
 import { useSanityClient, groq } from "astro-sanity";
+import { fallbackSanityClient } from "../lib/sanityClient.js";
 import ProjectItem from "./ProjectItem.astro";
 import BlogItem from "./BlogItem.astro";
 import AiChatbot from "./AiChatbot";
@@ -21,10 +22,36 @@ const query = groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.curr
   "lumina-dental-premium-dental-website-template",
   "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
 ])]{...,BackgroundImage{asset->{url}}}`;
-const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}}}`;
+const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}},BackgroundImage{asset->{url}}}`;
 
-const projectData = await useSanityClient().fetch(query);
-const blogData = await useSanityClient().fetch(blogquery);
+let projectData = [];
+try {
+  projectData = await useSanityClient().fetch(query);
+  if (!Array.isArray(projectData) || projectData.length === 0) {
+    projectData = await fallbackSanityClient.fetch(query);
+  }
+} catch (err) {
+  try {
+    projectData = await fallbackSanityClient.fetch(query);
+  } catch (e) {
+    console.warn("Could not fetch projects from Sanity:", e);
+  }
+}
+
+let blogData = [];
+try {
+  blogData = await useSanityClient().fetch(blogquery);
+  if (!Array.isArray(blogData) || blogData.length === 0) {
+    blogData = await fallbackSanityClient.fetch(blogquery);
+  }
+} catch (err) {
+  try {
+    blogData = await fallbackSanityClient.fetch(blogquery);
+  } catch (e) {
+    console.warn("Could not fetch blogs from Sanity:", e);
+  }
+}
+
 const templatesData = await fetchAllTemplates();
 ---
 
@@ -38,16 +65,17 @@ const templatesData = await fetchAllTemplates();
     <Ticker />
 
     <!-- Projects Section (Featured Works Right Upfront) -->
-    <section id="projects" class="py-14 sm:py-20 md:py-28 relative z-10 border-t border-border-subtle">
+    <section id="projects" class="py-14 sm:py-20 md:py-28 relative z-10 border-t border-white/[0.10]">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
+          eyebrow="SHOWCASE"
           title="Selected" 
           gradientText="Case Studies" 
           subtitle="Production SaaS platforms, multi-LLM applications, and full-stack systems engineered for real users."
         />
         
         <!-- Featured Deliveries (Bento Grid) -->
-        <div class="mt-8 sm:mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+        <div class="mt-8 sm:mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
@@ -55,7 +83,7 @@ const templatesData = await fetchAllTemplates();
         
         {projectData?.length > 4 && (
           <div class="mt-16 md:mt-20">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-border-subtle gap-4">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-white/[0.10] gap-4">
                <div>
                   <h3 class="text-xl md:text-2xl font-bold text-text-primary tracking-tight">More Shipped Builds</h3>
                   <p class="text-xs sm:text-sm text-text-muted mt-1">Additional client deliveries, internal tools, and web applications.</p>
@@ -64,7 +92,7 @@ const templatesData = await fetchAllTemplates();
                  id="expand-repo"
                  aria-label="Show all additional projects"
                  aria-expanded="false"
-                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.03] border border-border-subtle hover:border-border-hover text-xs font-mono text-text-primary transition-all cursor-pointer"
+                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.14] hover:border-accent-primary text-xs font-mono text-text-primary transition-all cursor-pointer"
                >
                  <span>Show All ({projectData.length - 4})</span>
                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="repo-icon" class="transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
@@ -78,9 +106,9 @@ const templatesData = await fetchAllTemplates();
             </div>
 
             <div class="mt-10 md:mt-12 flex justify-center">
-               <a href="/projects" class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-surface-card border border-white/[0.12] hover:border-accent-primary/60 text-xs font-mono font-semibold text-text-primary transition-all duration-300 shadow-sm">
+               <a href="/projects" class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#111726] border border-white/[0.14] hover:border-accent-primary/60 text-xs font-mono font-semibold text-[#F8FAFC] transition-all duration-300 shadow-sm">
                   <span>View All Case Studies</span>
-                  <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all">↗</span>
+                  <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
                </a>
             </div>
           </div>
@@ -97,20 +125,21 @@ const templatesData = await fetchAllTemplates();
     <!-- Technology Stack -->
     <Skills />
 
-    <!-- Strategic Development Workflow -->
+    <!-- Strategic Development Workflow & FAQ -->
     <Process />
 
     <!-- Commercial Templates & Digital Products Section -->
     {templatesData && templatesData.length > 0 && (
-      <section id="templates" class="py-20 md:py-28 relative z-10 border-t border-border-subtle">
+      <section id="templates" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-white/[0.10]">
         <div class="max-w-7xl mx-auto">
           <SectionHeader 
+            eyebrow="COMMERCIAL ASSETS"
             title="Commercial" 
             gradientText="Templates" 
             subtitle="Production-ready Next.js, React, and TypeScript templates with commercial licenses and 99+ Lighthouse performance."
           />
 
-          <div class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div class="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
             {templatesData.slice(0, 2).map((template, index) => (
               <TemplateCard template={template} index={index} />
             ))}
@@ -119,10 +148,10 @@ const templatesData = await fetchAllTemplates();
           <div class="mt-12 flex justify-center">
             <a 
               href="/templates" 
-              class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-surface-card border border-white/[0.12] hover:border-accent-primary/60 text-xs font-mono font-semibold text-text-primary transition-all duration-300 shadow-sm"
+              class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#111726] border border-white/[0.14] hover:border-accent-primary/60 text-xs font-mono font-semibold text-[#F8FAFC] transition-all duration-300 shadow-sm"
             >
               <span>Browse All Templates</span>
-              <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all">↗</span>
+              <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
             </a>
           </div>
         </div>
@@ -130,24 +159,25 @@ const templatesData = await fetchAllTemplates();
     )}
 
     <!-- Blogs Section -->
-    <section id="blogs" class="py-20 md:py-28 relative z-10 border-t border-border-subtle">
+    <section id="blogs" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-white/[0.10]">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
+          eyebrow="ENGINEERING WRITING"
           title="Engineering" 
           gradientText="Writing" 
           subtitle="Deep dives on full-stack architecture, multi-LLM orchestration, and Core Web Vitals optimization."
         />
         
-        <div class="mt-12 md:mt-14 space-y-3.5">
+        <div class="mt-10 md:mt-12">
           {blogData?.slice(0, 4).map((blog, index) => (
             <BlogItem blog={blog} index={index} />
           ))}
         </div>
         
         <div class="mt-10 flex justify-start sm:justify-end">
-           <a href="/blogs" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.03] border border-border-subtle hover:border-border-hover text-xs font-mono text-text-primary transition-all">
+           <a href="/blogs" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.14] hover:border-accent-primary text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] transition-all">
               <span>Read All Articles</span>
-              <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform">↗</span>
+              <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform font-bold">↗</span>
            </a>
         </div>
       </div>
@@ -161,41 +191,24 @@ const templatesData = await fetchAllTemplates();
 <AiChatbot client:idle />
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  const setupRepoExpand = () => {
+    const expandBtn = document.getElementById('expand-repo');
+    const repoGrid = document.getElementById('repo-grid');
+    const repoIcon = document.getElementById('repo-icon');
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  // Premium Section Transitions
-  const sections = document.querySelectorAll('section');
-  sections.forEach(section => {
-    gsap.from(section, {
-      opacity: 0,
-      y: 40,
-      duration: 1.1,
-      ease: "power3.out",
-      scrollTrigger: {
-        trigger: section,
-        start: "top 82%",
-        toggleActions: "play none none none"
+    expandBtn?.addEventListener('click', () => {
+      repoGrid?.classList.toggle('hidden');
+      repoIcon?.classList.toggle('rotate-180');
+      
+      const isExpanded = !repoGrid?.classList.contains('hidden');
+      expandBtn.setAttribute('aria-expanded', String(isExpanded));
+      const labelSpan = expandBtn.querySelector('span');
+      if (labelSpan) {
+        labelSpan.textContent = isExpanded ? 'Collapse List' : 'Show All';
       }
     });
-  });
+  };
 
-  // Repository Expansion Logic
-  const expandBtn = document.getElementById('expand-repo');
-  const repoGrid = document.getElementById('repo-grid');
-  const repoIcon = document.getElementById('repo-icon');
-
-  expandBtn?.addEventListener('click', () => {
-    repoGrid?.classList.toggle('hidden');
-    repoIcon?.classList.toggle('rotate-180');
-    
-    const isExpanded = !repoGrid?.classList.contains('hidden');
-    expandBtn.setAttribute('aria-expanded', String(isExpanded));
-    const labelSpan = expandBtn.querySelector('span');
-    if (labelSpan) {
-      labelSpan.textContent = isExpanded ? 'Collapse List' : 'Show All';
-    }
-  });
+  setupRepoExpand();
+  document.addEventListener('astro:after-swap', setupRepoExpand);
 </script>

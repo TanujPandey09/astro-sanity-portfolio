@@ -1,0 +1,387 @@
+---
+// NovaStack Agency Contact Section: High-Converting Project Inquiry Form
+---
+
+<section id="contact" class="py-16 sm:py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      
+      <!-- Left Column: Value Proposition & Direct Contact Channels -->
+      <div class="lg:col-span-5 space-y-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-4 shadow-2xs">
+            // START A CONVERSATION
+          </div>
+          <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.035em] leading-[1.08]">
+            Have an Idea? <br />
+            <span class="text-[#0284C7] underline decoration-slate-200 underline-offset-8">Let's Build It.</span>
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 leading-relaxed font-sans mt-4">
+            Whether you are launching an early-stage SaaS MVP, upgrading a legacy web application, or automating manual operations with production AI, we are ready to build.
+          </p>
+        </div>
+
+        <!-- Direct Contact Cards -->
+        <div class="space-y-4">
+          
+          <!-- Direct Email Card with One-Click Copy -->
+          <div class="rounded-xl bg-white border border-slate-200 p-5 shadow-xs">
+            <div class="flex items-center justify-between text-xs font-mono mb-2">
+              <span class="text-slate-500 uppercase tracking-wider">[ DIRECT INBOX ]</span>
+              <span class="text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded text-[10px]">
+                Response &lt; 24h
+              </span>
+            </div>
+            <div class="flex items-center justify-between gap-3">
+              <a href="mailto:tanujp09@gmail.com" class="text-sm sm:text-base font-mono font-bold text-slate-900 hover:text-[#0284C7] transition-colors truncate">
+                tanujp09@gmail.com
+              </a>
+              <button
+                type="button"
+                id="agency-copy-email-btn"
+                data-email="tanujp09@gmail.com"
+                class="shrink-0 px-3 py-1.5 rounded-md bg-slate-100 hover:bg-slate-200 text-xs font-mono text-slate-700 transition-all active:scale-95 cursor-pointer border border-slate-200"
+              >
+                <span id="agency-copy-email-text">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Direct Phone / WhatsApp Card -->
+          <div class="rounded-xl bg-white border border-slate-200 p-5 shadow-xs flex items-center justify-between gap-3">
+            <div>
+              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 block mb-0.5">
+                PHONE / WHATSAPP
+              </span>
+              <a href="tel:+919557321978" class="text-sm font-mono font-semibold text-slate-900 hover:text-[#0284C7] transition-colors tabular-nums">
+                +91 9557321978
+              </a>
+            </div>
+            <span class="text-xs font-mono text-slate-500 bg-slate-50 border border-slate-200 px-2 py-1 rounded">
+              IST (UTC+5:30)
+            </span>
+          </div>
+
+          <!-- Global Target Markets Pill Card -->
+          <div class="rounded-xl bg-white border border-slate-200 p-5 shadow-xs">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 block mb-2 font-semibold">
+              GLOBAL CLIENT COVERAGE
+            </span>
+            <div class="flex flex-wrap gap-1.5 text-xs font-mono text-slate-700">
+              <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200">United States (EST/PST)</span>
+              <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200">United Kingdom (GMT)</span>
+              <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200">United Arab Emirates (GST)</span>
+              <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200">Australia (AEST)</span>
+              <span class="px-2.5 py-1 rounded bg-slate-50 border border-slate-200">India (IST)</span>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="pt-2 text-xs font-mono text-slate-500">
+          Founder Profile &amp; Case Studies: <a href="/" class="text-[#0284C7] font-semibold hover:underline">tanujbuilds.site ↗</a>
+        </div>
+      </div>
+
+      <!-- Right Column: Professional Agency Inquiry Form -->
+      <div class="lg:col-span-7 bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 md:p-10 shadow-sm">
+        
+        <div class="mb-6 pb-4 border-b border-slate-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-grotesk font-bold text-xl text-slate-900">Project Scoping Inquiry</h3>
+            <p class="text-xs text-slate-500 font-sans mt-0.5">Please share your requirements below for an itemized proposal.</p>
+          </div>
+          <span class="text-xs font-mono text-[#0284C7] bg-sky-50 border border-sky-200 px-2.5 py-1 rounded hidden sm:inline">
+            Direct Founder Review
+          </span>
+        </div>
+
+        <form id="agencyContactForm" class="space-y-5" novalidate>
+          <!-- Hidden Fields: Source & Anti-Spam Honeypot -->
+          <input type="hidden" name="source" value="novastack" />
+          <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label for="agency-company-website">Company Website</label>
+            <input id="agency-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <!-- Name & Email Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="space-y-1.5">
+              <label for="agency-name" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+                Full Name <span class="text-red-500">*</span>
+              </label>
+              <input
+                id="agency-name"
+                name="from_name"
+                type="text"
+                required
+                placeholder="Sarah Jenkins"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans"
+              />
+              <span class="agency-error text-[11px] font-mono text-red-600 hidden" id="err-name">Please provide your full name.</span>
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="agency-email" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+                Business Email <span class="text-red-500">*</span>
+              </label>
+              <input
+                id="agency-email"
+                name="from_email"
+                type="email"
+                required
+                placeholder="sarah@vanguard.com"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans"
+              />
+              <span class="agency-error text-[11px] font-mono text-red-600 hidden" id="err-email">Please enter a valid business email.</span>
+            </div>
+          </div>
+
+          <!-- Company Name & Service Required Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="space-y-1.5">
+              <label for="agency-company" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+                Company / Organization <span class="text-slate-400 font-normal font-sans">(Optional)</span>
+              </label>
+              <input
+                id="agency-company"
+                name="company_name"
+                type="text"
+                placeholder="Vanguard Technologies"
+                class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans"
+              />
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="agency-service" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+                Service Required <span class="text-red-500">*</span>
+              </label>
+              <select
+                id="agency-service"
+                name="service"
+                required
+                class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans"
+              >
+                <option value="">Select a discipline...</option>
+                <option value="Web Development (Next.js / React)">Web Development (Next.js / React)</option>
+                <option value="Mobile App Development (React Native)">Mobile App Development (React Native)</option>
+                <option value="AI & Automation Workflows">AI &amp; Automation Workflows</option>
+                <option value="SaaS & Custom Software MVP">SaaS &amp; Custom Software MVP</option>
+                <option value="SEO & GEO Architecture">Technical SEO &amp; GEO Architecture</option>
+                <option value="UI/UX & Product Design">UI/UX &amp; Product Design</option>
+                <option value="Dedicated Developer Capacity">Dedicated Developer Capacity (Retainer)</option>
+                <option value="Other / Multi-Discipline Project">Other / Multi-Discipline Project</option>
+              </select>
+              <span class="agency-error text-[11px] font-mono text-red-600 hidden" id="err-service">Please select a primary service category.</span>
+            </div>
+          </div>
+
+          <!-- Project Budget Dropdown -->
+          <div class="space-y-1.5">
+            <label for="agency-budget" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+              Estimated Project Budget (USD) <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="agency-budget"
+              name="budget"
+              required
+              class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans"
+            >
+              <option value="">Select an investment tier...</option>
+              <option value="$2,500 – $5,000 (Scoped Feature or Prototype)">$2,500 – $5,000 (Discrete Feature or Prototype)</option>
+              <option value="$5,000 – $10,000 (Complete Web App or MVP)">$5,000 – $10,000 (Complete Web App or MVP)</option>
+              <option value="$10,000 – $25,000 (Production SaaS or Mobile App)">$10,000 – $25,000 (Production SaaS or Mobile App)</option>
+              <option value="$25,000+ (Full Enterprise Solution)">$25,000+ (Full Enterprise Solution)</option>
+              <option value="Ongoing Monthly Retainer">Ongoing Monthly Retainer (Dedicated Capacity)</option>
+            </select>
+            <span class="agency-error text-[11px] font-mono text-red-600 hidden" id="err-budget">Please select an estimated budget range.</span>
+          </div>
+
+          <!-- Project Description Textarea -->
+          <div class="space-y-1.5">
+            <label for="agency-message" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-700">
+              Project Description &amp; Scope <span class="text-red-500">*</span>
+            </label>
+            <textarea
+              id="agency-message"
+              name="message"
+              rows="4"
+              required
+              placeholder="Tell us about your product goals, desired timeline, target audience, and any technical constraints..."
+              class="w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#0284C7] focus:outline-none focus:ring-2 focus:ring-sky-100 transition-all font-sans resize-y"
+            ></textarea>
+            <span class="agency-error text-[11px] font-mono text-red-600 hidden" id="err-message">Please provide details regarding your project scope.</span>
+          </div>
+
+          <!-- Submission Action Bar -->
+          <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <span class="text-xs font-mono text-slate-500">
+              [ 24-HOUR GUARANTEED RESPONSE SLA ]
+            </span>
+
+            <button
+              type="submit"
+              id="agency-submit-btn"
+              class="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-grotesk font-bold text-xs uppercase tracking-wider shadow-sm hover:shadow transition-all active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <span id="agency-submit-btn-text">Submit Project Inquiry</span>
+              <span class="text-[#38BDF8]">→</span>
+            </button>
+          </div>
+
+          <!-- Form Status Feedback Messages -->
+          <div id="agency-form-status" class="hidden p-4 rounded-xl text-xs font-mono border"></div>
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const initAgencyContact = () => {
+    // Copy email button
+    const copyBtn = document.getElementById('agency-copy-email-btn');
+    const copyText = document.getElementById('agency-copy-email-text');
+
+    copyBtn?.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email') || 'tanujp09@gmail.com';
+      try {
+        await navigator.clipboard.writeText(email);
+        if (copyText) {
+          copyText.textContent = 'Copied!';
+          setTimeout(() => { copyText.textContent = 'Copy'; }, 2000);
+        }
+      } catch {
+        window.location.href = `mailto:${email}`;
+      }
+    });
+
+    // Handle URL parameters to pre-fill service or budget
+    try {
+      const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1]);
+      const serviceParam = params.get('service');
+      const modelParam = params.get('model');
+
+      if (serviceParam) {
+        const serviceSelect = document.getElementById('agency-service') as HTMLSelectElement | null;
+        if (serviceSelect) {
+          for (const opt of Array.from(serviceSelect.options)) {
+            if (opt.value.toLowerCase().includes(serviceParam.toLowerCase())) {
+              serviceSelect.value = opt.value;
+              break;
+            }
+          }
+        }
+      }
+
+      if (modelParam) {
+        const budgetSelect = document.getElementById('agency-budget') as HTMLSelectElement | null;
+        if (budgetSelect && modelParam.toLowerCase().includes('retainer')) {
+          budgetSelect.value = 'Ongoing Monthly Retainer';
+        }
+      }
+    } catch {}
+
+    // Form submission & validation
+    const form = document.getElementById('agencyContactForm') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('agency-submit-btn') as HTMLButtonElement | null;
+    const submitBtnText = document.getElementById('agency-submit-btn-text');
+    const statusBox = document.getElementById('agency-form-status');
+
+    if (!form || !submitBtn) return;
+
+    const showStatus = (message: string, isError = false) => {
+      if (!statusBox) return;
+      statusBox.textContent = message;
+      statusBox.className = `p-4 rounded-xl text-xs font-mono border ${
+        isError
+          ? 'bg-red-50 border-red-200 text-red-700'
+          : 'bg-emerald-50 border-emerald-200 text-emerald-800'
+      }`;
+      statusBox.classList.remove('hidden');
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Reset errors
+      document.querySelectorAll('.agency-error').forEach((el) => el.classList.add('hidden'));
+      statusBox?.classList.add('hidden');
+
+      const nameInput = document.getElementById('agency-name') as HTMLInputElement;
+      const emailInput = document.getElementById('agency-email') as HTMLInputElement;
+      const serviceSelect = document.getElementById('agency-service') as HTMLSelectElement;
+      const budgetSelect = document.getElementById('agency-budget') as HTMLSelectElement;
+      const messageInput = document.getElementById('agency-message') as HTMLTextAreaElement;
+
+      let hasError = false;
+
+      if (!nameInput.value.trim()) {
+        document.getElementById('err-name')?.classList.remove('hidden');
+        hasError = true;
+      }
+
+      const emailVal = emailInput.value.trim();
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+      if (!emailVal || !emailRe.test(emailVal)) {
+        document.getElementById('err-email')?.classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (!serviceSelect.value) {
+        document.getElementById('err-service')?.classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (!budgetSelect.value) {
+        document.getElementById('err-budget')?.classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (!messageInput.value.trim()) {
+        document.getElementById('err-message')?.classList.remove('hidden');
+        hasError = true;
+      }
+
+      if (hasError) return;
+
+      // Submit to /api/contact
+      submitBtn.disabled = true;
+      if (submitBtnText) submitBtnText.textContent = 'Transmitting...';
+
+      const formData = new FormData(form);
+
+      try {
+        const resp = await fetch('/api/contact', {
+          method: 'POST',
+          body: formData,
+        });
+
+        const data = await resp.json().catch(() => ({}));
+
+        if (resp.ok) {
+          showStatus(
+            data.message || 'Thank you for contacting NovaStack. Your project inquiry has been received, and our engineering lead will respond within 24 hours.'
+          );
+          form.reset();
+        } else {
+          showStatus(data.message || 'Could not send inquiry. Please email tanujp09@gmail.com directly.', true);
+        }
+      } catch (err) {
+        console.error('Agency Form Error:', err);
+        showStatus('Could not send inquiry. Please email tanujp09@gmail.com directly.', true);
+      } finally {
+        submitBtn.disabled = false;
+        if (submitBtnText) submitBtnText.textContent = 'Submit Project Inquiry';
+      }
+    });
+  };
+
+  initAgencyContact();
+  document.addEventListener('astro:after-swap', initAgencyContact);
+</script>
+

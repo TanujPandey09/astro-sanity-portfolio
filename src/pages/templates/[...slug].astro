@@ -1,26 +1,31 @@
 ---
+export const prerender = false;
+
 import Layout from "../../layouts/Layout.astro";
 import PremiumBackground from "../../components/PremiumBackground.astro";
 import PortableTextImage from "../../components/BlogLayout/PortableTextImage.astro";
 import { PortableText } from "astro-portabletext";
-import { fetchAllTemplates, type TemplateItem } from "../../lib/templates";
+import { fetchAllTemplates, fetchTemplateBySlug, type TemplateItem } from "../../lib/templates";
 import { optimizeSanityImage } from "../../lib/optimizeImage";
-
-export const prerender = true;
 
 export async function getStaticPaths() {
   const templates = await fetchAllTemplates();
-  return templates.map((template) => ({
-    params: { slug: template.slug.current },
-    props: { template },
-  }));
+  return (templates || [])
+    .filter((t) => t?.slug?.current)
+    .map((template) => ({
+      params: { slug: String(template.slug.current).replace(/^\/+|\/+$/g, "") },
+      props: { template },
+    }));
 }
 
-interface Props {
-  template: TemplateItem;
-}
+const rawSlug = Astro.params.slug || "";
+const cleanSlug = rawSlug.replace(/^\/+|\/+$/g, "");
+const template: TemplateItem | null =
+  Astro.props?.template || (await fetchTemplateBySlug(cleanSlug));
 
-const { template } = Astro.props;
+if (!template) {
+  return Astro.redirect("/templates");
+}
 
 const siteUrl = "https://tanujbuilds.site";
 const slug = template.slug.current;

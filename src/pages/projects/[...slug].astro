@@ -1,45 +1,110 @@
 ---
+export const prerender = false;
+
 import { useSanityClient, groq } from "astro-sanity";
+import { fallbackSanityClient } from "../../lib/sanityClient.js";
 import ProjectDetails from "../../components/ProjectsLayout/ProjectDetails.astro";
 import Layout from "../../layouts/Layout.astro";
-export const prerender = true;
 
 export async function getStaticPaths() {
-  const blogs = await useSanityClient().fetch(
-    groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
-      "lumina-dental-premium-dental-website-template",
-      "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
-    ])]{
-      ...,
-      BackgroundImage{
-        asset->{
-          url
-        }
-      },
-    }`
-  );
-  return blogs.map((items: any) => {
-    return {
-      params: { slug: items.slug?.current },
+  const query = groq`*[_type == "projects" && defined(slug.current)]{
+    ...,
+    FeatureImage{
+      asset->{
+        url
+      }
+    },
+    BackgroundImage{
+      asset->{
+        url
+      }
+    }
+  }`;
+
+  let projects: any[] = [];
+  try {
+    projects = await useSanityClient().fetch(query);
+    if (!Array.isArray(projects) || projects.length === 0) {
+      projects = await fallbackSanityClient.fetch(query);
+    }
+  } catch {
+    try {
+      projects = await fallbackSanityClient.fetch(query);
+    } catch {
+      projects = [];
+    }
+  }
+
+  return (projects || [])
+    .filter((item) => item?.slug?.current)
+    .map((item) => ({
+      params: { slug: String(item.slug.current).replace(/^\/+|\/+$/g, "") },
       props: {
-        detailsData: items,
+        detailsData: item,
       },
-    };
-  });
+    }));
 }
-const { detailsData } = Astro.props;
+
+const rawSlug = Astro.params.slug || "";
+const cleanSlug = rawSlug.replace(/^\/+|\/+$/g, "");
+
+const projectQuery = groq`*[_type == "projects" && slug.current == $slug][0]{
+  ...,
+  FeatureImage{
+    asset->{
+      url
+    }
+  },
+  BackgroundImage{
+    asset->{
+      url
+    }
+  },
+}`;
+
+let detailsData: any = Astro.props?.detailsData || null;
+if (!detailsData) {
+  try {
+    detailsData = await useSanityClient().fetch(projectQuery, { slug: cleanSlug });
+    if (!detailsData) {
+      detailsData = await fallbackSanityClient.fetch(projectQuery, { slug: cleanSlug });
+    }
+  } catch (err) {
+    try {
+      detailsData = await fallbackSanityClient.fetch(projectQuery, { slug: cleanSlug });
+    } catch (fallbackErr) {
+      console.error("Failed to fetch project details:", fallbackErr);
+    }
+  }
+}
+
+if (!detailsData) {
+  return Astro.redirect("/projects");
+}
 
 // Extract a plain text description from Portable Text for SEO
-const projectDescription = detailsData?.excerpt?.[0]?.children?.[0]?.text
-  || "View the complete engineering case study for this production platform built with modern web architecture.";
+const projectDescription =
+  detailsData?.excerpt?.[0]?.children?.[0]?.text ||
+  "View the complete engineering case study for this production platform built with modern web architecture.";
 
 const siteUrl = "https://tanujbuilds.site";
-const slug = detailsData?.slug?.current;
+const slug = String(detailsData?.slug?.current || cleanSlug).replace(/^\/+|\/+$/g, "");
 const canonicalURL = `${siteUrl}/projects/${slug}`;
-const ogImage = detailsData?.BackgroundImage?.asset?.url;
-const demoUrl = typeof detailsData?.demoLink === "string" ? detailsData.demoLink : detailsData?.demoLink?.current;
-const githubUrl = typeof detailsData?.gitHubLink === "string" ? detailsData.gitHubLink : detailsData?.gitHubLink?.current;
-const gumroadUrl = typeof detailsData?.gumroadLink === "string" ? detailsData.gumroadLink : detailsData?.gumroadLink?.current;
+const ogImage =
+  detailsData?.BackgroundImage?.asset?.url ||
+  detailsData?.FeatureImage?.asset?.url;
+const demoUrl =
+  typeof detailsData?.demoLink === "string"
+    ? detailsData.demoLink
+    : detailsData?.demoLink?.current;
+const githubUrl =
+  typeof detailsData?.gitHubLink === "string"
+    ? detailsData.gitHubLink
+    : detailsData?.gitHubLink?.current;
+const gumroadUrl =
+  typeof detailsData?.gumroadLink === "string"
+    ? detailsData.gumroadLink
+    : detailsData?.gumroadLink?.current;
 
 const projectJsonLd = {
   "@type": "SoftwareApplication",

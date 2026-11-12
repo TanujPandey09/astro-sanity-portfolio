@@ -1,0 +1,145 @@
+---
+export const prerender = false;
+
+import Layout from "../layouts/Layout.astro";
+import NovaStackHeader from "../components/Agency/NovaStackHeader.astro";
+import NovaStackHero from "../components/Agency/NovaStackHero.astro";
+import NovaStackCapabilities from "../components/Agency/NovaStackCapabilities.astro";
+import NovaStackServices from "../components/Agency/NovaStackServices.astro";
+import NovaStackWork from "../components/Agency/NovaStackWork.astro";
+import NovaStackWhyUs from "../components/Agency/NovaStackWhyUs.astro";
+import NovaStackProcess from "../components/Agency/NovaStackProcess.astro";
+import NovaStackModels from "../components/Agency/NovaStackModels.astro";
+import NovaStackFAQ from "../components/Agency/NovaStackFAQ.astro";
+import NovaStackContact from "../components/Agency/NovaStackContact.astro";
+import NovaStackFooter from "../components/Agency/NovaStackFooter.astro";
+
+const siteUrl = "https://tanujbuilds.site";
+const canonicalURL = `${siteUrl}/agency`;
+
+const pageTitle = "NovaStack — AI & Digital Technology Studio | Web, Mobile & Custom SaaS";
+const pageDescription = "NovaStack is an AI & digital technology studio helping startups, founders, and businesses build scalable web applications, mobile platforms, and production AI automation workflows across the USA, UK, UAE, Australia, and India.";
+
+const agencyJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": `${canonicalURL}#organization`,
+      "name": "NovaStack",
+      "alternateName": ["NovaStack Studio", "NovaStack AI & Digital Technology Studio"],
+      "url": canonicalURL,
+      "logo": `${siteUrl}/favicon.svg`,
+      "image": `${siteUrl}/og-image-dark.png`,
+      "description": pageDescription,
+      "slogan": "We Build. Automate. Optimize. Scale.",
+      "email": "tanujp09@gmail.com",
+      "telephone": "+919557321978",
+      "founder": {
+        "@type": "Person",
+        "@id": `${siteUrl}/#person`,
+        "name": "Tanuj Pandey",
+        "jobTitle": "Founder & Lead Architect",
+        "url": siteUrl,
+      },
+      "areaServed": [
+        { "@type": "Country", "name": "United States" },
+        { "@type": "Country", "name": "United Kingdom" },
+        { "@type": "Country", "name": "United Arab Emirates" },
+        { "@type": "Country", "name": "Australia" },
+        { "@type": "Country", "name": "India" }
+      ],
+      "knowsAbout": [
+        "Full-Stack Web Development",
+        "Next.js & React 19 Applications",
+        "Mobile App Development with React Native",
+        "Applied Generative AI & Multi-LLM Orchestration",
+        "SaaS MVP Architecture & Subscription Platforms",
+        "Technical SEO & Generative Engine Optimization (GEO)",
+        "UI/UX Product Design & Design Systems"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "NovaStack Services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI & Automation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SaaS & Custom Software" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO & GEO" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "UI/UX & Product Design" } }
+        ]
+      }
+    }
+  ]
+};
+
+const breadcrumbs = [
+  { name: "Home", path: "/" },
+  { name: "Agency", path: "/agency" },
+];
+---
+
+<Layout
+  title={pageTitle}
+  description={pageDescription}
+  schemaType="WebPage"
+  breadcrumbs={breadcrumbs}
+  jsonLd={agencyJsonLd}
+  hideDefaultHeader={true}
+  hideDefaultFooter={true}
+  isAgency={true}
+>
+  <!-- Dedicated Agency Container with Premium Editorial B2B Aesthetic -->
+  <div class="agency-page w-full min-h-screen bg-[#FAFAFA] text-slate-800 font-sans selection:bg-sky-500/15 selection:text-slate-900">
+    <!-- NovaStack Navigation Header -->
+    <NovaStackHeader />
+
+    <!-- Main Content Flow -->
+    <main id="agency-main-content">
+      <!-- 1. Hero Section -->
+      <NovaStackHero />
+
+      <!-- 2. Trusted Capabilities -->
+      <NovaStackCapabilities />
+
+      <!-- 3. Agency Services (6 Categories) -->
+      <NovaStackServices />
+
+      <!-- 4. Featured Work (Custom vs Commercial Templates) -->
+      <NovaStackWork />
+
+      <!-- 5. Why NovaStack (6 Pillars) -->
+      <NovaStackWhyUs />
+
+      <!-- 6. Development Process (6 Steps) -->
+      <NovaStackProcess />
+
+      <!-- 7. Engagement Models (4 Structures) -->
+      <NovaStackModels />
+
+      <!-- 8. Frequently Asked Questions -->
+      <NovaStackFAQ />
+
+      <!-- 9. Contact Section & Project Inquiry Form -->
+      <NovaStackContact />
+    </main>
+
+    <!-- 10. NovaStack Agency Footer -->
+    <NovaStackFooter />
+  </div>
+</Layout>
+
+<style is:global>
+  /* Ensure smooth scrolling across anchor navigation on the agency page */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Accessible focus indicators for international B2B clients */
+  .agency-page *:focus-visible {
+    outline: 2px solid #0284C7 !important;
+    outline-offset: 2px !important;
+  }
+</style>
+

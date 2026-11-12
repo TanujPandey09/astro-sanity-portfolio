@@ -17,15 +17,17 @@ if (Array.isArray(project?.excerpt)) {
   excerpt = project.excerpt;
 }
 
-const rawImageUrl = project?.BackgroundImage?.asset?.url || "/img/custom-project.webp";
+const rawImageUrl =
+  project?.BackgroundImage?.asset?.url ||
+  project?.FeatureImage?.asset?.url ||
+  "/img/custom-project.webp";
 const imageUrl = optimizeSanityImage(rawImageUrl, 1200, 80);
 
 const rawTags = project?.tags || project?.techStack || [];
-const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['Full-Stack', 'Production', 'SaaS'];
+const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STACK', 'PRODUCTION', 'SAAS'];
 
 const demoHref = typeof project?.demoLink === 'string' ? project.demoLink : project?.demoLink?.current;
 
-// Bento layout spans (Explicit mobile aspect ratios + desktop bento spans)
 const bentoIndex = index % 4;
 let bentoGridClasses = "col-span-1 ";
 if (bentoIndex === 0) {
@@ -40,22 +42,31 @@ if (bentoIndex === 0) {
 ---
 
 {bentoIndex === 3 ? (
-  /* Wide Horizontal Bento Card (Stacks Image on Top on Mobile, Side-by-Side on Desktop) */
-  <div class={`project-item group rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] hover:border-border-hover transition-all duration-500 shadow-card ${bentoGridClasses}`} data-aos="fade-up" data-aos-delay={index * 70}>
-    <div class="rounded-xl bg-surface-card h-full w-full overflow-hidden grid grid-cols-1 md:grid-cols-12 border border-white/[0.05] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-      <!-- Image Side (First on Mobile, Right on Desktop) -->
-      <a href={`/projects/${project.slug?.current}`} class="order-1 md:order-2 md:col-span-5 relative overflow-hidden w-full aspect-[16/10] md:aspect-auto md:h-full md:min-h-[240px] border-b md:border-b-0 md:border-l border-border-subtle bg-surface-elevated block">
-        {imageUrl ? (
-          <img 
-            src={imageUrl} 
+  /* Wide Horizontal Double-Bezel Bento Card with Developer HUD Crosshairs */
+  <div data-gsap-card class={`project-item bento-spotlight group rounded-[22px] p-1.5 bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.7)] ${bentoGridClasses}`}>
+    <div class="h-full w-full rounded-[16px] bg-[#111726] border border-white/[0.05] overflow-hidden grid grid-cols-1 md:grid-cols-12">
+      <!-- Image Side with 4-Corner HUD Crosshairs -->
+      <a href={`/projects/${project.slug?.current}`} class="project-media-trigger order-1 md:order-2 md:col-span-5 relative overflow-hidden w-full aspect-[16/10] md:aspect-auto md:h-full md:min-h-[260px] border-b md:border-b-0 md:border-l border-white/[0.08] bg-[#0B0F17] block">
+        {imageUrl && (
+          <img
+            src={imageUrl}
             alt={projectName}
             loading="lazy"
             decoding="async"
             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
           />
-        ) : (
-          <div class="w-full h-full bg-surface-elevated"></div>
         )}
+        <!-- 4-Corner HUD Crosshairs -->
+        <div class="pointer-events-none absolute inset-3.5 z-10">
+          <span class="absolute top-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+        </div>
       </a>
 
       <!-- Text Side -->
@@ -63,33 +74,34 @@ if (bentoIndex === 0) {
         <div>
           <div class="flex items-center justify-between mb-4 sm:mb-5">
             <div class="flex flex-wrap gap-1.5 sm:gap-2">
-              {tags.slice(0, 3).map((tech: string) => (
-                <span class="text-[10px] sm:text-[11px] font-mono px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-md bg-white/[0.04] border border-border-subtle text-text-muted">
+              {tags.slice(0, 4).map((tech: string) => (
+                <span class="text-[10px] sm:text-[11px] font-mono font-medium tracking-[0.06em] uppercase px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.12] text-[#94A3B8]">
                   {tech}
                 </span>
               ))}
             </div>
-            <span class="text-xs font-mono tabular-nums text-text-dim">/ {String(index + 1).padStart(2, "0")}</span>
+            <span class="text-xs font-mono tabular-nums text-[#38BDF8] font-bold">[ {String(index + 1).padStart(2, "0")}/ ]</span>
           </div>
 
           <a href={`/projects/${project.slug?.current}`} class="block group/title">
-            <h3 class="text-lg sm:text-xl md:text-2xl font-bold text-text-primary tracking-tight transition-colors group-hover/title:text-white">
+            <h3 class="font-grotesk text-xl sm:text-2xl md:text-3xl font-bold text-[#F8FAFC] tracking-[-0.03em] transition-colors group-hover/title:text-white">
               {projectName}
             </h3>
-            <p class="mt-2 sm:mt-3 text-xs sm:text-sm text-text-muted font-normal leading-relaxed max-w-xl line-clamp-3 md:line-clamp-none">
+            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm text-[#94A3B8] font-normal leading-relaxed max-w-xl">
               {excerpt}
             </p>
           </a>
         </div>
 
-        <div class="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-border-subtle flex items-center justify-between gap-4">
-          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-2 text-xs font-mono font-medium text-accent-primary group-hover:text-accent-hover transition-colors">
+        <div class="mt-5 sm:mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between gap-4">
+          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-2 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] group-hover:text-accent-primary transition-colors">
             <span>View Case Study</span>
             <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
           </a>
           {demoHref && (
-            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono text-text-muted hover:text-text-primary transition-colors">
-              Live Demo ↗
+            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="magnetic-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-100 text-[11px] font-grotesk font-bold tracking-[0.04em] text-[#0B0F17] shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
+              <span>Live Demo</span>
+              <span>↗</span>
             </a>
           )}
         </div>
@@ -97,22 +109,31 @@ if (bentoIndex === 0) {
     </div>
   </div>
 ) : (
-  /* Standard / Focus Vertical Bento Card */
-  <div class={`project-item group rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] hover:border-border-hover transition-all duration-500 shadow-card ${bentoGridClasses}`} data-aos="fade-up" data-aos-delay={index * 70}>
-    <div class="rounded-xl bg-surface-card h-full w-full overflow-hidden flex flex-col justify-between border border-white/[0.05] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]">
-      <!-- Image Container: Fixed 16:10 aspect ratio on mobile, percentage height on desktop -->
-      <a href={`/projects/${project.slug?.current}`} class={`relative overflow-hidden w-full aspect-[16/10] md:aspect-auto ${bentoIndex === 0 ? 'md:h-[58%]' : 'md:h-[48%]'} border-b border-border-subtle bg-surface-elevated block shrink-0`}>
-        {imageUrl ? (
-          <img 
-            src={imageUrl} 
+  /* Standard / Focus Vertical Double-Bezel Bento Card with HUD Crosshairs */
+  <div data-gsap-card class={`project-item bento-spotlight group rounded-[22px] p-1.5 bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.7)] ${bentoGridClasses}`}>
+    <div class="h-full w-full rounded-[16px] bg-[#111726] border border-white/[0.05] overflow-hidden flex flex-col justify-between">
+      <!-- Image Container with 4-Corner HUD Crosshairs -->
+      <a href={`/projects/${project.slug?.current}`} class={`project-media-trigger relative overflow-hidden w-full aspect-[16/10] md:aspect-auto ${bentoIndex === 0 ? 'md:h-[58%]' : 'md:h-[48%]'} border-b border-white/[0.08] bg-[#0B0F17] block shrink-0`}>
+        {imageUrl && (
+          <img
+            src={imageUrl}
             alt={projectName}
             loading="lazy"
             decoding="async"
             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
           />
-        ) : (
-          <div class="w-full h-full bg-surface-elevated"></div>
         )}
+        <!-- 4-Corner HUD Crosshairs -->
+        <div class="pointer-events-none absolute inset-3.5 z-10">
+          <span class="absolute top-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute top-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="absolute bottom-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+        </div>
       </a>
 
       <!-- Text Container -->
@@ -121,32 +142,33 @@ if (bentoIndex === 0) {
           <div class="flex items-center justify-between mb-3.5 sm:mb-4">
             <div class="flex flex-wrap gap-1.5">
               {tags.slice(0, 3).map((tech: string) => (
-                <span class="text-[10px] font-mono px-2 py-0.5 rounded-md bg-white/[0.04] border border-border-subtle text-text-muted">
+                <span class="text-[10px] font-mono font-medium tracking-[0.06em] uppercase px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.12] text-[#94A3B8]">
                   {tech}
                 </span>
               ))}
             </div>
-            <span class="text-xs font-mono tabular-nums text-text-dim">/ {String(index + 1).padStart(2, "0")}</span>
+            <span class="text-xs font-mono tabular-nums text-[#38BDF8] font-bold">[ {String(index + 1).padStart(2, "0")}/ ]</span>
           </div>
 
           <a href={`/projects/${project.slug?.current}`} class="block group/title">
-            <h3 class="text-lg md:text-xl font-bold text-text-primary tracking-tight transition-colors group-hover/title:text-white">
+            <h3 class="font-grotesk text-xl md:text-2xl font-bold text-[#F8FAFC] tracking-[-0.03em] transition-colors group-hover/title:text-white">
               {projectName}
             </h3>
-            <p class="mt-2 text-xs md:text-sm text-text-muted font-normal leading-relaxed line-clamp-2">
+            <p class="mt-2 text-xs md:text-sm text-[#94A3B8] font-normal leading-relaxed line-clamp-3">
               {excerpt}
             </p>
           </a>
         </div>
 
-        <div class="mt-4 pt-3.5 border-t border-border-subtle flex items-center justify-between gap-2">
-          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-accent-primary group-hover:text-white transition-colors">
+        <div class="mt-4 pt-3.5 border-t border-white/[0.08] flex items-center justify-between gap-2">
+          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-1.5 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] group-hover:text-accent-primary transition-colors">
             <span>View Case Study</span>
             <span class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
           </a>
           {demoHref && (
-            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="text-[11px] font-mono text-text-muted hover:text-text-primary transition-colors">
-              Live ↗
+            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="magnetic-btn inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white hover:bg-slate-100 text-[11px] font-grotesk font-bold tracking-[0.04em] text-[#0B0F17] shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
+              <span>Live Demo</span>
+              <span>↗</span>
             </a>
           )}
         </div>
@@ -154,12 +176,3 @@ if (bentoIndex === 0) {
     </div>
   </div>
 )}
-
-<style>
-  .project-item {
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s;
-  }
-  .project-item:hover {
-    transform: translateY(-4px);
-  }
-</style>

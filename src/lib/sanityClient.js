@@ -8,6 +8,8 @@ export const client = createClient({
   useCdn: true,
 });
 
+export const fallbackSanityClient = client;
+
 export const getChatbotData = async () => {
   const query = `*[_type == "chatbot"]{
     userQuestions,

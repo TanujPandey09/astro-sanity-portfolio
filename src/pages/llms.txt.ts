@@ -80,6 +80,7 @@ export const GET: APIRoute = async () => {
 - **Location**: Uttarakhand, India (IST / UTC+5:30 · Available for Global Remote Roles & Select Projects)
 - **Contact**: mailto:tanujp09@gmail.com | Phone/WhatsApp: +91 9557321978
 - **Website**: ${siteUrl}
+- **Agency Studio**: ${siteUrl}/agency (NovaStack — AI & Digital Technology Studio)
 - **GitHub**: https://github.com/TanujPandey09
 - **LinkedIn**: https://linkedin.com/in/tanujdev
 - **Resume / CV**: ${siteUrl}/Resume.pdf
@@ -109,6 +110,7 @@ ${blogLines || `- [All Engineering Articles](${siteUrl}/blogs)`}
 
 ## Primary Navigation & Machine-Readable Feeds
 - [Home](${siteUrl}/)
+- [NovaStack Agency Studio](${siteUrl}/agency)
 - [Commercial Templates Marketplace](${siteUrl}/templates)
 - [Engineering Case Studies](${siteUrl}/projects)
 - [About & Career Progression](${siteUrl}/about)

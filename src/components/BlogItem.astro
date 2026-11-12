@@ -10,47 +10,47 @@ const formattedDate = blog._createdAt
   : "Recent";
 ---
 
-<article class="group rounded-2xl p-1.5 bg-white/[0.02] hover:bg-white/[0.04] border border-white/[0.07] hover:border-border-hover transition-all duration-300" data-aos="fade-up" data-aos-delay={index * 50}>
-  <a href={`/blogs/${blog.slug?.current}`} aria-label={`Read article: ${blogTitle}`} class="rounded-xl bg-surface-card p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-5 border border-white/[0.04]">
+<article class="group border-b border-white/[0.14] first:border-t hover:bg-white/[0.02] transition-all duration-300" data-aos="fade-up" data-aos-delay={index * 50}>
+  <a href={`/blogs/${blog.slug?.current}`} aria-label={`Read article: ${blogTitle}`} class="py-6 sm:py-8 px-2 sm:px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-5">
     
-    <div class="flex items-start sm:items-center gap-4 sm:gap-5 flex-1 min-w-0">
-      {blogImageUrl ? (
-        <div class="hidden sm:block w-20 h-16 rounded-lg overflow-hidden border border-border-subtle bg-surface-elevated shrink-0">
+    <div class="flex items-start sm:items-center gap-4 sm:gap-6 flex-1 min-w-0">
+      <span class="font-mono text-xs sm:text-sm text-[#64748B] group-hover:text-accent-primary transition-colors tabular-nums shrink-0 mt-1 sm:mt-0 font-bold">
+        {String(index + 1).padStart(2, "0")}/
+      </span>
+
+      {blogImageUrl && (
+        <div class="hidden md:block w-20 h-14 overflow-hidden border border-white/15 bg-[#111726] shrink-0">
           <img 
             src={blogImageUrl} 
             alt={blogTitle}
             width="80"
-            height="64"
+            height="56"
             loading="lazy"
             decoding="async"
-            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 opacity-90 group-hover:opacity-100"
           />
-        </div>
-      ) : (
-        <div class="hidden sm:flex w-12 h-12 rounded-lg border border-border-subtle bg-surface-elevated items-center justify-center font-mono text-xs text-text-dim shrink-0 tabular-nums">
-          {String(index + 1).padStart(2, "0")}
         </div>
       )}
 
       <div class="space-y-1.5 min-w-0 flex-1">
-        <div class="flex flex-wrap items-center gap-2.5 text-[11px] font-mono text-text-dim">
-          <span class="text-accent-hover font-medium tabular-nums">#{String(index + 1).padStart(2, "0")}</span>
-          <span>·</span>
-          <time datetime={blog._createdAt}>{formattedDate}</time>
+        <div class="flex flex-wrap items-center gap-2.5 text-[11px] font-mono uppercase tracking-[0.06em] text-[#64748B]">
+          <time datetime={blog._createdAt}>[ {formattedDate} ]</time>
           <span>·</span>
           <span>{readTime}</span>
         </div>
         
-        <h3 class="text-base sm:text-lg md:text-xl font-bold text-text-primary group-hover:text-white transition-colors tracking-tight leading-snug truncate">
+        <h3 class="font-grotesk text-lg sm:text-xl md:text-2xl font-bold text-[#F8FAFC] group-hover:text-white transition-colors tracking-[-0.03em] leading-snug truncate">
           {blogTitle}
         </h3>
       </div>
     </div>
 
-    <div class="flex items-center justify-between sm:justify-end gap-3 pt-3 sm:pt-0 border-t sm:border-t-0 border-border-subtle shrink-0">
-      <span class="text-xs font-mono text-text-muted group-hover:text-text-primary transition-colors">Read Article</span>
-      <div class="w-8 h-8 rounded-full bg-white/[0.04] border border-border-subtle group-hover:bg-accent-primary group-hover:border-accent-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
-        <span class="text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+    <div class="flex items-center justify-between sm:justify-end gap-4 pl-8 sm:pl-0 shrink-0">
+      <span class="text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] group-hover:text-[#F8FAFC] transition-colors">
+        READ ARTICLE
+      </span>
+      <div class="w-10 h-10 rounded-full bg-white/[0.04] border border-white/15 group-hover:bg-accent-primary group-hover:border-accent-primary group-hover:text-white flex items-center justify-center transition-all duration-300">
+        <span class="text-xs transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 font-bold">↗</span>
       </div>
     </div>
 

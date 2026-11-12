@@ -9,35 +9,51 @@ import { optimizeSanityImage } from "../../lib/optimizeImage";
 const chapters = [
   {
     num: "01",
+    year: "2021 — 2022",
     title: "Frontend Foundations",
     subtitle: "Component Systems & Core Web Vitals",
-    desc: "Built responsive React and Next.js applications at Scube.co and Techmatys, cutting page load times by 50% and standardizing reusable UI libraries across enterprise dashboards.",
-    statNum: "React / Next.js",
-    statLabel: "UI Architecture"
+    company: "Scube.co & Techmatys",
+    desc: "Built responsive React and Next.js applications, cutting page load times by 50% through code-splitting, asset optimization, and standardizing reusable UI libraries across enterprise dashboards.",
+    statNum: "+50% Speed",
+    statLabel: "Core Web Vitals",
+    kpi: "2 Enterprise UI Libraries Shipped",
+    tags: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "Redux Toolkit"]
   },
   {
     num: "02",
+    year: "2022 — 2023",
     title: "Solo SaaS Ownership",
     subtitle: "Multi-Role Healthcare Platforms",
-    desc: "Owned the entire frontend architecture at Nasya IT across Super Admin, Doctor, Patient, and Clinic portals, shipping 10+ CRUD modules and real-time reporting from zero to launch.",
+    company: "Nasya IT",
+    desc: "Owned the entire frontend architecture at Nasya IT across Super Admin, Doctor, Patient, and Clinic portals, shipping 10+ CRUD modules, role-based workflows, and real-time medical scheduling.",
     statNum: "10+ Modules",
-    statLabel: "Zero-to-One Delivery"
+    statLabel: "Zero-to-One Delivery",
+    kpi: "4 Portals Shipped Single-Handedly",
+    tags: ["Next.js 14", "Zustand", "REST APIs", "Role-Based Auth", "Charts.js"]
   },
   {
     num: "03",
+    year: "2023 — 2025",
     title: "Multi-LLM & AI Engineering",
     subtitle: "RAG, Validation & Bilingual RTL UX",
-    desc: "Engineered Sawt AI at Cxisuite with OpenAI, Gemini, Grok, and Perplexity integrations, automated output validation, Arabic/English RTL interfaces, and MyFatoorah subscription billing.",
-    statNum: "Multi-LLM",
-    statLabel: "Production AI Workflows"
+    company: "Cxisuite",
+    desc: "Engineered Sawt AI with multi-LLM orchestration across OpenAI, Gemini, Claude, and Perplexity, automated structured validation, contextual RAG retrieval, Arabic/English RTL interfaces, and billing.",
+    statNum: "4 LLM Engines",
+    statLabel: "Production AI Workflows",
+    kpi: "Sub-Second TTFT & Zero Fallback Drift",
+    tags: ["Multi-LLM", "Prompt Engineering", "Contextual RAG", "RTL / i18n", "Stripe / MyFatoorah"]
   },
   {
     num: "04",
+    year: "2025 — Present",
     title: "Real-Time Full-Stack Systems",
     subtitle: "Socket.IO CRMs & Scalable APIs",
-    desc: "Designed event-driven Node.js and PostgreSQL backends with Socket.IO live pipelines, SLA tracking, role-based access control, rate limiting, and audit logging.",
-    statNum: "Full-Stack",
-    statLabel: "End-to-End Systems"
+    company: "Enterprise Solutions",
+    desc: "Architected event-driven Node.js and PostgreSQL backends with Socket.IO live state synchronization, SLA monitoring, database indexing, rate limiting, and automated webhook idempotency.",
+    statNum: "<50ms Sync",
+    statLabel: "Real-Time State",
+    kpi: "Zero State Drift & 99.9% Production Uptime",
+    tags: ["Node.js / Express", "Socket.IO", "PostgreSQL", "Prisma ORM", "Redis"]
   }
 ];
 ---
@@ -51,11 +67,11 @@ const chapters = [
       
       <!-- Section Header -->
       <div class="mb-12 space-y-3" data-aos="fade-up">
-         <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-accent-hover block">About · Tanuj Pandey</span>
-         <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-text-primary tracking-tight leading-[1.08] m-0">
+         <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-accent-primary block">ABOUT · TANUJ PANDEY</span>
+         <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#F8FAFC] tracking-tight leading-[1.08] m-0">
            Engineering <span class="text-gradient">Background</span>
          </h1>
-         <p class="text-text-muted text-sm md:text-base max-w-2xl">
+         <p class="text-[#94A3B8] text-sm md:text-base max-w-2xl">
            Full-Stack Engineer with 4+ years of commercial experience building multi-LLM SaaS products, real-time CRM systems, and high-performance web applications.
          </p>
       </div>
@@ -88,11 +104,11 @@ const chapters = [
          <div class="lg:col-span-7 rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] flex flex-col" data-aos="fade-up" data-aos-delay="80">
             <div class="bg-surface-card border border-white/[0.05] p-5 sm:p-7 md:p-9 rounded-xl h-full flex flex-col justify-between relative overflow-hidden">
               <div class="space-y-4 sm:space-y-5">
-                 <span class="font-mono text-xs text-accent-hover block">Engineering Philosophy</span>
-                 <h2 class="text-text-primary font-bold tracking-tight leading-snug text-lg sm:text-xl md:text-2xl">
+                 <span class="font-mono text-xs text-[#38BDF8] block">Engineering Philosophy</span>
+                 <h2 class="text-[#F8FAFC] font-bold tracking-tight leading-snug text-lg sm:text-xl md:text-2xl">
                    {aboutData?.[0]?.aboutName || "Shipping resilient software where backend architecture and frontend craft meet."}
                  </h2>
-                 <div class="prose prose-invert prose-sm md:prose-base max-w-none text-text-muted leading-relaxed space-y-4">
+                 <div class="prose prose-invert prose-sm md:prose-base max-w-none text-[#94A3B8] leading-relaxed space-y-4">
                    <PortableText value={aboutData?.[0]?.description} />
                  </div>
               </div>
@@ -169,7 +185,7 @@ const chapters = [
                   <button 
                     id="about-resume-btn"
                     aria-label="Download Resume PDF"
-                    class="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 bg-text-primary text-canvas font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 hover:bg-white cursor-pointer"
+                    class="group inline-flex items-center justify-center gap-2.5 px-5 py-2.5 bg-white text-[#0B0F17] font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 hover:bg-slate-100 cursor-pointer shadow-[0_0_15px_rgba(255,255,255,0.2)]"
                   >
                      <span>Download Resume</span>
                      <span>↗</span>
@@ -181,37 +197,145 @@ const chapters = [
       </div>
     </section>
 
-    <!-- Horizontal Scrolling Journey Timeline Section -->
-    <section id="journey-timeline-section" class="relative py-16 md:py-20 bg-canvas overflow-hidden border-y border-border-subtle">
+    <!-- Horizontal Scrolling Journey Timeline Section with GSAP Left-to-Right Progress Bar -->
+    <section id="journey-timeline-section" class="relative py-20 md:py-28 bg-[#0B0F17] overflow-hidden border-y border-white/[0.08]">
       <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 mb-8 md:mb-12">
         <SectionHeader 
+          eyebrow="CAREER MILESTONES"
           title="Career" 
           gradientText="Progression" 
           subtitle="Four chapters of commercial engineering across frontend systems, full-stack SaaS, and production AI."
         />
+
+        <!-- High-Tech Left-to-Right GSAP Progress Bar & Telemetry HUD -->
+        <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-[#111726]/80 border border-white/[0.08] backdrop-blur-md shadow-lg">
+          <!-- Top Row: Metrics & Active Chapter Telemetry -->
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4 text-xs font-mono">
+            <div class="inline-flex items-center gap-2.5">
+              <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+              <span class="text-[#94A3B8] uppercase tracking-[0.08em]">TIMELINE PROGRESSION:</span>
+              <span id="timeline-progress-val" class="text-[#38BDF8] font-bold text-sm tabular-nums">0%</span>
+            </div>
+            <div class="inline-flex items-center gap-2 text-[11px] font-mono text-[#94A3B8]">
+              <span class="text-[#64748B] uppercase hidden sm:inline">ACTIVE CHAPTER:</span>
+              <span id="timeline-active-chapter" class="px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.10] text-[#F8FAFC] font-semibold transition-all duration-300">
+                CH 01 · FRONTEND FOUNDATIONS
+              </span>
+            </div>
+          </div>
+
+          <!-- The Horizontal Progress Track with Checkpoint Milestones -->
+          <div class="relative w-full h-[6px] bg-white/[0.08] rounded-full overflow-visible">
+            <!-- Filling Bar (Animates smoothly Left-to-Right via GSAP) -->
+            <div 
+              id="timeline-progress-bar"
+              class="absolute top-0 left-0 bottom-0 w-0 bg-gradient-to-r from-accent-primary via-indigo-400 to-[#38BDF8] rounded-full shadow-[0_0_12px_rgba(56,189,248,0.7)]"
+            >
+              <!-- Glowing Leading Tip Indicator -->
+              <span class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-3.5 h-3.5 rounded-full bg-[#38BDF8] shadow-[0_0_10px_#38BDF8] border-2 border-white"></span>
+            </div>
+
+            <!-- 4 Milestone Nodes -->
+            <div class="absolute inset-0 flex items-center justify-between pointer-events-none px-1">
+              {chapters.map((ch, idx) => (
+                <div class="timeline-step-node relative flex flex-col items-center group -translate-y-0.5" data-step-idx={idx}>
+                  <div class="node-dot w-4 h-4 rounded-full bg-[#0B0F17] border-2 border-white/20 transition-all duration-300 flex items-center justify-center">
+                    <span class="node-inner w-1.5 h-1.5 rounded-full bg-transparent transition-all duration-300"></span>
+                  </div>
+                  <span class="node-label text-[10px] font-mono uppercase tracking-wider text-[#64748B] mt-2 transition-colors duration-300 hidden sm:block">
+                    CH {ch.num}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Bottom Subline Hint -->
+          <div class="mt-5 flex items-center justify-between text-[11px] font-mono text-[#64748B]">
+            <span>2021 — FOUNDATIONS</span>
+            <span class="hidden md:inline">SCROLL DOWN TO ADVANCE TIMELINE →</span>
+            <span>2026 — PRESENT</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Horizontal Scroll Area (Native swipe on mobile, GSAP pin on desktop) -->
-      <div class="horizontal-scroll-container flex items-center relative overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory md:snap-none pb-4 md:pb-0 min-h-[320px] md:min-h-[400px]">
-        <div class="timeline-scroll-track flex gap-4 sm:gap-6 md:gap-8 px-4 sm:px-6 md:px-20 relative">
-          <!-- Connector Line -->
-          <div class="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-gradient-to-r from-accent-primary/30 via-white/10 to-transparent -translate-y-1/2 z-0"></div>
-          
-          {chapters.map((chapter) => (
-            <div class="timeline-card snap-center flex-none w-[285px] sm:w-[320px] md:w-[400px] bg-surface-card border border-white/[0.09] p-5 sm:p-7 rounded-2xl relative z-10 group hover:border-border-hover transition-all duration-500">
-              <div class="flex items-center justify-between mb-6">
-                <span class="text-xs font-mono text-accent-hover bg-accent-primary/10 border border-accent-primary/20 px-3 py-1 rounded-full">Chapter {chapter.num}</span>
-                <span class="text-3xl font-bold text-white/10 font-mono tabular-nums">{chapter.num}</span>
+      <!-- Horizontal Scroll Track Wrapper -->
+      <div class="horizontal-scroll-container flex items-center relative overflow-x-auto md:overflow-x-hidden snap-x snap-mandatory md:snap-none pb-4 md:pb-0 min-h-[460px] md:min-h-[520px]">
+        <div class="timeline-scroll-track flex gap-6 sm:gap-8 md:gap-10 px-4 sm:px-8 md:pl-20 md:pr-40 relative">
+          <!-- Background Horizon Line -->
+          <div class="hidden md:block absolute top-1/2 left-0 right-0 h-[1px] bg-gradient-to-r from-accent-primary/40 via-white/15 to-transparent -translate-y-1/2 z-0"></div>
+
+          {chapters.map((chapter, idx) => (
+            <div 
+              class="timeline-card snap-center flex-none w-[320px] sm:w-[380px] md:w-[460px] lg:w-[500px] bg-[#111726] border border-white/[0.10] hover:border-accent-primary/50 p-6 sm:p-8 rounded-[24px] relative z-10 group transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.6)] flex flex-col justify-between"
+              data-card-idx={idx}
+            >
+              <!-- 4-Corner HUD Crosshairs -->
+              <span class="pointer-events-none absolute top-3 left-3 w-4 h-[1px] bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute top-3 left-3 w-[1px] h-4 bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute top-3 right-3 w-4 h-[1px] bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute top-3 right-3 w-[1px] h-4 bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute bottom-3 left-3 w-4 h-[1px] bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute bottom-3 left-3 w-[1px] h-4 bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute bottom-3 right-3 w-4 h-[1px] bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+              <span class="pointer-events-none absolute bottom-3 right-3 w-[1px] h-4 bg-white/30 group-hover:bg-accent-primary transition-colors"></span>
+
+              <div>
+                <!-- Top Row: Chapter Badge + Year + Giant Watermark -->
+                <div class="flex items-center justify-between mb-5">
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-mono text-accent-primary bg-indigo-500/10 border border-indigo-500/30 px-3 py-1 rounded-full font-bold">
+                      // CHAPTER {chapter.num}
+                    </span>
+                    <span class="text-[11px] font-mono text-[#94A3B8] px-2.5 py-0.5 rounded bg-white/[0.04] border border-white/[0.08]">
+                      {chapter.year}
+                    </span>
+                  </div>
+                  <span class="text-4xl md:text-5xl font-extrabold text-white/[0.08] font-grotesk tracking-tighter select-none">
+                    {chapter.num}
+                  </span>
+                </div>
+
+                <!-- Company Tag -->
+                <div class="text-[11px] font-mono uppercase tracking-[0.1em] text-[#38BDF8] mb-1.5 font-semibold">
+                  [ {chapter.company} ]
+                </div>
+
+                <!-- Title & Subtitle -->
+                <h3 class="text-xl sm:text-2xl font-bold font-grotesk text-[#F8FAFC] tracking-tight mb-1.5 group-hover:text-white transition-colors">
+                  {chapter.title}
+                </h3>
+                <p class="text-xs sm:text-sm text-indigo-300 font-mono mb-4">
+                  {chapter.subtitle}
+                </p>
+
+                <!-- Narrative -->
+                <p class="text-xs sm:text-sm text-[#94A3B8] leading-relaxed mb-6">
+                  {chapter.desc}
+                </p>
+
+                <!-- Tech Stack Pills -->
+                <div class="flex flex-wrap gap-1.5 mb-6">
+                  {chapter.tags.map((t: string) => (
+                    <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-white/[0.04] border border-white/[0.08] text-[#94A3B8]">
+                      {t}
+                    </span>
+                  ))}
+                </div>
               </div>
 
-              <h3 class="text-xl font-bold text-text-primary tracking-tight mb-1.5">{chapter.title}</h3>
-              <p class="text-xs text-accent-hover font-mono mb-3.5">{chapter.subtitle}</p>
-              <p class="text-xs sm:text-sm text-text-muted leading-relaxed mb-6">{chapter.desc}</p>
-
-              <div class="border-t border-border-subtle pt-4 flex items-center justify-between text-xs font-mono">
-                <span class="text-text-dim">{chapter.statLabel}</span>
-                <span class="text-text-primary font-semibold">{chapter.statNum}</span>
+              <!-- Bottom Footer: Metric & KPI Tile -->
+              <div class="border-t border-white/[0.08] pt-4 flex flex-col gap-2">
+                <div class="flex items-center justify-between text-xs font-mono">
+                  <span class="text-[#64748B]">{chapter.statLabel}</span>
+                  <span class="text-[#38BDF8] font-bold">{chapter.statNum}</span>
+                </div>
+                <div class="text-[11px] font-mono text-[#94A3B8] flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                  <span>{chapter.kpi}</span>
+                </div>
               </div>
+
             </div>
           ))}
         </div>
@@ -256,6 +380,23 @@ const chapters = [
   </div>
 </div>
 
+<style>
+  /* Hide scrollbar for a clean horizontal swipe experience on mobile */
+  .horizontal-scroll-container::-webkit-scrollbar {
+    display: none;
+  }
+  .horizontal-scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .timeline-card.is-card-active {
+    border-color: rgba(94, 106, 210, 0.65) !important;
+    box-shadow: 0 0 35px rgba(94, 106, 210, 0.22), 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+    transform: translateY(-4px);
+  }
+</style>
+
 <script>
   import gsap from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -263,38 +404,136 @@ const chapters = [
   gsap.registerPlugin(ScrollTrigger);
 
   const initAbout = () => {
+    // 1. Resume Download Button
     const resumeBtn = document.querySelector('#about-resume-btn');
-    resumeBtn?.addEventListener('click', () => {
-      const link = document.createElement("a");
-      link.href = "/Resume.pdf";
-      link.target = "_blank";
-      link.download = "resume.pdf";
-      link.click();
-    });
+    if (resumeBtn && !resumeBtn.hasAttribute('data-bound')) {
+      resumeBtn.setAttribute('data-bound', 'true');
+      resumeBtn.addEventListener('click', () => {
+        const link = document.createElement("a");
+        link.href = "/Resume.pdf";
+        link.target = "_blank";
+        link.download = "resume.pdf";
+        link.click();
+      });
+    }
 
-    const track = document.querySelector('.timeline-scroll-track');
+    // 2. Career Progression Horizontal Scroll & Left-to-Right Progress Bar
     const section = document.getElementById('journey-timeline-section');
-    if (track && section && window.innerWidth >= 768) {
+    const track = document.querySelector<HTMLElement>('.timeline-scroll-track');
+    const progressBar = document.getElementById('timeline-progress-bar');
+    const progressVal = document.getElementById('timeline-progress-val');
+    const activeChapterLabel = document.getElementById('timeline-active-chapter');
+    const stepNodes = Array.from(document.querySelectorAll<HTMLElement>('.timeline-step-node'));
+    const cards = Array.from(document.querySelectorAll<HTMLElement>('.timeline-card'));
+
+    if (!section || !track) return;
+
+    // Clean up existing trigger on client-side route navigation
+    const existing = ScrollTrigger.getById('about-horizontal-trigger');
+    if (existing) {
+      existing.kill();
+    }
+
+    const chapterTitles = [
+      "CH 01 · FRONTEND FOUNDATIONS",
+      "CH 02 · SOLO SAAS OWNERSHIP",
+      "CH 03 · MULTI-LLM & AI WORKFLOWS",
+      "CH 04 · REAL-TIME FULL-STACK"
+    ];
+
+    const isDesktop = window.innerWidth >= 768;
+
+    if (isDesktop) {
       const getScrollAmount = () => {
-        let trackWidth = track.scrollWidth;
-        return Math.min(0, -(trackWidth - window.innerWidth));
+        const trackWidth = track.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        // Travel distance guarantees all 4 cards scroll across comfortably with breathing room
+        return -(trackWidth - viewportWidth + 100);
       };
 
       gsap.to(track, {
         x: getScrollAmount,
         ease: "none",
         scrollTrigger: {
+          id: "about-horizontal-trigger",
           trigger: section,
-          start: "top top",
-          end: () => `+=${track.scrollWidth}`,
+          start: "top 8%",
+          end: () => `+=${Math.max(track.scrollWidth, 1400)}`,
           pin: true,
-          scrub: 1,
+          scrub: 0.6,
           invalidateOnRefresh: true,
+          anticipatePin: 1,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            const pct = Math.round(progress * 100);
+
+            // Left-to-Right Progress Bar Update
+            if (progressBar) {
+              progressBar.style.width = `${pct}%`;
+            }
+            if (progressVal) {
+              progressVal.textContent = `${pct}%`;
+            }
+
+            // Milestone Indicator Checkpoints
+            const chapterIdx = Math.min(3, Math.floor(progress * 4));
+            if (activeChapterLabel && chapterTitles[chapterIdx]) {
+              activeChapterLabel.textContent = chapterTitles[chapterIdx];
+            }
+
+            stepNodes.forEach((node, idx) => {
+              const threshold = idx / 3;
+              const isPassed = progress >= (threshold - 0.04);
+              const dot = node.querySelector('.node-dot');
+              const inner = node.querySelector('.node-inner');
+              const label = node.querySelector('.node-label');
+
+              if (isPassed) {
+                dot?.classList.add('border-[#38BDF8]', 'shadow-[0_0_10px_rgba(56,189,248,0.7)]');
+                inner?.classList.add('bg-[#38BDF8]');
+                label?.classList.add('text-[#38BDF8]', 'font-bold');
+                label?.classList.remove('text-[#64748B]');
+              } else {
+                dot?.classList.remove('border-[#38BDF8]', 'shadow-[0_0_10px_rgba(56,189,248,0.7)]');
+                inner?.classList.remove('bg-[#38BDF8]');
+                label?.classList.remove('text-[#38BDF8]', 'font-bold');
+                label?.classList.add('text-[#64748B]');
+              }
+            });
+
+            // Card highlight on active focal scroll
+            cards.forEach((card, idx) => {
+              const cardStart = idx / 4;
+              const isCardActive = progress >= (cardStart - 0.05) && progress < (cardStart + 0.32);
+              card.classList.toggle('is-card-active', isCardActive);
+            });
+          }
         }
       });
+    } else {
+      // Mobile Touch / Native Scroll Listener
+      const container = document.querySelector<HTMLElement>('.horizontal-scroll-container');
+      if (container) {
+        container.addEventListener('scroll', () => {
+          const max = container.scrollWidth - container.clientWidth;
+          const current = container.scrollLeft;
+          const ratio = max > 0 ? Math.min(1, Math.max(0, current / max)) : 0;
+          const pct = Math.round(ratio * 100);
+
+          if (progressBar) progressBar.style.width = `${pct}%`;
+          if (progressVal) progressVal.textContent = `${pct}%`;
+
+          const chapterIdx = Math.min(3, Math.floor(ratio * 4));
+          if (activeChapterLabel && chapterTitles[chapterIdx]) {
+            activeChapterLabel.textContent = chapterTitles[chapterIdx];
+          }
+        }, { passive: true });
+      }
     }
   };
 
+  // Run on initial load and Astro View Transitions
   initAbout();
+  document.addEventListener('astro:page-load', initAbout);
   document.addEventListener('astro:after-swap', initAbout);
 </script>

@@ -34,7 +34,7 @@
   .chat-input {
     display: flex;
     padding: 10px;
-    background: var(--canvas-bg, #09090B);
+    background: var(--canvas-bg, #0F121C);
   }
   
   .chat-input input {

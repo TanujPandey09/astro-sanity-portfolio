@@ -1,63 +1,103 @@
 ---
 const currentYear = new Date().getFullYear();
+
+const colOne = [
+  { label: "WORKS", href: "/projects" },
+  { label: "SERVICES", href: "/#services" },
+  { label: "TEMPLATES", href: "/templates" },
+];
+
+const colTwo = [
+  { label: "ABOUT", href: "/about" },
+  { label: "BLOG", href: "/blogs" },
+  { label: "CONTACT", href: "/#contact" },
+];
 ---
 
-<footer class="relative py-12 md:py-16 border-t border-border-subtle bg-canvas overflow-hidden">
-  <div class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 relative z-10">
-    <div class="grid lg:grid-cols-12 gap-10 items-start">
+<footer class="relative pt-16 sm:pt-24 pb-10 border-t border-white/[0.10] bg-[#0B0F17] overflow-hidden">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+    
+    <!-- Top HUD Strip -->
+    <div class="flex items-center justify-between gap-4 pb-8 border-b border-white/[0.10] text-xs font-mono text-[#94A3B8]">
+      <div class="inline-flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
+        <span class="font-mono text-xs uppercase tracking-[0.04em] text-[#10B981] font-medium">AVAILABLE FOR SELECT PROJECTS · INDIA &amp; WORLDWIDE</span>
+      </div>
+      <span class="hidden sm:inline text-[#64748B]">UTTARAKHAND, INDIA · UTC+5:30</span>
+    </div>
 
-      <div class="lg:col-span-6 space-y-4">
-        <a href="/" aria-label="Tanuj Pandey - Home" class="inline-flex items-center gap-3 group">
-          <div class="relative w-9 h-9 rounded-xl flex items-center justify-center border border-white/10 bg-surface-elevated/60 group-hover:border-accent-primary/60 transition-all duration-300 overflow-hidden">
-            <img src="/favicon.svg" alt="Tanuj Pandey Logo" class="w-full h-full object-cover" width="36" height="36" />
-          </div>
-          <div>
-            <span class="block text-sm font-bold text-text-primary tracking-tight">Tanuj Pandey</span>
-            <span class="block text-[11px] font-mono text-text-dim">Full-Stack &amp; AI Engineer</span>
-          </div>
+    <!-- Center: Dominant Wordmark + Tagline + 2-Column Navigation -->
+    <div class="py-12 sm:py-16 flex flex-col lg:flex-row lg:items-end justify-between gap-10 border-b border-white/[0.10]">
+      <div class="space-y-4">
+        <a href="/" aria-label="Tanuj Pandey - Home" class="block">
+          <span class="block font-grotesk font-bold text-[#F8FAFC] tracking-[-0.055em] leading-[0.88] text-[4.2rem] sm:text-[6.8rem] md:text-[9rem] lg:text-[10.5rem] select-none">
+            Tanuj<span class="text-accent-primary drop-shadow-[0_0_25px_rgba(94,106,210,0.85)]">.</span>
+          </span>
         </a>
-
-        <p class="text-text-muted text-sm max-w-md leading-relaxed">
-          Engineering full-stack SaaS platforms, multi-LLM workflows, and high-performance React &amp; Node.js applications for startups and product teams.
+        <p class="text-sm sm:text-base text-[#94A3B8] max-w-md leading-relaxed">
+          Let’s turn your product vision into high-speed production software.
         </p>
       </div>
 
-      <div class="lg:col-span-6 grid grid-cols-2 sm:grid-cols-3 gap-8">
-        <div class="space-y-3">
-          <p class="text-xs font-mono text-text-primary font-semibold">Directory</p>
-          <ul class="space-y-2">
-            <li><a href="/projects" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors">Case Studies</a></li>
-            <li><a href="/templates" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors">Templates</a></li>
-            <li><a href="/blogs" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors">Articles</a></li>
-            <li><a href="/about" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors">About</a></li>
-          </ul>
-        </div>
+      <!-- 2-Column Uppercase Directory -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-10 sm:gap-14">
+        <ul class="space-y-3">
+          {colOne.map((link) => (
+            <li>
+              <a href={link.href} class="group inline-flex items-center text-xs sm:text-[13px] font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors">
+                <span class="rushes-roll">
+                  <span class="rushes-roll-track">
+                    <span>{link.label}</span>
+                    <span class="text-[#F8FAFC]">{link.label}</span>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-        <div class="space-y-3">
-          <p class="text-xs font-mono text-text-primary font-semibold">Connect</p>
-          <ul class="space-y-2">
-            <li><a href="https://github.com/TanujPandey09" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors inline-flex items-center gap-1.5">GitHub <span>↗</span></a></li>
-            <li><a href="https://linkedin.com/in/tanujdev" target="_blank" rel="noopener noreferrer" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors inline-flex items-center gap-1.5">LinkedIn <span>↗</span></a></li>
-            <li><a href="mailto:tanujp09@gmail.com" class="text-xs sm:text-sm text-text-muted hover:text-white transition-colors inline-flex items-center gap-1.5">Email <span>↗</span></a></li>
-          </ul>
-        </div>
+        <ul class="space-y-3">
+          {colTwo.map((link) => (
+            <li>
+              <a href={link.href} class="group inline-flex items-center text-xs sm:text-[13px] font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors">
+                <span class="rushes-roll">
+                  <span class="rushes-roll-track">
+                    <span>{link.label}</span>
+                    <span class="text-[#F8FAFC]">{link.label}</span>
+                  </span>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
 
-        <div class="col-span-2 sm:col-span-1 space-y-3">
-          <p class="text-xs font-mono text-text-primary font-semibold">Availability</p>
-          <div class="space-y-2 text-xs text-text-muted">
-            <div class="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-status-live/10 border border-status-live/20 text-status-live font-mono text-[11px]">
-              <span class="w-1.5 h-1.5 rounded-full bg-status-live animate-pulse"></span>
-              <span>Open for Select Roles</span>
-            </div>
-            <p class="text-text-dim font-mono text-[11px]">Uttarakhand, India (UTC+5:30)</p>
-          </div>
-        </div>
+        <ul class="col-span-2 sm:col-span-1 space-y-3">
+          <li>
+            <a href="https://github.com/TanujPandey09" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors">
+              <span>GITHUB</span>
+              <span class="text-accent-primary">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="https://linkedin.com/in/tanujdev" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors">
+              <span>LINKEDIN</span>
+              <span class="text-accent-primary">↗</span>
+            </a>
+          </li>
+          <li>
+            <a href="mailto:tanujp09@gmail.com" class="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-grotesk font-semibold uppercase tracking-[0.04em] text-[#94A3B8] hover:text-[#F8FAFC] transition-colors">
+              <span>EMAIL</span>
+              <span class="text-accent-primary">↗</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
 
-    <div class="mt-10 pt-6 border-t border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono text-text-dim">
-      <span>&copy; {currentYear} Tanuj Pandey. All rights reserved.</span>
-      <span>Built with Astro, Sanity &amp; Tailwind CSS</span>
+    <!-- Bottom Metadata Strip -->
+    <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-[11px] font-mono uppercase tracking-[0.08em] text-[#7D7D83]">
+      <span>&copy; {currentYear} TANUJ PANDEY. ALL RIGHTS RESERVED.</span>
+      <span>[ ASTRO 5 · SANITY CMS · TAILWIND CSS ]</span>
     </div>
   </div>
 </footer>

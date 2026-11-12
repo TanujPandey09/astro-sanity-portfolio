@@ -1,17 +1,27 @@
 ---
 import { useSanityClient, groq } from "astro-sanity";
-import { PortableText } from "astro-portabletext";
+import { fallbackSanityClient } from "../lib/sanityClient.js";
+import AboutLayout from "../components/About/AboutLayout.astro";
+import Layout from "../layouts/Layout.astro";
 
 const query = groq`*[_type == "about"]{
-        ...,
-        heroImage{
-      asset->{
-        url
-      }
-      },
-    }`;
+  ...,
+  heroImage{
+    asset->{
+      url
+    }
+  },
+}`;
 
-const aboutData = await useSanityClient().fetch(query);
+let aboutData = [];
+try {
+  aboutData = await useSanityClient().fetch(query);
+  if (!Array.isArray(aboutData) || aboutData.length === 0) {
+    aboutData = await fallbackSanityClient.fetch(query);
+  }
+} catch (err) {
+  aboutData = await fallbackSanityClient.fetch(query);
+}
 
 const skillquery = groq`*[_type == "skillsSection"] {
   ...,
@@ -21,23 +31,23 @@ const skillquery = groq`*[_type == "skillsSection"] {
       asset-> {
         ...,
         url,
-      
       },
-    
-   
     }
   }
 }`;
 
-const skillData = await useSanityClient().fetch(skillquery);
-
-
-import AboutLayout from "../components/About/AboutLayout.astro";
-import Layout from "../layouts/Layout.astro";
-// const admin = Astro.props.adminstrativetitle || first.adminstrativetitle
+let skillData = [];
+try {
+  skillData = await useSanityClient().fetch(skillquery);
+  if (!Array.isArray(skillData) || skillData.length === 0) {
+    skillData = await fallbackSanityClient.fetch(skillquery);
+  }
+} catch (err) {
+  skillData = await fallbackSanityClient.fetch(skillquery);
+}
 ---
 
-<div class="">
+<div>
   <Layout
     title="About | Tanuj Pandey"
     description="Learn more about Tanuj Pandey's professional journey, technical expertise, and passion for building scalable web applications."

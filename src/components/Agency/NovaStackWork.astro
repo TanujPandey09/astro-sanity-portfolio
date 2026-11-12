@@ -1,0 +1,252 @@
+---
+// NovaStack Featured Work: Custom Engineering & Commercial Templates
+interface WorkItem {
+  id: string;
+  name: string;
+  category: "CUSTOM CLIENT BUILD" | "COMMERCIAL WEBSITE TEMPLATE";
+  badgeColor: string;
+  subtitle: string;
+  description: string;
+  highlights: string[];
+  stack: string[];
+  caseStudyUrl: string;
+  demoUrl?: string;
+  commercialStatus?: string;
+}
+
+const workItems: WorkItem[] = [
+  {
+    id: "sawt-ai",
+    name: "SAWT AI",
+    category: "CUSTOM CLIENT BUILD",
+    badgeColor: "bg-sky-50 text-[#0284C7] border-sky-200",
+    subtitle: "Bilingual Arabic/English AI Survey & Analytics SaaS",
+    description: "Architected and shipped a bilingual AI survey intelligence platform for the Saudi market. Integrated multi-LLM pipelines with structured response validation, MyFatoorah payment gateway, and RTL-first UX.",
+    highlights: [
+      "Multi-LLM pipeline orchestration across OpenAI, Gemini, Grok & Perplexity",
+      "MyFatoorah subscription billing, webhooks & tier access control",
+      "RTL-first Arabic/English localization with sub-second transitions",
+      "Real-time CRM integration with Socket.IO & live SLA tracking"
+    ],
+    stack: ["Next.js", "Node.js", "Multi-LLM", "MyFatoorah", "Socket.IO", "TypeScript"],
+    caseStudyUrl: "/projects",
+    demoUrl: "https://cxisuite.com/",
+  },
+  {
+    id: "omnexia-crm",
+    name: "Omnexia CRM",
+    category: "CUSTOM CLIENT BUILD",
+    badgeColor: "bg-sky-50 text-[#0284C7] border-sky-200",
+    subtitle: "Real-Time Event Stream CRM & SLA Tracking Dashboard",
+    description: "Built a low-latency operations CRM for fast-moving customer service teams. Powered by Node.js, WebSockets, and Redis Pub/Sub to provide instant state synchronization across active agents.",
+    highlights: [
+      "Bi-directional state synchronization via Socket.IO & Redis Pub/Sub",
+      "Live ticket queue with automated SLA breach timers",
+      "Role-based authentication (RBAC) and audit logging",
+      "High-density responsive dashboard views for desktop & tablet"
+    ],
+    stack: ["Node.js", "Socket.IO", "Redis", "React.js", "Tailwind CSS"],
+    caseStudyUrl: "/projects",
+  },
+  {
+    id: "careai-portal",
+    name: "CareAI / CxiSuite Healthcare",
+    category: "CUSTOM CLIENT BUILD",
+    badgeColor: "bg-sky-50 text-[#0284C7] border-sky-200",
+    subtitle: "Multi-Role Medical Operations & Patient Management Portal",
+    description: "Solely owned the frontend architecture of a comprehensive multi-role healthcare SaaS from design through production release, handling administrative, doctor, clinic, and patient workflows.",
+    highlights: [
+      "4 distinct authentication portals (Super Admin, Doctor, Clinic, Patient)",
+      "10+ operational CRUD modules for medical records & scheduling",
+      "Interactive health metrics dashboards with data visualization",
+      "Clean REST API integration with Node.js & MongoDB services"
+    ],
+    stack: ["React.js", "Node.js", "MongoDB", "REST APIs", "Tailwind CSS"],
+    caseStudyUrl: "/projects",
+    demoUrl: "https://www.nasyait.com/",
+  },
+  {
+    id: "lumina-dental",
+    name: "Lumina Dental Clinic",
+    category: "COMMERCIAL WEBSITE TEMPLATE",
+    badgeColor: "bg-slate-100 text-slate-700 border-slate-300",
+    subtitle: "Production-Ready Dental Clinic & Healthcare Web Platform",
+    description: "A commercially available Next.js website template engineered for modern dental clinics and medical practices, featuring high-converting consultation booking and silky smooth micro-interactions.",
+    highlights: [
+      "Fluid appointment consultation workflow with multi-step validation",
+      "Hardware-accelerated GSAP & Framer Motion micro-interactions",
+      "Interactive Before/After smile comparison slider module",
+      "100% PageSpeed performance score with Core Web Vitals optimization"
+    ],
+    stack: ["Next.js", "GSAP", "Tailwind CSS", "TypeScript"],
+    caseStudyUrl: "/templates/lumina-dental-premium-dental-website-template",
+    commercialStatus: "Available with Commercial License ($39)",
+  },
+  {
+    id: "apex-luxury",
+    name: "Apex Luxury Real Estate",
+    category: "COMMERCIAL WEBSITE TEMPLATE",
+    badgeColor: "bg-slate-100 text-slate-700 border-slate-300",
+    subtitle: "Ultra-Luxury Real Estate & Architectural Discovery Platform",
+    description: "A premium commercial template engineered for high-end luxury real estate agencies and architectural firms, featuring interactive property map discovery and multi-currency pricing.",
+    highlights: [
+      "Interactive property showcase with dynamic map filtering",
+      "Refined architectural aesthetic with champagne & obsidian tones",
+      "Multilingual readiness (English, Spanish, German)",
+      "Multi-currency conversion and responsive mobile-first views"
+    ],
+    stack: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
+    caseStudyUrl: "/templates/apex-luxury-ultra-luxury-real-estate-and-architectural-web-template",
+    commercialStatus: "Available with Commercial License ($49)",
+  }
+];
+---
+
+<section id="work" class="py-16 sm:py-20 md:py-28 bg-white border-b border-slate-200/80">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3">
+        // FEATURED WORK & ASSETS
+      </div>
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
+        Real Production Systems. Verifiable Engineering.
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
+        We showcase real software platforms engineered for real production traffic. In our portfolio, we explicitly distinguish between custom client software developments and our commercially available web templates.
+      </p>
+    </div>
+
+    <!-- Category Legend Bar -->
+    <div class="mb-8 p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-600">
+      <div class="flex flex-wrap items-center gap-4">
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-[#0284C7]"></span>
+          <strong>Custom Client Builds:</strong> Bespoke architectures tailored for commercial client operations.
+        </span>
+        <span class="inline-flex items-center gap-1.5">
+          <span class="w-2.5 h-2.5 rounded-full bg-slate-500"></span>
+          <strong>Commercial Templates:</strong> Pre-engineered, production-ready codebases available for purchase.
+        </span>
+      </div>
+      <a href="/projects" class="text-[#0284C7] font-semibold hover:underline">
+        View All Case Studies →
+      </a>
+    </div>
+
+    <!-- 5 Showcase Cards Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+      {workItems.map((item, idx) => {
+        const isFeatured = idx === 0;
+        const colSpan = isFeatured ? "lg:col-span-12" : idx < 3 ? "lg:col-span-6" : "lg:col-span-6";
+
+        return (
+          <div 
+            class={`rounded-2xl bg-[#FAFAFA] border border-slate-200/90 hover:border-slate-300 p-6 sm:p-8 transition-all duration-300 shadow-2xs hover:shadow-xs flex flex-col justify-between ${colSpan}`}
+          >
+            <div>
+              <!-- Top Category Badge & Name -->
+              <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+                <span class={`text-[10px] font-mono uppercase tracking-wider font-semibold px-2.5 py-0.5 rounded border ${item.badgeColor}`}>
+                  {item.category}
+                </span>
+                {item.commercialStatus && (
+                  <span class="text-xs font-mono font-semibold text-emerald-600 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded">
+                    {item.commercialStatus}
+                  </span>
+                )}
+              </div>
+
+              <!-- Project Title -->
+              <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl text-slate-900 tracking-tight mb-1">
+                {item.name}
+              </h3>
+              <p class="text-xs sm:text-sm font-mono text-[#0284C7] font-medium mb-4">
+                {item.subtitle}
+              </p>
+
+              <!-- Description -->
+              <p class="text-sm text-slate-600 leading-relaxed font-sans mb-6">
+                {item.description}
+              </p>
+
+              <!-- Highlights -->
+              <div class="mb-6 space-y-2">
+                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold block">
+                  Key Technical Features:
+                </span>
+                <ul class="space-y-1.5 text-xs text-slate-700 font-sans">
+                  {item.highlights.map((point) => (
+                    <li class="flex items-start gap-2">
+                      <span class="text-[#0284C7] font-bold mt-0.5 select-none font-mono">→</span>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <!-- Bottom: Tech Stack & Action Links -->
+            <div class="pt-5 border-t border-slate-200/70 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div class="flex flex-wrap gap-1.5">
+                {item.stack.map((tech) => (
+                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white border border-slate-200 text-slate-600">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              <div class="flex items-center gap-3 shrink-0">
+                <a
+                  href={item.caseStudyUrl}
+                  class="inline-flex items-center gap-1.5 text-xs font-grotesk font-bold text-slate-900 hover:text-[#0284C7] transition-colors"
+                >
+                  <span>{item.category.includes('TEMPLATE') ? 'Template Details' : 'Case Study'}</span>
+                  <span>↗</span>
+                </a>
+                {item.demoUrl && (
+                  <a
+                    href={item.demoUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono font-medium text-slate-700 hover:bg-slate-50 transition-all"
+                  >
+                    <span>Live Site</span>
+                    <span class="text-slate-400">↗</span>
+                  </a>
+                )}
+              </div>
+            </div>
+
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Bottom Archive Action -->
+    <div class="mt-12 text-center">
+      <p class="text-xs font-mono text-slate-500 mb-4">
+        Need a custom build similar to these, or looking to customize a commercial template?
+      </p>
+      <div class="inline-flex flex-wrap items-center justify-center gap-3">
+        <a
+          href="#contact"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-slate-900 text-white font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-slate-800 transition-all"
+        >
+          <span>Discuss Your Architecture With Us</span>
+          <span>→</span>
+        </a>
+        <a
+          href="/templates"
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg bg-white border border-slate-200 text-slate-800 font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-slate-50 transition-all"
+        >
+          <span>Browse All Templates</span>
+          <span>↗</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+

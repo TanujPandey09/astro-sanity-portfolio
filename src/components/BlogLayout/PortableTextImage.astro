@@ -1,21 +1,33 @@
 ---
-import { urlForImage } from '../BlogLayout/urlforImage';
+import { urlForImage } from "../BlogLayout/urlforImage";
 
-const {asset, alt} = Astro.props.node;
+const node = Astro.props.node || {};
+const { asset, alt } = node;
 
-const hasAsset = !!asset;
-const url = hasAsset ? urlForImage(asset).auto('format').quality(80).url() : '';
-const webpUrl = hasAsset ? urlForImage(asset).format('webp').quality(80).url() : '';
+let url = "";
+let webpUrl = "";
+
+if (asset) {
+  try {
+    if (typeof asset.url === "string" && !asset._ref && !asset._id) {
+      url = `${asset.url}${asset.url.includes("?") ? "&" : "?"}auto=format&q=80`;
+      webpUrl = `${asset.url}${asset.url.includes("?") ? "&" : "?"}fm=webp&q=80`;
+    } else {
+      url = urlForImage(asset).auto("format").quality(80).url();
+      webpUrl = urlForImage(asset).format("webp").quality(80).url();
+    }
+  } catch {
+    url = asset?.url || "";
+    webpUrl = asset?.url || "";
+  }
+}
 ---
 
-{hasAsset && (
+{url && (
   <picture>
-    <source
-      srcset={webpUrl}
-      type="image/webp"
-    />
+    <source srcset={webpUrl} type="image/webp" />
     <img
-      class="responsive__img rounded-2xl w-full h-auto object-cover my-6"
+      class="responsive__img rounded-2xl w-full h-auto object-cover my-6 border border-white/[0.08]"
       src={url}
       alt={alt || "Article content illustration"}
       loading="lazy"

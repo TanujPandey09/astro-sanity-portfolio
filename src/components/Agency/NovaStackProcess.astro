@@ -1,0 +1,167 @@
+---
+// NovaStack Development Process: 6 Sequential Steps to Production
+const steps = [
+  {
+    step: "01",
+    name: "Discovery & Technical Audit",
+    timeframe: "Week 1",
+    objective: "Understand business goals, user personas, existing technical constraints, and competitive landscapes.",
+    activities: [
+      "Deep dive consultation on product vision & requirements",
+      "Existing codebase or infrastructure audit (if applicable)",
+      "Feasibility analysis for AI models & external API integrations",
+      "Definition of MVP scope & critical path milestones"
+    ],
+    deliverable: "Product Scope Document & Technical Feasibility Report"
+  },
+  {
+    step: "02",
+    name: "Strategy & Architecture Planning",
+    timeframe: "Week 1 – 2",
+    objective: "Architect database schemas, API contracts, cloud infrastructure, and sprint roadmaps before writing code.",
+    activities: [
+      "Relational database schema modeling (PostgreSQL / Prisma)",
+      "API contract specification (RESTful / GraphQL / WebSockets)",
+      "Multi-LLM pipeline strategy & prompt caching architecture",
+      "Two-week sprint roadmap with milestone commitments"
+    ],
+    deliverable: "System Architecture Blueprint & Sprint Schedule"
+  },
+  {
+    step: "03",
+    name: "UI/UX Design & Prototyping",
+    timeframe: "Week 2 – 3",
+    objective: "Create high-converting, accessible user interfaces and interactive prototypes that validate user journeys.",
+    activities: [
+      "Wireframing key user flows & core dashboard layouts",
+      "Interactive Figma prototyping for stakeholder review",
+      "Design system token setup (typography, spacing, states)",
+      "WCAG 2.1 AA accessibility & mobile responsiveness review"
+    ],
+    deliverable: "Clickable Figma Prototype & Approved Design Tokens"
+  },
+  {
+    step: "04",
+    name: "Sprint-Based Engineering",
+    timeframe: "Week 3 – 6+",
+    objective: "Implement clean, modular TypeScript code across frontend and backend in rapid agile iterations.",
+    activities: [
+      "Full-stack development using Next.js, Node.js, and PostgreSQL",
+      "Bi-weekly staging deployments for client hands-on testing",
+      "Integration of authentication, billing, and AI services",
+      "Clean Git branch workflows and automated CI lint/type checks"
+    ],
+    deliverable: "Live Staging Environments & Functional Feature Releases"
+  },
+  {
+    step: "05",
+    name: "Testing, Hardening & Deployment",
+    timeframe: "Final 1 – 2 Weeks",
+    objective: "Rigorous quality assurance, performance optimization, and seamless zero-downtime production launch.",
+    activities: [
+      "Cross-browser and cross-device responsive validation",
+      "Core Web Vitals audit ensuring sub-second LCP & zero CLS",
+      "Security penetration checks & API rate-limiting validation",
+      "Cloudflare / Netlify / Vercel production deployment setup"
+    ],
+    deliverable: "Live Production Release & Complete Code Handover"
+  },
+  {
+    step: "06",
+    name: "Ongoing Support & Scaling",
+    timeframe: "Post-Launch",
+    objective: "Continuous monitoring, performance tuning, and iterative feature scaling as your user base expands.",
+    activities: [
+      "Uptime SLA monitoring and automated error tracking",
+      "Dependency updates, security patches & bug fixes",
+      "Feature backlog scoping and ongoing sprint capacity",
+      "Quarterly architecture reviews and scaling recommendations"
+    ],
+    deliverable: "Monthly Maintenance Retainers & Priority Engineering Support"
+  }
+];
+---
+
+<section id="process" class="py-16 sm:py-20 md:py-28 bg-white border-b border-slate-200/80">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="max-w-3xl mb-12 sm:mb-16">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3">
+        // DEVELOPMENT PROCESS
+      </div>
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
+        A Transparent, Step-by-Step Path to Launch.
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
+        We eliminate guesswork with a proven six-step methodology. You receive regular staging preview builds, clear milestone check-ins, and direct visibility into your product's progress.
+      </p>
+    </div>
+
+    <!-- 6 Sequential Steps Timeline Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      {steps.map((item) => (
+        <div class="rounded-2xl bg-[#FAFAFA] border border-slate-200 p-6 sm:p-7 flex flex-col justify-between hover:bg-white hover:border-slate-300 transition-all shadow-2xs hover:shadow-xs">
+          <div>
+            <!-- Step Number & Estimated Timeframe -->
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-mono font-bold text-[#0284C7] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded">
+                STEP {item.step}
+              </span>
+              <span class="text-xs font-mono text-slate-500 font-medium">
+                ⏱ {item.timeframe}
+              </span>
+            </div>
+
+            <!-- Step Title -->
+            <h3 class="font-grotesk font-bold text-lg sm:text-xl text-slate-900 tracking-tight mb-2">
+              {item.name}
+            </h3>
+
+            <!-- Objective -->
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+              {item.objective}
+            </p>
+
+            <!-- Key Activities -->
+            <div class="space-y-1.5 mb-5 text-xs text-slate-700 font-sans">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-1">
+                Core Activities:
+              </span>
+              {item.activities.map((act) => (
+                <div class="flex items-start gap-1.5">
+                  <span class="text-[#0284C7] font-mono text-[10px] mt-0.5">•</span>
+                  <span>{act}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- Deliverable Tag -->
+          <div class="pt-4 border-t border-slate-200/70">
+            <span class="text-[11px] font-mono text-slate-500 block">
+              <strong class="text-slate-800 font-semibold font-sans">Key Deliverable:</strong>
+            </span>
+            <span class="text-xs font-mono text-[#0284C7] font-semibold mt-0.5 block">
+              {item.deliverable}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Process Assurance Note -->
+    <div class="mt-10 sm:mt-12 rounded-xl bg-slate-50 border border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div>
+        <h4 class="font-grotesk font-bold text-sm text-slate-900">Agile Staging Previews Every Sprint</h4>
+        <p class="text-xs text-slate-600 font-sans mt-0.5">You never wait months to see your product. We publish testable staging builds every two weeks with automated demo walkthroughs.</p>
+      </div>
+      <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#0284C7] hover:underline whitespace-nowrap">
+        <span>Schedule Discovery Call</span>
+        <span>→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+

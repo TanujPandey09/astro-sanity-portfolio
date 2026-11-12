@@ -55,53 +55,63 @@ const services = [
 ];
 ---
 
-<section id="services" class="py-14 sm:py-20 md:py-28 relative z-20 border-t border-border-subtle">
+<section id="services" class="py-16 sm:py-24 md:py-28 relative z-20 border-t border-white/[0.10]">
   <div class="w-full">
     
     <SectionHeader 
+      eyebrow="SERVICES"
       title="What I Build &" 
       gradientText="Ship to Production" 
-      subtitle="Focused on the four layers that turn early product ideas into revenue-generating software: resilient backends, multi-LLM intelligence, real-time state, and fast interfaces."
+      subtitle="Focused on the layers that turn early product ideas into revenue-generating software: resilient backends, multi-LLM intelligence, real-time state, and fast interfaces."
     />
 
-    <!-- Asymmetric 12-Column Framer Bento Grid -->
-    <div class="mt-8 sm:mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 sm:gap-5">
+    <!-- Developer HUD Asymmetric 12-Column Grid with All 6 Service Domains -->
+    <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
       {services.map((item, index) => (
-        <div 
-          class={`group rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] hover:border-border-hover transition-all duration-500 shadow-card flex flex-col justify-between ${item.span}`}
-          data-aos="fade-up"
-          data-aos-delay={index * 60}
+        <div
+          data-gsap-card
+          class={`bento-spotlight group relative rounded-[20px] bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 p-6 md:p-7 flex flex-col justify-between shadow-[0_18px_45px_rgba(0,0,0,0.5)] ${item.span}`}
         >
-          <div class={`rounded-xl p-6 md:p-7 h-full flex flex-col justify-between border border-white/[0.05] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] ${item.featured ? 'bg-gradient-to-b from-surface-elevated/90 to-surface-card' : 'bg-surface-card'}`}>
-            <div>
-              <!-- Top Row: Domain Tag -->
-              <div class="flex items-center justify-between mb-5">
-                <span class="text-[11px] font-mono font-medium text-accent-hover px-2.5 py-0.5 rounded-md bg-accent-primary/10 border border-accent-primary/20">
-                  {item.domain}
-                </span>
-                <span class="text-xs font-mono tabular-nums text-text-dim">{String(index + 1).padStart(2, "0")}</span>
-              </div>
+          <!-- Developer HUD Corner Crosshairs -->
+          <span class="pointer-events-none absolute top-3 left-3 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="pointer-events-none absolute top-3 left-3 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="pointer-events-none absolute bottom-3 right-3 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+          <span class="pointer-events-none absolute bottom-3 right-3 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
 
-              <!-- Title -->
-              <h3 class={`${item.featured ? 'text-xl md:text-2xl' : 'text-lg'} font-bold text-text-primary tracking-tight mb-2.5`}>
-                {item.title}
-              </h3>
-
-              <!-- Description -->
-              <p class="text-xs sm:text-sm text-text-muted font-normal leading-relaxed mb-6">
-                {item.description}
-              </p>
+          <div>
+            <!-- Top Row: Domain Tag + Index -->
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-[11px] font-mono uppercase tracking-[0.08em] px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.10] text-[#F8FAFC]">
+                [ {item.domain} ]
+              </span>
+              <span class="text-xs font-mono tabular-nums text-[#38BDF8] font-bold">{String(index + 1).padStart(2, "0")}/</span>
             </div>
 
-            <!-- Tech Chips -->
-            <div class="pt-4 border-t border-border-subtle">
-              <div class="flex flex-wrap gap-1.5">
-                {item.stack.map((tech) => (
-                  <span class="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/[0.03] border border-border-subtle text-text-muted">
-                    {tech}
-                  </span>
-                ))}
-              </div>
+            <!-- Title -->
+            <h3 class={`font-grotesk ${item.featured ? 'text-xl md:text-2xl' : 'text-lg'} font-bold text-[#F8FAFC] tracking-[-0.03em] mb-2.5`}>
+              {item.title}
+            </h3>
+
+            <!-- Description -->
+            <p class="text-xs sm:text-sm text-[#94A3B8] font-normal leading-relaxed mb-4">
+              {item.description}
+            </p>
+
+            {item.deliverables && (
+              <p class="text-[11px] font-mono text-[#38BDF8] mb-5">
+                → {item.deliverables}
+              </p>
+            )}
+          </div>
+
+          <!-- Tech Chips -->
+          <div class="pt-4 border-t border-white/[0.08]">
+            <div class="flex flex-wrap gap-1.5">
+              {item.stack.map((tech) => (
+                <span class="text-[10px] font-mono uppercase tracking-[0.04em] px-2.5 py-1 rounded bg-white/[0.04] border border-white/[0.08] text-[#94A3B8]">
+                  {tech}
+                </span>
+              ))}
             </div>
           </div>
         </div>

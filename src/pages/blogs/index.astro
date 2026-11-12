@@ -1,43 +1,69 @@
 ---
 import { useSanityClient, groq } from "astro-sanity";
+import { fallbackSanityClient } from "../../lib/sanityClient.js";
+import Blogs from "../../components/BlogLayout/Blogs";
+import Layout from "../../layouts/Layout.astro";
+import PremiumBackground from "../../components/PremiumBackground.astro";
 
-const query = groq`*[_type == "blogs"]{
-        ...,
-        BackgroundImage{
-      asset->{
-        url
-      }
-      },
-    }`;
+const query = groq`*[_type == "blogs"] | order(_createdAt desc) {
+  ...,
+  image{
+    asset->{
+      url
+    }
+  },
+  FeatureImage{
+    asset->{
+      url
+    }
+  },
+  BackgroundImage{
+    asset->{
+      url
+    }
+  },
+}`;
 
-const blogData = await useSanityClient().fetch(query);
+let blogData = [];
+try {
+  blogData = await useSanityClient().fetch(query);
+  if (!Array.isArray(blogData) || blogData.length === 0) {
+    blogData = await fallbackSanityClient.fetch(query);
+  }
+} catch (err) {
+  try {
+    blogData = await fallbackSanityClient.fetch(query);
+  } catch (fallbackErr) {
+    console.error("Failed to fetch blogs:", fallbackErr);
+    blogData = [];
+  }
+}
 
 const siteUrl = "https://tanujbuilds.site";
 const itemList = {
   "@type": "ItemList",
   "@id": `${siteUrl}/blogs#itemlist`,
-  name: "Tanuj Pandey — Technical Blog",
-  itemListElement: blogData
-    .filter((blog) => blog.slug?.current)
-    .map((blog, index) => ({
+  name: "Tanuj Pandey — Technical Blog & Engineering Articles",
+  itemListElement: (blogData || [])
+    .filter((blog: any) => blog.slug?.current)
+    .map((blog: any, index: number) => ({
       "@type": "ListItem",
       position: index + 1,
       name: blog.projectName,
       url: `${siteUrl}/blogs/${blog.slug.current}`,
     })),
 };
-
-import Blogs from "../../components/BlogLayout/Blogs";
-
-import Layout from "../../layouts/Layout.astro";
-
 ---
+
 <Layout
-  title="Blogs | Tanuj Pandey"
-  description="Read my latest technical articles, tutorials, and insights on frontend engineering, backend architecture, and AI integrations."
+  title="Engineering Blog & Technical Articles | Tanuj Pandey"
+  description="Read technical articles, architecture deep dives, and practical tutorials on React, Next.js, Astro, Sanity CMS, and AI engineering by Tanuj Pandey."
   schemaType="CollectionPage"
   jsonLd={itemList}
   breadcrumbs={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blogs" }]}
 >
-  <Blogs blogData={blogData} client:load />
+  <div class="relative min-h-screen overflow-hidden">
+    <PremiumBackground />
+    <Blogs blogData={blogData || []} client:load />
+  </div>
 </Layout>
