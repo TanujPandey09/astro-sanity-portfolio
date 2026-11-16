@@ -68,50 +68,51 @@ if (!hasAgency) {
 const menuItems = rawMenus;
 ---
 
-<header class="fixed top-0 inset-x-0 w-full max-w-[100vw] overflow-x-clip z-50 transition-all duration-500 pointer-events-none" id="main-header">
-  <div class="absolute inset-0 header-bg transition-all duration-500"></div>
+<header class="fixed top-0 inset-x-0 w-full max-w-[100vw] overflow-x-clip z-50 transition-all duration-300 pointer-events-none" id="main-header">
+  <div class="absolute inset-0 header-bg transition-all duration-300"></div>
 
-  <nav aria-label="Main Navigation" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-4 md:py-5 flex items-center justify-between gap-4 transition-all duration-500 relative z-10 pointer-events-auto box-border" id="nav-container">
+  <nav aria-label="Main Navigation" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4 transition-all duration-300 relative z-10 pointer-events-auto box-border" id="nav-container">
     <!-- LEFT: Monogram & Wordmark -->
     <div class="shrink-0 flex items-center">
-      <a href="/" aria-label="Tanuj Pandey - Home" class="group inline-flex items-center gap-2.5 shrink-0">
-        <div class="relative w-8 h-8 rounded-md flex items-center justify-center border border-white/15 bg-[#111726] group-hover:border-accent-primary transition-all duration-300 overflow-hidden">
-          <img src="/favicon.svg" alt="Tanuj Pandey Logo" class="w-full h-full object-cover" width="32" height="32" />
+      <a href="/" aria-label="Tanuj Pandey - Home" class="group inline-flex items-center gap-2.5 shrink-0 py-1 transition-opacity hover:opacity-90">
+        <div class="relative w-6 h-6 rounded-md flex items-center justify-center overflow-hidden border border-white/15">
+          <img src="/favicon.svg" alt="Tanuj Pandey Logo" class="w-full h-full object-cover" width="24" height="24" />
         </div>
-        <span class="font-grotesk font-bold text-sm sm:text-base tracking-[-0.03em] text-[#F8FAFC]">
-          TANUJ PANDEY<span class="text-accent-primary drop-shadow-[0_0_12px_rgba(94,106,210,0.8)]">.</span>
+        <span class="font-grotesk font-bold text-xs sm:text-sm tracking-[-0.03em] text-white">
+          TANUJ PANDEY<span class="text-[#828FFF]">.</span>
         </span>
       </a>
     </div>
 
-    <!-- CENTER: Floating Glass Island Navigation (Desktop) -->
-    <div class="hidden md:flex items-center justify-center gap-6 lg:gap-8 px-6 py-2 rounded-full bg-[#111726]/90 backdrop-blur-xl border border-white/[0.12] shadow-[0_4px_25px_rgba(0,0,0,0.6)]" id="desktop-nav-menu">
+    <!-- CENTER: Clean Inline Navigation (Desktop) -->
+    <div class="hidden md:flex items-center justify-center gap-6 lg:gap-8" id="desktop-nav-menu">
       {menuItems.map((menuItem) => {
         const rawLabel = menuItem.menuName || "Link";
         const label = rawLabel.toUpperCase();
         return (
           <a
             href={menuItem.menuLink?.current || menuItem.menuLink || "/"}
-            class="nav-link group relative py-1 text-[12px] font-grotesk font-bold tracking-[0.06em] text-text-muted hover:text-[#F8FAFC] transition-colors"
+            class="nav-link group relative py-1 text-[12px] font-grotesk font-bold tracking-[0.06em] text-slate-300 hover:text-white transition-colors"
           >
             <span class="rushes-roll">
               <span class="rushes-roll-track">
                 <span>{label}</span>
-                <span class="text-[#F8FAFC]">{label}</span>
+                <span class="text-white">{label}</span>
               </span>
             </span>
-            <span class="nav-active-line absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-accent-primary scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
+            <span class="nav-active-line absolute -bottom-0.5 left-0 right-0 h-[1.5px] bg-[#828FFF] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
           </a>
         );
       })}
     </div>
 
-    <!-- RIGHT: Magnetic Pill CTA (Desktop) & Minimalist 2-Bar Toggle (Mobile) -->
+    <!-- RIGHT: Primary Pill CTA (Desktop) & Minimalist 2-Bar Toggle (Mobile) -->
     <div class="shrink-0 flex justify-end items-center gap-3">
       <a
         href="/#contact"
+        data-open-contact
         aria-label="Get in touch with Tanuj Pandey"
-        class="magnetic-btn hidden md:inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-white hover:bg-slate-100 text-[#0B0F17] font-grotesk font-bold text-xs uppercase tracking-[0.04em] rounded-full transition-all duration-300 group shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:shadow-[0_0_25px_rgba(255,255,255,0.35)]"
+        class="magnetic-btn hidden md:inline-flex items-center justify-center gap-2 px-4 py-2 bg-white hover:bg-slate-200 text-[#090A0F] font-grotesk font-bold text-xs uppercase tracking-[0.04em] rounded-full transition-all duration-300 group shadow-sm cursor-pointer"
       >
         <span class="rushes-roll">
           <span class="rushes-roll-track">
@@ -124,24 +125,24 @@ const menuItems = rawMenus;
 
       <button
         id="mobile-trigger"
-        class="md:hidden shrink-0 w-10 h-10 rounded-full bg-white/[0.04] border border-white/10 flex flex-col items-center justify-center gap-1.5 group transition-all hover:border-accent-primary/60 active:scale-95 cursor-pointer overflow-hidden"
+        class="md:hidden shrink-0 w-10 h-10 rounded-full bg-white/10 border border-white/15 flex flex-col items-center justify-center gap-1.5 group transition-all hover:border-[#828FFF] active:scale-95 cursor-pointer"
         aria-label="Toggle Menu"
         aria-expanded="false"
       >
-        <div class="w-5 h-[2px] bg-text-primary transition-all duration-300 origin-center" id="bar-1"></div>
-        <div class="w-5 h-[2px] bg-text-primary transition-all duration-300 origin-center" id="bar-2"></div>
+        <div class="w-5 h-[2px] bg-white transition-all duration-300 origin-center" id="bar-1"></div>
+        <div class="w-5 h-[2px] bg-white transition-all duration-300 origin-center" id="bar-2"></div>
       </button>
     </div>
   </nav>
 
   <!-- Full-Screen Mobile Overlay -->
-  <div id="mobile-overlay" class="fixed inset-0 bg-canvas/98 backdrop-blur-2xl z-[100] hidden flex-col justify-between pointer-events-auto opacity-0 transition-all duration-500 px-6 py-24">
-    <div class="flex items-center justify-between border-b border-white/10 pb-4">
+  <div id="mobile-overlay" class="fixed inset-0 bg-[#090A0F]/98 backdrop-blur-2xl z-[100] hidden flex-col justify-between pointer-events-auto opacity-0 transition-all duration-500 px-6 py-24">
+    <div class="flex items-center justify-between border-b border-white/15 pb-4">
       <div class="inline-flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
-        <span class="text-xs font-mono font-semibold uppercase tracking-[0.06em] text-accent-hover">// NAVIGATION</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-[#828FFF] animate-pulse"></span>
+        <span class="text-xs font-mono font-semibold uppercase tracking-[0.06em] text-[#828FFF]">// NAVIGATION</span>
       </div>
-      <button id="close-overlay" aria-label="Close navigation menu" class="text-xs font-grotesk font-semibold uppercase tracking-[0.08em] text-text-muted hover:text-white transition-colors cursor-pointer">
+      <button id="close-overlay" aria-label="Close navigation menu" class="text-xs font-grotesk font-semibold uppercase tracking-[0.08em] text-slate-300 hover:text-white transition-colors cursor-pointer">
         [ Close ]
       </button>
     </div>
@@ -153,21 +154,21 @@ const menuItems = rawMenus;
         return (
           <a
             href={menuItem.menuLink?.current || menuItem.menuLink || "/"}
-            class="mobile-nav-link group flex items-baseline justify-between border-b border-white/[0.08] py-3.5 text-3xl sm:text-4xl font-grotesk font-bold text-text-primary capitalize tracking-[-0.03em] hover:text-accent-hover transition-all"
+            class="mobile-nav-link group flex items-baseline justify-between border-b border-white/10 py-3.5 text-3xl sm:text-4xl font-grotesk font-bold text-white capitalize tracking-[-0.03em] hover:text-[#828FFF] transition-all"
             style={`animation-delay: ${index * 0.06}s`}
           >
             <span>{label}</span>
-            <span class="text-xs font-mono text-text-dim group-hover:text-accent-primary">0{index + 1}/</span>
+            <span class="text-xs font-mono text-slate-400 group-hover:text-[#828FFF]">0{index + 1}/</span>
           </a>
         );
       })}
     </div>
 
-    <div class="flex flex-col gap-4 pt-4 border-t border-white/10">
-      <a href="/#contact" aria-label="Get in touch with Tanuj Pandey" class="w-full py-3.5 bg-accent-primary hover:bg-accent-hover text-white rounded-full font-grotesk font-semibold text-xs uppercase tracking-[0.06em] text-center transition-all">
+    <div class="flex flex-col gap-4 pt-4 border-t border-white/15">
+      <a href="/#contact" data-open-contact aria-label="Get in touch with Tanuj Pandey" class="w-full py-3.5 bg-[#5E6AD2] hover:bg-[#828FFF] text-white rounded-full font-grotesk font-semibold text-xs uppercase tracking-[0.06em] text-center transition-all">
         Get In Touch
       </a>
-      <div class="flex items-center justify-between text-[11px] font-mono text-text-dim">
+      <div class="flex items-center justify-between text-[11px] font-mono text-slate-400">
         <span>Tanuj Pandey.</span>
         <span>India &amp; Worldwide</span>
       </div>
@@ -177,19 +178,20 @@ const menuItems = rawMenus;
 
 <style>
   header .header-bg {
-    background: transparent;
-    border-bottom: 1px solid transparent;
-  }
-
-  #main-header.scrolled .header-bg {
-    background: rgba(11, 15, 23, 0.88);
+    background: rgba(9, 10, 15, 0.82);
     backdrop-filter: blur(18px);
     -webkit-backdrop-filter: blur(18px);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
+  #main-header.scrolled .header-bg {
+    background: rgba(9, 10, 15, 0.94);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  }
+
   .nav-link.active {
-    color: #FAFAFA !important;
+    color: #FFFFFF !important;
   }
 
   .nav-link.active .nav-active-line {

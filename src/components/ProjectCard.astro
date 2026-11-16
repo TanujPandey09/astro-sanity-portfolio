@@ -10,37 +10,38 @@ const rawTags = project?.tags || project?.techStack || [];
 const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STACK', 'PRODUCTION'];
 ---
 
-<div class="group relative bg-[#111726] border border-white/[0.10] rounded-[20px] overflow-hidden hover:border-accent-primary/40 transition-all duration-500 hover:-translate-y-1 shadow-[0_20px_50px_rgba(0,0,0,0.6)]" data-aos="fade-up" data-aos-delay={index * 50}>
-  <a href={`/projects/${project.slug?.current}`} aria-label={`View project details for ${projectName}`} class="block aspect-[16/10] relative overflow-hidden bg-[#0B0F17]">
-    {imageUrl && (
-      <img 
-        src={imageUrl} 
-        alt={projectName}
-        loading="lazy"
-        decoding="async"
-        class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-85 group-hover:opacity-100"
-      />
-    )}
-    <div class="absolute inset-0 bg-gradient-to-t from-[#111726] via-[#111726]/30 to-transparent"></div>
+<div class="group relative bg-white border border-black/[0.08] rounded-[20px] overflow-hidden hover:border-accent-primary/50 transition-all duration-500 hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]" data-cursor-text="VIEW CASE STUDY ↗" data-aos="fade-up" data-aos-delay={index * 50}>
+  <a href={`/projects/${project.slug?.current}`} aria-label={`View project details for ${projectName}`} class="block">
+    <div class="aspect-[16/10] relative overflow-hidden bg-[#F1F5F9] border-b border-black/[0.06]">
+      {imageUrl && (
+        <img 
+          src={imageUrl} 
+          alt={projectName}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-95 group-hover:opacity-100"
+        />
+      )}
 
-    <!-- 4 Corner HUD Crosshairs -->
-    <div class="pointer-events-none absolute inset-3 z-10">
-      <span class="absolute top-0 left-0 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-      <span class="absolute top-0 left-0 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-      <span class="absolute top-0 right-0 w-4 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-      <span class="absolute top-0 right-0 w-[1px] h-4 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+      <!-- 4 Corner HUD Crosshairs -->
+      <div class="pointer-events-none absolute inset-3 z-10">
+        <span class="absolute top-0 left-0 w-4 h-[1px] bg-black/25 group-hover:bg-accent-primary transition-colors"></span>
+        <span class="absolute top-0 left-0 w-[1px] h-4 bg-black/25 group-hover:bg-accent-primary transition-colors"></span>
+        <span class="absolute top-0 right-0 w-4 h-[1px] bg-black/25 group-hover:bg-accent-primary transition-colors"></span>
+        <span class="absolute top-0 right-0 w-[1px] h-4 bg-black/25 group-hover:bg-accent-primary transition-colors"></span>
+      </div>
     </div>
     
-    <div class="absolute bottom-4 left-4 right-4 z-20">
-       <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-          <div class="flex gap-1.5">
+    <div class="p-4 sm:p-5">
+       <div class="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+          <div class="flex flex-wrap gap-1.5">
             {tags.slice(0, 2).map((tech: string) => (
-              <span class="text-[10px] font-mono uppercase tracking-[0.06em] px-2 py-0.5 bg-white/[0.06] border border-white/10 rounded-full text-[#94A3B8]">{tech}</span>
+              <span class="text-[10px] font-mono uppercase tracking-[0.06em] px-2.5 py-0.5 bg-slate-100 border border-black/[0.08] rounded-full text-slate-700 font-medium">{tech}</span>
             ))}
           </div>
-          <span class="text-xs font-mono text-accent-primary font-bold">↗</span>
+          <span class="text-xs font-mono text-[#0F172A] group-hover:text-accent-primary font-bold transition-colors">↗</span>
        </div>
-       <h3 class="text-[#F8FAFC] font-grotesk font-bold text-lg sm:text-xl tracking-[-0.03em] truncate">{projectName}</h3>
+       <h3 class="text-[#0F172A] group-hover:text-accent-primary font-grotesk font-bold text-base sm:text-lg tracking-[-0.03em] truncate transition-colors">{projectName}</h3>
     </div>
   </a>
 </div>

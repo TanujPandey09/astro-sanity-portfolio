@@ -70,13 +70,17 @@ export default {
       title: 'Category',
       name: 'category',
       type: 'string',
+      description: 'Select the primary industry/category for this template. This will automatically generate the filter pill on the website.',
       options: {
         list: [
           { title: 'Real Estate & Architecture', value: 'real-estate' },
           { title: 'Healthcare & Medical', value: 'healthcare' },
           { title: 'SaaS & Tech', value: 'saas' },
+          { title: 'AI & Automation', value: 'ai-automation' },
           { title: 'Agency & Portfolio', value: 'portfolio' },
-          { title: 'E-Commerce', value: 'ecommerce' },
+          { title: 'E-Commerce & Retail', value: 'ecommerce' },
+          { title: 'Dashboard & Web App', value: 'dashboard' },
+          { title: 'Fintech & Finance', value: 'fintech' },
           { title: 'Other', value: 'other' },
         ],
       },

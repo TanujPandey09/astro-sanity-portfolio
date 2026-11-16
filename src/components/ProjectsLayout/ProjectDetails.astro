@@ -34,22 +34,22 @@ const formattedDate = detailsData?._createdAt
     <!-- Project Identity -->
     <section class="max-w-7xl mx-auto mb-16 md:mb-24">
       <div class="flex flex-col gap-6 mb-12 md:mb-16" data-aos="fade-up">
-         <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#F4F2ED] tracking-tight leading-[1.08] m-0">
+         <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-tight leading-[1.08] m-0">
            {detailsData?.projectName}
          </h1>
 
          <!-- Excerpt / Case Study Summary -->
          {detailsData?.excerpt && (
-           <div class="max-w-3xl text-base md:text-lg text-[#9A9A9E] leading-relaxed">
+           <div class="max-w-3xl text-base md:text-lg text-slate-600 leading-relaxed">
               <PortableText value={detailsData?.excerpt} components={components} />
            </div>
          )}
 
          <!-- Action and Tech Stack Row -->
-         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/[0.10]">
+         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-black/[0.08]">
             <div class="flex flex-wrap gap-2">
                {detailsData?.tags?.map((tag: string) => (
-                  <span class="px-3 py-1 rounded-md bg-white/[0.04] border border-white/[0.10] text-xs font-mono text-[#9A9A9E]">
+                  <span class="px-3 py-1 rounded-md bg-slate-100 border border-black/[0.08] text-xs font-mono text-slate-700">
                      {tag}
                   </span>
                ))}
@@ -61,7 +61,7 @@ const formattedDate = detailsData?._createdAt
                     href={typeof detailsData.gumroadLink === 'string' ? detailsData.gumroadLink : detailsData.gumroadLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-white text-[#0B0F17] font-bold uppercase text-xs tracking-wider rounded-full hover:bg-slate-100 transition-all duration-300 text-center shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    class="px-6 py-3 bg-[#0F172A] text-white font-bold uppercase text-xs tracking-wider rounded-full hover:bg-black transition-all duration-300 text-center shadow-xs"
                   >
                     Get Template ↗
                   </a>
@@ -71,7 +71,7 @@ const formattedDate = detailsData?._createdAt
                     href={typeof detailsData.demoLink === 'string' ? detailsData.demoLink : detailsData.demoLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-white text-[#0B0F17] font-bold uppercase text-xs tracking-wider rounded-full hover:bg-slate-100 transition-all duration-300 text-center shadow-[0_0_15px_rgba(255,255,255,0.2)]"
+                    class="px-6 py-3 bg-[#0F172A] text-white font-bold uppercase text-xs tracking-wider rounded-full hover:bg-black transition-all duration-300 text-center shadow-xs"
                   >
                     Live Application ↗
                   </a>
@@ -81,7 +81,7 @@ const formattedDate = detailsData?._createdAt
                     href={typeof detailsData.gitHubLink === 'string' ? detailsData.gitHubLink : detailsData.gitHubLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-white/[0.04] border border-white/10 text-[#F4F2ED] font-semibold text-xs uppercase tracking-wider rounded-full hover:bg-white/[0.08] hover:border-white/30 transition-all duration-300 text-center"
+                    class="px-6 py-3 bg-slate-100 border border-black/10 text-[#0F172A] font-semibold text-xs uppercase tracking-wider rounded-full hover:bg-slate-200 transition-all duration-300 text-center"
                   >
                     Source Code ↗
                   </a>
@@ -90,45 +90,76 @@ const formattedDate = detailsData?._createdAt
          </div>
       </div>
 
-      <!-- Hero Image in Double-Bezel Frame -->
-      <div class="rounded-2xl p-1.5 bg-white/[0.03] border border-white/[0.09] shadow-card">
-        <div class="relative rounded-xl overflow-hidden border border-white/[0.05] bg-surface-card group">
-           {detailsData?.BackgroundImage?.asset?.url && (
-             <img 
-               src={optimizeSanityImage(detailsData.BackgroundImage.asset.url, 1200, 80)} 
-               alt={detailsData.projectName || "Project preview screenshot"}
-               loading="lazy"
-               decoding="async"
-               class="w-full h-auto object-cover transition-all duration-700"
-             />
-           )}
+      <!-- Hero Image in Realistic 3D MacBook Pro Studio Stage -->
+      <div class="laptop-3d-stage relative rounded-[24px] sm:rounded-[36px] p-6 sm:p-12 md:p-16 bg-gradient-to-b from-[#1C2233] via-[#101422] to-[#0A0D16] border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(94,106,210,0.22)_0%,transparent_65%)] pointer-events-none"></div>
+        <div data-gsap-parallax class="laptop-chassis relative max-w-5xl mx-auto will-change-transform">
+          <div class="relative rounded-[16px] sm:rounded-[22px] md:rounded-[26px] bg-[#0E1015] p-2.5 sm:p-3.5 md:p-4 shadow-[0_30px_80px_rgba(0,0,0,0.45)] border border-white/15 ring-1 ring-black/60">
+            <div class="absolute top-1 sm:top-1.5 left-1/2 -translate-x-1/2 w-14 sm:w-20 md:w-28 h-2 sm:h-3 md:h-3.5 bg-[#0E1015] rounded-b-md flex items-center justify-center z-30">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#1A1D24] ring-1 ring-white/10"></span>
+            </div>
+            <div class="relative rounded-[10px] sm:rounded-[14px] md:rounded-[18px] overflow-hidden aspect-[16/10] bg-[#14161E]">
+              {detailsData?.BackgroundImage?.asset?.url && (
+                <img 
+                  src={optimizeSanityImage(detailsData.BackgroundImage.asset.url, 1600, 85)} 
+                  alt={detailsData.projectName || "Project preview screenshot"}
+                  loading="eager"
+                  decoding="async"
+                  data-gsap-screen
+                  class="w-full h-full object-cover object-top"
+                />
+              )}
+              <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.12] mix-blend-overlay"></div>
+            </div>
+          </div>
+          <div class="relative mx-auto w-[104%] -left-[2%] h-3.5 sm:h-5 md:h-6 bg-gradient-to-b from-[#555A64] via-[#32363E] to-[#1E2127] rounded-b-[14px] sm:rounded-b-[20px] shadow-[0_25px_50px_rgba(0,0,0,0.45)] border-t border-white/25">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-28 md:w-36 h-1.5 sm:h-2 bg-[#17191E] rounded-b-lg"></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Project Architecture & Breakdown -->
-    <section class="max-w-5xl mx-auto pt-12 md:pt-20 border-t border-border-subtle">
+    <section class="max-w-5xl mx-auto pt-12 md:pt-20 border-t border-black/[0.08]">
        <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
           <div class="lg:col-span-4">
-             <div class="rounded-2xl p-1.5 bg-white/[0.02] border border-white/[0.08] lg:sticky lg:top-28">
-               <div class="rounded-xl bg-surface-card p-6 border border-white/[0.04] space-y-5">
-                 <h2 class="text-base font-bold text-text-primary tracking-tight">Project Overview</h2>
+             <div class="rounded-2xl p-1.5 bg-white border border-black/[0.08] shadow-xs lg:sticky lg:top-28">
+               <div class="rounded-xl bg-white p-6 space-y-5">
+                 <h2 class="text-base font-bold text-[#0F172A] tracking-tight">Project Overview</h2>
                  <div class="space-y-4 text-xs font-mono">
-                    <div class="flex items-center justify-between py-2 border-b border-border-subtle">
-                       <span class="text-text-dim">Engineer</span>
-                       <span class="text-text-primary font-medium">Tanuj Pandey</span>
+                    <div class="flex items-center justify-between py-2 border-b border-black/[0.06]">
+                       <span class="text-slate-500">Engineer</span>
+                       <span class="text-[#0F172A] font-medium">Tanuj Pandey</span>
                     </div>
-                    <div class="flex items-center justify-between py-2 border-b border-border-subtle">
-                       <span class="text-text-dim">Timeline</span>
-                       <span class="text-text-primary font-medium tabular-nums">{formattedDate}</span>
+                    <div class="flex items-center justify-between py-2 border-b border-black/[0.06]">
+                       <span class="text-slate-500">Timeline</span>
+                       <span class="text-[#0F172A] font-medium tabular-nums">{formattedDate}</span>
                     </div>
                     <div class="flex items-center justify-between py-2">
-                       <span class="text-text-dim">Status</span>
-                       <span class="inline-flex items-center gap-1.5 text-status-live">
-                         <span class="w-1.5 h-1.5 rounded-full bg-status-live"></span>
+                       <span class="text-slate-500">Status</span>
+                       <span class="inline-flex items-center gap-1.5 text-emerald-800 font-medium">
+                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
                          Production
                        </span>
                     </div>
+                 </div>
+                 <div class="pt-4 border-t border-black/[0.08] space-y-2.5">
+                   <button
+                     type="button"
+                     data-open-contact
+                     data-contact-subject={`Similar Build Inquiry: ${detailsData?.projectName || "Case Study"}`}
+                     class="w-full py-3 px-4 rounded-full bg-[#0A0B0E] hover:bg-black text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+                   >
+                     Build Something Similar ↗
+                   </button>
+                   <a
+                     href="https://wa.me/919557321978"
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     class="w-full py-2.5 px-4 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-500/25 text-emerald-900 font-mono font-semibold text-xs text-center block transition-colors"
+                   >
+                     WhatsApp Tanuj ↗
+                   </a>
                  </div>
                </div>
              </div>
@@ -137,6 +168,23 @@ const formattedDate = detailsData?._createdAt
           <div class="lg:col-span-8">
              <div class="prose-custom">
                <PortableText value={detailsData?.projectcontent} components={components} />
+             </div>
+
+             <!-- Immediate Case Study Conversion Banner -->
+             <div class="mt-14 rounded-3xl bg-[#0A0B0E] text-white p-8 sm:p-10 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+               <div>
+                 <span class="text-[11px] font-mono uppercase tracking-[0.18em] text-[#828FFF] block mb-2">NEXT STEP</span>
+                 <h3 class="font-grotesk font-bold text-xl sm:text-2xl text-white">Want a system like {detailsData?.projectName}?</h3>
+                 <p class="text-xs sm:text-sm text-slate-400 mt-1">Direct engineering delivery &amp; reply within 2 hours.</p>
+               </div>
+               <button
+                 type="button"
+                 data-open-contact
+                 data-contact-subject={`Project Inquiry: ${detailsData?.projectName || "Custom Build"}`}
+                 class="shrink-0 px-6 py-3 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+               >
+                 Contact Now ↗
+               </button>
              </div>
           </div>
        </div>

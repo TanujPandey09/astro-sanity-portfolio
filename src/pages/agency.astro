@@ -1,6 +1,9 @@
 ---
 export const prerender = false;
 
+import { useSanityClient, groq } from "astro-sanity";
+import { fallbackSanityClient } from "../lib/sanityClient.js";
+import { optimizeSanityImage } from "../lib/optimizeImage";
 import Layout from "../layouts/Layout.astro";
 import NovaStackHeader from "../components/Agency/NovaStackHeader.astro";
 import NovaStackHero from "../components/Agency/NovaStackHero.astro";
@@ -14,6 +17,35 @@ import NovaStackFAQ from "../components/Agency/NovaStackFAQ.astro";
 import NovaStackContact from "../components/Agency/NovaStackContact.astro";
 import NovaStackFooter from "../components/Agency/NovaStackFooter.astro";
 
+const agencyQuery = groq`*[_type == "agencySettings"] | order(_updatedAt desc)[0]{
+  brandName,
+  tagline,
+  logoFullWidth,
+  logo{
+    alt,
+    asset->{url}
+  }
+}`;
+
+let agencySettings: any = null;
+try {
+  agencySettings = await useSanityClient().fetch(agencyQuery);
+  if (!agencySettings) {
+    agencySettings = await fallbackSanityClient.fetch(agencyQuery);
+  }
+} catch {
+  try {
+    agencySettings = await fallbackSanityClient.fetch(agencyQuery);
+  } catch {}
+}
+
+const rawLogoUrl = agencySettings?.logo?.asset?.url;
+const agencyLogoUrl = rawLogoUrl ? optimizeSanityImage(rawLogoUrl, 360, 90) : "";
+const agencyLogoAlt = agencySettings?.logo?.alt || "NovaStack Logo";
+const agencyBrandName = agencySettings?.brandName || "NovaStack";
+const agencyTagline = agencySettings?.tagline || "AI & Digital Studio";
+const agencyLogoFullWidth = Boolean(agencySettings?.logoFullWidth);
+
 const siteUrl = "https://tanujbuilds.site";
 const canonicalURL = `${siteUrl}/agency`;
 
@@ -26,10 +58,10 @@ const agencyJsonLd = {
     {
       "@type": ["Organization", "ProfessionalService"],
       "@id": `${canonicalURL}#organization`,
-      "name": "NovaStack",
+      "name": agencyBrandName,
       "alternateName": ["NovaStack Studio", "NovaStack AI & Digital Technology Studio"],
       "url": canonicalURL,
-      "logo": `${siteUrl}/favicon.svg`,
+      "logo": agencyLogoUrl || `${siteUrl}/favicon.svg`,
       "image": `${siteUrl}/og-image-dark.png`,
       "description": pageDescription,
       "slogan": "We Build. Automate. Optimize. Scale.",
@@ -90,13 +122,19 @@ const breadcrumbs = [
   hideDefaultFooter={true}
   isAgency={true}
 >
-  <!-- Dedicated Agency Container with Premium Editorial B2B Aesthetic -->
-  <div class="agency-page w-full min-h-screen bg-[#FAFAFA] text-slate-800 font-sans selection:bg-sky-500/15 selection:text-slate-900">
+  <!-- Dedicated Agency Container matching Deep Obsidian Architectural Aesthetic -->
+  <div class="agency-page w-full min-h-screen bg-[#090A0F] text-white font-sans selection:bg-[#5E6AD2]/35 selection:text-white overflow-x-clip">
     <!-- NovaStack Navigation Header -->
-    <NovaStackHeader />
+    <NovaStackHeader
+      logoUrl={agencyLogoUrl}
+      logoAlt={agencyLogoAlt}
+      brandName={agencyBrandName}
+      tagline={agencyTagline}
+      logoFullWidth={agencyLogoFullWidth}
+    />
 
     <!-- Main Content Flow -->
-    <main id="agency-main-content">
+    <main id="agency-main-content" class="overflow-x-clip">
       <!-- 1. Hero Section -->
       <NovaStackHero />
 
@@ -126,7 +164,12 @@ const breadcrumbs = [
     </main>
 
     <!-- 10. NovaStack Agency Footer -->
-    <NovaStackFooter />
+    <NovaStackFooter
+      logoUrl={agencyLogoUrl}
+      logoAlt={agencyLogoAlt}
+      brandName={agencyBrandName}
+      logoFullWidth={agencyLogoFullWidth}
+    />
   </div>
 </Layout>
 
@@ -138,8 +181,76 @@ const breadcrumbs = [
 
   /* Accessible focus indicators for international B2B clients */
   .agency-page *:focus-visible {
-    outline: 2px solid #0284C7 !important;
+    outline: 2px solid #5E6AD2 !important;
     outline-offset: 2px !important;
   }
 </style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initAgencyScrollConvergence() {
+    const root = document.getElementById('agency-main-content');
+    if (!root) return;
+
+    ScrollTrigger.getAll().forEach((trigger) => {
+      const id = String(trigger.vars?.id || '');
+      if (id.startsWith('agency-reveal-')) {
+        trigger.kill();
+      }
+    });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const elements = Array.from(root.querySelectorAll('[data-agency-dir]')) as HTMLElement[];
+
+    if (reduceMotion) {
+      elements.forEach((el) => {
+        el.style.opacity = '1';
+        el.style.transform = '';
+      });
+      return;
+    }
+
+    elements.forEach((el, index) => {
+      const dir = el.getAttribute('data-agency-dir') || 'center';
+      const offsetX = dir === 'left' ? -64 : dir === 'right' ? 64 : 0;
+      const offsetY = dir === 'center' ? 28 : 14;
+      const startScale = dir === 'center' ? 0.95 : 0.97;
+
+      gsap.fromTo(
+        el,
+        {
+          x: offsetX,
+          y: offsetY,
+          scale: startScale,
+          opacity: 0.2,
+        },
+        {
+          x: 0,
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          duration: 0.8,
+          ease: 'power3.out',
+          clearProps: 'transform,opacity',
+          scrollTrigger: {
+            id: `agency-reveal-${index}`,
+            trigger: el,
+            start: 'top 90%',
+            once: true,
+          },
+        }
+      );
+    });
+
+    ScrollTrigger.refresh();
+  }
+
+  initAgencyScrollConvergence();
+  document.addEventListener('astro:page-load', initAgencyScrollConvergence);
+  document.addEventListener('astro:after-swap', initAgencyScrollConvergence);
+</script>
 

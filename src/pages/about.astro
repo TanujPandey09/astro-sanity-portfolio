@@ -4,7 +4,7 @@ import { fallbackSanityClient } from "../lib/sanityClient.js";
 import AboutLayout from "../components/About/AboutLayout.astro";
 import Layout from "../layouts/Layout.astro";
 
-const query = groq`*[_type == "about"]{
+const query = groq`*[_type == "about"] | order(_updatedAt desc) {
   ...,
   heroImage{
     asset->{

@@ -1,0 +1,139 @@
+---
+import { optimizeSanityImage } from "../lib/optimizeImage";
+import { formatCategoryLabel, type TemplateItem } from "../lib/templates";
+
+interface Props {
+  template: TemplateItem;
+  index?: number;
+}
+
+const { template, index = 0 } = Astro.props;
+
+const rawImageUrl = template.imageUrl || "/og-image-dark.png";
+const imageUrl = rawImageUrl.includes("cdn.sanity.io") 
+  ? optimizeSanityImage(rawImageUrl, 400, 80)
+  : rawImageUrl;
+
+const price = template.price || "$49";
+const originalPrice = template.originalPrice;
+const tags = template.tags?.slice(0, 3) || ["Next.js", "React 19", "TypeScript"];
+const slug = template.slug?.current || "";
+const category = template.category || "other";
+const categoryLabel = formatCategoryLabel(category);
+const categoryFilterKey = category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+const priceNumeric = price.replace(/[^0-9.]/g, "") || "49";
+---
+
+<article 
+  class="template-row group w-full p-3.5 sm:p-4 rounded-xl bg-white hover:bg-slate-50 border border-black/[0.08] hover:border-accent-primary/50 hover:shadow-[0_4px_25px_rgba(0,0,0,0.06)] shadow-xs transition-all duration-200 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4"
+  data-category={categoryFilterKey}
+  data-tags={tags.join(",").toLowerCase()}
+  data-price={priceNumeric}
+  data-name={template.templateName.toLowerCase()}
+  data-cursor-text="EXPLORE TEMPLATE ↗"
+>
+  <!-- Left Column: Thumbnail + Title + Tagline -->
+  <div class="flex items-center gap-3.5 flex-1 min-w-0">
+    <a 
+      href={`/templates/${slug}`}
+      class="relative w-20 sm:w-24 aspect-[16/10] shrink-0 rounded-lg overflow-hidden border border-black/10 bg-[#F1F5F9] group/thumb"
+      aria-label={`View ${template.templateName}`}
+    >
+      {imageUrl ? (
+        <img 
+          src={imageUrl} 
+          alt={template.templateName}
+          loading="lazy"
+          decoding="async"
+          class="w-full h-full object-cover object-top group-hover/thumb:scale-105 transition-transform duration-300"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center text-[10px] text-slate-400 font-mono">
+          Preview
+        </div>
+      )}
+    </a>
+
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-[9px] font-mono font-semibold uppercase tracking-wider text-slate-700">
+          [ {categoryLabel} ]
+        </span>
+        {template.badge && (
+          <span class="px-1.5 py-0.2 rounded text-[8px] font-mono uppercase tracking-wider bg-accent-primary/10 text-accent-primary border border-accent-primary/30 font-bold">
+            {template.badge}
+          </span>
+        )}
+      </div>
+
+      <h3 class="font-grotesk text-sm sm:text-base font-bold text-[#0F172A] group-hover:text-accent-primary transition-colors truncate">
+        <a href={`/templates/${slug}`}>
+          {template.templateName}
+        </a>
+      </h3>
+
+      <p class="text-xs text-slate-600 font-sans truncate hidden sm:block">
+        {template.tagline}
+      </p>
+    </div>
+  </div>
+
+  <!-- Middle Column: Tech Stack & Speed (Visible on md+) -->
+  <div class="hidden lg:flex items-center gap-2 shrink-0">
+    <div class="flex items-center gap-1">
+      {tags.map((tag: string) => (
+        <span class="text-[9px] font-mono uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 border border-black/[0.08] text-slate-700">
+          {tag}
+        </span>
+      ))}
+    </div>
+    <span class="px-2 py-0.5 rounded bg-emerald-50 border border-emerald-500/20 text-[9px] font-mono text-emerald-800 font-semibold">
+      ⚡ 99+ Speed
+    </span>
+  </div>
+
+  <!-- Right Column: Price + Action Buttons -->
+  <div class="flex items-center justify-between md:justify-end gap-3 pt-2 md:pt-0 border-t md:border-t-0 border-black/[0.06] shrink-0">
+    <div class="flex items-baseline gap-1.5 md:mr-2">
+      <span class="text-sm font-bold font-mono text-[#0F172A]">{price}</span>
+      {originalPrice && (
+        <span class="text-[10px] line-through text-slate-400 font-mono">{originalPrice}</span>
+      )}
+    </div>
+
+    <div class="flex items-center gap-1.5">
+      {template.demoLink && (
+        <a 
+          href={template.demoLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg text-xs font-mono text-slate-700 hover:text-black bg-slate-100 hover:bg-slate-200 border border-black/[0.08] transition-all"
+        >
+          <span>Demo</span>
+          <span class="text-[10px]">↗</span>
+        </a>
+      )}
+
+      {template.gumroadLink ? (
+        <a 
+          href={template.gumroadLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-lg text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-all shadow-xs active:scale-95"
+        >
+          <span>Get {price}</span>
+          <span class="text-[10px]">↗</span>
+        </a>
+      ) : (
+        <a 
+          href={`/templates/${slug}`}
+          class="inline-flex items-center px-3.5 py-1.5 rounded-lg text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-colors"
+        >
+          <span>Details</span>
+          <span class="text-[10px]">→</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+

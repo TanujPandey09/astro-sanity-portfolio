@@ -66,26 +66,26 @@ export default function Blogs({ blogData = [] }) {
     <section className="relative min-h-screen pt-28 pb-24 md:pt-36 md:pb-32 selection:bg-accent-primary/30">
       <div className="mx-auto w-full max-w-[1440px] px-4 md:px-10 relative z-10">
         {/* Top Studio HUD Metadata Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-10 border-b border-white/[0.08] font-mono text-[11px] uppercase tracking-[0.2em] text-[#94A3B8]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-6 mb-10 border-b border-black/[0.08] font-mono text-[11px] uppercase tracking-[0.2em] text-slate-500">
           <div className="flex items-center gap-2.5">
             <span className="w-2 h-2 rounded-full bg-[#10B981] shadow-[0_0_10px_#10B981] animate-pulse" />
-            <span className="text-[#F8FAFC] font-semibold">[ ENGINEERING JOURNAL // 05 ]</span>
+            <span className="text-[#0F172A] font-semibold">[ ENGINEERING JOURNAL // 05 ]</span>
           </div>
           <div className="flex items-center gap-4">
             <span>{safeBlogs.length} Published Articles</span>
-            <span className="text-white/20">•</span>
-            <span className="text-[#10B981]">System Index Active</span>
+            <span className="text-black/20">•</span>
+            <span className="text-emerald-700">System Index Active</span>
           </div>
         </div>
 
         {/* Page Hero Header */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end mb-12 md:mb-16">
           <div className="lg:col-span-8">
-            <h1 className="font-grotesk text-4xl sm:text-5xl md:text-6xl font-bold text-[#F4F2ED] tracking-[-0.03em] leading-[1.05] mb-5">
+            <h1 className="font-grotesk text-4xl sm:text-5xl md:text-6xl font-bold text-[#0F172A] tracking-[-0.03em] leading-[1.05] mb-5">
               Technical Articles &amp;{" "}
               <span className="text-gradient">Engineering Guides.</span>
             </h1>
-            <p className="max-w-2xl text-[#9A9A9E] text-base md:text-lg leading-relaxed">
+            <p className="max-w-2xl text-slate-600 text-base md:text-lg leading-relaxed">
               Deep dives into full-stack architecture, headless CMS workflows, React &amp; Astro performance, and production AI systems.
             </p>
           </div>
@@ -99,10 +99,10 @@ export default function Blogs({ blogData = [] }) {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles, topics, tags..."
                 aria-label="Search blog articles"
-                className="w-full rounded-xl bg-white/[0.03] border border-white/[0.1] focus:border-accent-primary/60 focus:outline-none px-4 py-3 pl-10 text-sm text-text-primary placeholder:text-text-dim transition-colors"
+                className="w-full rounded-xl bg-slate-50 border border-black/10 focus:bg-white focus:border-accent-primary/60 focus:outline-none px-4 py-3 pl-10 text-sm text-[#0F172A] placeholder:text-slate-400 transition-colors shadow-2xs"
               />
               <svg
-                className="w-4 h-4 text-text-dim absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
+                className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -119,7 +119,7 @@ export default function Blogs({ blogData = [] }) {
         </div>
 
         {/* Filter Navigation Pills */}
-        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-6 border-b border-white/[0.08]">
+        <div className="flex flex-wrap items-center gap-2.5 mb-12 pb-6 border-b border-black/[0.08]">
           {categories.map((category) => {
             const isActive = activeFilter === category;
             return (
@@ -129,15 +129,15 @@ export default function Blogs({ blogData = [] }) {
                 onClick={() => setActiveFilter(category)}
                 className={`relative px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-[0.06em] transition-colors ${
                   isActive
-                    ? "text-[#0B0F17]"
-                    : "text-[#94A3B8] hover:text-[#F8FAFC] bg-white/[0.04] border border-white/[0.08]"
+                    ? "text-white"
+                    : "text-slate-700 hover:text-black bg-slate-100 border border-black/[0.08]"
                 }`}
               >
                 {isActive && (
                   <motion.span
                     layoutId="activeBlogCategoryPill"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                    className="absolute inset-0 rounded-full bg-white shadow-[0_0_20px_rgba(255,255,255,0.25)] -z-10"
+                    className="absolute inset-0 rounded-full bg-[#0F172A] shadow-xs -z-10"
                   />
                 )}
                 {category === "All" ? "All Articles" : category}
@@ -180,67 +180,67 @@ export default function Blogs({ blogData = [] }) {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                   whileHover={{ y: -6 }}
-                  className="group relative rounded-[22px] p-1.5 bg-[#111726] border border-white/[0.10] hover:border-white/30 transition-colors duration-300 flex flex-col justify-between shadow-[0_20px_50px_rgba(0,0,0,0.6)]"
+                  className="group relative rounded-[22px] p-1.5 bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-colors duration-300 flex flex-col justify-between shadow-[0_4px_25px_rgba(0,0,0,0.06)] hover:shadow-[0_20px_45px_rgba(0,0,0,0.08)]"
                 >
                   <a
                     href={`/blogs/${slug}`}
-                    className="rounded-[16px] bg-[#111726] p-5 md:p-6 h-full flex flex-col justify-between border border-white/[0.05] relative overflow-hidden"
+                    data-cursor-text="READ ARTICLE ↗"
+                    className="rounded-[16px] bg-white p-5 md:p-6 h-full flex flex-col justify-between border border-black/[0.05] relative overflow-hidden"
                   >
                     <div>
                       {/* Top Meta Header */}
-                      <div className="flex items-center justify-between gap-2 mb-4 font-mono text-[11px] text-[#94A3B8]">
-                        <span className="px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/10 text-[#F8FAFC] font-semibold">
+                      <div className="flex items-center justify-between gap-2 mb-4 font-mono text-[11px] text-slate-500">
+                        <span className="px-2.5 py-1 rounded-md bg-slate-100 border border-black/10 text-slate-800 font-semibold">
                           {categoryLabel}
                         </span>
                         <span>{dateLabel}</span>
                       </div>
 
                       {/* Cover Image Frame */}
-                      <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-5 bg-[#0B0F17] border border-white/[0.08]">
+                      <div className="relative aspect-[16/10] w-full rounded-xl overflow-hidden mb-5 bg-[#F1F5F9] border border-black/[0.08]">
                         <img
                           src={imgUrl}
                           alt={blog?.projectName || "Article cover"}
                           loading={index < 3 ? "eager" : "lazy"}
                           decoding="async"
-                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-90 group-hover:opacity-100"
+                          class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out opacity-95 group-hover:opacity-100"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity" />
-                        <span className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/10 font-mono text-[10px] text-white">
+                        <span className="absolute bottom-2.5 right-2.5 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md border border-black/10 font-mono text-[10px] text-[#0F172A] shadow-2xs font-semibold">
                           #{String(index + 1).padStart(2, "0")}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h2 className="font-grotesk text-xl md:text-2xl font-bold text-[#F4F2ED] group-hover:text-white transition-colors tracking-[-0.02em] leading-snug mb-3 line-clamp-2">
+                      <h2 className="font-grotesk text-xl md:text-2xl font-bold text-[#0F172A] group-hover:text-accent-primary transition-colors tracking-[-0.02em] leading-snug mb-3 line-clamp-2">
                         {blog?.projectName || "Untitled Engineering Article"}
                       </h2>
 
                       {/* Excerpt */}
-                      <p className="text-sm text-[#9A9A9E] leading-relaxed line-clamp-3 mb-5">
+                      <p className="text-sm text-slate-600 leading-relaxed line-clamp-3 mb-5">
                         {excerpt}
                       </p>
                     </div>
 
                     {/* Footer Row */}
-                    <div className="pt-4 border-t border-white/[0.07] flex items-center justify-between gap-3">
+                    <div className="pt-4 border-t border-black/[0.08] flex items-center justify-between gap-3">
                       <div className="flex flex-wrap gap-1.5">
                         {tags.length > 0 ? (
                           tags.map((tag, i) => (
                             <span
                               key={i}
-                              className="text-[11px] font-mono text-[#7D7D83] bg-white/[0.03] border border-white/[0.06] px-2 py-0.5 rounded"
+                              className="text-[11px] font-mono text-slate-600 bg-slate-100 border border-black/[0.06] px-2 py-0.5 rounded"
                             >
                               {tag}
                             </span>
                           ))
                         ) : (
-                          <span className="text-[11px] font-mono text-[#7D7D83]">
+                          <span className="text-[11px] font-mono text-slate-500">
                             5 Min Read
                           </span>
                         )}
                       </div>
 
-                      <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-[#F8FAFC] group-hover:text-accent-primary transition-colors shrink-0">
+                      <span className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-[#0F172A] group-hover:text-accent-primary transition-colors shrink-0">
                         Read Article
                         <svg
                           className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -266,11 +266,11 @@ export default function Blogs({ blogData = [] }) {
 
         {/* Empty State */}
         {filteredBlogs.length === 0 && (
-          <div className="rounded-2xl border border-white/[0.08] bg-surface-card/70 p-12 text-center my-12">
-            <p className="font-grotesk text-xl font-bold text-text-primary mb-2">
+          <div className="rounded-2xl border border-black/[0.08] bg-white p-12 text-center my-12 shadow-sm">
+            <p className="font-grotesk text-xl font-bold text-[#0F172A] mb-2">
               No Matching Articles Found
             </p>
-            <p className="text-sm text-text-muted mb-6">
+            <p className="text-sm text-slate-600 mb-6">
               Try clearing your search query or switching back to All Articles.
             </p>
             <button
@@ -279,7 +279,7 @@ export default function Blogs({ blogData = [] }) {
                 setActiveFilter("All");
                 setSearchQuery("");
               }}
-              className="px-5 py-2.5 rounded-full bg-accent-primary text-white text-xs font-mono font-semibold tracking-wider hover:bg-accent-hover transition-colors"
+              className="px-5 py-2.5 rounded-full bg-[#0F172A] text-white text-xs font-mono font-semibold tracking-wider hover:bg-black transition-colors shadow-xs"
             >
               Reset Filters
             </button>

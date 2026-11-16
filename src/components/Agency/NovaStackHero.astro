@@ -1,268 +1,170 @@
 ---
-// NovaStack Hero Section: International B2B Technology Studio
+// NovaStack Agency Hero: Pixel-Perfect Dark Obsidian Canvas, Ambient Nebula Glow, Centered Editorial Display & 5-Card Fanned Showcase Arc
+const fanCards = [
+  {
+    title: "Habot Enterprise",
+    tag: "B2B SaaS",
+    img: "https://cdn.sanity.io/images/fqd3bez7/production/2ce01332eb1f37c21197a65b9723c429873b54d1-1348x635.png?w=720&auto=format&q=85",
+    tilt: "lg:-rotate-12 lg:translate-y-10",
+    borderAccent: "border-white/15"
+  },
+  {
+    title: "Template Architecture",
+    tag: "Next.js 15",
+    img: "https://cdn.sanity.io/images/fqd3bez7/production/fbe9b67497b5d77fb4822116a0b3b31db990eed4-1825x853.png?w=720&auto=format&q=85",
+    tilt: "lg:-rotate-6 lg:translate-y-3",
+    borderAccent: "border-indigo-400/25"
+  },
+  {
+    title: "Apex Luxury Platform",
+    tag: "Flagship",
+    img: "https://cdn.sanity.io/images/fqd3bez7/production/9e3002b16f302b12708b1fa01238a73cda1c4919-1672x941.png?w=820&auto=format&q=85",
+    tilt: "lg:scale-105 z-20",
+    borderAccent: "border-white/30"
+  },
+  {
+    title: "Omnexia Real-Time CRM",
+    tag: "Socket.IO",
+    img: "https://cdn.sanity.io/images/fqd3bez7/production/a789384b9bb85b4c62ff3abd42a14259ff219699-1815x717.png?w=720&auto=format&q=85",
+    tilt: "lg:rotate-6 lg:translate-y-3",
+    borderAccent: "border-indigo-400/25"
+  },
+  {
+    title: "Executive Analytics",
+    tag: "AI Telemetry",
+    img: "https://cdn.sanity.io/images/fqd3bez7/production/cff0d5b6d2c8144035c77a26fd7616a85a437e7e-1365x1186.png?w=720&auto=format&q=85",
+    tilt: "lg:rotate-12 lg:translate-y-10",
+    borderAccent: "border-white/15"
+  }
+];
 ---
 
-<section id="hero" class="relative pt-12 sm:pt-16 md:pt-24 pb-16 sm:pb-20 md:pb-28 bg-[#FAFAFA] border-b border-slate-200/80 overflow-hidden">
-  <!-- Subtle Architectural Grid Background -->
-  <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#E2E8F0_1px,transparent_1px),linear-gradient(to_bottom,#E2E8F0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] opacity-40"></div>
+<section id="hero" class="relative w-full overflow-hidden bg-[#090A0F] text-white pt-16 sm:pt-24 md:pt-28 pb-20 sm:pb-28 border-b border-white/[0.08]">
+  <!-- Ambient Starfield + Dual Nebula Radial Aura (Matches Dark Editorial Reference) -->
+  <div class="pointer-events-none absolute inset-0 overflow-hidden">
+    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(94,106,210,0.32)_0%,rgba(168,85,247,0.16)_38%,transparent_72%)] blur-3xl"></div>
+    <div class="absolute top-12 left-1/2 -translate-x-1/3 w-[480px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(236,72,153,0.16)_0%,transparent_70%)] blur-3xl"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:32px_32px] opacity-25 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_15%,#000_40%,transparent_100%)]"></div>
+  </div>
 
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <!-- Top Studio Eyebrow Pill -->
-    <div class="flex items-center justify-center sm:justify-start">
-      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs mb-6 sm:mb-8">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span class="text-xs font-mono font-semibold text-slate-700 tracking-wider uppercase">
-          AI &amp; DIGITAL TECHNOLOGY STUDIO
-        </span>
-        <span class="text-slate-300">|</span>
-        <span class="text-xs font-mono text-slate-500 hidden sm:inline">
-          USA · UK · UAE · AUS · IND
-        </span>
+  <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+    <!-- 1. CENTERED HERO HEADER -->
+    <div class="max-w-4xl mx-auto text-center space-y-6">
+      <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono uppercase tracking-[0.16em] text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>NOVASTACK STUDIO · USA · UK · UAE · AUS · IND</span>
+      </div>
+
+      <h1 class="font-grotesk font-extrabold text-white tracking-[-0.045em] text-4xl xs:text-5xl sm:text-6xl md:text-[4.5rem] lg:text-[5.25rem] leading-[0.98]">
+        We engineer products<br />
+        shaped by <span class="text-[#828FFF]">perception.</span>
+      </h1>
+
+      <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto font-sans">
+        NovaStack builds full-stack web applications, mobile platforms, and deterministic AI workflows for ambitious founders and global product teams.
+      </p>
+
+      <!-- Dual Action Bar -->
+      <div class="pt-2 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+        <a
+          href="#contact"
+          class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white hover:bg-slate-200 text-[#090A0F] font-grotesk font-bold text-xs sm:text-sm uppercase tracking-wider shadow-[0_10px_30px_rgba(255,255,255,0.12)] transition-all active:scale-95"
+        >
+          <span>Start a Project</span>
+          <span>→</span>
+        </a>
+        <a
+          href="#work"
+          class="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-white font-grotesk font-semibold text-xs sm:text-sm uppercase tracking-wider transition-all"
+        >
+          <span>See Case Studies</span>
+          <span class="text-slate-400">↓</span>
+        </a>
       </div>
     </div>
 
-    <!-- Main Headline & Narrative Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-12 sm:mb-16">
-      
-      <!-- Left Column: Bold Value Proposition -->
-      <div class="lg:col-span-8 space-y-6">
-        <h1 class="font-grotesk font-extrabold text-slate-900 tracking-[-0.035em] text-3xl sm:text-5xl md:text-6xl lg:text-[4.25rem] leading-[1.04]">
-          We Build Digital Products That Move Businesses <span class="text-[#0284C7] underline decoration-slate-200 underline-offset-8">Forward.</span>
-        </h1>
-
-        <p class="text-base sm:text-lg md:text-xl text-slate-600 leading-relaxed font-sans max-w-3xl">
-          NovaStack partners with founders, growing companies, and enterprise teams to engineer high-performance web applications, mobile platforms, and production AI automation workflows. From initial architectural discovery to scalable global deployment.
-        </p>
-
-        <!-- CTAs & Direct Engagement Action -->
-        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
-          <a
-            href="#contact"
-            class="inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-grotesk font-bold text-sm uppercase tracking-wider shadow-sm hover:shadow transition-all active:scale-[0.98]"
+    <!-- 2. SIGNATURE 5-CARD FANNED SHOWCASE ARC (Pixel-Perfect Reference Match) -->
+    <div class="mt-14 sm:mt-20 mb-16 sm:mb-24 relative">
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5 items-center max-w-6xl mx-auto px-2">
+        {fanCards.map((card, idx) => {
+          const dir = idx < 2 ? 'left' : idx === 2 ? 'center' : 'right';
+          return (
+          <div
+            data-agency-dir={dir}
+            class={`group relative rounded-2xl overflow-hidden bg-[#12151F] border ${card.borderAccent} shadow-[0_24px_60px_rgba(0,0,0,0.65)] transition-all duration-500 hover:rotate-0 hover:translate-y-0 hover:scale-[1.06] hover:z-30 hover:border-[#828FFF]/70 ${card.tilt} ${idx === 4 ? 'col-span-2 sm:col-span-1 max-w-[260px] mx-auto w-full sm:max-w-none' : ''}`}
           >
-            <span>Start a Project</span>
-            <span class="text-[#38BDF8] text-base leading-none">→</span>
-          </a>
-
-          <a
-            href="#work"
-            class="inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-grotesk font-bold text-sm uppercase tracking-wider border border-slate-200 shadow-xs hover:border-slate-300 transition-all active:scale-[0.98]"
-          >
-            <span>Explore Our Work</span>
-            <span class="text-slate-400">↓</span>
-          </a>
-        </div>
-
-        <!-- Tagline & Core Philosophy -->
-        <div class="pt-4 flex items-center gap-3 text-xs font-mono text-slate-500 uppercase tracking-wider">
-          <span class="font-semibold text-slate-700">Philosophy:</span>
-          <span>We Build.</span>
-          <span class="text-slate-300">·</span>
-          <span>Automate.</span>
-          <span class="text-slate-300">·</span>
-          <span>Optimize.</span>
-          <span class="text-slate-300">·</span>
-          <span>Scale.</span>
-        </div>
+            <div class="aspect-[4/3] w-full overflow-hidden bg-[#0F121A] relative">
+              <img
+                src={card.img}
+                alt={card.title}
+                loading={idx < 3 ? "eager" : "lazy"}
+                decoding="async"
+                class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#090A0F]/90 via-transparent to-transparent"></div>
+            </div>
+            <div class="px-3.5 py-2.5 flex items-center justify-between gap-2 bg-[#0D0F17]/95 border-t border-white/[0.08]">
+              <span class="text-[11px] font-grotesk font-semibold text-white truncate">{card.title}</span>
+              <span class="text-[9px] font-mono uppercase tracking-wider text-[#828FFF] shrink-0">{card.tag}</span>
+            </div>
+          </div>
+        );})}
       </div>
-
-      <!-- Right Column: Verification & Proof Points -->
-      <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl p-6 sm:p-7 shadow-xs space-y-6">
-        <div>
-          <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-1">
-            Studio Practice
-          </span>
-          <h3 class="font-grotesk font-bold text-lg text-slate-900 tracking-tight">
-            Direct Founder Collaboration
-          </h3>
-          <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-            Every engagement is led by senior engineering leadership. Zero junior handoffs, transparent milestone tracking, and direct Slack/Teams integration.
-          </p>
-        </div>
-
-        <div class="grid grid-cols-2 gap-4 pt-4 border-t border-slate-100">
-          <div>
-            <span class="block text-2xl sm:text-3xl font-extrabold font-grotesk text-slate-900 tabular-nums">4+ Yrs</span>
-            <span class="text-xs font-mono text-slate-500">Commercial Experience</span>
-          </div>
-          <div>
-            <span class="block text-2xl sm:text-3xl font-extrabold font-grotesk text-slate-900 tabular-nums">&lt;24h</span>
-            <span class="text-xs font-mono text-slate-500">Initial Scoping SLA</span>
-          </div>
-          <div>
-            <span class="block text-2xl sm:text-3xl font-extrabold font-grotesk text-slate-900 tabular-nums">100%</span>
-            <span class="text-xs font-mono text-slate-500">Codebase Ownership</span>
-          </div>
-          <div>
-            <span class="block text-2xl sm:text-3xl font-extrabold font-grotesk text-slate-900 tabular-nums">5</span>
-            <span class="text-xs font-mono text-slate-500">Global Target Markets</span>
-          </div>
-        </div>
-
-        <div class="pt-4 border-t border-slate-100 flex items-center justify-between text-xs font-mono text-slate-600">
-          <span class="inline-flex items-center gap-1.5">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-            Accepting Q1/Q2 Projects
-          </span>
-          <a href="#contact" class="text-[#0284C7] font-semibold hover:underline">
-            Inquire →
-          </a>
-        </div>
-      </div>
-
     </div>
 
-    <!-- Premium B2B SaaS Interface Showcase (Software Dashboard & AI Workflows) -->
-    <div class="relative rounded-2xl border border-slate-200/90 bg-white p-2 sm:p-3 shadow-md">
-      <!-- Window Chrome -->
-      <div class="flex items-center justify-between px-3 py-2 border-b border-slate-100 mb-2">
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-slate-200"></span>
-          <span class="w-3 h-3 rounded-full bg-slate-200"></span>
-          <span class="w-3 h-3 rounded-full bg-slate-200"></span>
-          <span class="ml-2 text-[11px] font-mono text-slate-400 hidden sm:inline">
-            https://app.novastack.studio/orchestration/metrics
-          </span>
+    <!-- 3. HIGH-CONTRAST EDITORIAL MANIFESTO STATEMENT (Matches Reference Mid-Hero Block) -->
+    <div class="pt-10 sm:pt-14 pb-12 sm:pb-16 border-t border-white/[0.08] max-w-4xl mx-auto text-center" data-agency-dir="center">
+      <p class="font-grotesk font-semibold text-xl sm:text-2xl md:text-[2rem] leading-[1.35] tracking-[-0.02em] text-slate-400">
+        <span class="text-white">Built with senior engineering teams and shipped globally,</span>
+        {" "}NovaStack helps startups and enterprises engineer{" "}
+        <span class="text-white">high-converting web platforms, custom SaaS products,</span>
+        {" "}and{" "}
+        <span class="text-white">production AI automation systems</span>
+        {" "}that compound revenue — with{" "}
+        <span class="text-white">100% codebase ownership</span>
+        {" "}from day one.
+      </p>
+    </div>
+
+    <!-- 4. COMPACT METRIC PROOF STRIP (Preserves Live Telemetry Proof Without White Chrome Clash) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
+      <div data-agency-dir="left" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
+          <span>API LATENCY</span>
+          <span class="text-emerald-400 font-semibold">P99</span>
         </div>
-        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-md bg-slate-50 border border-slate-200 text-[10px] font-mono text-slate-600">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          SYS: HEALTHY · ALL ENGINES OPERATIONAL
-        </div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">38 ms</div>
+        <div class="text-[11px] font-mono text-slate-400 mt-1">Edge Cached &amp; SSR Ready</div>
       </div>
 
-      <!-- Dashboard Mockup Body -->
-      <div class="rounded-xl bg-[#F8FAFC] border border-slate-200/60 p-4 sm:p-6 md:p-8">
-        
-        <!-- Metrics Header -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-1">
-              <span>API RESPONSE LATENCY</span>
-              <span class="text-emerald-600 font-semibold font-mono">P99</span>
-            </div>
-            <div class="text-2xl font-bold font-grotesk text-slate-900 tabular-nums">38 ms</div>
-            <div class="text-[11px] font-mono text-slate-500 mt-1">Edge Cached via Cloudflare</div>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-1">
-              <span>MULTI-LLM ROUTING</span>
-              <span class="text-[#0284C7] font-semibold font-mono">ACTIVE</span>
-            </div>
-            <div class="text-2xl font-bold font-grotesk text-slate-900 tabular-nums">4 Providers</div>
-            <div class="text-[11px] font-mono text-slate-500 mt-1">OpenAI · Claude · Gemini · Perplexity</div>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-1">
-              <span>REAL-TIME EVENTS</span>
-              <span class="text-emerald-600 font-semibold font-mono">SYNC</span>
-            </div>
-            <div class="text-2xl font-bold font-grotesk text-slate-900 tabular-nums">&lt; 15 ms</div>
-            <div class="text-[11px] font-mono text-slate-500 mt-1">WebSockets &amp; Redis Pub/Sub</div>
-          </div>
-
-          <div class="bg-white border border-slate-200 rounded-xl p-4 shadow-2xs">
-            <div class="flex items-center justify-between text-xs font-mono text-slate-500 mb-1">
-              <span>PRODUCTION UPTIME</span>
-              <span class="text-emerald-600 font-semibold font-mono">SLA</span>
-            </div>
-            <div class="text-2xl font-bold font-grotesk text-slate-900 tabular-nums">99.98%</div>
-            <div class="text-[11px] font-mono text-slate-500 mt-1">Automated CI/CD &amp; Zero Downtime</div>
-          </div>
+      <div data-agency-dir="left" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
+          <span>LLM PIPELINES</span>
+          <span class="text-[#828FFF] font-semibold">MULTI-MODEL</span>
         </div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">4 Providers</div>
+        <div class="text-[11px] font-mono text-slate-400 mt-1">OpenAI · Claude · Gemini · RAG</div>
+      </div>
 
-        <!-- Lower Split: Live Telemetry Stream & System Architecture View -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-          <!-- Architecture Flow -->
-          <div class="lg:col-span-7 bg-white border border-slate-200 rounded-xl p-5 shadow-2xs">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-700">
-                [ PRODUCTION PIPELINE ARCHITECTURE ]
-              </span>
-              <span class="text-[10px] font-mono text-slate-500">TYPESCRIPT END-TO-END</span>
-            </div>
-
-            <div class="space-y-3 font-mono text-xs">
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-[#0284C7]"></span>
-                  <span class="text-slate-800 font-medium">01. Web &amp; Mobile Client</span>
-                </div>
-                <span class="text-slate-500">Next.js 15 / React Native</span>
-              </div>
-
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-slate-700"></span>
-                  <span class="text-slate-800 font-medium">02. Edge Gateway &amp; Auth</span>
-                </div>
-                <span class="text-slate-500">JWT / RBAC / Rate Limiting</span>
-              </div>
-
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-[#0284C7]"></span>
-                  <span class="text-slate-800 font-medium">03. AI Orchestration Engine</span>
-                </div>
-                <span class="text-slate-500">Structured Outputs &amp; RAG</span>
-              </div>
-
-              <div class="flex items-center justify-between p-2.5 rounded-lg bg-slate-50 border border-slate-200/80">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
-                  <span class="text-slate-800 font-medium">04. Relational &amp; Vector Data</span>
-                </div>
-                <span class="text-slate-500">PostgreSQL / Prisma / Pinecone</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Live Event Feed Preview -->
-          <div class="lg:col-span-5 bg-white border border-slate-200 rounded-xl p-5 shadow-2xs flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <span class="text-xs font-mono font-bold uppercase tracking-wider text-slate-700">
-                  [ LIVE ORCHESTRATION LOG ]
-                </span>
-                <span class="inline-flex items-center gap-1 text-[10px] font-mono text-emerald-600 font-semibold">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                  STREAMING
-                </span>
-              </div>
-
-              <div class="space-y-2 font-mono text-[11px] text-slate-600">
-                <div class="p-2 rounded bg-slate-50 border border-slate-100 flex items-start gap-2">
-                  <span class="text-[#0284C7] font-semibold">200 OK</span>
-                  <span class="text-slate-700">/api/v1/generate-survey [Claude 3.5 Sonnet]</span>
-                </div>
-                <div class="p-2 rounded bg-slate-50 border border-slate-100 flex items-start gap-2">
-                  <span class="text-emerald-600 font-semibold">SYNC</span>
-                  <span class="text-slate-700">Socket.IO room `crm_tickets_sla` updated</span>
-                </div>
-                <div class="p-2 rounded bg-slate-50 border border-slate-100 flex items-start gap-2">
-                  <span class="text-[#0284C7] font-semibold">CACHE</span>
-                  <span class="text-slate-700">Static route revalidation in 14ms</span>
-                </div>
-                <div class="p-2 rounded bg-slate-50 border border-slate-100 flex items-start gap-2">
-                  <span class="text-slate-500 font-semibold">AUTH</span>
-                  <span class="text-slate-700">Multi-tenant session validated: UAE cluster</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>NovaStack Telemetry Core</span>
-              <span class="text-slate-700 font-semibold">Verified Architecture</span>
-            </div>
-          </div>
-
+      <div data-agency-dir="right" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
+          <span>SCOPING SLA</span>
+          <span class="text-emerald-400 font-semibold">DIRECT</span>
         </div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">&lt; 24h</div>
+        <div class="text-[11px] font-mono text-slate-400 mt-1">Senior Architect Review</div>
+      </div>
 
+      <div data-agency-dir="right" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+        <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
+          <span>CODE OWNERSHIP</span>
+          <span class="text-emerald-400 font-semibold">VERIFIED</span>
+        </div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">100% IP</div>
+        <div class="text-[11px] font-mono text-slate-400 mt-1">Zero Lock-In Transfer</div>
       </div>
     </div>
 
   </div>
 </section>
-

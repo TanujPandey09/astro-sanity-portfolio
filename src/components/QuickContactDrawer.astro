@@ -1,0 +1,327 @@
+---
+// Global Instant Contact System: Floating Bottom-Left Live Dock + Slide-Over Quick Contact Drawer
+// Enables immediate 1-click contact (Drawer Form, WhatsApp, Copy Email, Call) from any page.
+const quickScopes = [
+  "Full-Stack SaaS MVP",
+  "AI / Multi-LLM System",
+  "Full-Time Engineering Role",
+  "Template Customization"
+];
+---
+
+{/* Persistent floating dock removed to keep global navigation & page chrome uncluttered; [data-open-contact] triggers the drawer below */}
+
+<!-- 2. INSTANT CONTACT SLIDE-OVER DRAWER -->
+<div
+  id="quick-contact-drawer"
+  class="fixed inset-0 z-[150] hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="quick-drawer-title"
+>
+  <!-- Backdrop -->
+  <div
+    id="quick-contact-backdrop"
+    class="absolute inset-0 bg-[#0A0B0E]/70 backdrop-blur-sm opacity-0 transition-opacity duration-300"
+  ></div>
+
+  <!-- Slide-Over Panel -->
+  <div
+    id="quick-contact-panel"
+    class="absolute top-0 right-0 h-full w-full max-w-xl bg-white text-[#0F172A] shadow-2xl border-l border-black/10 transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-y-auto"
+  >
+    <!-- Header Band (Obsidian Contrast) -->
+    <div class="bg-[#0A0B0E] text-white px-6 sm:px-8 py-6 flex items-start justify-between gap-4 border-b border-white/10 shrink-0">
+      <div>
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.14em] text-emerald-400 mb-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>DIRECT ACCESS · REPLIES &lt; 2 HOURS</span>
+        </div>
+        <h2 id="quick-drawer-title" class="font-grotesk font-extrabold text-2xl sm:text-3xl text-white tracking-tight">
+          Start a Conversation
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-400 mt-1 font-sans">
+          Reach me directly via WhatsApp, email, or send a quick project brief below.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="close-quick-contact"
+        aria-label="Close contact drawer"
+        class="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-colors shrink-0 cursor-pointer"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Body Content -->
+    <div class="p-6 sm:p-8 space-y-7 flex-1">
+      <!-- Zero-Friction Direct Action Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <a
+          href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20would%20like%20to%20discuss%20a%20project%20or%20role."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group p-4 rounded-2xl bg-emerald-50/70 hover:bg-emerald-50 border border-emerald-500/25 hover:border-emerald-500/50 transition-all flex items-center justify-between gap-3"
+        >
+          <div>
+            <span class="text-[10px] font-mono uppercase tracking-wider text-emerald-700 font-bold block">INSTANT CHAT</span>
+            <span class="font-grotesk font-bold text-sm text-[#0F172A] block mt-0.5">WhatsApp Direct</span>
+            <span class="text-[11px] font-mono text-slate-600">+91 95573 21978</span>
+          </div>
+          <span class="w-9 h-9 rounded-full bg-emerald-600 text-white flex items-center justify-center text-sm group-hover:scale-105 transition-transform shrink-0">
+            ↗
+          </span>
+        </a>
+
+        <div class="p-4 rounded-2xl bg-slate-50 border border-black/[0.08] flex items-center justify-between gap-2">
+          <div class="min-w-0">
+            <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold block">DIRECT EMAIL</span>
+            <a href="mailto:tanujp09@gmail.com" class="font-grotesk font-bold text-sm text-[#0F172A] hover:text-accent-primary truncate block mt-0.5">
+              tanujp09@gmail.com
+            </a>
+            <a href="tel:+919557321978" class="text-[11px] font-mono text-slate-500 hover:text-black">
+              Call +91 9557321978
+            </a>
+          </div>
+          <button
+            type="button"
+            id="drawer-copy-email"
+            data-email="tanujp09@gmail.com"
+            class="shrink-0 px-3 py-1.5 rounded-lg bg-white hover:bg-[#0F172A] hover:text-white border border-black/10 text-[11px] font-mono font-semibold transition-all cursor-pointer active:scale-95"
+          >
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Inquiry Form -->
+      <div class="pt-2 border-t border-black/[0.08]">
+        <div class="mb-4">
+          <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-2.5">
+            1. SELECT TOPIC (OPTIONAL)
+          </span>
+          <div class="flex flex-wrap gap-2" id="drawer-scope-chips">
+            {quickScopes.map((scope) => (
+              <button
+                type="button"
+                data-scope-value={scope}
+                class="drawer-scope-chip px-3 py-1.5 rounded-full text-xs font-mono bg-slate-100 hover:bg-slate-200 border border-black/[0.08] text-slate-700 transition-all cursor-pointer"
+              >
+                {scope}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <form id="quickContactForm" class="space-y-4">
+          <!-- Honeypot -->
+          <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label for="drawer-company-website">Company website</label>
+            <input id="drawer-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+            <div>
+              <label for="drawer-name" class="block text-[11px] font-mono uppercase tracking-wider text-slate-600 mb-1.5">Your Name*</label>
+              <input id="drawer-name" type="text" name="from_name" required placeholder="Alex Rivera" class="w-full bg-slate-50 border border-black/10 rounded-xl px-3.5 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-accent-primary transition-all" />
+            </div>
+            <div>
+              <label for="drawer-email" class="block text-[11px] font-mono uppercase tracking-wider text-slate-600 mb-1.5">Work Email*</label>
+              <input id="drawer-email" type="email" name="from_email" required placeholder="alex@company.com" class="w-full bg-slate-50 border border-black/10 rounded-xl px-3.5 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-accent-primary transition-all" />
+            </div>
+          </div>
+
+          <div>
+            <label for="drawer-subject" class="block text-[11px] font-mono uppercase tracking-wider text-slate-600 mb-1.5">Project Scope or Role*</label>
+            <input id="drawer-subject" type="text" name="subject" required placeholder="SaaS MVP / AI Feature / Full-Time Role" class="w-full bg-slate-50 border border-black/10 rounded-xl px-3.5 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-accent-primary transition-all" />
+          </div>
+
+          <div>
+            <label for="drawer-message" class="block text-[11px] font-mono uppercase tracking-wider text-slate-600 mb-1.5">Brief Details*</label>
+            <textarea id="drawer-message" name="message" required rows="3" placeholder="Tell me what you're building, your timeline, or role details..." class="w-full bg-slate-50 border border-black/10 rounded-xl px-3.5 py-2.5 text-sm text-[#0F172A] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-accent-primary transition-all resize-none"></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full py-3.5 px-6 rounded-full bg-[#0A0B0E] hover:bg-black text-white font-grotesk font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-md cursor-pointer active:scale-[0.99]"
+          >
+            <span>Send Direct Message</span>
+            <span>↗</span>
+          </button>
+        </form>
+
+        <div id="drawer-form-status" class="mt-4 text-center text-xs font-mono hidden"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { trackEvent } from '../lib/analytics';
+
+  const setupQuickContact = () => {
+    const drawer = document.getElementById('quick-contact-drawer');
+    const backdrop = document.getElementById('quick-contact-backdrop');
+    const panel = document.getElementById('quick-contact-panel');
+    const closeBtn = document.getElementById('close-quick-contact');
+    const subjectInput = document.getElementById('drawer-subject') as HTMLInputElement | null;
+    const nameInput = document.getElementById('drawer-name') as HTMLInputElement | null;
+    const form = document.getElementById('quickContactForm') as HTMLFormElement | null;
+    const statusEl = document.getElementById('drawer-form-status');
+    const copyBtn = document.getElementById('drawer-copy-email');
+
+    if (!drawer || !backdrop || !panel) return;
+
+    const openDrawer = (presetSubject?: string | null) => {
+      if (presetSubject && subjectInput) {
+        subjectInput.value = presetSubject;
+      }
+      drawer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      requestAnimationFrame(() => {
+        backdrop.classList.remove('opacity-0');
+        backdrop.classList.add('opacity-100');
+        panel.classList.remove('translate-x-full');
+        panel.classList.add('translate-x-0');
+      });
+      setTimeout(() => nameInput?.focus(), 250);
+    };
+
+    const closeDrawer = () => {
+      backdrop.classList.remove('opacity-100');
+      backdrop.classList.add('opacity-0');
+      panel.classList.remove('translate-x-0');
+      panel.classList.add('translate-x-full');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        drawer.classList.add('hidden');
+      }, 360);
+    };
+
+    // Global trigger delegation (works across view transitions and dynamic nodes)
+    const w = window as any;
+    if (!w.__quickContactDelegated) {
+      w.__quickContactDelegated = true;
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const trigger = target.closest('[data-open-contact]');
+        if (trigger) {
+          e.preventDefault();
+          const preset = trigger.getAttribute('data-contact-subject');
+          const d = document.getElementById('quick-contact-drawer');
+          const b = document.getElementById('quick-contact-backdrop');
+          const p = document.getElementById('quick-contact-panel');
+          const s = document.getElementById('drawer-subject') as HTMLInputElement | null;
+          const n = document.getElementById('drawer-name') as HTMLInputElement | null;
+          if (!d || !b || !p) return;
+          if (preset && s) s.value = preset;
+          d.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+          requestAnimationFrame(() => {
+            b.classList.remove('opacity-0');
+            b.classList.add('opacity-100');
+            p.classList.remove('translate-x-full');
+            p.classList.add('translate-x-0');
+          });
+          setTimeout(() => n?.focus(), 250);
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          const d = document.getElementById('quick-contact-drawer');
+          if (d && !d.classList.contains('hidden')) {
+            document.getElementById('close-quick-contact')?.click();
+          }
+        }
+      });
+    }
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
+
+    // Quick scope chips
+    document.querySelectorAll('.drawer-scope-chip').forEach((chip) => {
+      if (chip.hasAttribute('data-bound')) return;
+      chip.setAttribute('data-bound', 'true');
+      chip.addEventListener('click', () => {
+        const val = chip.getAttribute('data-scope-value') || '';
+        document.querySelectorAll('.drawer-scope-chip').forEach((c) => {
+          c.classList.remove('bg-[#0F172A]', 'text-white', 'border-[#0F172A]');
+          c.classList.add('bg-slate-100', 'text-slate-700');
+        });
+        chip.classList.remove('bg-slate-100', 'text-slate-700');
+        chip.classList.add('bg-[#0F172A]', 'text-white', 'border-[#0F172A]');
+        if (subjectInput) subjectInput.value = val;
+      });
+    });
+
+    // Copy email
+    if (copyBtn && !copyBtn.hasAttribute('data-bound')) {
+      copyBtn.setAttribute('data-bound', 'true');
+      copyBtn.addEventListener('click', async () => {
+        const email = copyBtn.getAttribute('data-email') || 'tanujp09@gmail.com';
+        try {
+          await navigator.clipboard.writeText(email);
+          copyBtn.textContent = 'Copied ✓';
+          setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+        } catch {
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    }
+
+    // Form submission
+    if (form && !form.hasAttribute('data-bound')) {
+      form.setAttribute('data-bound', 'true');
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+        if (!btn) return;
+        const origHtml = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<span>Sending directly...</span>';
+
+        const showMsg = (msg: string, isErr = false) => {
+          if (!statusEl) return;
+          statusEl.textContent = msg;
+          statusEl.className = `mt-4 text-center text-xs font-mono p-3 rounded-xl ${isErr ? 'bg-red-50 text-red-700 border border-red-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`;
+          statusEl.classList.remove('hidden');
+        };
+
+        try {
+          const resp = await fetch('/api/contact', {
+            method: 'POST',
+            body: new FormData(form)
+          });
+          if (resp.ok) {
+            showMsg('Received! I reply within 2–24 hours.');
+            trackEvent('generate_lead', { method: 'quick_contact_drawer' });
+            form.reset();
+            setTimeout(closeDrawer, 2200);
+          } else {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.message || 'Submission failed');
+          }
+        } catch (err) {
+          const msg = err instanceof Error && err.message && err.message !== 'Submission failed'
+            ? err.message
+            : 'Could not send right now. Please email tanujp09@gmail.com or message on WhatsApp.';
+          showMsg(msg, true);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = origHtml;
+        }
+      });
+    }
+  };
+
+  setupQuickContact();
+  document.addEventListener('astro:page-load', setupQuickContact);
+  document.addEventListener('astro:after-swap', setupQuickContact);
+</script>
+

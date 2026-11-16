@@ -97,7 +97,7 @@ const experienceData = [
 ];
 ---
 
-<section id="experience" class="relative z-10 border-t border-white/[0.10] py-16 sm:py-24 md:py-28 overflow-hidden">
+<section id="experience" class="relative z-10 border-t border-black/[0.08] py-16 sm:py-24 md:py-28 overflow-hidden">
   <div class="w-full max-w-7xl mx-auto">
     
     <SectionHeader 
@@ -107,27 +107,22 @@ const experienceData = [
       subtitle="4+ years shipping commercial SaaS products, multi-role healthcare portals, and production AI systems."
     />
 
-    <!-- Rushes HUD Interactive Experience Ledger (Complete Data + Zero Long Scroll) -->
-    <div data-gsap-card class="bento-spotlight relative rounded-[22px] bg-surface-card border border-white/[0.12] overflow-hidden divide-y divide-white/[0.10] shadow-[0_24px_60px_rgba(0,0,0,0.55)]">
-      <!-- 4 Corner HUD Viewfinder Crosshairs -->
-      <span class="pointer-events-none absolute top-2.5 left-2.5 w-4 h-[1px] bg-white/35 z-20"></span>
-      <span class="pointer-events-none absolute top-2.5 left-2.5 w-[1px] h-4 bg-white/35 z-20"></span>
-      <span class="pointer-events-none absolute top-2.5 right-2.5 w-4 h-[1px] bg-white/35 z-20"></span>
-      <span class="pointer-events-none absolute top-2.5 right-2.5 w-[1px] h-4 bg-white/35 z-20"></span>
+    <!-- Editorial Interactive Experience Ledger (Complete Data + Clean Hierarchy) -->
+    <div data-gsap-card class="bento-spotlight relative rounded-[24px] bg-white border border-black/[0.08] overflow-hidden divide-y divide-black/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.04)]">
 
-      <!-- Top HUD Metadata Strip -->
-      <div class="px-4 sm:px-7 py-3.5 bg-white/[0.02] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-[#94A3B8]">
+      <!-- Top Metadata Strip -->
+      <div class="px-4 sm:px-7 py-3.5 bg-slate-50/80 border-b border-black/[0.08] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-500">
         <div class="flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-          <span class="text-[#F8FAFC] font-medium">[ 04 PRODUCTION ROLES · 2022 — 2026 ]</span>
+          <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+          <span class="text-[#0F172A] font-semibold">[ 04 PRODUCTION ROLES · 2022 — 2026 ]</span>
         </div>
         <div class="flex items-center gap-4">
-          <span class="hidden sm:inline text-[#94A3B8]">CLICK ANY ROLE TO INSPECT DELIVERABLES</span>
+          <span class="hidden sm:inline text-slate-500">CLICK ANY ROLE TO INSPECT DELIVERABLES</span>
           <a
             href="/Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-white hover:bg-slate-100 text-[#0B0F17] font-grotesk font-bold text-[11px] uppercase tracking-[0.04em] shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all"
+            class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0F172A] hover:bg-black text-white font-grotesk font-bold text-[11px] uppercase tracking-[0.04em] shadow-xs transition-all"
           >
             <span>DOWNLOAD CV</span>
             <span>↗</span>
@@ -141,7 +136,7 @@ const experienceData = [
         return (
           <div
             class={`exp-ledger-item group transition-colors duration-300 ${
-              isFirst ? "is-open bg-surface-elevated/40" : "hover:bg-white/[0.02]"
+              isFirst ? "is-open bg-slate-50/70" : "hover:bg-slate-50/50"
             }`}
             data-exp-item={index}
           >
@@ -157,16 +152,16 @@ const experienceData = [
               <!-- Left: Index + Logo + Role + Company -->
               <div class="flex items-center gap-3 sm:gap-4 min-w-0">
                 <span class={`exp-idx hidden xs:inline-flex font-mono text-xs font-bold tabular-nums transition-colors ${
-                  isFirst ? "text-accent-primary" : "text-[#64748B] group-hover:text-[#94A3B8]"
+                  isFirst ? "text-accent-primary" : "text-slate-600 group-hover:text-[#0F172A]"
                 }`}>
                   {String(index + 1).padStart(2, "0")}/
                 </span>
 
                 <!-- Company Logo -->
-                <div class={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-white/[0.04] p-2 border transition-all duration-300 shrink-0 flex items-center justify-center overflow-hidden ${
-                  isFirst ? "border-accent-primary/50" : "border-white/10 group-hover:border-white/25"
+                <div class={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-slate-100 p-2 border transition-all duration-300 shrink-0 flex items-center justify-center overflow-hidden ${
+                  isFirst ? "border-accent-primary/50" : "border-black/10 group-hover:border-black/25"
                 }`}>
-                  <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-[#94A3B8] select-none" aria-hidden="true">
+                  <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-500 select-none" aria-hidden="true">
                     {exp.company.slice(0, 2).toUpperCase()}
                   </span>
                   <img
@@ -177,7 +172,7 @@ const experienceData = [
                     loading="lazy"
                     decoding="async"
                     referrerpolicy="no-referrer"
-                    class="relative w-full h-full object-contain bg-[#111726]"
+                    class="relative w-full h-full object-contain bg-white"
                     onerror="this.style.display='none'"
                   />
                 </div>
@@ -185,27 +180,27 @@ const experienceData = [
                 <!-- Role & Company Title -->
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
-                    <h3 class="font-grotesk text-base sm:text-xl font-bold text-[#F8FAFC] tracking-[-0.03em] truncate">
+                    <h3 class="font-grotesk text-base sm:text-xl font-bold text-[#0F172A] tracking-[-0.03em] truncate">
                       {exp.role}
                     </h3>
-                    <span class="text-white/20 hidden sm:inline">·</span>
-                    <span class="text-xs sm:text-sm font-mono font-semibold text-[#38BDF8] truncate">
+                    <span class="text-black/20 hidden sm:inline">·</span>
+                    <span class="text-xs sm:text-sm font-mono font-semibold text-slate-700 truncate">
                       {exp.company}
                     </span>
                     {exp.isCurrent ? (
-                      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[#10B981] font-medium">
+                      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-500/30 text-emerald-800 font-medium">
                         <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
                         {exp.badge}
                       </span>
                     ) : (
-                      <span class="hidden md:inline-flex text-[10px] font-mono px-2 py-0.5 bg-white/[0.04] border border-white/[0.08] text-[#94A3B8]">
+                      <span class="hidden md:inline-flex text-[10px] font-mono px-2 py-0.5 bg-slate-100 border border-black/[0.08] text-slate-700">
                         [ {exp.badge} ]
                       </span>
                     )}
                   </div>
 
                   <!-- Mobile Subline: Period & Type -->
-                  <div class="flex sm:hidden items-center gap-2 mt-0.5 text-[11px] font-mono text-[#64748B]">
+                  <div class="flex sm:hidden items-center gap-2 mt-0.5 text-[11px] font-mono text-slate-500">
                     <span>{exp.duration}</span>
                     <span>·</span>
                     <span>{exp.type}</span>
@@ -215,20 +210,20 @@ const experienceData = [
 
               <!-- Right: Key Outcome Pill (Desktop) + Duration + Circular Toggle -->
               <div class="flex items-center gap-3 sm:gap-5 shrink-0">
-                <span class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 bg-white/[0.03] border border-white/[0.08] text-[11px] font-mono text-[#94A3B8]">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#38BDF8]"></span>
+                <span class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-black/[0.08] text-[11px] font-mono text-slate-700">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
                   {exp.headlineOutcome}
                 </span>
 
                 <div class="hidden sm:flex flex-col items-end text-right">
-                  <span class="text-xs font-mono font-medium text-[#F8FAFC] tabular-nums">{exp.duration}</span>
-                  <span class="text-[10px] font-mono text-[#64748B]">{exp.type}</span>
+                  <span class="text-xs font-mono font-medium text-[#0F172A] tabular-nums">{exp.duration}</span>
+                  <span class="text-[10px] font-mono text-slate-500">{exp.type}</span>
                 </div>
 
                 <span class={`exp-chevron w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
                   isFirst
                     ? "bg-accent-primary text-white border-accent-primary rotate-180"
-                    : "bg-white/[0.04] text-[#94A3B8] border-white/15 group-hover:border-white/30 group-hover:text-white"
+                    : "bg-slate-100 text-slate-700 border-black/10 group-hover:border-black/25 group-hover:text-black"
                 }`}>
                   <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -248,17 +243,17 @@ const experienceData = [
             >
               <div class="overflow-hidden">
                 <div class="px-4 sm:px-7 pb-6 sm:pb-7 pt-1">
-                  <div class="grid lg:grid-cols-12 gap-5 p-4 sm:p-6 bg-canvas border border-white/[0.10]">
+                  <div class="grid lg:grid-cols-12 gap-5 p-4 sm:p-6 bg-[#F8FAFC] border border-black/[0.08] rounded-xl">
                     
                     <!-- Left (7 Cols): Executive Summary & 3 Key Engineering Deliverables -->
                     <div class="lg:col-span-7 space-y-3.5 min-w-0">
-                      <p class="text-xs sm:text-sm text-text-primary font-medium leading-relaxed">
+                      <p class="text-xs sm:text-sm text-[#0F172A] font-medium leading-relaxed">
                         {exp.description}
                       </p>
 
-                      <ul class="space-y-2.5 pt-3 border-t border-white/[0.08]">
+                      <ul class="space-y-2.5 pt-3 border-t border-black/[0.08]">
                         {exp.highlights.map((point) => (
-                          <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-text-muted leading-relaxed">
+                          <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
                             <span class="w-1.5 h-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0"></span>
                             <span>{point}</span>
                           </li>
@@ -267,16 +262,16 @@ const experienceData = [
                     </div>
 
                     <!-- Right (5 Cols): Verified Impact KPIs + Stack + Company Link -->
-                    <div class="lg:col-span-5 flex flex-col justify-between gap-4 p-4 bg-surface-card border border-white/[0.08] min-w-0">
+                    <div class="lg:col-span-5 flex flex-col justify-between gap-4 p-4 bg-white border border-black/[0.08] rounded-lg min-w-0 shadow-xs">
                       <div class="space-y-4">
                         <!-- 2x1 KPI Bento Tiles -->
                         <div class="grid grid-cols-2 gap-2.5">
                           {exp.kpis.map((kpi) => (
-                            <div class="p-3 bg-surface-elevated border border-white/[0.08]">
-                              <div class="text-sm sm:text-base font-bold font-grotesk text-white tracking-tight">
+                            <div class="p-3 bg-slate-50 border border-black/[0.06] rounded-md">
+                              <div class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A] tracking-tight">
                                 {kpi.value}
                               </div>
-                              <div class="text-[10px] font-mono text-text-dim mt-0.5 leading-tight">
+                              <div class="text-[10px] font-mono text-slate-500 mt-0.5 leading-tight">
                                 {kpi.label}
                               </div>
                             </div>
@@ -285,10 +280,10 @@ const experienceData = [
 
                         <!-- Core Stack Pills -->
                         <div class="space-y-1.5">
-                          <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-text-dim block">[ PRODUCTION STACK ]</span>
+                          <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-500 block">[ PRODUCTION STACK ]</span>
                           <div class="flex flex-wrap gap-1.5">
                             {exp.technologies.map((tech) => (
-                              <span class="px-2 py-0.5 bg-white/[0.04] border border-white/[0.10] text-[11px] font-mono text-text-muted">
+                              <span class="px-2 py-0.5 bg-slate-100 border border-black/[0.08] text-[11px] font-mono text-slate-700 rounded">
                                 {tech}
                               </span>
                             ))}
@@ -297,13 +292,13 @@ const experienceData = [
                       </div>
 
                       <!-- Footer Link -->
-                      <div class="pt-3 border-t border-white/[0.08] flex items-center justify-between">
-                        <span class="text-[10px] font-mono uppercase text-text-dim">{exp.period}</span>
+                      <div class="pt-3 border-t border-black/[0.08] flex items-center justify-between">
+                        <span class="text-[10px] font-mono uppercase text-slate-500">{exp.period}</span>
                         <a
                           href={exp.companyUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          class="inline-flex items-center gap-1.5 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-accent-hover hover:text-white transition-colors"
+                          class="inline-flex items-center gap-1.5 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-accent-primary hover:text-[#0F172A] transition-colors"
                         >
                           <span>VISIT {exp.company.toUpperCase()}</span>
                           <span>↗</span>
@@ -341,8 +336,8 @@ const experienceData = [
         const isOpen = idx === targetIdx;
 
         item.classList.toggle('is-open', isOpen);
-        item.classList.toggle('bg-surface-elevated/40', isOpen);
-        item.classList.toggle('hover:bg-white/[0.02]', !isOpen);
+        item.classList.toggle('bg-slate-50/70', isOpen);
+        item.classList.toggle('hover:bg-slate-50/50', !isOpen);
 
         if (trigger) {
           trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
@@ -361,14 +356,14 @@ const experienceData = [
           chevron.classList.toggle('border-accent-primary', isOpen);
           chevron.classList.toggle('rotate-180', isOpen);
 
-          chevron.classList.toggle('bg-white/[0.04]', !isOpen);
-          chevron.classList.toggle('text-text-muted', !isOpen);
-          chevron.classList.toggle('border-white/15', !isOpen);
+          chevron.classList.toggle('bg-slate-100', !isOpen);
+          chevron.classList.toggle('text-slate-700', !isOpen);
+          chevron.classList.toggle('border-black/10', !isOpen);
         }
 
         if (idxLabel) {
-          idxLabel.classList.toggle('text-accent-hover', isOpen);
-          idxLabel.classList.toggle('text-text-dim', !isOpen);
+          idxLabel.classList.toggle('text-accent-primary', isOpen);
+          idxLabel.classList.toggle('text-slate-600', !isOpen);
         }
       });
     };

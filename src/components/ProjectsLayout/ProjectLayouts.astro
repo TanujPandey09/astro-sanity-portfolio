@@ -1,6 +1,5 @@
 ---
 import ProjectItem from "../ProjectItem.astro";
-import SectionHeader from "../SectionHeader.astro";
 import PremiumBackground from "../PremiumBackground.astro";
 
 interface Props {
@@ -8,46 +7,205 @@ interface Props {
 }
 
 const { projectData = [] } = Astro.props;
+
+// Extract unique tech/domain filter tags dynamically from Sanity projects
+const tagCounts = new Map<string, number>();
+for (const proj of projectData) {
+  const tags = Array.isArray(proj?.tags) && proj.tags.length > 0 ? proj.tags : ["Full-Stack", "SaaS"];
+  for (const t of tags) {
+    const clean = String(t).trim();
+    if (!clean) continue;
+    tagCounts.set(clean, (tagCounts.get(clean) || 0) + 1);
+  }
+}
+const topFilters = Array.from(tagCounts.entries())
+  .sort((a, b) => b[1] - a[1])
+  .slice(0, 6)
+  .map(([label, count]) => ({ label, key: label.toLowerCase(), count }));
 ---
 
-<div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden">
+<div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
   <PremiumBackground />
 
-  <main class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-24 md:py-32 relative z-10">
-    <div class="max-w-7xl mx-auto">
-      
-      <!-- Section Header -->
-      <SectionHeader 
-        eyebrow="Portfolio Index"
-        title="Shipped" 
-        gradientText="Case Studies" 
-        subtitle="Production SaaS platforms, multi-LLM applications, and full-stack web architectures engineered end to end."
-      />
+  <!-- ACT 1: OBSIDIAN DARK HERO + IRIDESCENT DRAPERY (Arshawn Arbabi Consistency) -->
+  <section class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-20 border-b border-white/[0.08]">
+    <div class="absolute top-0 inset-x-0 h-56 sm:h-72 pointer-events-none select-none overflow-hidden z-0">
+      <div class="liquid-aurora absolute inset-0 w-full h-full opacity-55 mix-blend-screen scale-110"></div>
+      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0B0E]/70 to-[#0A0B0E]"></div>
+    </div>
 
-      <!-- Bento Grid displaying all projects directly in SSR -->
-      <div 
-        id="projects-grid" 
-        class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8"
-      >
-        {projectData.map((project: any, index: number) => (
-          <ProjectItem project={project} index={index} />
-        ))}
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8 border-b border-white/[0.08]" data-gsap-hero="wordmark">
+        <div>
+          <span class="block text-xs font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-3">
+            CASE STUDY INDEX // 01 — {String(projectData.length).padStart(2, "0")}
+          </span>
+          <h1 class="font-grotesk font-extrabold text-[3rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[7.5rem] text-white tracking-[-0.055em] leading-[0.88] select-none">
+            Shipped<br />Work
+          </h1>
+        </div>
+
+        <div class="max-w-md space-y-5">
+          <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
+            Production SaaS platforms, multi-LLM AI applications, real-time CRM systems, and high-throughput web architectures engineered end to end.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              data-open-contact
+              data-contact-subject="Custom SaaS / Web Architecture Build"
+              class="magnetic-btn group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#0A0B0E] font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-slate-200 transition-all cursor-pointer active:scale-95"
+            >
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span>Start a Project</span>
+              <span class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+            </button>
+            <a
+              href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20was%20browsing%20your%20projects%20and%20would%20like%20to%20discuss%20a%20build."
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.08] border border-white/15 text-white hover:bg-white/15 font-grotesk font-semibold text-xs uppercase tracking-wider transition-all"
+            >
+              <span>WhatsApp ↗</span>
+            </a>
+          </div>
+        </div>
       </div>
 
-      <!-- Closing Note -->
-      <div class="mt-20 md:mt-28 py-10 md:py-14 border-t border-border-subtle flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div class="space-y-2">
-          <p class="text-[11px] font-mono uppercase tracking-[0.2em] text-text-dim">Archive Summary</p>
-          <p class="text-xl md:text-2xl font-semibold text-text-primary tracking-tight max-w-xl">
-            {projectData.length} production builds, shipped end to end.
+      <!-- Interactive Stack Filter Bar -->
+      {topFilters.length > 0 && (
+        <div class="pt-6 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex flex-wrap items-center gap-2" id="projects-filter-bar">
+            <button
+              type="button"
+              data-proj-filter="all"
+              class="proj-filter-btn active px-4 py-1.5 rounded-full text-xs font-mono font-bold bg-white text-[#0A0B0E] transition-all cursor-pointer"
+            >
+              All ({projectData.length})
+            </button>
+            {topFilters.map((f) => (
+              <button
+                type="button"
+                data-proj-filter={f.key}
+                class="proj-filter-btn px-4 py-1.5 rounded-full text-xs font-mono bg-white/[0.06] border border-white/10 text-slate-300 hover:bg-white/15 hover:text-white transition-all cursor-pointer"
+              >
+                {f.label} ({f.count})
+              </button>
+            ))}
+          </div>
+          <span id="projects-count-label" class="text-xs font-mono text-slate-400">
+            Showing {projectData.length} builds
+          </span>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- ACT 2: GALLERY WHITE FULL-WIDTH 3D HARDWARE SHOWCASES -->
+  <main class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 md:py-28 relative z-10">
+    <div id="projects-showcase-list" class="flex flex-col gap-16 sm:gap-24 md:gap-32">
+      {projectData.map((project: any, index: number) => {
+        const rawTags = Array.isArray(project?.tags) && project.tags.length > 0 ? project.tags : ["Full-Stack", "SaaS"];
+        const tagData = rawTags.map((t: string) => String(t).trim().toLowerCase()).join("|");
+        return (
+          <div class="project-filter-item" data-proj-tags={tagData}>
+            <ProjectItem project={project} index={index} />
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Empty Filter Fallback -->
+    <div id="projects-empty-state" class="hidden text-center py-20 px-6 rounded-3xl bg-white border border-black/[0.08] shadow-sm my-8">
+      <p class="font-grotesk font-bold text-xl text-[#0F172A] mb-2">No builds matching this filter</p>
+      <button type="button" id="reset-proj-filter" class="mt-2 px-5 py-2.5 rounded-full bg-[#0F172A] text-white text-xs font-mono font-bold cursor-pointer">
+        Show All Projects
+      </button>
+    </div>
+
+    <!-- ACT 3: HIGH-CONVERTING CLOSING BANNER -->
+    <section class="mt-24 sm:mt-32 rounded-[28px] sm:rounded-[36px] bg-[#0A0B0E] text-white p-8 sm:p-12 md:p-16 border border-white/10 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[radial-gradient(circle,rgba(94,106,210,0.28)_0%,transparent_70%)] pointer-events-none"></div>
+      <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+        <div class="space-y-3 max-w-2xl">
+          <span class="text-xs font-mono uppercase tracking-[0.18em] text-[#828FFF] block">
+            {projectData.length} PRODUCTION BUILDS · ZERO TO ONE
+          </span>
+          <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-tight">
+            Want to build your next flagship product?
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 font-sans">
+            Available for custom SaaS builds, AI system engineering, and senior full-stack roles. Direct response within 2 hours.
           </p>
         </div>
-        <a href="/#contact" class="group inline-flex items-center gap-3 text-xs font-mono uppercase tracking-wider text-text-muted hover:text-white transition-colors">
-          <span>Start a Project</span>
-          <span class="w-8 h-8 rounded-full border border-border-subtle flex items-center justify-center group-hover:border-border-hover transition-colors">↗</span>
-        </a>
-      </div>
 
-    </div>
+        <div class="flex flex-wrap items-center gap-3 shrink-0">
+          <button
+            type="button"
+            data-open-contact
+            data-contact-subject="New Project Inquiry from Projects Archive"
+            class="magnetic-btn px-7 py-3.5 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer active:scale-95"
+          >
+            Contact Tanuj Now ↗
+          </button>
+          <a
+            href="https://wa.me/919557321978"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-6 py-3.5 rounded-full bg-white/10 border border-white/15 hover:bg-white/20 text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-all"
+          >
+            WhatsApp ↗
+          </a>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
+
+<script>
+  const setupProjectFilters = () => {
+    const filterBtns = document.querySelectorAll<HTMLButtonElement>('.proj-filter-btn');
+    const items = document.querySelectorAll<HTMLElement>('.project-filter-item');
+    const emptyState = document.getElementById('projects-empty-state');
+    const countLabel = document.getElementById('projects-count-label');
+    const resetBtn = document.getElementById('reset-proj-filter');
+
+    if (!filterBtns.length || !items.length) return;
+
+    const applyFilter = (key: string) => {
+      let visibleCount = 0;
+      items.forEach((item) => {
+        const tags = (item.getAttribute('data-proj-tags') || '').split('|');
+        const matches = key === 'all' || tags.includes(key);
+        item.style.display = matches ? '' : 'none';
+        if (matches) visibleCount++;
+      });
+
+      if (emptyState) emptyState.classList.toggle('hidden', visibleCount > 0);
+      if (countLabel) countLabel.textContent = `Showing ${visibleCount} build${visibleCount === 1 ? '' : 's'}`;
+
+      filterBtns.forEach((btn) => {
+        const active = btn.getAttribute('data-proj-filter') === key;
+        btn.classList.toggle('active', active);
+        btn.classList.toggle('bg-white', active);
+        btn.classList.toggle('text-[#0A0B0E]', active);
+        btn.classList.toggle('font-bold', active);
+        btn.classList.toggle('bg-white/[0.06]', !active);
+        btn.classList.toggle('text-slate-300', !active);
+      });
+    };
+
+    filterBtns.forEach((btn) => {
+      if (btn.hasAttribute('data-bound')) return;
+      btn.setAttribute('data-bound', 'true');
+      btn.addEventListener('click', () => {
+        applyFilter(btn.getAttribute('data-proj-filter') || 'all');
+      });
+    });
+
+    resetBtn?.addEventListener('click', () => applyFilter('all'));
+  };
+
+  setupProjectFilters();
+  document.addEventListener('astro:page-load', setupProjectFilters);
+</script>

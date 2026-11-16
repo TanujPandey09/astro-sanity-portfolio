@@ -23,34 +23,39 @@ const query = groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.curr
   "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
 ])]{...,BackgroundImage{asset->{url}}}`;
 const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}},BackgroundImage{asset->{url}}}`;
+const bannerQuery = groq`*[_type == "herobanner"] | order(_updatedAt desc)[0]{_updatedAt, BackgroundImage{asset->{url}}}`;
+const aboutPortraitQuery = groq`*[_type == "about"] | order(_updatedAt desc)[0]{_updatedAt, heroImage{asset->{url}}}`;
 
-let projectData = [];
-try {
-  projectData = await useSanityClient().fetch(query);
-  if (!Array.isArray(projectData) || projectData.length === 0) {
-    projectData = await fallbackSanityClient.fetch(query);
-  }
-} catch (err) {
+const fetchWithFallback = async (groqQuery: string) => {
   try {
-    projectData = await fallbackSanityClient.fetch(query);
-  } catch (e) {
-    console.warn("Could not fetch projects from Sanity:", e);
+    const res = await useSanityClient().fetch(groqQuery);
+    if (res && (!Array.isArray(res) || res.length > 0)) return res;
+  } catch {}
+  try {
+    return await fallbackSanityClient.fetch(groqQuery);
+  } catch (err) {
+    console.warn("Could not fetch from Sanity:", err);
+    return null;
   }
-}
+};
 
-let blogData = [];
-try {
-  blogData = await useSanityClient().fetch(blogquery);
-  if (!Array.isArray(blogData) || blogData.length === 0) {
-    blogData = await fallbackSanityClient.fetch(blogquery);
-  }
-} catch (err) {
-  try {
-    blogData = await fallbackSanityClient.fetch(blogquery);
-  } catch (e) {
-    console.warn("Could not fetch blogs from Sanity:", e);
-  }
-}
+const [projectResult, blogResult, bannerResult, aboutResult] = await Promise.all([
+  fetchWithFallback(query),
+  fetchWithFallback(blogquery),
+  fetchWithFallback(bannerQuery),
+  fetchWithFallback(aboutPortraitQuery),
+]);
+
+const projectData = Array.isArray(projectResult) ? projectResult : [];
+const blogData = Array.isArray(blogResult) ? blogResult : [];
+const aboutUrl = aboutResult?.heroImage?.asset?.url;
+const bannerUrl = bannerResult?.BackgroundImage?.asset?.url;
+const aboutUpdatedAt = aboutResult?._updatedAt ? Date.parse(aboutResult._updatedAt) : 0;
+const bannerUpdatedAt = bannerResult?._updatedAt ? Date.parse(bannerResult._updatedAt) : 0;
+const homePortraitUrl =
+  aboutUrl && (!bannerUrl || aboutUpdatedAt >= bannerUpdatedAt)
+    ? aboutUrl
+    : bannerUrl || undefined;
 
 const templatesData = await fetchAllTemplates();
 ---
@@ -58,32 +63,33 @@ const templatesData = await fetchAllTemplates();
 <div class="relative min-h-screen w-full max-w-[100vw] overflow-x-hidden selection:bg-accent-primary/30">
   <PremiumBackground />
 
+  <!-- Hero Experience (Edge to Edge with Dark Canvas & Iridescent Liquid Drapery) -->
+  <Hero portraitUrl={homePortraitUrl} />
+
   <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- Hero Experience -->
-    <Hero />
-
-    <Ticker />
-
-    <!-- Projects Section (Featured Works Right Upfront) -->
-    <section id="projects" class="py-14 sm:py-20 md:py-28 relative z-10 border-t border-white/[0.10]">
-      <div class="max-w-7xl mx-auto">
-        <SectionHeader 
-          eyebrow="SHOWCASE"
-          title="Selected" 
-          gradientText="Case Studies" 
-          subtitle="Production SaaS platforms, multi-LLM applications, and full-stack systems engineered for real users."
-        />
+    <!-- Selected Work Showcase (Arshawn Arbabi Style: Full-Width 3D Mockups) -->
+    <section id="projects" class="py-16 sm:py-24 md:py-32 relative z-10">
+      <div class="w-full">
+        <!-- Giant Editorial Section Title -->
+        <div class="mb-12 sm:mb-16 md:mb-20" data-gsap-heading>
+          <span class="block text-xs font-mono uppercase tracking-[0.2em] text-accent-primary mb-3">
+            PORTFOLIO · 01 — 04
+          </span>
+          <h2 class="font-grotesk font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[-0.04em] text-[#0F172A]">
+            Selected Work
+          </h2>
+        </div>
         
-        <!-- Featured Deliveries (Bento Grid) -->
-        <div class="mt-8 sm:mt-12 md:mt-14 grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 md:gap-8">
+        <!-- Featured Deliveries (Cinematic Full-Width Showcases) -->
+        <div class="flex flex-col gap-16 sm:gap-24 md:gap-32">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
         </div>
         
         {projectData?.length > 4 && (
-          <div class="mt-16 md:mt-20">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-white/[0.10] gap-4">
+          <div class="mt-20 md:mt-28 pt-12 border-t border-black/[0.08]">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-black/[0.08] gap-4">
                <div>
                   <h3 class="text-xl md:text-2xl font-bold text-text-primary tracking-tight">More Shipped Builds</h3>
                   <p class="text-xs sm:text-sm text-text-muted mt-1">Additional client deliveries, internal tools, and web applications.</p>
@@ -92,7 +98,7 @@ const templatesData = await fetchAllTemplates();
                  id="expand-repo"
                  aria-label="Show all additional projects"
                  aria-expanded="false"
-                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/[0.14] hover:border-accent-primary text-xs font-mono text-text-primary transition-all cursor-pointer"
+                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono text-text-primary transition-all cursor-pointer shadow-xs hover:bg-slate-50"
                >
                  <span>Show All ({projectData.length - 4})</span>
                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="repo-icon" class="transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
@@ -106,15 +112,18 @@ const templatesData = await fetchAllTemplates();
             </div>
 
             <div class="mt-10 md:mt-12 flex justify-center">
-               <a href="/projects" class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#111726] border border-white/[0.14] hover:border-accent-primary/60 text-xs font-mono font-semibold text-[#F8FAFC] transition-all duration-300 shadow-sm">
+               <a href="/projects" class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono font-semibold text-[#0F172A] transition-all duration-300 shadow-xs hover:bg-slate-50">
                   <span>View All Case Studies</span>
-                  <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
+                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
                </a>
             </div>
           </div>
         )}
       </div>
     </section>
+
+    <!-- Impact & Domain Ticker -->
+    <Ticker />
 
     <!-- High-Value Bento Services -->
     <Services />
@@ -130,7 +139,7 @@ const templatesData = await fetchAllTemplates();
 
     <!-- Commercial Templates & Digital Products Section -->
     {templatesData && templatesData.length > 0 && (
-      <section id="templates" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-white/[0.10]">
+      <section id="templates" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-black/[0.08]">
         <div class="max-w-7xl mx-auto">
           <SectionHeader 
             eyebrow="COMMERCIAL ASSETS"
@@ -148,10 +157,10 @@ const templatesData = await fetchAllTemplates();
           <div class="mt-12 flex justify-center">
             <a 
               href="/templates" 
-              class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-[#111726] border border-white/[0.14] hover:border-accent-primary/60 text-xs font-mono font-semibold text-[#F8FAFC] transition-all duration-300 shadow-sm"
+              class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono font-semibold text-[#0F172A] transition-all duration-300 shadow-xs hover:bg-slate-50"
             >
               <span>Browse All Templates</span>
-              <span class="w-7 h-7 rounded-full bg-white/[0.06] group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
+              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
             </a>
           </div>
         </div>
@@ -159,7 +168,7 @@ const templatesData = await fetchAllTemplates();
     )}
 
     <!-- Blogs Section -->
-    <section id="blogs" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-white/[0.10]">
+    <section id="blogs" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-black/[0.08]">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
           eyebrow="ENGINEERING WRITING"
@@ -175,7 +184,7 @@ const templatesData = await fetchAllTemplates();
         </div>
         
         <div class="mt-10 flex justify-start sm:justify-end">
-           <a href="/blogs" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/[0.04] border border-white/[0.14] hover:border-accent-primary text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] transition-all">
+           <a href="/blogs" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#0F172A] shadow-xs hover:bg-slate-50 transition-all">
               <span>Read All Articles</span>
               <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform font-bold">↗</span>
            </a>

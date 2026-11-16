@@ -1,207 +1,175 @@
 ---
-// Cinematic hero: dark slate backdrop, optional desktop-only background video
-const disciplines = [
-  { num: "01/", label: "FULL-STACK SAAS PLATFORMS" },
-  { num: "02/", label: "MULTI-LLM & AI AGENTS" },
-  { num: "03/", label: "HIGH-THROUGHPUT BACKENDS" },
-  { num: "04/", label: "REACT 19 & NEXT.JS APPS" },
-];
+// Arshawn Arbabi Inspired Editorial Hero: Deep Obsidian Canvas + Iridescent Liquid Drapery + Real Human Portrait Anchor
+import { optimizePortraitImage } from "../lib/optimizeImage";
 
-const heroVideo = "https://videos.pexels.com/video-files/3129957/3129957-hd_1920_1080_25fps.mp4";
+interface Props {
+  portraitUrl?: string;
+}
+
+const { portraitUrl } = Astro.props;
+const heroPortrait = optimizePortraitImage(portraitUrl, "home");
+const currentYear = new Date().getFullYear();
 ---
 
-<section id="hero" class="min-h-[100dvh] flex flex-col justify-between relative overflow-hidden pt-24 sm:pt-28 md:pt-32 pb-8 md:pb-12 bg-[#0B0F17]">
-  <!-- Clean Cinematic Video Backdrop (#0B0F17 deep slate base) -->
-  <div class="absolute inset-0 -z-10 overflow-hidden bg-[#0B0F17]">
-    <!-- Source is attached by script only on desktop, without reduced-motion or data-saver -->
-    <video
-      id="hero-bg-video"
-      data-src={heroVideo}
-      loop
-      muted
-      playsinline
-      preload="none"
-      aria-hidden="true"
-      class="w-full h-full object-cover object-center opacity-0 mix-blend-screen scale-105 will-change-transform transition-opacity duration-700"
-    ></video>
-
-    <!-- Developer Precision Scrims: Linear Top/Bottom Fade to Pure #0B0F17 -->
-    <div class="absolute inset-0 bg-gradient-to-b from-[#0B0F17]/85 via-transparent to-[#0B0F17]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(11,15,23,0.85)_100%)]"></div>
-
-    <!-- HUD Corner Viewfinder Markers on Hero Frame -->
-    <div class="pointer-events-none absolute inset-6 sm:inset-10 z-10 hidden sm:block">
-      <span class="absolute top-0 left-0 w-8 h-[1px] bg-white/30"></span>
-      <span class="absolute top-0 left-0 w-[1px] h-8 bg-white/30"></span>
-      <span class="absolute top-0 right-0 w-8 h-[1px] bg-white/30"></span>
-      <span class="absolute top-0 right-0 w-[1px] h-8 bg-white/30"></span>
-      <span class="absolute bottom-0 left-0 w-8 h-[1px] bg-white/30"></span>
-      <span class="absolute bottom-0 left-0 w-[1px] h-8 bg-white/30"></span>
-      <span class="absolute bottom-0 right-0 w-8 h-[1px] bg-white/30"></span>
-      <span class="absolute bottom-0 right-0 w-[1px] h-8 bg-white/30"></span>
-    </div>
+<section id="hero" class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 md:pb-24 border-b border-white/[0.08]">
+  <!-- 1. TOP IRIDESCENT LIQUID / METALLIC DRAPERY ART -->
+  <div class="absolute top-0 inset-x-0 h-48 sm:h-64 md:h-80 pointer-events-none select-none overflow-hidden z-0">
+    <div class="liquid-aurora absolute inset-0 w-full h-full opacity-65 mix-blend-screen scale-110"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0B0E]/60 to-[#0A0B0E]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,rgba(10,11,14,0.9)_100%)]"></div>
   </div>
 
-  <!-- 1. TOP STATUS BAR: Developer Live Beacon + SMPTE Live Timecode + Sys Status -->
-  <div class="w-full flex flex-wrap items-center justify-between gap-3 border-b border-white/[0.10] pb-4 relative z-20" data-gsap-hero="topbar">
-    <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-      <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-      <span class="text-xs font-mono font-semibold text-[#F8FAFC] tracking-[0.04em] uppercase">
-        AVAILABLE FOR SELECT PROJECTS // FULL-STACK &amp; AI
-      </span>
-    </div>
-
-    <div class="flex items-center gap-3 text-xs font-mono text-[#94A3B8]">
-      <span class="hidden sm:inline px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.10] text-[#F8FAFC] font-medium uppercase tracking-[0.04em]">
-        TANUJ PANDEY // FULL-STACK &amp; AI
-      </span>
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#111726] border border-white/[0.12] text-[#38BDF8] font-mono font-semibold shadow-sm">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-ping"></span>
-        <span id="local-clock" class="tabular-nums" title="My local time (IST, UTC+5:30)">-- : -- : -- IST</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. CENTER VIEWPORT: Dominant Wordmark + Cinematic Headline -->
-  <div class="relative my-auto py-10 sm:py-14 md:py-20 w-full z-20">
-    <div class="w-full sm:px-4">
-      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/[0.05] border border-white/[0.12] text-xs font-mono text-[#94A3B8] mb-5 tracking-[0.06em] uppercase">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#5E6AD2]"></span>
-        <span>FULL-STACK &amp; AI ENGINEER FOR HIRE</span>
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- 2. TOP WORDMARK & HEADER ROW -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 sm:pb-12 border-b border-white/[0.08]" data-gsap-hero="wordmark">
+      <div>
+        <span class="block text-[11px] font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-3">
+          PORTFOLIO · {currentYear}
+        </span>
+        <h1 class="font-grotesk font-extrabold text-[3.8rem] xs:text-[5rem] sm:text-[6.8rem] md:text-[8.4rem] lg:text-[10.2rem] text-white tracking-[-0.055em] leading-[0.82] select-none">
+          Tanuj<br />Pandey
+        </h1>
       </div>
 
-      <div
-        data-gsap-hero="wordmark"
-        class="font-grotesk font-bold text-[#F8FAFC] tracking-[-0.055em] leading-[0.88] text-[3.4rem] xs:text-[4.4rem] sm:text-[6.2rem] md:text-[7.8rem] lg:text-[9.5rem] select-none mb-4 sm:mb-6 drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
-      >
-        Tanuj Pandey<span class="text-[#5E6AD2] drop-shadow-[0_0_25px_rgba(94,106,210,0.7)]">.</span>
-      </div>
-
-      <h1
-        data-gsap-hero="headline"
-        class="font-grotesk font-extrabold text-[#F8FAFC] leading-[1.06] tracking-[-0.035em] text-2xl sm:text-4xl md:text-5xl lg:text-6xl max-w-5xl"
-      >
-        Engineering Scalable SaaS &amp; <span class="text-gradient">Production AI Systems.</span>
-      </h1>
-    </div>
-  </div>
-
-  <!-- 3. BOTTOM SPLIT BAR: Value Proposition + Framer Pill CTAs + Numbered Disciplines -->
-  <div class="w-full pt-6 border-t border-white/[0.10] grid grid-cols-1 lg:grid-cols-12 gap-8 items-end relative z-20" data-gsap-hero="bottombar">
-    <div class="lg:col-span-7 flex flex-col items-start gap-5">
-      <p class="text-sm sm:text-base md:text-lg text-[#94A3B8] leading-relaxed font-normal max-w-2xl">
-        I help startups and product teams take SaaS and AI products from idea to production: multi-LLM features, real-time Node.js backends, and fast React &amp; Next.js interfaces. 4+ years of commercial experience.
-      </p>
-
-      <div class="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-        <!-- Developer Primary CTA: Crisp White with Deep Slate Text -->
-        <a
-          href="#projects"
-          aria-label="View Selected Work projects"
-          class="magnetic-btn group inline-flex items-center justify-center gap-3 h-11 px-7 rounded-full bg-white hover:bg-slate-100 text-[#0B0F17] font-grotesk font-bold text-xs uppercase tracking-[0.05em] transition-all duration-300 shadow-[0_0_25px_rgba(255,255,255,0.25)] hover:shadow-[0_0_35px_rgba(255,255,255,0.4)] whitespace-nowrap active:scale-95"
-        >
-          <span class="rushes-roll">
-            <span class="rushes-roll-track">
-              <span>SELECTED WORK</span>
-              <span>SELECTED WORK</span>
-            </span>
+      <div class="md:text-right space-y-2 pb-2">
+        <span class="block text-xs sm:text-sm font-mono font-medium uppercase tracking-[0.12em] text-slate-300">
+          Full-Stack Architect &amp; AI Engineer
+        </span>
+        <div class="flex md:justify-end items-center gap-3 text-xs font-mono text-slate-300">
+          <span class="inline-flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
+            <span class="text-emerald-400">AVAILABLE FOR SELECT PROJECTS</span>
           </span>
-          <span class="text-xs leading-none transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 font-bold">↗</span>
-        </a>
+          <span class="text-slate-400">·</span>
+          <span id="local-clock" class="tabular-nums">-- : -- IST</span>
+        </div>
 
-        <!-- Developer Secondary CTA: #111726 Bento Slate Card with Hairline White Border -->
-        <a
-          href="/templates"
-          aria-label="Explore Commercial Templates"
-          class="magnetic-btn group inline-flex items-center justify-center gap-2.5 h-11 px-6 rounded-full bg-[#111726] border border-white/[0.15] hover:border-[#5E6AD2]/60 hover:bg-[#1A2236] text-[#F8FAFC] hover:text-[#38BDF8] font-grotesk font-semibold text-xs uppercase tracking-[0.05em] transition-all duration-300 shadow-sm whitespace-nowrap active:scale-95"
+        <!-- Live Active & Past Visitor Telemetry -->
+        <div
+          id="visitor-telemetry-pill"
+          class="flex md:justify-end items-center flex-wrap gap-2 pt-1 text-[11px] font-mono text-slate-300"
+          aria-live="polite"
         >
-          <span class="rushes-roll">
-            <span class="rushes-roll-track">
-              <span>TEMPLATES</span>
-              <span>TEMPLATES</span>
+          <span class="inline-flex items-center gap-2 px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">
+            <span class="relative flex h-1.5 w-1.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-[#10B981]"></span>
             </span>
+            <span id="visitor-active-count" class="text-white font-semibold tabular-nums">--</span>
+            <span class="text-slate-400">Active Now</span>
           </span>
-          <span class="text-[#38BDF8] text-xs leading-none transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 font-bold">↗</span>
-        </a>
 
-        <!-- Developer Tertiary CTA: Outline Pill -->
-        <a
-          href="#contact"
-          aria-label="Start a Project with Tanuj Pandey"
-          class="magnetic-btn group inline-flex items-center justify-center gap-2 h-11 px-6 rounded-full bg-white/[0.03] border border-white/[0.12] hover:border-white/30 text-[#94A3B8] hover:text-[#F8FAFC] font-grotesk font-semibold text-xs uppercase tracking-[0.05em] transition-all duration-300 whitespace-nowrap active:scale-95"
-        >
-          <span class="rushes-roll">
-            <span class="rushes-roll-track">
-              <span>GET IN TOUCH</span>
-              <span>GET IN TOUCH</span>
-            </span>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#5E6AD2]/10 border border-[#5E6AD2]/30">
+            <span id="visitor-total-count" class="text-[#828FFF] font-semibold tabular-nums">--</span>
+            <span class="text-slate-300">Past Visits</span>
           </span>
-          <span class="text-xs leading-none transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-        </a>
+        </div>
       </div>
     </div>
 
-    <!-- Bottom Right: Numbered Disciplines + Proof Metrics -->
-    <div class="lg:col-span-5 flex flex-col items-start lg:items-end justify-end space-y-2.5">
-      {disciplines.map((item) => (
-        <div class="inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-grotesk font-medium tracking-[0.02em]">
-          <span class="text-[#38BDF8] font-mono font-bold">{item.num}</span>
-          <span class="text-[#F8FAFC] font-semibold">{item.label}</span>
+    <!-- 3. HUMAN PORTRAIT ANCHOR + EDITORIAL STATEMENT -->
+    <div class="py-12 sm:py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 items-center border-b border-white/[0.08]" data-gsap-hero="bio">
+      <!-- Real Photograph Portrait Card -->
+      <div class="md:col-span-5 lg:col-span-4" data-gsap-hero="portrait">
+        <div class="relative w-full max-w-[290px] sm:max-w-[330px] md:max-w-none aspect-[4/5] rounded-[26px] overflow-hidden border border-white/15 bg-gradient-to-b from-white/12 to-white/[0.02] p-2 shadow-2xl group">
+          <div class="w-full h-full rounded-[20px] overflow-hidden bg-slate-900 relative">
+            <img
+              src={heroPortrait}
+              alt="Tanuj Pandey - Full-Stack Architect & AI Engineer"
+              width="900"
+              height="1125"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+            />
+            <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+            <div class="pointer-events-none absolute inset-x-3.5 bottom-3.5 flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-black/45 backdrop-blur-md border border-white/15">
+              <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-white font-semibold">Tanuj Pandey</span>
+              <span class="text-[10px] font-mono text-emerald-300 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                Dehradun · IN
+              </span>
+            </div>
+          </div>
         </div>
-      ))}
+      </div>
 
-      <!-- Compact Inline Proof Strip with Developer Electric Sky Numbers -->
-      <div class="pt-3 mt-2 border-t border-white/[0.10] flex flex-wrap items-center gap-4 sm:gap-6 text-xs font-mono text-[#94A3B8]">
-        <div>
-          <span class="text-[#38BDF8] font-extrabold text-sm drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" data-counter="4" data-suffix="+ Yrs">4+ Yrs</span>
-          <span class="text-[#94A3B8] ml-1 font-normal">Experience</span>
-        </div>
-        <span class="text-white/20">·</span>
-        <div>
-          <span class="text-[#38BDF8] font-extrabold text-sm drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" data-counter="10" data-suffix="+">10+</span>
-          <span class="text-[#94A3B8] ml-1 font-normal">SaaS Builds</span>
-        </div>
-        <span class="text-white/20">·</span>
-        <div>
-          <span class="text-[#38BDF8] font-extrabold text-sm drop-shadow-[0_0_8px_rgba(56,189,248,0.4)]" data-counter="99" data-suffix="+">99+</span>
-          <span class="text-[#94A3B8] ml-1 font-normal">Lighthouse</span>
+      <!-- Bold Conversational Statement -->
+      <div class="md:col-span-7 lg:col-span-8 space-y-6 sm:space-y-8">
+        <h2 class="font-grotesk font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-[1.14] tracking-[-0.03em] max-w-4xl">
+          I have been designing and building websites and web apps for the past 4+ years. My focus is on crafting scalable full-stack architectures, production AI systems, and high-performance digital experiences.
+        </h2>
+
+        <!-- Instant Conversion CTAs (Zero-Scroll Direct Contact) -->
+        <div class="flex flex-wrap items-center gap-3 sm:gap-3.5 pt-2">
+          <button
+            type="button"
+            data-open-contact
+            class="magnetic-btn group inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-white text-[#0A0B0E] font-grotesk font-bold text-xs uppercase tracking-[0.06em] hover:bg-slate-200 transition-all duration-300 shadow-lg active:scale-95 cursor-pointer"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Contact Now</span>
+            <span class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 font-bold">↗</span>
+          </button>
+
+          <a
+            href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20saw%20your%20portfolio%20and%20want%20to%20connect."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="magnetic-btn group inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 hover:bg-emerald-500/25 hover:text-white font-grotesk font-semibold text-xs uppercase tracking-[0.06em] transition-all duration-300 active:scale-95"
+          >
+            <span>WhatsApp</span>
+            <span class="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 font-bold">↗</span>
+          </a>
+
+          <button
+            type="button"
+            id="hero-copy-email"
+            data-email="tanujp09@gmail.com"
+            class="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.07] border border-white/15 text-slate-200 hover:bg-white/15 hover:text-white font-mono text-xs transition-all duration-300 cursor-pointer active:scale-95"
+            title="Copy tanujp09@gmail.com"
+          >
+            <span id="hero-copy-label">tanujp09@gmail.com</span>
+            <span class="text-[10px] text-[#828FFF] uppercase font-bold tracking-wider">Copy</span>
+          </button>
+
+          <a
+            href="#projects"
+            class="group inline-flex items-center gap-2 px-4 py-3 rounded-full text-slate-300 hover:text-white font-grotesk font-semibold text-xs uppercase tracking-[0.06em] transition-colors"
+          >
+            <span>Selected Work</span>
+            <span class="transition-transform group-hover:translate-y-0.5">↓</span>
+          </a>
         </div>
       </div>
     </div>
+
+    <!-- 4. TWO-COLUMN SPLIT: "What changed recently" -->
+    <div class="pt-10 sm:pt-14 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-start" data-gsap-hero="retrospective">
+      <div class="md:col-span-4">
+        <h3 class="font-grotesk text-xl sm:text-2xl font-bold text-white tracking-tight">
+          What changed recently
+        </h3>
+        <span class="text-xs font-mono text-slate-300 mt-1 block">Engineering Evolution</span>
+      </div>
+
+      <div class="md:col-span-8 space-y-4 text-sm sm:text-base text-slate-200 font-sans leading-relaxed">
+        <p>
+          Over the past year, my work evolved from building isolated frontend components into end-to-end full-stack architectures: multi-LLM orchestration pipelines across OpenAI, Gemini, Claude, and Perplexity with zero-fallback drift, real-time Node.js microservices with Socket.IO state synchronization, and commercial Next.js website templates optimized for 99+ Lighthouse performance.
+        </p>
+        <p class="text-slate-300 text-xs sm:text-sm">
+          Currently engineering high-throughput SaaS platforms, AI microservices, and design systems for ambitious founders and product teams worldwide.
+        </p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <script>
-  const initHero = () => {
-    // Background video: only on desktop, no reduced-motion, no data-saver.
-    // Everyone else keeps the static dark backdrop (faster LCP, less data).
-    const bgVideo = document.getElementById('hero-bg-video') as HTMLVideoElement | null;
-    if (bgVideo && !bgVideo.getAttribute('src')) {
-      const conn = (navigator as any).connection;
-      const allowVideo =
-        window.matchMedia('(min-width: 768px)').matches &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
-        !(conn && (conn.saveData || /(^|-)2g$/.test(conn.effectiveType || '')));
-      if (allowVideo) {
-        const attach = () => {
-          bgVideo.src = bgVideo.dataset.src || '';
-          bgVideo.addEventListener('canplay', () => {
-            bgVideo.classList.remove('opacity-0');
-            bgVideo.classList.add('opacity-25');
-            bgVideo.play().catch(() => {});
-          }, { once: true });
-          bgVideo.load();
-        };
-        // Wait until the page is idle so the video never competes with first paint
-        if ('requestIdleCallback' in window) {
-          (window as any).requestIdleCallback(attach, { timeout: 2500 });
-        } else {
-          setTimeout(attach, 1200);
-        }
-      }
-    }
-
-    // Live local-time clock (IST) so clients can see my current working hours
+  const initHeroClock = () => {
     const clockEl = document.getElementById('local-clock');
     if (clockEl) {
       const fmt = new Intl.DateTimeFormat('en-GB', {
@@ -214,8 +182,120 @@ const heroVideo = "https://videos.pexels.com/video-files/3129957/3129957-hd_1920
       if (w.__heroClock) clearInterval(w.__heroClock);
       w.__heroClock = setInterval(tick, 1000);
     }
+
+    const copyBtn = document.getElementById('hero-copy-email');
+    const copyLabel = document.getElementById('hero-copy-label');
+    if (copyBtn && !copyBtn.hasAttribute('data-bound')) {
+      copyBtn.setAttribute('data-bound', 'true');
+      copyBtn.addEventListener('click', async () => {
+        const email = copyBtn.getAttribute('data-email') || 'tanujp09@gmail.com';
+        try {
+          await navigator.clipboard.writeText(email);
+          if (copyLabel) {
+            copyLabel.textContent = 'Copied tanujp09@gmail.com ✓';
+            setTimeout(() => { copyLabel.textContent = email; }, 2200);
+          }
+        } catch {
+          window.location.href = `mailto:${email}`;
+        }
+      });
+    }
   };
 
-  initHero();
-  document.addEventListener('astro:page-load', initHero);
+  const initVisitorTelemetry = () => {
+    const activeEl = document.getElementById('visitor-active-count');
+    const totalEl = document.getElementById('visitor-total-count');
+    if (!activeEl || !totalEl) return;
+
+    const w = window as any;
+    if (w.__visitorHeartbeat) clearInterval(w.__visitorHeartbeat);
+
+    const numFmt = new Intl.NumberFormat('en-US');
+    const storageKeyId = 'tp_visitor_sid';
+    const storageKeyCounted = 'tp_visitor_counted';
+
+    let sessionId = '';
+    let isNewSession = false;
+    try {
+      sessionId = sessionStorage.getItem(storageKeyId) || '';
+      if (!sessionId) {
+        sessionId =
+          typeof crypto !== 'undefined' && crypto.randomUUID
+            ? crypto.randomUUID().replace(/-/g, '').slice(0, 20)
+            : `${Date.now().toString(36)}${Math.random().toString(36).slice(2, 10)}`;
+        sessionStorage.setItem(storageKeyId, sessionId);
+      }
+      if (!sessionStorage.getItem(storageKeyCounted)) {
+        isNewSession = true;
+      }
+    } catch {
+      sessionId = `s${Date.now().toString(36)}`;
+    }
+
+    const updateDom = (data: { active?: number; total?: number }) => {
+      if (typeof data.active === 'number') {
+        activeEl.textContent = numFmt.format(Math.max(1, data.active));
+      }
+      if (typeof data.total === 'number') {
+        totalEl.textContent = numFmt.format(Math.max(1, data.total));
+      }
+    };
+
+    const sendHeartbeat = async (markNew: boolean) => {
+      try {
+        const res = await fetch('/api/visitors', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sessionId, action: 'heartbeat', isNewSession: markNew }),
+        });
+        if (!res.ok) return;
+        const json = await res.json();
+        updateDom(json);
+        if (markNew) {
+          isNewSession = false;
+          try {
+            sessionStorage.setItem(storageKeyCounted, '1');
+          } catch {}
+        }
+      } catch {}
+    };
+
+    sendHeartbeat(isNewSession);
+    w.__visitorHeartbeat = setInterval(() => {
+      if (document.visibilityState !== 'hidden') {
+        sendHeartbeat(false);
+      }
+    }, 35_000);
+
+    w.__visitorSendHeartbeat = () => sendHeartbeat(false);
+    if (!w.__visitorLifecycleBound) {
+      w.__visitorLifecycleBound = true;
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible' && typeof w.__visitorSendHeartbeat === 'function') {
+          w.__visitorSendHeartbeat();
+        }
+      });
+      window.addEventListener('pagehide', () => {
+        const sid = (() => {
+          try {
+            return sessionStorage.getItem(storageKeyId) || '';
+          } catch {
+            return '';
+          }
+        })();
+        if (!sid || typeof navigator.sendBeacon !== 'function') return;
+        const blob = new Blob([JSON.stringify({ sessionId: sid, action: 'leave' })], {
+          type: 'application/json',
+        });
+        navigator.sendBeacon('/api/visitors', blob);
+      });
+    }
+  };
+
+  initHeroClock();
+  initVisitorTelemetry();
+  document.addEventListener('astro:page-load', () => {
+    initHeroClock();
+    initVisitorTelemetry();
+  });
 </script>

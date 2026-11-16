@@ -4,9 +4,10 @@ export default {
 	theme: {
 		extend: {
 			fontFamily: {
-				sans: ["Plus Jakarta Sans", "Inter", "sans-serif"],
-				grotesk: ["Space Grotesk", "sans-serif"],
-				mono: ["JetBrains Mono", "monospace"],
+				sans: ["Geist", "Plus Jakarta Sans", "Inter", "system-ui", "sans-serif"],
+				grotesk: ["Space Grotesk", "Geist", "sans-serif"],
+				mono: ["Geist Mono", "JetBrains Mono", "monospace"],
+				geist: ["Geist", "sans-serif"],
 			},
 			colors: {
 				canvas: {
@@ -41,16 +42,16 @@ export default {
 					live: "rgb(var(--status-live-rgb) / <alpha-value>)",
 				},
 				dev: {
-					canvas: "#0B0F17",
-					card: "#111726",
-					elevated: "#1A2236",
-					white: "#F8FAFC",
-					slate: "#94A3B8",
+					canvas: "#FAFAFB",
+					card: "#FFFFFF",
+					elevated: "#F1F5F9",
+					white: "#0F172A",
+					slate: "#475569",
 					dim: "#64748B",
 					indigo: "#5E6AD2",
-					cyan: "#38BDF8",
+					cyan: "#334155",
 					emerald: "#10B981",
-					border: "rgba(255, 255, 255, 0.08)",
+					border: "rgba(15, 23, 42, 0.08)",
 				},
 				// Direct aliases for flat utility naming (e.g., text-muted, text-primary, border-subtle)
 				'canvas-bg': "rgb(var(--canvas-bg-rgb) / <alpha-value>)",
@@ -77,8 +78,8 @@ export default {
 				DEFAULT: "rgb(var(--accent-primary-rgb) / 0.5)",
 			},
 			boxShadow: {
-				ambient: "0 10px 30px rgba(0, 0, 0, 0.4)",
-				card: "0 4px 20px rgba(0, 0, 0, 0.3)",
+				ambient: "0 12px 35px -8px rgba(15, 23, 42, 0.08)",
+				card: "0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.02)",
 			},
 		},
 	},

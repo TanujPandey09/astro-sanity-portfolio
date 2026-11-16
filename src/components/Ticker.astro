@@ -13,14 +13,14 @@ const domains = [
 ---
 
 <!-- Modern Framer Domain Marquee -->
-<div class="py-4 border-y border-white/[0.10] bg-[#0B0F17] overflow-hidden whitespace-nowrap group select-none relative z-10">
+<div class="py-4 border-y border-black/[0.08] bg-slate-50 overflow-hidden whitespace-nowrap group select-none relative z-10">
   <div class="ticker-track inline-flex animate-ticker items-center">
     <!-- Set 1 -->
     <div class="inline-flex items-center gap-10 px-5">
       {domains.map((item) => (
         <div class="inline-flex items-center gap-4">
           <span class="text-accent-primary text-xs">✦</span>
-          <span class="text-xs font-grotesk font-bold tracking-[0.08em] uppercase text-[#94A3B8] group-hover:text-[#F8FAFC] transition-colors">{item}</span>
+          <span class="text-xs font-grotesk font-bold tracking-[0.08em] uppercase text-slate-600 group-hover:text-[#0F172A] transition-colors">{item}</span>
         </div>
       ))}
     </div>
@@ -30,25 +30,25 @@ const domains = [
       {domains.map((item) => (
         <div class="inline-flex items-center gap-4">
           <span class="text-accent-primary text-xs">✦</span>
-          <span class="text-xs font-grotesk font-bold tracking-[0.08em] uppercase text-[#94A3B8] group-hover:text-[#F8FAFC] transition-colors">{item}</span>
+          <span class="text-xs font-grotesk font-bold tracking-[0.08em] uppercase text-slate-600 group-hover:text-[#0F172A] transition-colors">{item}</span>
         </div>
       ))}
     </div>
   </div>
 </div>
 
-<!-- Giant Typographic Metric Statement with High-Contrast Developer Palette -->
-<section aria-label="Impact Overview" class="py-16 sm:py-24 md:py-32 relative z-10 border-b border-white/[0.10] bg-[#0B0F17]">
+<!-- Giant Typographic Metric Statement with High-Contrast Light Studio Palette -->
+<section aria-label="Impact Overview" class="py-16 sm:py-24 md:py-32 relative z-10 border-b border-black/[0.08] bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-gsap-heading>
-    <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 mb-6 shadow-[0_0_15px_rgba(94,106,210,0.15)]">
-      <span class="w-2 h-2 rounded-full bg-accent-primary animate-pulse shadow-[0_0_8px_rgba(94,106,210,0.8)]"></span>
-      <span class="text-xs font-mono font-semibold uppercase tracking-[0.06em] text-indigo-300">
-        METRICS &amp; IMPACT // PROVEN PERFORMANCE
+    <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-black/10 shadow-xs mb-6">
+      <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
+      <span class="text-[11px] sm:text-xs font-mono font-medium tracking-[0.14em] text-slate-700 uppercase">
+        [ METRICS &amp; IMPACT // PROVEN PERFORMANCE ]
       </span>
     </div>
 
-    <p class="font-grotesk font-bold text-[#F8FAFC] text-[1.95rem] sm:text-5xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-[-0.035em] max-w-6xl">
-      I’ve Shipped <span class="text-[#38BDF8] tabular-nums drop-shadow-[0_0_18px_rgba(56,189,248,0.4)]" data-counter="10" data-suffix="+">10+</span> Production SaaS Modules, Accelerated Load Speeds By <span class="text-[#38BDF8] tabular-nums drop-shadow-[0_0_18px_rgba(56,189,248,0.4)]" data-counter="50" data-suffix="%">50%</span>, Hit <span class="text-[#38BDF8] tabular-nums drop-shadow-[0_0_18px_rgba(56,189,248,0.4)]" data-counter="99" data-suffix="+">99+</span> Lighthouse Scores, And Engineered Across <span class="text-[#F8FAFC] tabular-nums" data-counter="4" data-suffix="+">4+</span> Years.
+    <p class="font-grotesk font-bold text-[#0F172A] text-[1.95rem] sm:text-5xl md:text-6xl lg:text-[4.2rem] leading-[1.08] tracking-[-0.04em] max-w-6xl">
+      I’ve Shipped <span class="text-[#0F172A] tabular-nums underline decoration-accent-primary/60 underline-offset-8" data-counter="10" data-suffix="+">10+</span> Production SaaS Modules, Accelerated Load Speeds By <span class="text-[#0F172A] tabular-nums underline decoration-accent-primary/60 underline-offset-8" data-counter="50" data-suffix="%">50%</span>, Hit <span class="text-[#0F172A] tabular-nums underline decoration-accent-primary/60 underline-offset-8" data-counter="99" data-suffix="+">99+</span> Lighthouse Scores, And Engineered Across <span class="text-[#0F172A] tabular-nums underline decoration-accent-primary/60 underline-offset-8" data-counter="4" data-suffix="+">4+</span> Years.
     </p>
   </div>
 </section>

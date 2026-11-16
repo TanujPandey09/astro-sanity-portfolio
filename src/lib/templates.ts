@@ -29,6 +29,28 @@ const TEMPLATE_SLUGS = [
   "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template",
 ];
 
+export const CATEGORY_LABELS: Record<string, string> = {
+  "real-estate": "Real Estate & Architecture",
+  "healthcare": "Healthcare & Medical",
+  "saas": "SaaS & Tech",
+  "ai-automation": "AI & Automation",
+  "portfolio": "Agency & Portfolio",
+  "ecommerce": "E-Commerce & Retail",
+  "dashboard": "Dashboard & Web App",
+  "fintech": "Fintech & Finance",
+  "other": "Other",
+  "Real Estate": "Real Estate & Architecture",
+  "Healthcare": "Healthcare & Medical",
+};
+
+export const formatCategoryLabel = (cat?: string): string => {
+  if (!cat) return "General";
+  if (CATEGORY_LABELS[cat]) return CATEGORY_LABELS[cat];
+  return cat
+    .replace(/[-_]+/g, " ")
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+};
+
 export const isTemplateSlug = (slug: string): boolean => {
   if (!slug) return false;
   return TEMPLATE_SLUGS.includes(slug) || slug.includes("template");
@@ -84,7 +106,7 @@ export const normalizeTemplate = (item: any): TemplateItem => {
   const defaultPrice = isApex ? "$49" : isLumina ? "$39" : "$49";
   const defaultOriginalPrice = isApex ? "$89" : isLumina ? "$69" : "$79";
   const defaultBadge = isApex ? "Featured" : isLumina ? "Popular" : (item.badge || "New");
-  const defaultCategory = isApex ? "Real Estate" : isLumina ? "Healthcare" : (item.category || "General");
+  const defaultCategory = item.category || (isApex ? "real-estate" : isLumina ? "healthcare" : "other");
 
   const imageUrl = item.thumbnailImage?.asset?.url || item.BackgroundImage?.asset?.url || "";
 

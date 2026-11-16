@@ -82,55 +82,57 @@ const steps = [
 ];
 ---
 
-<section id="process" class="py-16 sm:py-20 md:py-28 bg-white border-b border-slate-200/80">
+<section id="process" class="py-20 sm:py-28 bg-[#090A0F] text-white border-b border-white/[0.08]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
     <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
         // DEVELOPMENT PROCESS
       </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-tight">
         A Transparent, Step-by-Step Path to Launch.
       </h2>
-      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
+      <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-4 leading-relaxed font-sans">
         We eliminate guesswork with a proven six-step methodology. You receive regular staging preview builds, clear milestone check-ins, and direct visibility into your product's progress.
       </p>
     </div>
 
     <!-- 6 Sequential Steps Timeline Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      {steps.map((item) => (
-        <div class="rounded-2xl bg-[#FAFAFA] border border-slate-200 p-6 sm:p-7 flex flex-col justify-between hover:bg-white hover:border-slate-300 transition-all shadow-2xs hover:shadow-xs">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {steps.map((item, idx) => {
+        const dir = idx % 3 === 0 ? 'left' : idx % 3 === 1 ? 'center' : 'right';
+        return (
+        <div data-agency-dir={dir} class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-6 sm:p-7 flex flex-col justify-between hover:bg-white/[0.05] hover:border-[#828FFF]/40 transition-all">
           <div>
             <!-- Step Number & Estimated Timeframe -->
             <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-[#0284C7] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded">
+              <span class="text-xs font-mono font-bold text-[#828FFF] bg-[#5E6AD2]/15 border border-[#5E6AD2]/30 px-2.5 py-0.5 rounded-full">
                 STEP {item.step}
               </span>
-              <span class="text-xs font-mono text-slate-500 font-medium">
+              <span class="text-xs font-mono text-slate-300 font-medium">
                 ⏱ {item.timeframe}
               </span>
             </div>
 
             <!-- Step Title -->
-            <h3 class="font-grotesk font-bold text-lg sm:text-xl text-slate-900 tracking-tight mb-2">
+            <h3 class="font-grotesk font-bold text-lg sm:text-xl text-white tracking-tight mb-2">
               {item.name}
             </h3>
 
             <!-- Objective -->
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans mb-4">
               {item.objective}
             </p>
 
             <!-- Key Activities -->
-            <div class="space-y-1.5 mb-5 text-xs text-slate-700 font-sans">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-1">
+            <div class="space-y-1.5 mb-5 text-xs text-slate-200 font-sans">
+              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-300 font-semibold block mb-1">
                 Core Activities:
               </span>
               {item.activities.map((act) => (
                 <div class="flex items-start gap-1.5">
-                  <span class="text-[#0284C7] font-mono text-[10px] mt-0.5">•</span>
+                  <span class="text-[#828FFF] font-mono text-[10px] mt-0.5">•</span>
                   <span>{act}</span>
                 </div>
               ))}
@@ -138,25 +140,25 @@ const steps = [
           </div>
 
           <!-- Deliverable Tag -->
-          <div class="pt-4 border-t border-slate-200/70">
-            <span class="text-[11px] font-mono text-slate-500 block">
-              <strong class="text-slate-800 font-semibold font-sans">Key Deliverable:</strong>
+          <div class="pt-4 border-t border-white/[0.08]">
+            <span class="text-[11px] font-mono text-slate-300 block">
+              <strong class="text-white font-semibold font-sans">Key Deliverable:</strong>
             </span>
-            <span class="text-xs font-mono text-[#0284C7] font-semibold mt-0.5 block">
+            <span class="text-xs font-mono text-[#828FFF] font-semibold mt-0.5 block">
               {item.deliverable}
             </span>
           </div>
         </div>
-      ))}
+      );})}
     </div>
 
     <!-- Process Assurance Note -->
-    <div class="mt-10 sm:mt-12 rounded-xl bg-slate-50 border border-slate-200 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div class="mt-10 sm:mt-12 rounded-2xl bg-white/[0.03] border border-white/10 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div>
-        <h4 class="font-grotesk font-bold text-sm text-slate-900">Agile Staging Previews Every Sprint</h4>
-        <p class="text-xs text-slate-600 font-sans mt-0.5">You never wait months to see your product. We publish testable staging builds every two weeks with automated demo walkthroughs.</p>
+        <h4 class="font-grotesk font-bold text-sm text-white">Agile Staging Previews Every Sprint</h4>
+        <p class="text-xs text-slate-300 font-sans mt-0.5">You never wait months to see your product. We publish testable staging builds every two weeks with automated demo walkthroughs.</p>
       </div>
-      <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#0284C7] hover:underline whitespace-nowrap">
+      <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#828FFF] hover:text-white transition-colors whitespace-nowrap">
         <span>Schedule Discovery Call</span>
         <span>→</span>
       </a>

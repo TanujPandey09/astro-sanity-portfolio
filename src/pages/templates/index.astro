@@ -3,7 +3,8 @@ import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import PremiumBackground from "../../components/PremiumBackground.astro";
 import TemplateCard from "../../components/TemplateCard.astro";
-import { fetchAllTemplates } from "../../lib/templates";
+import TemplateRow from "../../components/TemplateRow.astro";
+import { fetchAllTemplates, formatCategoryLabel } from "../../lib/templates";
 
 const templates = await fetchAllTemplates();
 
@@ -91,7 +92,7 @@ const templatesFaqJsonLd = {
       name: "What tech stack are these commercial website templates built with?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "All templates are built with modern production stacks including Next.js, React.js, TypeScript, Tailwind CSS, Framer Motion, and GSAP, engineered for 99+ Google PageSpeed and Core Web Vitals performance."
+        text: "All templates are built with modern production stacks including Next.js 15, React 19, TypeScript, Tailwind CSS, Framer Motion, and GSAP, engineered for 99+ Google PageSpeed and Core Web Vitals performance."
       }
     },
     {
@@ -129,6 +130,26 @@ const breadcrumbs = [
   { name: "Home", path: "/" },
   { name: "Templates", path: "/templates" },
 ];
+
+// Dynamically extract categories from all templates uploaded in Sanity CMS
+const categoryMap = new Map<string, { label: string; count: number; filterKey: string }>();
+
+for (const t of templates) {
+  const rawCat = (t.category || "other").trim();
+  const label = formatCategoryLabel(rawCat);
+  const filterKey = rawCat.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+
+  if (!categoryMap.has(filterKey)) {
+    categoryMap.set(filterKey, {
+      label,
+      count: 0,
+      filterKey,
+    });
+  }
+  categoryMap.get(filterKey)!.count += 1;
+}
+
+const dynamicCategories = Array.from(categoryMap.values()).sort((a, b) => b.count - a.count);
 ---
 
 <Layout
@@ -142,151 +163,335 @@ const breadcrumbs = [
   <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
     <PremiumBackground />
 
-    <main class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 py-24 md:py-32 relative z-10">
-      
-      <!-- Section Header -->
-      <SectionHeader 
-        eyebrow="Commercial Digital Products"
-        title="Production-Ready" 
-        gradientText="Templates" 
-        subtitle="Next.js, React, and TypeScript templates engineered with 99+ Lighthouse performance and commercial licenses."
-      />
-
-      <!-- Category Filter Pills -->
-      <div class="mt-10 md:mt-12 flex flex-wrap items-center justify-center gap-2 md:gap-3" id="template-filters">
-        <button 
-          data-filter="all"
-          class="filter-btn active px-4 py-2 rounded-xl text-xs font-mono font-bold transition-all duration-300 bg-white text-[#0B0F17] shadow-md shadow-white/10"
-        >
-          All Templates ({templates.length})
-        </button>
-        <button 
-          data-filter="real estate"
-          class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium transition-all duration-300 bg-[#111726] border border-white/10 text-[#94A3B8] hover:text-white hover:bg-white/10"
-        >
-          Real Estate & Architecture
-        </button>
-        <button 
-          data-filter="healthcare"
-          class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium transition-all duration-300 bg-[#111726] border border-white/10 text-[#94A3B8] hover:text-white hover:bg-white/10"
-        >
-          Healthcare & Clinic
-        </button>
-        <button 
-          data-filter="react"
-          class="filter-btn px-4 py-2 rounded-xl text-xs font-mono font-medium transition-all duration-300 bg-[#111726] border border-white/10 text-[#94A3B8] hover:text-white hover:bg-white/10"
-        >
-          React & Next.js
-        </button>
+    <!-- ACT 1: OBSIDIAN DARK HERO + IRIDESCENT DRAPERY (Arshawn Arbabi Consistency) -->
+    <section class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-20 border-b border-white/[0.08]">
+      <div class="absolute top-0 inset-x-0 h-56 sm:h-72 pointer-events-none select-none overflow-hidden z-0">
+        <div class="liquid-aurora absolute inset-0 w-full h-full opacity-55 mix-blend-screen scale-110"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0B0E]/70 to-[#0A0B0E]"></div>
       </div>
 
-      <!-- Templates Grid -->
+      <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8" data-gsap-hero="wordmark">
+          <div>
+            <span class="block text-xs font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-3">
+              COMMERCIAL DIGITAL ASSETS // NEXT.JS &amp; REACT
+            </span>
+            <h1 class="font-grotesk font-extrabold text-[3rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[7.5rem] text-white tracking-[-0.055em] leading-[0.88] select-none">
+              Production<br />Templates
+            </h1>
+          </div>
+
+          <div class="max-w-md space-y-5">
+            <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
+              Next.js 15, React 19, and TypeScript templates engineered for 99+ Lighthouse performance, lifetime updates, and unlimited commercial licenses.
+            </p>
+            <div class="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                data-open-contact
+                data-contact-subject="Template Customization / Bespoke Build"
+                class="magnetic-btn group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer active:scale-95"
+              >
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Hire to Customize</span>
+                <span>↗</span>
+              </button>
+              <a
+                href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20have%20a%20question%20about%20your%20website%20templates."
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.08] border border-white/15 text-white hover:bg-white/15 font-grotesk font-semibold text-xs uppercase tracking-wider transition-all"
+              >
+                <span>WhatsApp ↗</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20 md:pb-28 relative z-10">
+
+      <!-- Telemetry Trust Metrics Bar -->
+      <div class="mt-8 mb-10 sm:mb-12 p-4 sm:p-5 rounded-2xl bg-white border border-black/[0.08] shadow-sm grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-emerald-50 border border-emerald-500/30 flex items-center justify-center text-emerald-800 font-bold">
+            99+
+          </div>
+          <div>
+            <span class="text-[#0F172A] font-semibold block">Lighthouse Verified</span>
+            <span class="text-slate-500">Core Web Vitals P99</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-[#5E6AD2]/10 border border-[#5E6AD2]/30 flex items-center justify-center text-[#5E6AD2] font-bold">
+            TS
+          </div>
+          <div>
+            <span class="text-[#0F172A] font-semibold block">TypeScript Strict</span>
+            <span class="text-slate-500">Zero `any` Contract</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-slate-100 border border-black/10 flex items-center justify-center text-[#0F172A] font-bold">
+            01
+          </div>
+          <div>
+            <span class="text-[#0F172A] font-semibold block">Commercial License</span>
+            <span class="text-slate-500">Unlimited Client Sites</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-lg bg-amber-50 border border-amber-500/30 flex items-center justify-center text-amber-800 font-bold">
+            ⚡
+          </div>
+          <div>
+            <span class="text-[#0F172A] font-semibold block">Instant Zip Download</span>
+            <span class="text-slate-500">Lifetime Free Updates</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Real-Time Filter, Search & View Switcher Toolbar -->
+      <div class="mb-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-black/[0.08] shadow-xs">
+        
+        <!-- Dynamic Category Filter Pills (Direct from Sanity CMS) -->
+        <div class="flex flex-wrap items-center gap-1.5 sm:gap-2" id="template-filters">
+          <button 
+            data-filter="all"
+            class="filter-btn active px-3.5 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-300 bg-[#0F172A] text-white shadow-xs cursor-pointer"
+          >
+            All ({templates.length})
+          </button>
+          {dynamicCategories.map((cat) => (
+            <button 
+              data-filter={cat.filterKey}
+              class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium transition-all duration-300 bg-slate-100 border border-black/[0.08] text-slate-700 hover:text-black hover:bg-slate-200 cursor-pointer"
+            >
+              {cat.label} ({cat.count})
+            </button>
+          ))}
+        </div>
+
+        <!-- Right Side: Search + View Mode Switcher -->
+        <div class="flex items-center gap-3">
+          <!-- Live Search Input -->
+          <div class="relative flex-1 sm:w-64">
+            <input 
+              type="text" 
+              id="template-search-input"
+              placeholder="Search templates..." 
+              class="w-full px-3.5 py-1.5 pl-8 text-xs font-mono bg-slate-50 border border-black/10 rounded-xl text-[#0F172A] placeholder:text-slate-400 focus:bg-white focus:outline-none focus:border-accent-primary transition-all"
+            />
+            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+
+          <!-- View Mode Toggle (Grid vs High-Density List) -->
+          <div class="flex items-center p-1 rounded-xl bg-slate-100 border border-black/10 shrink-0" id="view-mode-switcher">
+            <button
+              id="view-grid-btn"
+              type="button"
+              class="view-btn active px-2.5 py-1 rounded-lg text-xs font-mono font-medium flex items-center gap-1.5 transition-all bg-white text-[#0F172A] shadow-xs"
+              title="3-Column Visual Grid View"
+              aria-label="Switch to Grid view"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+              </svg>
+              <span class="hidden sm:inline">Grid</span>
+            </button>
+            <button
+              id="view-list-btn"
+              type="button"
+              class="view-btn px-2.5 py-1 rounded-lg text-xs font-mono font-medium flex items-center gap-1.5 transition-all text-slate-600 hover:text-black"
+              title="Compact Catalog List View"
+              aria-label="Switch to List view"
+            >
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <span class="hidden sm:inline">List</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Results Counter & Feedback Bar -->
+      <div class="mb-8 flex items-center justify-between text-xs font-mono text-slate-600 px-1">
+        <div>
+          <span>Showing </span>
+          <span id="templates-visible-count" class="text-[#0F172A] font-bold">{templates.length}</span>
+          <span> of {templates.length} commercial templates</span>
+        </div>
+        <div class="text-[11px] text-slate-500">
+          Direct download with instant source access
+        </div>
+      </div>
+
+      <!-- 1. Grid View (3-Column Modern Studio Marketplace) -->
       <div 
-        id="templates-grid"
-        class="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto"
+        id="templates-grid-view"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto items-stretch"
       >
         {templates.map((template, index) => (
           <TemplateCard template={template} index={index} />
         ))}
       </div>
 
+      <!-- 2. List View (Compact High-Density Developer Catalog) -->
+      <div 
+        id="templates-list-view"
+        class="hidden space-y-3 max-w-7xl mx-auto"
+      >
+        {templates.map((template, index) => (
+          <TemplateRow template={template} index={index} />
+        ))}
+      </div>
+
+      <!-- Empty State Feedback -->
+      <div id="no-templates-state" class="hidden text-center py-16 px-4 bg-white rounded-2xl border border-black/10 shadow-sm max-w-xl mx-auto my-8">
+        <span class="text-3xl block mb-2">🔍</span>
+        <h3 class="text-lg font-bold font-grotesk text-[#0F172A] mb-1">No Matching Templates</h3>
+        <p class="text-xs font-mono text-slate-600 mb-4">No template matches your current search or category filter.</p>
+        <button 
+          id="reset-search-btn"
+          class="px-4 py-2 rounded-full text-xs font-mono bg-[#0F172A] text-white font-bold cursor-pointer hover:bg-black transition-all"
+        >
+          Reset Filters
+        </button>
+      </div>
+
       <!-- Value Proposition Matrix (Why Buy These Templates) -->
       <section class="mt-24 md:mt-36 pt-16 md:pt-20 border-t border-border-subtle">
         <div class="text-center max-w-2xl mx-auto mb-14">
-          <p class="text-[11px] font-mono uppercase tracking-[0.3em] text-accent-primary mb-3">Engineered For Quality</p>
-          <h2 class="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
-            What Sets These Templates Apart?
+          <p class="text-[11px] font-mono uppercase tracking-[0.3em] text-accent-primary mb-3">// WHY CHOOSE THESE TEMPLATES</p>
+          <h2 class="text-2xl md:text-4xl font-bold font-grotesk text-[#0F172A] tracking-tight">
+            What Sets These Codebases Apart?
           </h2>
+          <p class="text-xs sm:text-sm text-slate-600 mt-2 font-mono">
+            Commercial-grade engineering built for agencies, freelancers, and ambitious founders.
+          </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-4 font-mono font-bold text-sm">
-              01
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] hover:border-accent-primary/50 transition-all shadow-xs group">
+            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-5 font-mono font-bold text-sm group-hover:bg-accent-primary group-hover:text-white transition-all">
+              01/
             </div>
-            <h3 class="text-base font-bold text-text-primary mb-2">Commercial License</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Build unlimited client websites or commercial software. No recurring royalties or hidden restrictions.
+            <h3 class="text-base font-bold font-grotesk text-[#0F172A] mb-2">Unlimited Commercial Rights</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Deploy unlimited paying client websites or SaaS platforms. No seat limits, no royalties, and zero recurring subscription fees.
             </p>
           </div>
 
-          <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-4 font-mono font-bold text-sm">
-              02
+          <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] hover:border-accent-primary/50 transition-all shadow-xs group">
+            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-5 font-mono font-bold text-sm group-hover:bg-accent-primary group-hover:text-white transition-all">
+              02/
             </div>
-            <h3 class="text-base font-bold text-text-primary mb-2">99+ PageSpeed Scores</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Zero bloat, optimized image pipelines, and clean semantics engineered for maximum SEO ranking.
+            <h3 class="text-base font-bold font-grotesk text-[#0F172A] mb-2">99+ Google PageSpeed</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Zero JavaScript bloat, hardware-accelerated micro-interactions, responsive WebP asset pipelines, and optimal Core Web Vitals.
             </p>
           </div>
 
-          <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-4 font-mono font-bold text-sm">
-              03
+          <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] hover:border-accent-primary/50 transition-all shadow-xs group">
+            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-5 font-mono font-bold text-sm group-hover:bg-accent-primary group-hover:text-white transition-all">
+              03/
             </div>
-            <h3 class="text-base font-bold text-text-primary mb-2">Typed & Modular</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Fully typed with TypeScript, reusable Tailwind components, and structured tokens for effortless restyling.
+            <h3 class="text-base font-bold font-grotesk text-[#0F172A] mb-2">Modular TypeScript Stack</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Strict compile-time typing, reusable Tailwind components, and semantic token variables for frictionless restyling.
             </p>
           </div>
 
-          <div class="rounded-2xl p-6 bg-white/[0.02] border border-white/10 hover:border-white/20 transition-colors">
-            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-4 font-mono font-bold text-sm">
-              04
+          <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] hover:border-accent-primary/50 transition-all shadow-xs group">
+            <div class="w-10 h-10 rounded-xl bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center text-accent-primary mb-5 font-mono font-bold text-sm group-hover:bg-accent-primary group-hover:text-white transition-all">
+              04/
             </div>
-            <h3 class="text-base font-bold text-text-primary mb-2">Lifetime Updates</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Access future dependency upgrades, bug fixes, and layout iterations at no extra charge via Gumroad.
+            <h3 class="text-base font-bold font-grotesk text-[#0F172A] mb-2">Lifetime Free Updates</h3>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Instant zip download via Gumroad with automated email delivery for all future dependency updates, framework upgrades, and fixes.
             </p>
           </div>
         </div>
       </section>
 
-      <!-- AEO / SEO Frequently Asked Questions Section -->
+      <!-- Interactive FAQ Accordion Section -->
       <section class="mt-20 md:mt-28 pt-16 border-t border-border-subtle max-w-4xl mx-auto">
         <div class="text-center mb-10">
-          <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-accent-primary mb-2">Licensing &amp; Architecture FAQ</p>
-          <h2 class="text-2xl md:text-3xl font-bold text-text-primary tracking-tight">
+          <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-accent-primary mb-2">// LICENSING &amp; SETUP FAQ</p>
+          <h2 class="text-2xl md:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
             Frequently Asked Questions
           </h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
-            <h3 class="text-sm font-bold text-text-primary mb-2">What tech stack powers these templates?</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Built with Next.js, React.js, TypeScript, Tailwind CSS, and GSAP/Framer Motion, achieving 99+ Google PageSpeed and Core Web Vitals scores out of the box.
-            </p>
+        <div class="space-y-4" id="template-faq-accordion">
+          <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs transition-all">
+            <button class="faq-accordion-toggle w-full flex items-center justify-between text-left cursor-pointer focus:outline-none" aria-expanded="true">
+              <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A]">What tech stack powers these commercial templates?</h3>
+              <span class="faq-accordion-icon text-slate-600 font-mono text-base ml-2 transition-transform duration-300 rotate-180">▼</span>
+            </button>
+            <div class="faq-accordion-body mt-3 pt-3 border-t border-black/[0.06] text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              All templates are built with modern production stacks including Next.js 15 App Router, React 19, TypeScript, Tailwind CSS, and GSAP/Framer Motion, engineered to achieve 99+ Google PageSpeed and Core Web Vitals scores right out of the box.
+            </div>
           </div>
 
-          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
-            <h3 class="text-sm font-bold text-text-primary mb-2">Can I use them for paying client projects?</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              Yes. Every download includes a full commercial license to deploy unlimited personal and client websites with zero recurring royalties.
-            </p>
+          <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs transition-all">
+            <button class="faq-accordion-toggle w-full flex items-center justify-between text-left cursor-pointer focus:outline-none" aria-expanded="false">
+              <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A]">Can I use them for paying client projects?</h3>
+              <span class="faq-accordion-icon text-slate-600 font-mono text-base ml-2 transition-transform duration-300">▼</span>
+            </button>
+            <div class="faq-accordion-body hidden mt-3 pt-3 border-t border-black/[0.06] text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              Yes, absolutely. Every download includes an unlimited commercial license permitting you to build, customize, and deploy websites for both personal usage and paying client projects with zero recurring royalties or attribution requirements.
+            </div>
           </div>
 
-          <div class="rounded-2xl p-6 bg-surface-card border border-white/[0.08]">
-            <h3 class="text-sm font-bold text-text-primary mb-2">How are source files and updates delivered?</h3>
-            <p class="text-xs text-text-muted leading-relaxed">
-              You receive an instant zip download with full TypeScript source code and documentation after checkout, plus automatic lifetime updates via Gumroad.
-            </p>
+          <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs transition-all">
+            <button class="faq-accordion-toggle w-full flex items-center justify-between text-left cursor-pointer focus:outline-none" aria-expanded="false">
+              <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A]">How are source files, Figma assets, and updates delivered?</h3>
+              <span class="faq-accordion-icon text-slate-600 font-mono text-base ml-2 transition-transform duration-300">▼</span>
+            </button>
+            <div class="faq-accordion-body hidden mt-3 pt-3 border-t border-black/[0.06] text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              Immediately after checkout via Gumroad, you receive an instant download link for the complete zip archive containing the full TypeScript repository, documentation, quickstart guide, and design tokens. Any future version updates are emailed to you automatically.
+            </div>
+          </div>
+
+          <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs transition-all">
+            <button class="faq-accordion-toggle w-full flex items-center justify-between text-left cursor-pointer focus:outline-none" aria-expanded="false">
+              <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A]">Can I hire Tanuj Pandey for custom setup or full-stack software development?</h3>
+              <span class="faq-accordion-icon text-slate-600 font-mono text-base ml-2 transition-transform duration-300">▼</span>
+            </button>
+            <div class="faq-accordion-body hidden mt-3 pt-3 border-t border-black/[0.06] text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+              Yes. If you need bespoke feature engineering, headless CMS integration (Sanity, Strapi), or want an end-to-end custom SaaS built from scratch, you can contact me directly or explore my technology studio at <a href="/agency" class="text-accent-primary hover:underline font-semibold">NovaStack Studio ↗</a>.
+            </div>
           </div>
         </div>
       </section>
 
-      <!-- Custom Project Banner -->
+      <!-- Bespoke Engineering & Agency Banner -->
       <div class="mt-20 md:mt-28 py-10 md:py-14 border-t border-border-subtle flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="space-y-2">
-          <p class="text-[11px] font-mono uppercase tracking-[0.3em] text-accent-primary">Bespoke Engineering</p>
-          <p class="text-xl md:text-2xl font-semibold text-text-primary tracking-tight max-w-xl">
-            Need custom design engineering or full-stack software development?
+          <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-accent-primary">// BESPOKE CUSTOMIZATION &amp; ENGINEERING</p>
+          <p class="text-xl md:text-2xl font-bold font-grotesk text-[#0F172A] tracking-tight max-w-xl">
+            Need custom design engineering, CMS integration, or a full-stack SaaS build?
           </p>
         </div>
-        <a href="/#contact" class="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-[0.2em] text-text-primary hover:text-white hover:border-accent-primary transition-all">
-          <span>Inquire About Custom Build</span>
-          <span class="w-6 h-6 rounded-full bg-accent-primary/20 text-accent-primary flex items-center justify-center group-hover:bg-accent-primary group-hover:text-white transition-all text-xs">↗</span>
-        </a>
+        <div class="flex flex-wrap items-center gap-3">
+          <a href="/agency" class="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0F172A] text-white hover:bg-black font-grotesk font-bold text-xs uppercase tracking-wider transition-all shadow-md">
+            <span>Explore NovaStack Agency</span>
+            <span>→</span>
+          </a>
+          <button type="button" data-open-contact data-contact-subject="Bespoke Customization & Engineering" class="group inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono uppercase tracking-wider text-[#0F172A] hover:bg-slate-50 transition-all shadow-xs cursor-pointer">
+            <span>Direct Inquire</span>
+            <span>↗</span>
+          </button>
+        </div>
       </div>
 
     </main>
@@ -294,35 +499,170 @@ const breadcrumbs = [
 </Layout>
 
 <script>
-  // Simple client-side category filtering
-  const filterButtons = document.querySelectorAll<HTMLButtonElement>("#template-filters .filter-btn");
-  const cards = document.querySelectorAll<HTMLElement>(".template-card");
+  // Robust Client-Side Category Filtering, Search, and View Mode Switcher
+  const initTemplateDirectory = () => {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>("#template-filters .filter-btn");
+    const searchInput = document.getElementById("template-search-input") as HTMLInputElement | null;
+    const cards = document.querySelectorAll<HTMLElement>(".template-card");
+    const rows = document.querySelectorAll<HTMLElement>(".template-row");
+    const noTemplatesState = document.getElementById("no-templates-state");
+    const resetBtn = document.getElementById("reset-search-btn");
+    const visibleCountEl = document.getElementById("templates-visible-count");
 
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // Toggle active states
-      filterButtons.forEach((b) => {
-        b.classList.remove("active", "bg-accent-primary", "text-white", "shadow-md", "shadow-accent-primary/20");
-        b.classList.add("bg-white/5", "border", "border-white/10", "text-text-muted");
-      });
+    const gridView = document.getElementById("templates-grid-view");
+    const listView = document.getElementById("templates-list-view");
+    const gridBtn = document.getElementById("view-grid-btn");
+    const listBtn = document.getElementById("view-list-btn");
 
-      btn.classList.add("active", "bg-accent-primary", "text-white", "shadow-md", "shadow-accent-primary/20");
-      btn.classList.remove("bg-white/5", "border", "border-white/10", "text-text-muted");
+    let currentFilter = "all";
+    let currentSearch = "";
 
-      const filter = btn.dataset.filter?.toLowerCase() || "all";
+    // 1. View Mode Persistence & Switching
+    const setViewMode = (mode: "grid" | "list") => {
+      try {
+        localStorage.setItem("templates_view_mode", mode);
+      } catch (e) {}
+
+      if (mode === "grid") {
+        gridView?.classList.remove("hidden");
+        listView?.classList.add("hidden");
+
+        gridBtn?.classList.add("active", "bg-white", "text-[#0F172A]", "shadow-xs");
+        gridBtn?.classList.remove("text-slate-600");
+        listBtn?.classList.remove("active", "bg-white", "text-[#0F172A]", "shadow-xs");
+        listBtn?.classList.add("text-slate-600");
+      } else {
+        gridView?.classList.add("hidden");
+        listView?.classList.remove("hidden");
+
+        listBtn?.classList.add("active", "bg-white", "text-[#0F172A]", "shadow-xs");
+        listBtn?.classList.remove("text-slate-600");
+        gridBtn?.classList.remove("active", "bg-white", "text-[#0F172A]", "shadow-xs");
+        gridBtn?.classList.add("text-slate-600");
+      }
+    };
+
+    gridBtn?.addEventListener("click", () => setViewMode("grid"));
+    listBtn?.addEventListener("click", () => setViewMode("list"));
+
+    try {
+      const savedMode = localStorage.getItem("templates_view_mode") as "grid" | "list" | null;
+      if (savedMode === "list") {
+        setViewMode("list");
+      } else {
+        setViewMode("grid");
+      }
+    } catch (e) {
+      setViewMode("grid");
+    }
+
+    // 2. Dual Filtering (Card & Row items)
+    const applyFilters = () => {
+      let visibleCount = 0;
+
+      const filterItem = (el: HTMLElement) => {
+        const category = (el.dataset.category || "").toLowerCase();
+        const tags = (el.dataset.tags || "").toLowerCase();
+        const name = (el.dataset.name || "").toLowerCase();
+        const text = (el.textContent || "").toLowerCase();
+
+        const matchesCategory = 
+          currentFilter === "all" || 
+          category === currentFilter ||
+          category.includes(currentFilter) || 
+          tags.includes(currentFilter);
+
+        const matchesSearch = 
+          !currentSearch || 
+          name.includes(currentSearch) || 
+          text.includes(currentSearch) ||
+          category.includes(currentSearch) ||
+          tags.includes(currentSearch);
+
+        return matchesCategory && matchesSearch;
+      };
 
       cards.forEach((card) => {
-        const category = card.dataset.category || "";
-        const tags = card.dataset.tags || "";
-
-        if (filter === "all" || category.includes(filter) || tags.includes(filter)) {
+        if (filterItem(card)) {
           card.style.display = "flex";
-          card.style.opacity = "1";
+          visibleCount++;
         } else {
           card.style.display = "none";
-          card.style.opacity = "0";
+        }
+      });
+
+      rows.forEach((row) => {
+        if (filterItem(row)) {
+          row.style.display = "flex";
+        } else {
+          row.style.display = "none";
+        }
+      });
+
+      if (visibleCountEl) {
+        visibleCountEl.textContent = String(visibleCount);
+      }
+
+      if (noTemplatesState) {
+        if (visibleCount === 0) {
+          noTemplatesState.classList.remove("hidden");
+        } else {
+          noTemplatesState.classList.add("hidden");
+        }
+      }
+    };
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterButtons.forEach((b) => {
+          b.classList.remove("active", "bg-[#0F172A]", "text-white", "shadow-xs");
+          b.classList.add("bg-slate-100", "border", "border-black/[0.08]", "text-slate-700");
+        });
+
+        btn.classList.add("active", "bg-[#0F172A]", "text-white", "shadow-xs");
+        btn.classList.remove("bg-slate-100", "border", "border-black/[0.08]", "text-slate-700");
+
+        currentFilter = (btn.dataset.filter || "all").toLowerCase();
+        applyFilters();
+      });
+    });
+
+    searchInput?.addEventListener("input", () => {
+      currentSearch = (searchInput.value || "").trim().toLowerCase();
+      applyFilters();
+    });
+
+    resetBtn?.addEventListener("click", () => {
+      currentFilter = "all";
+      currentSearch = "";
+      if (searchInput) searchInput.value = "";
+      
+      const allBtn = document.querySelector<HTMLButtonElement>('.filter-btn[data-filter="all"]');
+      allBtn?.click();
+    });
+
+    // 3. FAQ Accordion Handling
+    const accordionToggles = document.querySelectorAll<HTMLButtonElement>(".faq-accordion-toggle");
+    accordionToggles.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const isExpanded = btn.getAttribute("aria-expanded") === "true";
+        const body = btn.nextElementSibling as HTMLElement | null;
+        const icon = btn.querySelector(".faq-accordion-icon") as HTMLElement | null;
+
+        if (isExpanded) {
+          btn.setAttribute("aria-expanded", "false");
+          body?.classList.add("hidden");
+          icon?.classList.remove("rotate-180");
+        } else {
+          btn.setAttribute("aria-expanded", "true");
+          body?.classList.remove("hidden");
+          icon?.classList.add("rotate-180");
         }
       });
     });
-  });
+  };
+
+  initTemplateDirectory();
+  document.addEventListener("astro:after-swap", initTemplateDirectory);
+  document.addEventListener("astro:page-load", initTemplateDirectory);
 </script>

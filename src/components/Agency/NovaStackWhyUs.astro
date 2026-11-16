@@ -40,97 +40,99 @@ const pillars = [
 ];
 ---
 
-<section id="why-us" class="py-16 sm:py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80">
+<section id="why-us" class="py-20 sm:py-28 bg-[#0C0E14] text-white border-b border-white/[0.08]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     
     <!-- Section Header -->
     <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3 shadow-2xs">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
         // THE NOVASTACK ADVANTAGE
       </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-tight">
         Engineered for Founders Who Care About Code Quality.
       </h2>
-      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
+      <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-4 leading-relaxed font-sans">
         Most agencies operate with non-technical middlemen, outsource code overseas, or deliver fragile prototypes that crumble in production. NovaStack was founded to provide an engineering-first alternative.
       </p>
     </div>
 
     <!-- 6 Pillars Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      {pillars.map((pillar) => (
-        <div class="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xs flex flex-col justify-between hover:border-slate-300 transition-all">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {pillars.map((pillar, idx) => {
+        const dir = idx % 3 === 0 ? 'left' : idx % 3 === 1 ? 'center' : 'right';
+        return (
+        <div data-agency-dir={dir} class="rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-[#828FFF]/40 p-6 sm:p-8 flex flex-col justify-between transition-all">
           <div>
             <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-[#0284C7] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded">
+              <span class="text-xs font-mono font-bold text-[#828FFF] bg-[#5E6AD2]/15 border border-[#5E6AD2]/30 px-2.5 py-0.5 rounded-full">
                 PILLAR {pillar.number}
               </span>
-              <span class="w-2 h-2 rounded-full bg-slate-300"></span>
+              <span class="w-2 h-2 rounded-full bg-white/25"></span>
             </div>
 
-            <h3 class="font-grotesk font-bold text-xl text-slate-900 tracking-tight mb-3">
+            <h3 class="font-grotesk font-bold text-xl text-white tracking-tight mb-3">
               {pillar.title}
             </h3>
 
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans mb-4">
               {pillar.summary}
             </p>
           </div>
 
-          <div class="pt-4 border-t border-slate-100">
-            <span class="block text-[11px] font-mono text-slate-500">
-              <strong class="text-slate-800 font-semibold font-sans">Business Value:</strong> {pillar.benefit}
+          <div class="pt-4 border-t border-white/[0.08]">
+            <span class="block text-[11px] font-mono text-slate-300">
+              <strong class="text-white font-semibold font-sans">Business Value:</strong> {pillar.benefit}
             </span>
           </div>
         </div>
-      ))}
+      );})}
     </div>
 
     <!-- Traditional Agency vs NovaStack Comparison Table -->
-    <div class="mt-12 sm:mt-16 rounded-2xl bg-white border border-slate-200 overflow-hidden shadow-xs">
-      <div class="p-5 sm:p-6 bg-slate-50 border-b border-slate-200">
-        <h3 class="font-grotesk font-bold text-lg text-slate-900">
+    <div data-agency-dir="center" class="mt-12 sm:mt-16 rounded-2xl bg-white/[0.03] border border-white/10 overflow-hidden">
+      <div class="p-5 sm:p-6 bg-white/[0.04] border-b border-white/[0.08]">
+        <h3 class="font-grotesk font-bold text-lg text-white">
           How We Compare to Traditional Digital Agencies
         </h3>
-        <p class="text-xs text-slate-500 font-sans mt-0.5">
+        <p class="text-xs text-slate-300 font-sans mt-0.5">
           A side-by-side breakdown of operational differences.
         </p>
       </div>
 
       <div class="overflow-x-auto">
         <table class="w-full text-left text-xs sm:text-sm font-sans">
-          <thead class="bg-slate-100/60 font-mono text-[11px] uppercase tracking-wider text-slate-600 border-b border-slate-200">
+          <thead class="bg-white/[0.02] font-mono text-[11px] uppercase tracking-wider text-slate-300 border-b border-white/[0.08]">
             <tr>
               <th class="py-3.5 px-4 sm:px-6">Dimension</th>
-              <th class="py-3.5 px-4 sm:px-6 text-slate-500">Typical Agency Model</th>
-              <th class="py-3.5 px-4 sm:px-6 text-[#0284C7] font-bold">The NovaStack Approach</th>
+              <th class="py-3.5 px-4 sm:px-6 text-slate-400">Typical Agency Model</th>
+              <th class="py-3.5 px-4 sm:px-6 text-[#828FFF] font-bold">The NovaStack Approach</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100 text-slate-700">
+          <tbody class="divide-y divide-white/[0.06] text-slate-200">
             <tr>
-              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Communication</td>
-              <td class="py-3 px-4 sm:px-6 text-slate-500">Filtered through non-technical account managers</td>
-              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Direct Slack/Teams access to senior engineering leadership</td>
+              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Communication</td>
+              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Filtered through non-technical account managers</td>
+              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Direct Slack/Teams access to senior engineering leadership</td>
             </tr>
             <tr>
-              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Code Quality &amp; Types</td>
-              <td class="py-3 px-4 sm:px-6 text-slate-500">Inconsistent, loose JavaScript, heavy technical debt</td>
-              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Strict TypeScript, modular components, clean Git branches</td>
+              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Code Quality &amp; Types</td>
+              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Inconsistent, loose JavaScript, heavy technical debt</td>
+              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Strict TypeScript, modular components, clean Git branches</td>
             </tr>
             <tr>
-              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">AI Implementation</td>
-              <td class="py-3 px-4 sm:px-6 text-slate-500">Basic API wrappers without caching or evaluation</td>
-              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Multi-LLM routing, structured outputs, prompt caching &amp; guardrails</td>
+              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">AI Implementation</td>
+              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Basic API wrappers without caching or evaluation</td>
+              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Multi-LLM routing, structured outputs, prompt caching &amp; guardrails</td>
             </tr>
             <tr>
-              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Codebase Ownership</td>
-              <td class="py-3 px-4 sm:px-6 text-slate-500">Often held in agency repos with proprietary lock-in</td>
-              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">100% full IP and repository transfer on day one</td>
+              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Codebase Ownership</td>
+              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Often held in agency repos with proprietary lock-in</td>
+              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">100% full IP and repository transfer on day one</td>
             </tr>
             <tr>
-              <td class="py-3 px-4 sm:px-6 font-semibold text-slate-900">Speed to Market</td>
-              <td class="py-3 px-4 sm:px-6 text-slate-500">3 to 6 months of scope creep and delayed meetings</td>
-              <td class="py-3 px-4 sm:px-6 font-medium text-slate-900">Production-ready MVPs shipped in 4 to 8 weeks</td>
+              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Speed to Market</td>
+              <td class="py-3.5 px-4 sm:px-6 text-slate-400">3 to 6 months of scope creep and delayed meetings</td>
+              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Production-ready MVPs shipped in 4 to 8 weeks</td>
             </tr>
           </tbody>
         </table>

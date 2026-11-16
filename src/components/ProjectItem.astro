@@ -21,158 +21,132 @@ const rawImageUrl =
   project?.BackgroundImage?.asset?.url ||
   project?.FeatureImage?.asset?.url ||
   "/img/custom-project.webp";
-const imageUrl = optimizeSanityImage(rawImageUrl, 1200, 80);
+const imageUrl = optimizeSanityImage(rawImageUrl, 1600, 85);
 
 const rawTags = project?.tags || project?.techStack || [];
 const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STACK', 'PRODUCTION', 'SAAS'];
+const primaryRole = tags.slice(0, 3).join(" · ");
 
-const demoHref = typeof project?.demoLink === 'string' ? project.demoLink : project?.demoLink?.current;
+const projectUrl = `/projects/${project.slug?.current || ""}`;
 
-const bentoIndex = index % 4;
-let bentoGridClasses = "col-span-1 ";
-if (bentoIndex === 0) {
-  bentoGridClasses += "md:col-span-2 md:row-span-2 md:min-h-[560px] flex flex-col";
-} else if (bentoIndex === 1) {
-  bentoGridClasses += "md:col-span-1 md:row-span-1 md:min-h-[340px] flex flex-col";
-} else if (bentoIndex === 2) {
-  bentoGridClasses += "md:col-span-1 md:row-span-1 md:min-h-[340px] flex flex-col";
-} else {
-  bentoGridClasses += "md:col-span-3 md:row-span-1 md:min-h-[320px] flex flex-col";
-}
+// 4 Distinct Physical Staging Atmospheres (Arshawn Arbabi Style)
+const variant = index % 4;
 ---
 
-{bentoIndex === 3 ? (
-  /* Wide Horizontal Double-Bezel Bento Card with Developer HUD Crosshairs */
-  <div data-gsap-card class={`project-item bento-spotlight group rounded-[22px] p-1.5 bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.7)] ${bentoGridClasses}`}>
-    <div class="h-full w-full rounded-[16px] bg-[#111726] border border-white/[0.05] overflow-hidden grid grid-cols-1 md:grid-cols-12">
-      <!-- Image Side with 4-Corner HUD Crosshairs -->
-      <a href={`/projects/${project.slug?.current}`} class="project-media-trigger order-1 md:order-2 md:col-span-5 relative overflow-hidden w-full aspect-[16/10] md:aspect-auto md:h-full md:min-h-[260px] border-b md:border-b-0 md:border-l border-white/[0.08] bg-[#0B0F17] block">
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt={projectName}
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-          />
-        )}
-        <!-- 4-Corner HUD Crosshairs -->
-        <div class="pointer-events-none absolute inset-3.5 z-10">
-          <span class="absolute top-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
+<article class="project-showcase group w-full" data-gsap-card>
+  <!-- 1. FULL-WIDTH CINEMATIC 3D HARDWARE STAGING FRAME -->
+  <a
+    href={projectUrl}
+    data-cursor-text="VIEW CASE STUDY ↗"
+    class="laptop-3d-stage relative block w-full rounded-[24px] sm:rounded-[32px] md:rounded-[44px] overflow-hidden p-6 sm:p-10 md:p-16 lg:p-20 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.14)] border border-black/[0.06]"
+  >
+    <!-- Staging Surface Backdrops -->
+    {variant === 0 && (
+      /* Variant 0: Warm Rustic Timber & Landscape Ambient */
+      <div class="absolute inset-0 -z-10 bg-gradient-to-br from-[#ECE7DF] via-[#DDD4C7] to-[#C7BCAD]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.7)_0%,transparent_70%)]"></div>
+        <div class="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#4A3B32_1px,transparent_1px)] [background-size:20px_20px]"></div>
+      </div>
+    )}
+
+    {variant === 1 && (
+      /* Variant 1: Architectural Dark Studio Pedestal */
+      <div class="absolute inset-0 -z-10 bg-gradient-to-b from-[#1C2233] via-[#101422] to-[#0A0D16]">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(94,106,210,0.22)_0%,transparent_65%)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+      </div>
+    )}
+
+    {variant === 2 && (
+      /* Variant 2: Sunlit Studio Pegboard / Workshop */
+      <div class="absolute inset-0 -z-10 bg-[#E8EDF5]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.85)_0%,transparent_65%)]"></div>
+        <!-- Pegboard Dot Grid -->
+        <div class="absolute inset-0 opacity-[0.14] bg-[radial-gradient(#64748B_1.5px,transparent_1.5px)] [background-size:24px_24px]"></div>
+      </div>
+    )}
+
+    {variant === 3 && (
+      /* Variant 3: Industrial Brushed Stainless Steel */
+      <div class="absolute inset-0 -z-10 bg-gradient-to-tr from-[#242A38] via-[#373F52] to-[#1E2430]">
+        <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_20%,rgba(255,255,255,0.15)_0%,transparent_60%)]"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50"></div>
+      </div>
+    )}
+
+    <!-- 2. REALISTIC 3D MACBOOK PRO HARDWARE CHASSIS (Full Uncropped Display) -->
+    <div data-gsap-parallax class="laptop-chassis relative w-full max-w-4xl mx-auto will-change-transform transition-transform duration-500 group-hover:-translate-y-1">
+      
+      <!-- Screen Lid Bezel (Notch sits in top bezel bar so it never cuts the screenshot) -->
+      <div class="relative rounded-[16px] sm:rounded-[22px] md:rounded-[28px] bg-[#0E1015] px-2.5 pb-2.5 pt-5 sm:px-3.5 sm:pb-3.5 sm:pt-6 md:px-4 md:pb-4 md:pt-7 shadow-[0_30px_80px_rgba(0,0,0,0.38)] border border-white/15 ring-1 ring-black/60">
+        
+        <!-- Screen Top Camera Notch (Inside top bezel above viewport) -->
+        <div class="absolute top-1.5 sm:top-2 left-1/2 -translate-x-1/2 w-14 sm:w-20 md:w-28 h-2.5 sm:h-3 md:h-3.5 bg-[#07080B] rounded-b-md flex items-center justify-center z-30 border-x border-b border-white/[0.06]">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#1A1D24] ring-1 ring-white/10 flex items-center justify-center">
+            <span class="w-0.5 h-0.5 rounded-full bg-emerald-500/80"></span>
+          </span>
         </div>
-      </a>
 
-      <!-- Text Side -->
-      <div class="order-2 md:order-1 md:col-span-7 p-5 sm:p-7 md:p-9 flex flex-col justify-between z-10 w-full h-full">
-        <div>
-          <div class="flex items-center justify-between mb-4 sm:mb-5">
-            <div class="flex flex-wrap gap-1.5 sm:gap-2">
-              {tags.slice(0, 4).map((tech: string) => (
-                <span class="text-[10px] sm:text-[11px] font-mono font-medium tracking-[0.06em] uppercase px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.12] text-[#94A3B8]">
-                  {tech}
-                </span>
-              ))}
-            </div>
-            <span class="text-xs font-mono tabular-nums text-[#38BDF8] font-bold">[ {String(index + 1).padStart(2, "0")}/ ]</span>
-          </div>
-
-          <a href={`/projects/${project.slug?.current}`} class="block group/title">
-            <h3 class="font-grotesk text-xl sm:text-2xl md:text-3xl font-bold text-[#F8FAFC] tracking-[-0.03em] transition-colors group-hover/title:text-white">
-              {projectName}
-            </h3>
-            <p class="mt-2.5 sm:mt-3 text-xs sm:text-sm text-[#94A3B8] font-normal leading-relaxed max-w-xl">
-              {excerpt}
-            </p>
-          </a>
-        </div>
-
-        <div class="mt-5 sm:mt-6 pt-4 border-t border-white/[0.08] flex items-center justify-between gap-4">
-          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-2 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] group-hover:text-accent-primary transition-colors">
-            <span>View Case Study</span>
-            <span class="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-0.5">↗</span>
-          </a>
-          {demoHref && (
-            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="magnetic-btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:bg-slate-100 text-[11px] font-grotesk font-bold tracking-[0.04em] text-[#0B0F17] shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
-              <span>Live Demo</span>
-              <span>↗</span>
-            </a>
+        <!-- The Display Screen Viewport (Fits full image edge-to-edge cleanly without slicing) -->
+        <div class="relative rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden bg-[#0B0D12] flex items-center justify-center">
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={projectName}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              width="1600"
+              height="1000"
+              data-gsap-screen
+              class="w-full h-auto max-h-[580px] object-contain object-center block"
+            />
           )}
+
+          <!-- Subtle Screen Glass Reflection & Dynamic Glare Tracking -->
+          <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-white/[0.09] mix-blend-overlay"></div>
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[10px] sm:rounded-[14px] md:rounded-[16px]"></div>
         </div>
       </div>
-    </div>
-  </div>
-) : (
-  /* Standard / Focus Vertical Double-Bezel Bento Card with HUD Crosshairs */
-  <div data-gsap-card class={`project-item bento-spotlight group rounded-[22px] p-1.5 bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 shadow-[0_20px_50px_rgba(0,0,0,0.7)] ${bentoGridClasses}`}>
-    <div class="h-full w-full rounded-[16px] bg-[#111726] border border-white/[0.05] overflow-hidden flex flex-col justify-between">
-      <!-- Image Container with 4-Corner HUD Crosshairs -->
-      <a href={`/projects/${project.slug?.current}`} class={`project-media-trigger relative overflow-hidden w-full aspect-[16/10] md:aspect-auto ${bentoIndex === 0 ? 'md:h-[58%]' : 'md:h-[48%]'} border-b border-white/[0.08] bg-[#0B0F17] block shrink-0`}>
-        {imageUrl && (
-          <img
-            src={imageUrl}
-            alt={projectName}
-            loading="lazy"
-            decoding="async"
-            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
-          />
-        )}
-        <!-- 4-Corner HUD Crosshairs -->
-        <div class="pointer-events-none absolute inset-3.5 z-10">
-          <span class="absolute top-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute top-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 left-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 left-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 right-0 w-7 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-          <span class="absolute bottom-0 right-0 w-[1px] h-7 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-        </div>
-      </a>
 
-      <!-- Text Container -->
-      <div class="p-5 sm:p-6 md:p-8 flex-1 flex flex-col justify-between z-10">
-        <div>
-          <div class="flex items-center justify-between mb-3.5 sm:mb-4">
-            <div class="flex flex-wrap gap-1.5">
-              {tags.slice(0, 3).map((tech: string) => (
-                <span class="text-[10px] font-mono font-medium tracking-[0.06em] uppercase px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.12] text-[#94A3B8]">
-                  {tech}
-                </span>
-              ))}
-            </div>
-            <span class="text-xs font-mono tabular-nums text-[#38BDF8] font-bold">[ {String(index + 1).padStart(2, "0")}/ ]</span>
-          </div>
-
-          <a href={`/projects/${project.slug?.current}`} class="block group/title">
-            <h3 class="font-grotesk text-xl md:text-2xl font-bold text-[#F8FAFC] tracking-[-0.03em] transition-colors group-hover/title:text-white">
-              {projectName}
-            </h3>
-            <p class="mt-2 text-xs md:text-sm text-[#94A3B8] font-normal leading-relaxed line-clamp-3">
-              {excerpt}
-            </p>
-          </a>
-        </div>
-
-        <div class="mt-4 pt-3.5 border-t border-white/[0.08] flex items-center justify-between gap-2">
-          <a href={`/projects/${project.slug?.current}`} class="inline-flex items-center gap-1.5 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#F8FAFC] group-hover:text-accent-primary transition-colors">
-            <span>View Case Study</span>
-            <span class="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-          </a>
-          {demoHref && (
-            <a href={demoHref} target="_blank" rel="noopener noreferrer" class="magnetic-btn inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white hover:bg-slate-100 text-[11px] font-grotesk font-bold tracking-[0.04em] text-[#0B0F17] shadow-[0_0_15px_rgba(255,255,255,0.2)] transition-all">
-              <span>Live Demo</span>
-              <span>↗</span>
-            </a>
-          )}
-        </div>
+      <!-- Aluminum Laptop Base & Hinge Notch -->
+      <div class="relative mx-auto w-[104%] -left-[2%] h-3.5 sm:h-5 md:h-6 bg-gradient-to-b from-[#555A64] via-[#32363E] to-[#1E2127] rounded-b-[14px] sm:rounded-b-[20px] shadow-[0_25px_50px_rgba(0,0,0,0.45)] border-t border-white/25">
+        <!-- Center Opening Notch / Hinge Lip -->
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-20 sm:w-28 md:w-36 h-1.5 sm:h-2 bg-[#17191E] rounded-b-lg"></div>
       </div>
+
+    </div>
+  </a>
+
+  <!-- 3. MINIMALIST 3-PART EDITORIAL METADATA STRIP (Arshawn Arbabi Style) -->
+  <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+    <!-- Left: Project Name -->
+    <div class="md:col-span-4">
+      <a href={projectUrl} class="group/title inline-block">
+        <h3 class="font-grotesk text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-[-0.03em] transition-colors group-hover/title:text-accent-primary">
+          {projectName}
+        </h3>
+      </a>
+    </div>
+
+    <!-- Center: Deliverables & Role Summary -->
+    <div class="md:col-span-5">
+      <p class="text-xs sm:text-sm md:text-[15px] text-slate-600 font-sans leading-relaxed">
+        {excerpt}
+        <span class="block mt-1 font-mono text-[11px] uppercase tracking-wider text-slate-600 font-medium">
+          {primaryRole}
+        </span>
+      </p>
+    </div>
+
+    <!-- Right: View Project ↗ -->
+    <div class="md:col-span-3 flex md:justify-end items-center">
+      <a
+        href={projectUrl}
+        class="group/btn inline-flex items-center gap-2 text-xs sm:text-sm font-grotesk font-bold uppercase tracking-[0.06em] text-[#0F172A] hover:text-accent-primary transition-colors"
+      >
+        <span>View Project</span>
+        <span class="transition-transform duration-300 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-0.5">↗</span>
+      </a>
     </div>
   </div>
-)}
+</article>

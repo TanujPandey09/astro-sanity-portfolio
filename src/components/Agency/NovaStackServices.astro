@@ -1,206 +1,222 @@
 ---
-// NovaStack Agency Services Section: 6 Professional Disciplines
+// NovaStack Agency Services: Screenshot-Inspired "One System" Centered Header + Asymmetric Split Showcases (Zero Sticky Repetition)
 const services = [
   {
-    id: "web-development",
-    category: "Full-Stack Web Engineering",
-    title: "Web Development",
-    summary: "Production-ready web applications, fast corporate sites, and complex web software built for high conversions, accessibility, and speed.",
-    deliverables: [
-      "Custom Next.js & React Web Applications",
-      "Enterprise & B2B Corporate Websites",
-      "E-Commerce & High-Conversion Storefronts",
-      "SaaS Customer & Administrative Portals",
-      "Internal Business Dashboards & Analytics",
-      "Headless CMS Integrations (Sanity, Strapi)"
-    ],
-    techStack: ["Next.js", "React 19", "TypeScript", "Tailwind CSS", "Node.js", "REST/GraphQL"],
-    idealFor: "Startups launching new platforms and established companies upgrading legacy web software."
+    id: "uiux-design",
+    badge: "01 · PRODUCT DESIGN & UI SYSTEMS",
+    title: "UI/UX & Brand Systems",
+    summary: "High-converting product interfaces, Figma component libraries, and cohesive visual identity systems built for engineering speed and visual authority.",
+    bulletsLeft: ["SaaS Dashboard UX", "Design Token Systems", "Interactive Prototypes"],
+    bulletsRight: ["B2B Conversion Pages", "RTL & Mobile Responsive", "WCAG AA Accessibility"],
+    techStack: ["Figma", "Design Tokens", "Tailwind CSS", "Micro-Interactions"],
+    frameBg: "bg-[#DCEFED]",
+    previewDesktop: "https://cdn.sanity.io/images/fqd3bez7/production/fbe9b67497b5d77fb4822116a0b3b31db990eed4-1825x853.png?w=900&auto=format&q=85",
+    previewMobile: "https://cdn.sanity.io/images/fqd3bez7/production/9e3002b16f302b12708b1fa01238a73cda1c4919-1672x941.png?w=500&auto=format&q=85",
+    imageRight: true,
   },
   {
-    id: "mobile-development",
-    category: "Cross-Platform Mobile Engineering",
-    title: "Mobile App Development",
-    summary: "Cross-platform mobile applications for iOS and Android powered by React Native, delivering native performance and synchronized cloud state.",
-    deliverables: [
-      "Cross-Platform iOS & Android Applications",
-      "React Native & Expo Ecosystem Builds",
-      "Offline Data Synchronization & SQLite Storage",
-      "Hardware Integrations (Camera, Biometrics, GPS)",
-      "Push Notification & Event Stream Pipelines",
-      "App Store & Google Play Store Publishing"
-    ],
-    techStack: ["React Native", "Expo EAS", "TypeScript", "Native Modules", "Redux/Zustand"],
-    idealFor: "Businesses requiring unified mobile experiences without the overhead of two separate native codebases."
+    id: "web-development",
+    badge: "02 · FULL-STACK WEB ENGINEERING",
+    title: "Web Design & Development",
+    summary: "Production web applications, SSR corporate sites, and custom SaaS portals engineered for sub-second speed, strict type safety, and measurable conversion.",
+    bulletsLeft: ["Next.js & React 19 SSR", "E-Commerce Storefronts", "Headless Sanity CMS"],
+    bulletsRight: ["Admin & Customer Portals", "Enterprise Analytics UI", "99+ Core Web Vitals"],
+    techStack: ["Next.js", "React 19", "TypeScript", "Node.js", "Tailwind CSS"],
+    frameBg: "bg-[#F3EDE2]",
+    previewDesktop: "https://cdn.sanity.io/images/fqd3bez7/production/2ce01332eb1f37c21197a65b9723c429873b54d1-1348x635.png?w=900&auto=format&q=85",
+    previewMobile: "https://cdn.sanity.io/images/fqd3bez7/production/a789384b9bb85b4c62ff3abd42a14259ff219699-1815x717.png?w=500&auto=format&q=85",
+    imageRight: false,
   },
   {
     id: "ai-automation",
-    category: "Intelligent Systems & Applied AI",
+    badge: "03 · INTELLIGENT SYSTEMS & APPLIED AI",
     title: "AI & Automation",
-    summary: "Production LLM orchestration, intelligent conversational agents, and automated workflows that eliminate manual friction in business operations.",
-    deliverables: [
-      "Autonomous Multi-Agent AI Workflows",
-      "Conversational AI Chatbots & Support Automation",
-      "Multi-Provider LLM Routing (OpenAI, Claude, Gemini)",
-      "Contextual Retrieval-Augmented Generation (RAG)",
-      "Document Extraction & Data Processing Pipelines",
-      "Structured JSON Validation & Guardrails"
-    ],
-    techStack: ["OpenAI GPT-4o", "Claude 3.5", "Gemini 1.5", "Pinecone/Vector DBs", "LangChain/LlamaIndex"],
-    idealFor: "Companies seeking to automate repetitive support or operations with deterministic, hallucination-resistant AI."
+    summary: "Production LLM orchestration, contextual RAG search, autonomous workflows, and structured JSON guardrails that eliminate manual operational bottlenecks.",
+    bulletsLeft: ["Multi-LLM Routing", "Contextual RAG Pipelines", "Autonomous Support Agents"],
+    bulletsRight: ["Document Data Extraction", "Schema Validation Guardrails", "Token Cost Optimization"],
+    techStack: ["OpenAI GPT-4o", "Claude 3.5", "Gemini", "Vector DBs"],
+    frameBg: "bg-[#E2E6F5]",
+    previewDesktop: "https://cdn.sanity.io/images/fqd3bez7/production/cff0d5b6d2c8144035c77a26fd7616a85a437e7e-1365x1186.png?w=900&auto=format&q=85",
+    previewMobile: "https://cdn.sanity.io/images/fqd3bez7/production/2ce01332eb1f37c21197a65b9723c429873b54d1-1348x635.png?w=500&auto=format&q=85",
+    imageRight: true,
   },
   {
     id: "saas-software",
-    category: "Product Engineering & Architecture",
+    badge: "04 · PRODUCT ARCHITECTURE",
     title: "SaaS & Custom Software",
-    summary: "From zero to production launch: multi-tenant SaaS MVPs, bespoke CRM systems, and scalable subscription platforms.",
-    deliverables: [
-      "Rapid SaaS MVP Architecture & Launch (4–8 Weeks)",
-      "Bespoke CRM & Pipeline Management Systems",
-      "Multi-Role Access Control (RBAC) & Team Workspaces",
-      "Subscription Billing (Stripe, MyFatoorah, Lemon Squeezy)",
-      "Real-Time State Synchronization via WebSockets",
-      "Audit Logging, Webhook Handlers & Rate Limiting"
-    ],
-    techStack: ["PostgreSQL", "Prisma ORM", "Node.js / Express", "Redis", "Socket.IO", "Stripe API"],
-    idealFor: "Founders taking a product idea to market or companies replacing fragmented off-the-shelf software."
+    summary: "From zero to launch in 4–8 weeks: multi-tenant architectures, real-time WebSocket CRMs, RBAC permissions, and global Stripe/MyFatoorah billing.",
+    bulletsLeft: ["4–8 Week MVP Launch", "Socket.IO Real-Time Sync", "Multi-Tenant RBAC"],
+    bulletsRight: ["Stripe & Regional Billing", "PostgreSQL & Prisma ORM", "Webhook & Audit Logs"],
+    techStack: ["PostgreSQL", "Prisma", "Socket.IO", "Redis", "Stripe API"],
+    frameBg: "bg-[#EAE5F3]",
+    previewDesktop: "https://cdn.sanity.io/images/fqd3bez7/production/a789384b9bb85b4c62ff3abd42a14259ff219699-1815x717.png?w=900&auto=format&q=85",
+    previewMobile: "https://cdn.sanity.io/images/fqd3bez7/production/cff0d5b6d2c8144035c77a26fd7616a85a437e7e-1365x1186.png?w=500&auto=format&q=85",
+    imageRight: false,
+  }
+];
+
+const additionalDisciplines = [
+  {
+    id: "mobile-development",
+    num: "05/",
+    title: "Mobile App Development",
+    desc: "Unified iOS and Android apps built with React Native & Expo EAS — offline sync, biometrics, push notifications, and App Store release.",
+    tags: ["React Native", "Expo EAS", "TypeScript", "SQLite"],
   },
   {
     id: "seo-geo",
-    category: "Discovery & Answer Engine Optimization",
-    title: "SEO & GEO (Generative Engine Optimization)",
-    summary: "Technical site architecture, schema engineering, and content modeling designed for traditional search engines and emerging AI answer engines.",
-    deliverables: [
-      "Core Web Vitals & Sub-Second Page Speed Tuning",
-      "Deep JSON-LD Structured Data & Semantic Schema",
-      "Generative Engine Optimization (GEO & AEO Strategies)",
-      "Machine-Readable Context Architecture (llms.txt)",
-      "On-Page Technical SEO & XML Sitemaps Hierarchy",
-      "Local & International SEO Routing"
-    ],
-    techStack: ["JSON-LD Schema", "Lighthouse P99", "Edge Caching", "OpenGraph", "AEO Protocols"],
-    idealFor: "Products needing technical foundations that maximize discovery across Google, Perplexity, and AI models."
-  },
-  {
-    id: "uiux-design",
-    category: "Interface Craft & Design Systems",
-    title: "UI/UX & Product Design",
-    summary: "User-centric SaaS interfaces, responsive product prototypes, and modular design systems that make complex workflows feel effortless.",
-    deliverables: [
-      "SaaS Dashboard & Enterprise Application Design",
-      "Interactive Figma Prototypes & User Journey Flows",
-      "Modular Design Systems & Token Architecture",
-      "High-Conversion B2B Marketing Page Design",
-      "Mobile-First Responsive Layouts & RTL Readiness",
-      "WCAG 2.1 AA Accessibility Compliance Audits"
-    ],
-    techStack: ["Figma", "Design Tokens", "Tailwind CSS", "Micro-Interactions", "WCAG AA"],
-    idealFor: "Product teams needing high-converting, professional interfaces that developers can implement without friction."
+    num: "06/",
+    title: "Technical SEO & GEO Optimization",
+    desc: "Structured JSON-LD schema, sub-second TTFB edge caching, semantic knowledge graphs, and llms.txt discoverability across Google & AI engines.",
+    tags: ["JSON-LD Schema", "Core Web Vitals", "llms.txt", "Edge Caching"],
   }
 ];
 ---
 
-<section id="services" class="py-16 sm:py-20 md:py-28 bg-[#FAFAFA] border-b border-slate-200/80">
+<section id="services" class="py-20 sm:py-28 bg-[#090A0F] text-white border-b border-white/[0.08]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-white border border-slate-200 text-xs font-mono font-semibold text-slate-700 uppercase tracking-wider mb-3 shadow-2xs">
-        // AGENCY SERVICES
-      </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-slate-900 tracking-[-0.03em] leading-tight">
-        Six Core Disciplines. Zero Hand-Off Friction.
+
+    <!-- 1. CENTERED MANIFESTO HEADER (Matches Screenshot Mid-Page Headline) -->
+    <div class="max-w-3xl mx-auto text-center mb-16 sm:mb-24">
+      <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono uppercase tracking-[0.16em] text-[#828FFF] mb-4">
+        // INTEGRATED STUDIO SYSTEM
+      </span>
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl md:text-[3.25rem] text-white tracking-[-0.04em] leading-[1.06]">
+        Design, web, growth and AI built as one system.
       </h2>
-      <p class="text-base sm:text-lg text-slate-600 mt-4 leading-relaxed font-sans">
-        NovaStack offers full lifecycle product development across six specialized categories. We do not make vague promises or outsource overseas; every deliverable is built directly by our dedicated engineering team.
+      <p class="text-sm sm:text-base text-slate-300 mt-4 leading-relaxed font-sans">
+        Zero fragmented contractors. Every layer—brand UX, frontend velocity, AI orchestration, and cloud APIs—ships under one accountable engineering team.
       </p>
     </div>
 
-    <!-- 6 Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      {services.map((service, idx) => (
-        <div 
-          class="group rounded-2xl bg-white border border-slate-200 hover:border-slate-300 p-6 sm:p-8 transition-all duration-300 shadow-xs hover:shadow-md flex flex-col justify-between"
+    <!-- 2. ALTERNATING SPLIT SHOWCASE ROWS (Mirrors Reference Visual Card + Right Spec Layout, Zero Bugs) -->
+    <div class="space-y-16 sm:space-y-24">
+      {services.map((service) => (
+        <div
           id={`service-${service.id}`}
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center"
         >
-          <div>
-            <!-- Top Index & Category Badge -->
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class="text-[10px] font-mono uppercase tracking-wider font-semibold text-[#0284C7] bg-sky-50 border border-sky-100 px-2.5 py-0.5 rounded">
-                {service.category}
-              </span>
-              <span class="text-xs font-mono font-bold text-slate-400 tabular-nums">
-                0{idx + 1}/
-              </span>
-            </div>
+          <!-- Visual Showcase Frame (Warm Gallery Card + Nested Desktop/Mobile Device Bezel) -->
+          <div data-agency-dir={service.imageRight ? 'right' : 'left'} class={`lg:col-span-6 ${service.imageRight ? 'lg:order-2' : 'lg:order-1'}`}>
+            <div class={`group relative rounded-[26px] ${service.frameBg} p-5 sm:p-7 overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.45)] border border-white/20`}>
+              <div class="relative rounded-2xl overflow-hidden bg-[#0F1118] border border-black/15 shadow-xl">
+                <!-- Minimal Browser Chrome -->
+                <div class="flex items-center gap-1.5 px-3.5 py-2 bg-[#171A25] border-b border-white/10">
+                  <span class="w-2 h-2 rounded-full bg-white/25"></span>
+                  <span class="w-2 h-2 rounded-full bg-white/25"></span>
+                  <span class="w-2 h-2 rounded-full bg-white/25"></span>
+                  <span class="ml-2 text-[9px] font-mono text-slate-400 truncate">novastack.studio/{service.id}</span>
+                </div>
+                <div class="aspect-[16/10] w-full overflow-hidden">
+                  <img
+                    src={service.previewDesktop}
+                    alt={service.title}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                  />
+                </div>
+              </div>
 
-            <!-- Service Title -->
-            <h3 class="font-grotesk font-bold text-xl sm:text-2xl text-slate-900 tracking-tight group-hover:text-[#0284C7] transition-colors mb-3">
+              <!-- Secondary Floating Companion Card (Mimics Screenshot Dual-Mockup Overlay) -->
+              <div class="hidden sm:block absolute right-4 bottom-4 w-36 md:w-44 aspect-[4/3] rounded-xl overflow-hidden bg-[#0B0D14] border-2 border-white shadow-2xl transform rotate-3 group-hover:rotate-0 group-hover:-translate-y-1 transition-all duration-500">
+                <img
+                  src={service.previewMobile}
+                  alt={`${service.title} preview`}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover object-top"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Editorial Service Copy & Two-Column Deliverable Matrix -->
+          <div data-agency-dir={service.imageRight ? 'left' : 'right'} class={`lg:col-span-6 space-y-5 ${service.imageRight ? 'lg:order-1' : 'lg:order-2'}`}>
+            <span class="text-[11px] font-mono uppercase tracking-[0.16em] text-[#828FFF] font-semibold block">
+              {service.badge}
+            </span>
+
+            <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl md:text-4xl text-white tracking-[-0.03em]">
               {service.title}
             </h3>
 
-            <!-- Summary -->
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-6">
+            <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-sans">
               {service.summary}
             </p>
 
-            <!-- Deliverables List -->
-            <div class="mb-6 space-y-2">
-              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-semibold block mb-2">
-                Deliverables:
-              </span>
-              <ul class="space-y-1.5 text-xs text-slate-700 font-sans">
-                {service.deliverables.map((item) => (
-                  <li class="flex items-start gap-2">
-                    <span class="text-[#0284C7] font-bold mt-0.5 select-none font-mono">✓</span>
+            <!-- Two-Column Bullet Deliverables (Matches Screenshot Clean Split List) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5 pt-2 pb-2 text-xs sm:text-sm text-slate-300 font-sans border-y border-white/[0.08] py-4">
+              <ul class="space-y-2">
+                {service.bulletsLeft.map((item) => (
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#828FFF] shrink-0"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <ul class="space-y-2">
+                {service.bulletsRight.map((item) => (
+                  <li class="flex items-center gap-2">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"></span>
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
             </div>
-          </div>
 
-          <!-- Bottom: Tech Chips & Action -->
-          <div class="pt-5 border-t border-slate-100 space-y-4">
-            <div>
-              <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider block mb-1.5">
-                Primary Technologies:
-              </span>
+            <!-- Stack Pills & Action -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-1">
               <div class="flex flex-wrap gap-1.5">
                 {service.techStack.map((tech) => (
-                  <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-50 border border-slate-200/80 text-slate-600">
+                  <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-slate-300">
                     {tech}
                   </span>
                 ))}
               </div>
-            </div>
-
-            <div class="pt-1 flex items-center justify-between">
-              <span class="text-[11px] font-mono text-slate-500">
-                Fixed-Scope or Retainer
-              </span>
               <a
                 href={`#contact?service=${encodeURIComponent(service.title)}`}
-                class="inline-flex items-center gap-1 text-xs font-grotesk font-bold text-slate-900 group-hover:text-[#0284C7] transition-colors"
+                class="inline-flex items-center gap-2 text-xs font-grotesk font-bold uppercase tracking-wider text-white hover:text-[#828FFF] transition-colors"
               >
-                <span>Inquire</span>
+                <span>Scope This Service</span>
                 <span>→</span>
               </a>
             </div>
           </div>
-
         </div>
       ))}
     </div>
 
-    <!-- SEO & GEO Responsibility Note -->
-    <div class="mt-8 p-4 rounded-xl bg-white border border-slate-200 text-xs text-slate-600 flex items-start gap-3">
-      <span class="text-[#0284C7] font-mono font-bold mt-0.5 text-sm">ⓘ</span>
+    <!-- 3. ADDITIONAL SPECIALIST DISCIPLINES (05 & 06) -->
+    <div class="mt-20 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {additionalDisciplines.map((item, idx) => (
+        <div data-agency-dir={idx % 2 === 0 ? 'left' : 'right'} id={`service-${item.id}`} class="rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/20 p-6 sm:p-8 flex flex-col justify-between transition-all">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-xs font-mono text-[#828FFF] font-bold">{item.num}</span>
+              <a href={`#contact?service=${encodeURIComponent(item.title)}`} class="text-xs font-mono text-slate-300 hover:text-white transition-colors">
+                Inquire ↗
+              </a>
+            </div>
+            <h3 class="font-grotesk font-bold text-xl sm:text-2xl text-white tracking-tight mb-2">{item.title}</h3>
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-5">{item.desc}</p>
+          </div>
+          <div class="flex flex-wrap gap-1.5">
+            {item.tags.map((t) => (
+              <span class="text-[10px] font-mono px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10 text-slate-300">{t}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- SEO & GEO Policy Note -->
+    <div class="mt-8 p-4 sm:p-5 rounded-2xl bg-white/[0.02] border border-white/[0.08] text-xs text-slate-400 flex items-start gap-3">
+      <span class="text-[#828FFF] font-mono font-bold mt-0.5 text-sm">ⓘ</span>
       <p class="leading-relaxed">
-        <strong class="text-slate-800 font-semibold">SEO &amp; GEO Transparency Policy:</strong> NovaStack engineers strict technical crawlability, structured schema markup, fast TTFB, and contextual knowledge graphs. We do not make misleading claims regarding guaranteed #1 rankings, instant traffic, or guaranteed AI model mentions, as organic ranking algorithms remain third-party proprietary systems.
+        <strong class="text-white font-semibold">SEO &amp; GEO Transparency Policy:</strong> NovaStack engineers strict technical crawlability, structured schema markup, fast TTFB, and contextual knowledge graphs without misleading #1 ranking guarantees.
       </p>
     </div>
 
   </div>
 </section>
-

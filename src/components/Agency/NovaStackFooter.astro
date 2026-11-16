@@ -1,155 +1,131 @@
 ---
 // NovaStack Dedicated Agency Footer
+interface Props {
+  logoUrl?: string;
+  logoAlt?: string;
+  brandName?: string;
+  logoFullWidth?: boolean;
+}
+
+const {
+  logoUrl = "",
+  logoAlt = "NovaStack Logo",
+  brandName = "NovaStack",
+  logoFullWidth = false,
+} = Astro.props;
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="bg-white border-t border-slate-200 text-slate-700 font-sans">
+<footer class="bg-[#090A0F] border-t border-white/[0.08] text-slate-300 font-sans">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20">
     
     <!-- Upper Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 sm:pb-16 border-b border-slate-100">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-12 sm:pb-16 border-b border-white/[0.08]">
       
       <!-- Brand & Global Studio Overview -->
       <div class="lg:col-span-5 space-y-4">
         <a href="/agency" class="group inline-flex items-center gap-2.5">
-          <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-grotesk font-extrabold text-base shadow-xs group-hover:bg-[#0284C7] transition-colors">
-            N<span class="text-[#38BDF8]">S</span>
-          </div>
-          <span class="font-grotesk font-extrabold text-xl tracking-tight text-slate-900">
-            NovaStack<span class="text-[#0284C7]">.</span>
-          </span>
+          {logoUrl ? (
+            <img
+              src={logoUrl}
+              alt={logoAlt}
+              class={logoFullWidth ? "h-9 w-auto max-w-[180px] object-contain" : "h-8 w-8 rounded-xl object-contain bg-white/[0.04] border border-white/15 p-1 group-hover:border-[#828FFF] transition-colors"}
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <div class="w-8 h-8 rounded-xl bg-white/[0.08] border border-white/15 text-white flex items-center justify-center font-grotesk font-extrabold text-base group-hover:border-[#828FFF] transition-colors">
+              N<span class="text-[#828FFF]">S</span>
+            </div>
+          )}
+          {!(logoUrl && logoFullWidth) && (
+            <span class="font-grotesk font-extrabold text-xl tracking-tight text-white">
+              {brandName}<span class="text-[#828FFF]">.</span>
+            </span>
+          )}
         </a>
 
-        <p class="text-xs font-mono uppercase tracking-wider text-[#0284C7] font-semibold">
+        <p class="text-xs font-mono uppercase tracking-wider text-[#828FFF] font-semibold">
           AI &amp; Digital Technology Studio
         </p>
 
-        <p class="text-sm text-slate-600 leading-relaxed font-sans max-w-md">
+        <p class="text-sm text-slate-300 leading-relaxed font-sans max-w-md">
           "We Build. Automate. Optimize. Scale."
           <br /><br />
           NovaStack is a specialized technology agency partnering with founders, startups, and growing enterprises across the USA, UK, UAE, Australia, and India to engineer resilient digital products and automate business operations.
         </p>
 
         <div class="pt-2">
-          <span class="text-[11px] font-mono text-slate-500 uppercase tracking-wider block mb-1">
+          <span class="text-[11px] font-mono text-slate-300 uppercase tracking-wider block mb-2">
             Global Service Hubs:
           </span>
-          <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-600">
-            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">United States</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">United Kingdom</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">United Arab Emirates</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">Australia</span>
-            <span class="px-2 py-0.5 rounded bg-slate-100 border border-slate-200">India</span>
+          <div class="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-200">
+            <span class="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10">United States</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10">United Kingdom</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10">United Arab Emirates</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10">Australia</span>
+            <span class="px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10">India</span>
           </div>
         </div>
       </div>
 
       <!-- Services Column -->
       <div class="lg:col-span-3 space-y-3">
-        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-slate-900">
+        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-white">
           Agency Services
         </h4>
-        <ul class="space-y-2 text-xs font-mono text-slate-600">
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              Web Development (Next.js)
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              Mobile App Development (React Native)
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              AI &amp; Automation Workflows
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              SaaS &amp; Custom Software MVPs
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              Technical SEO &amp; GEO
-            </a>
-          </li>
-          <li>
-            <a href="#services" class="hover:text-slate-900 hover:underline transition-colors">
-              UI/UX &amp; Product Design
-            </a>
-          </li>
+        <ul class="space-y-2 text-xs font-mono text-slate-300">
+          <li><a href="#services" class="hover:text-white transition-colors">Web Development (Next.js)</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">Mobile App Development (React Native)</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">AI &amp; Automation Workflows</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">SaaS &amp; Custom Software MVPs</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">Technical SEO &amp; GEO</a></li>
+          <li><a href="#services" class="hover:text-white transition-colors">UI/UX &amp; Product Design</a></li>
         </ul>
       </div>
 
       <!-- Portfolio & Ecosystem Column -->
       <div class="lg:col-span-2 space-y-3">
-        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-slate-900">
+        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-white">
           Portfolio &amp; Lab
         </h4>
-        <ul class="space-y-2 text-xs font-mono text-slate-600">
-          <li>
-            <a href="/" class="hover:text-slate-900 hover:underline transition-colors">
-              Personal Portfolio ↗
-            </a>
-          </li>
-          <li>
-            <a href="/projects" class="hover:text-slate-900 hover:underline transition-colors">
-              All Case Studies ↗
-            </a>
-          </li>
-          <li>
-            <a href="/templates" class="hover:text-slate-900 hover:underline transition-colors">
-              Commercial Templates ↗
-            </a>
-          </li>
-          <li>
-            <a href="/about" class="hover:text-slate-900 hover:underline transition-colors">
-              Founder Background ↗
-            </a>
-          </li>
-          <li>
-            <a href="/blogs" class="hover:text-slate-900 hover:underline transition-colors">
-              Engineering Blog ↗
-            </a>
-          </li>
+        <ul class="space-y-2 text-xs font-mono text-slate-300">
+          <li><a href="/" class="hover:text-white transition-colors">Personal Portfolio ↗</a></li>
+          <li><a href="/projects" class="hover:text-white transition-colors">All Case Studies ↗</a></li>
+          <li><a href="/templates" class="hover:text-white transition-colors">Commercial Templates ↗</a></li>
+          <li><a href="/about" class="hover:text-white transition-colors">Founder Background ↗</a></li>
+          <li><a href="/blogs" class="hover:text-white transition-colors">Engineering Blog ↗</a></li>
         </ul>
       </div>
 
       <!-- Direct Contact & Socials -->
       <div class="lg:col-span-2 space-y-3">
-        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-slate-900">
+        <h4 class="font-grotesk font-bold text-xs uppercase tracking-wider text-white">
           Connect &amp; Inquire
         </h4>
-        <div class="space-y-2 text-xs font-mono text-slate-600">
+        <div class="space-y-2 text-xs font-mono text-slate-300">
           <p>
-            <strong class="text-slate-800 font-semibold font-sans">Email:</strong><br />
-            <a href="mailto:tanujp09@gmail.com" class="text-[#0284C7] hover:underline font-semibold">
+            <strong class="text-white font-semibold font-sans">Email:</strong><br />
+            <a href="mailto:tanujp09@gmail.com" class="text-[#828FFF] hover:text-white transition-colors font-semibold">
               tanujp09@gmail.com
             </a>
           </p>
           <p>
-            <strong class="text-slate-800 font-semibold font-sans">Direct Line:</strong><br />
-            <a href="tel:+919557321978" class="hover:underline tabular-nums">
+            <strong class="text-white font-semibold font-sans">Direct Line:</strong><br />
+            <a href="tel:+919557321978" class="hover:text-white tabular-nums transition-colors">
               +91 9557321978
             </a>
           </p>
           <p class="pt-1">
-            <strong class="text-slate-800 font-semibold font-sans">Social Profiles:</strong>
+            <strong class="text-white font-semibold font-sans">Social Profiles:</strong>
           </p>
           <div class="flex flex-col gap-1.5 pt-0.5">
-            <a href="https://linkedin.com/in/tanujdev" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 hover:underline transition-colors inline-flex items-center gap-1">
-              <span>LinkedIn</span>
-              <span>↗</span>
+            <a href="https://linkedin.com/in/tanujdev" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-flex items-center gap-1">
+              <span>LinkedIn</span><span>↗</span>
             </a>
-            <a href="https://github.com/TanujPandey09" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 hover:underline transition-colors inline-flex items-center gap-1">
-              <span>GitHub</span>
-              <span>↗</span>
-            </a>
-            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="hover:text-slate-900 hover:underline transition-colors inline-flex items-center gap-1">
-              <span>Instagram</span>
-              <span>↗</span>
+            <a href="https://github.com/TanujPandey09" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors inline-flex items-center gap-1">
+              <span>GitHub</span><span>↗</span>
             </a>
           </div>
         </div>
@@ -158,7 +134,7 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- Lower Legal & Copyright Strip -->
-    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
       <div class="flex items-center gap-2">
         <span>© {currentYear} NovaStack Studio.</span>
         <span>All rights reserved.</span>
@@ -167,7 +143,7 @@ const currentYear = new Date().getFullYear();
       <div class="flex items-center gap-4">
         <span>Founded &amp; Led by Tanuj Pandey</span>
         <span>·</span>
-        <a href="#hero" class="hover:text-slate-900 transition-colors">Back to top ↑</a>
+        <a href="#hero" class="hover:text-white transition-colors">Back to top ↑</a>
       </div>
     </div>
 

@@ -1,142 +1,143 @@
 ---
-import SectionHeader from "./SectionHeader.astro";
+// Arshawn Arbabi Inspired Process: "How a project runs" Editorial Ledger + FAQ Accordion + Collaboration Philosophy
 
 const phases = [
   {
-    step: "01",
-    tag: "Days 1 - 3",
-    title: "Scope & System Design",
-    desc: "Map user roles, relational database schemas, API contracts, and milestone deliverables before writing application code."
+    step: "01/",
+    name: "Discover",
+    tagline: "Architecture & System Scoping",
+    desc: "Before touching application code, we define the technical blueprint: data models, relational database schemas, multi-LLM workflows, API contracts, and milestone deliverables. This eliminates mid-sprint pivots and ensures zero architectural ambiguity.",
+    thumb: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80"
   },
   {
-    step: "02",
-    tag: "Core Sprints",
-    title: "Full-Stack & AI Build",
-    desc: "Ship typed React/Next.js interfaces, Node.js services, and validated multi-LLM or real-time Socket.IO workflows in weekly increments."
+    step: "02/",
+    name: "Build",
+    tagline: "Full-Stack & AI Engineering",
+    desc: "Development proceeds in rapid, transparent weekly cycles. I ship strict TypeScript interfaces, Node.js microservices, and validated AI orchestration pipelines. You receive live staging preview links on every pull request for immediate testing.",
+    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80"
   },
   {
-    step: "03",
-    tag: "Pre-Launch",
-    title: "Performance & Security QA",
-    desc: "Tune Core Web Vitals for 99+ Lighthouse scores, enforce RBAC permissions, rate limits, and end-to-end payment webhook testing."
-  },
-  {
-    step: "04",
-    tag: "Handoff",
-    title: "Production Release",
-    desc: "Deploy zero-downtime CI/CD pipelines, configure monitoring and audit logs, and deliver clean documentation for your team."
-  }
-];
-
-const guarantees = [
-  {
-    label: "Single-Engineer Ownership",
-    text: "I handle database modeling, backend APIs, LLM orchestration, and frontend UI directly so features ship without handoff bottlenecks."
-  },
-  {
-    label: "Async-First Communication",
-    text: "Clear written updates, staging preview links on every PR, and direct Slack or GitHub collaboration with founders and product leads."
-  },
-  {
-    label: "Production-Ready Codebase",
-    text: "Strict TypeScript, modular component architecture, and clean Git history designed so future engineers can onboard in hours."
+    step: "03/",
+    name: "Polish & Scale",
+    tagline: "Performance QA & Production Release",
+    desc: "Every build undergoes rigorous verification: 99+ Lighthouse performance tuning, mobile responsiveness, RBAC security audits, and zero-downtime CI/CD deployment. Clean documentation and handoff ensure your engineers can scale it effortlessly.",
+    thumb: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80"
   }
 ];
 
 const faqs = [
   {
-    q: "What is your core tech stack for production SaaS & AI builds?",
-    a: "My daily production stack is TypeScript, React.js, Next.js (App Router & SSR), Node.js, Express, PostgreSQL/MongoDB, and Socket.IO. For AI systems, I orchestrate OpenAI, Google Gemini, Anthropic Claude, and Perplexity APIs with structured output validation and RAG pipelines."
+    q: "What is your primary engineering stack?",
+    a: "My daily production stack is TypeScript, React.js, Next.js (App Router & SSR), Node.js, Express, PostgreSQL/MongoDB, and Socket.IO. For AI platforms, I orchestrate OpenAI, Gemini, Claude, and Perplexity with structured schema validation and contextual RAG."
   },
   {
-    q: "Are you available for full-time remote roles as well as freelance SaaS builds?",
-    a: "Yes. I am open to both senior Full-Stack / Frontend / AI Engineering roles with global product teams and fixed-scope SaaS or MVP builds for founders."
+    q: "Are you available for full-time remote roles or contract builds?",
+    a: "Yes. I work with founders on end-to-end MVP/SaaS builds and collaborate with global engineering teams for senior full-stack and AI engineering roles."
   },
   {
-    q: "How fast can a new SaaS MVP or AI web application go from spec to production?",
-    a: "Focused MVPs and AI workflows typically ship to production in 2 to 5 weeks. We start with database schema and API contracts in Days 1–3, followed by weekly shippable sprints with live staging previews."
+    q: "How fast can a new product go from spec to production?",
+    a: "Focused MVPs and AI platforms typically ship to production in 2 to 5 weeks. Architecture and API contracts are finalized in Days 1–3, followed by weekly shippable iterations with live staging previews."
   },
   {
-    q: "What is included when I purchase one of your commercial website templates?",
-    a: "Every template (such as Apex Luxury or Lumina Dental) includes the complete Next.js & TypeScript source code, Tailwind CSS design tokens, GSAP/Framer Motion animations, 99+ Lighthouse optimization, and a commercial license for unlimited client or personal projects."
+    q: "What do your commercial website templates include?",
+    a: "Every template (including Apex Luxury and Lumina Dental) includes the complete Next.js & TypeScript codebase, Tailwind CSS design system, GSAP/Framer animations, 99+ Lighthouse score, and a commercial license for unlimited projects."
   }
 ];
 ---
 
-<section id="process" class="py-16 sm:py-24 md:py-28 border-t border-white/[0.10] bg-canvas relative z-20">
-  <div class="w-full">
+<section id="process" class="py-16 sm:py-24 md:py-32 border-t border-black/[0.08] bg-canvas relative z-20">
+  <div class="w-full max-w-7xl mx-auto">
     
-    <SectionHeader 
-      eyebrow="DEVELOPMENT PROCESS"
-      title="How Projects Go From" 
-      gradientText="Spec to Production" 
-      subtitle="A predictable four-stage execution pipeline built for startup speed and production reliability."
-    />
-
-    <!-- 4-Step Horizontal Execution Pipeline with Developer HUD Framing -->
-    <div class="mt-8 sm:mt-12 relative">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 relative z-10">
-        {phases.map((phase) => (
-          <div data-gsap-card class="bento-spotlight group relative rounded-[20px] bg-[#111726] border border-white/[0.10] hover:border-accent-primary/40 transition-all duration-500 p-6 flex flex-col justify-between shadow-[0_18px_45px_rgba(0,0,0,0.5)]">
-            <span class="pointer-events-none absolute top-3 left-3 w-3.5 h-[1px] bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-            <span class="pointer-events-none absolute top-3 left-3 w-[1px] h-3.5 bg-white/40 group-hover:bg-accent-primary transition-colors"></span>
-
-            <div>
-              <div class="flex items-center justify-between mb-6">
-                <div class="w-9 h-9 bg-[#0B0F17] border border-white/15 group-hover:border-accent-primary flex items-center justify-center font-mono text-xs font-bold text-[#F8FAFC] group-hover:text-accent-primary transition-colors tabular-nums">
-                  {phase.step}/
-                </div>
-                <span class="text-[11px] font-mono uppercase tracking-[0.06em] text-[#64748B] px-2.5 py-0.5 bg-white/[0.03] border border-white/[0.08]">
-                  [ {phase.tag} ]
-                </span>
-              </div>
-
-              <h3 class="font-grotesk text-lg font-bold text-[#F8FAFC] tracking-[-0.03em] mb-2.5">
-                {phase.title}
-              </h3>
-              <p class="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">
-                {phase.desc}
-              </p>
-            </div>
-
-            <div class="mt-6 pt-3.5 border-t border-white/[0.08] flex items-center justify-between text-[11px] font-mono text-[#64748B]">
-              <span>STAGE {phase.step}</span>
-              <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform font-bold">→</span>
-            </div>
-          </div>
-        ))}
-      </div>
+    <!-- 1. SECTION TITLE: Giant Editorial Header -->
+    <div class="mb-12 sm:mb-16 md:mb-20" data-gsap-heading>
+      <span class="block text-xs font-mono uppercase tracking-[0.2em] text-accent-primary mb-3">
+        METHODOLOGY · 01 — 03
+      </span>
+      <h2 class="font-grotesk font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#0F172A]">
+        How a project runs
+      </h2>
     </div>
 
-    <!-- Client Core Benefits Bar -->
-    <div class="mt-8 bg-[#111726] border border-white/[0.10] p-6 md:p-8 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 divide-y md:divide-y-0 md:divide-x divide-white/[0.10]">
-      {guarantees.map((benefit, idx) => (
-        <div class={`space-y-2 ${idx > 0 ? 'pt-5 md:pt-0 md:pl-8' : ''}`}>
-          <div class="flex items-center gap-2">
-            <span class="rec-dot"></span>
-            <h4 class="font-grotesk text-sm font-bold text-[#F8FAFC] tracking-tight uppercase">{benefit.label}</h4>
+    <!-- 2. EDITORIAL NUMBERED LEDGER (Arshawn Arbabi Style) -->
+    <div class="border-t border-black/[0.08] divide-y divide-black/[0.08]">
+      {phases.map((phase) => (
+        <div data-gsap-card class="py-10 sm:py-14 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start group">
+          <!-- Step Number & Title -->
+          <div class="md:col-span-3">
+            <span class="font-mono text-sm font-bold text-accent-primary block mb-1">{phase.step}</span>
+            <h3 class="font-grotesk text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight group-hover:text-accent-primary transition-colors">
+              {phase.name}
+            </h3>
+            <span class="text-xs font-mono text-slate-600 mt-1 block uppercase tracking-wider">{phase.tagline}</span>
           </div>
-          <p class="text-xs sm:text-sm text-[#94A3B8] leading-relaxed">{benefit.text}</p>
+
+          <!-- Embedded Process Thumbnail -->
+          <div class="md:col-span-3">
+            <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 bg-slate-100 shadow-sm group-hover:shadow-md transition-all">
+              <img
+                src={phase.thumb}
+                alt={phase.name}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
+              />
+              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+            </div>
+          </div>
+
+          <!-- Description Narrative -->
+          <div class="md:col-span-6 flex flex-col justify-center h-full">
+            <p class="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
+              {phase.desc}
+            </p>
+          </div>
         </div>
       ))}
     </div>
 
-    <!-- FAQ Hairline Accordion -->
-    <div id="faq" class="mt-16 sm:mt-24 pt-12 border-t border-white/[0.10]">
-      <div class="inline-flex items-center gap-2.5 px-3.5 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/30 mb-4 shadow-[0_0_12px_rgba(94,106,210,0.15)]">
-        <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse shadow-[0_0_8px_rgba(94,106,210,0.8)]"></span>
-        <span class="text-xs font-mono font-semibold uppercase tracking-[0.08em] text-indigo-300">// FREQUENTLY ASKED</span>
+    <!-- 3. VISUAL ART EMBLEM + "Who I work best with" -->
+    <div class="my-16 sm:my-24 md:my-32 pt-16 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
+      <!-- Left: Bespoke Typographic Sculpture / Monogram -->
+      <div class="md:col-span-5 flex justify-center md:justify-start">
+        <div class="relative w-48 h-48 sm:w-64 sm:h-64 rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] p-2 shadow-2xl flex items-center justify-center overflow-hidden border border-black/10 group">
+          <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(94,106,210,0.4)_0%,transparent_70%)]"></div>
+          <span class="relative font-grotesk font-black text-7xl sm:text-8xl text-white tracking-tighter select-none group-hover:scale-105 transition-transform duration-500">
+            TP<span class="text-accent-primary">.</span>
+          </span>
+          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl"></div>
+        </div>
       </div>
-      <h3 class="font-grotesk font-bold text-2xl sm:text-3xl md:text-4xl text-[#F8FAFC] tracking-[-0.04em] mb-8">
-        Frequently Asked <span class="text-text-dim">Questions</span>
-      </h3>
 
-      <div class="border-t border-white/[0.14]" id="faq-accordion">
+      <!-- Right: "Who I work best with" Editorial Narrative -->
+      <div class="md:col-span-7 space-y-4 sm:space-y-6">
+        <span class="text-xs font-mono uppercase tracking-[0.2em] text-accent-primary font-bold block">COLLABORATION FIT</span>
+        <h3 class="font-grotesk text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight">
+          Who I work best with
+        </h3>
+        <p class="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
+          I partner with ambitious founders, early-stage to Series B startups, and product teams that value engineering rigor, clean architecture, and velocity.
+        </p>
+        <p class="text-slate-600 font-sans text-xs sm:text-sm leading-relaxed">
+          Whether you need a complete SaaS platform built from scratch, multi-LLM orchestration integrated into an existing product, or a senior engineer to own and scale your web architecture, I bridge design nuance with backend reliability.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4. FAQ: "What you might ask" (Clean Accordion) -->
+    <div id="faq" class="pt-12 sm:pt-16 border-t border-black/[0.08]">
+      <div class="mb-8">
+        <span class="text-xs font-mono uppercase tracking-[0.2em] text-accent-primary font-bold block mb-2">COMMON QUESTIONS</span>
+        <h3 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-[#0F172A] tracking-tight">
+          What you might ask
+        </h3>
+      </div>
+
+      <div class="border-t border-black/[0.08]" id="faq-accordion">
         {faqs.map((item, idx) => {
           const isFirst = idx === 0;
           return (
             <div 
-              class={`faq-item border-b border-white/[0.14] transition-colors ${isFirst ? 'is-open bg-white/[0.015]' : 'hover:bg-white/[0.01]'}`}
+              class={`faq-item border-b border-black/[0.08] transition-colors ${isFirst ? 'is-open bg-slate-50/60' : 'hover:bg-slate-50/40'}`}
               data-faq-item={idx}
             >
               <button
@@ -147,33 +148,28 @@ const faqs = [
                 class="w-full text-left py-5 sm:py-6 px-2 sm:px-4 flex items-center justify-between gap-6 cursor-pointer focus:outline-none group"
               >
                 <div class="flex items-baseline gap-4 sm:gap-6 min-w-0">
-                  <span class="font-mono text-xs text-[#38BDF8] font-bold tabular-nums shrink-0">
+                  <span class="font-mono text-xs text-accent-primary font-bold tabular-nums shrink-0">
                     0{idx + 1}/
                   </span>
-                  <h4 class="font-grotesk font-bold text-base sm:text-lg md:text-xl text-[#F8FAFC] group-hover:text-white tracking-[-0.025em] leading-snug">
+                  <span class="font-grotesk font-bold text-base sm:text-lg md:text-xl text-[#0F172A] group-hover:text-accent-primary transition-colors tracking-tight">
                     {item.q}
-                  </h4>
+                  </span>
                 </div>
-
-                <span class={`faq-icon shrink-0 w-9 h-9 rounded-full border flex items-center justify-center transition-all duration-300 ${
-                  isFirst 
-                    ? 'bg-accent-primary border-accent-primary text-white rotate-45' 
-                    : 'bg-white/[0.04] border-white/15 text-[#F8FAFC] group-hover:border-white/35'
-                }`}>
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-                    <path d="M12 5v14M5 12h14" />
-                  </svg>
-                </span>
+                <div class="w-7 h-7 rounded-full border border-black/10 flex items-center justify-center shrink-0 group-hover:border-accent-primary transition-colors">
+                  <span class="faq-icon font-mono text-sm font-semibold text-slate-600 group-hover:text-accent-primary transition-transform duration-300">
+                    {isFirst ? '−' : '+'}
+                  </span>
+                </div>
               </button>
 
-              <div 
+              <div
                 id={`faq-panel-${idx}`}
-                class={`faq-drawer grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                  isFirst ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
-                }`}
+                role="region"
+                aria-labelledby={`faq-trigger-${idx}`}
+                class={`faq-content px-2 sm:px-4 pb-6 transition-all duration-300 ${isFirst ? 'block' : 'hidden'}`}
               >
-                <div class="overflow-hidden">
-                  <p class="pb-6 pl-9 sm:pl-12 pr-4 sm:pr-14 text-xs sm:text-sm text-[#94A3B8] leading-relaxed max-w-3xl">
+                <div class="pl-8 sm:pl-11 pr-4">
+                  <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-sans max-w-3xl">
                     {item.a}
                   </p>
                 </div>
@@ -184,51 +180,59 @@ const faqs = [
       </div>
     </div>
 
+    <!-- 5. MY GUARANTEE -->
+    <div class="mt-16 sm:mt-24 pt-10 sm:pt-14 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+      <div class="md:col-span-4">
+        <h4 class="font-grotesk text-xl font-bold text-[#0F172A] tracking-tight">My Guarantee</h4>
+        <span class="text-xs font-mono text-slate-600 mt-1 block">Engineering Integrity</span>
+      </div>
+      <div class="md:col-span-8 space-y-3 text-sm text-slate-600 font-sans leading-relaxed">
+        <p>
+          I take complete single-engineer ownership of every architecture I build: direct communication, weekly shippable progress, zero handoff bottlenecks, and strict type-safe code that your team can run and scale with confidence.
+        </p>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <script>
-  const setupFaqAccordion = () => {
-    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-faq-item]'));
-    const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]'));
-    if (!items.length || !triggers.length) return;
+  function setupFaq() {
+    const container = document.getElementById('faq-accordion');
+    if (!container) return;
 
-    triggers.forEach((trigger) => {
+    const items = container.querySelectorAll('.faq-item');
+    items.forEach((item) => {
+      const trigger = item.querySelector('[data-faq-trigger]');
+      const content = item.querySelector('.faq-content');
+      const icon = item.querySelector('.faq-icon');
+      if (!trigger || !content || !icon) return;
+
       trigger.addEventListener('click', () => {
-        const targetIdx = Number(trigger.getAttribute('data-faq-trigger') || 0);
-        const clickedItem = items[targetIdx];
-        const isCurrentlyOpen = clickedItem?.classList.contains('is-open');
+        const isOpen = item.classList.contains('is-open');
 
-        items.forEach((item, idx) => {
-          const btn = item.querySelector<HTMLButtonElement>('[data-faq-trigger]');
-          const drawer = item.querySelector<HTMLElement>('.faq-drawer');
-          const icon = item.querySelector<HTMLElement>('.faq-icon');
-          const shouldOpen = idx === targetIdx ? !isCurrentlyOpen : false;
-
-          item.classList.toggle('is-open', shouldOpen);
-          item.classList.toggle('bg-white/[0.015]', shouldOpen);
-          btn?.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-
-          if (drawer) {
-            drawer.classList.toggle('grid-rows-[1fr]', shouldOpen);
-            drawer.classList.toggle('opacity-100', shouldOpen);
-            drawer.classList.toggle('grid-rows-[0fr]', !shouldOpen);
-            drawer.classList.toggle('opacity-0', !shouldOpen);
-          }
-
-          if (icon) {
-            icon.classList.toggle('bg-accent-primary', shouldOpen);
-            icon.classList.toggle('border-accent-primary', shouldOpen);
-            icon.classList.toggle('text-white', shouldOpen);
-            icon.classList.toggle('rotate-45', shouldOpen);
-            icon.classList.toggle('bg-white/[0.04]', !shouldOpen);
-            icon.classList.toggle('border-white/15', !shouldOpen);
-          }
+        // Close all items
+        items.forEach((other) => {
+          other.classList.remove('is-open', 'bg-slate-50/60');
+          const otherTrigger = other.querySelector('[data-faq-trigger]');
+          const otherContent = other.querySelector('.faq-content');
+          const otherIcon = other.querySelector('.faq-icon');
+          if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+          if (otherContent) otherContent.classList.add('hidden');
+          if (otherIcon) otherIcon.textContent = '+';
         });
+
+        // Toggle clicked item
+        if (!isOpen) {
+          item.classList.add('is-open', 'bg-slate-50/60');
+          trigger.setAttribute('aria-expanded', 'true');
+          content.classList.remove('hidden');
+          icon.textContent = '−';
+        }
       });
     });
-  };
+  }
 
-  setupFaqAccordion();
-  document.addEventListener('astro:after-swap', setupFaqAccordion);
+  setupFaq();
+  document.addEventListener('astro:page-load', setupFaq);
 </script>

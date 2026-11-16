@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Loader from "../components/Loader.astro";
 import Footer from "../components/Footer.astro";
+import QuickContactDrawer from "../components/QuickContactDrawer.astro";
 import { ClientRouter } from 'astro:transitions';
 
 interface Props {
@@ -260,13 +261,13 @@ const structuredData = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     
-    <!-- Google Fonts Preconnect & Optimized Async Link -->
+    <!-- Google Fonts Preconnect & Optimized Async Link (Geist, Plus Jakarta Sans, Space Grotesk, Geist Mono) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
     <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     </noscript>
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
@@ -336,7 +337,12 @@ const structuredData = {
     </main>
 
     {!hideDefaultFooter && <Footer />}
-    {!isAgency && <div class="cursor"></div>}
+    {!isAgency && <QuickContactDrawer />}
+    {!isAgency && (
+      <div id="magnetic-cursor" class="cursor flex items-center justify-center overflow-hidden">
+        <span id="cursor-label" class="cursor-label hidden text-[10px] font-mono font-bold tracking-wider uppercase text-white whitespace-nowrap px-2.5"></span>
+      </div>
+    )}
     {!isAgency && <div class="cursor2"></div>}
   </body>
 </html>
@@ -368,10 +374,10 @@ const structuredData = {
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #0B0F17;
+    background: #FAFAFB;
   }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.16);
+    background: rgba(15, 23, 42, 0.16);
     border-radius: 6px;
   }
   ::-webkit-scrollbar-thumb:hover {
@@ -379,32 +385,32 @@ const structuredData = {
   }
 
   :root {
-    /* Modern Framer Developer Design Tokens (Linear & Obsidian System) */
-    --canvas-bg-rgb: 11 15 23;          /* #0B0F17 - Deep Midnight Obsidian Slate */
-    --surface-card-rgb: 17 23 38;       /* #111726 - Bento Slate Card Surface */
-    --surface-elevated-rgb: 26 34 54;   /* #1A2236 - Elevated / Interactive Surface */
-    --text-primary-rgb: 248 250 252;    /* #F8FAFC - Crisp Pure White */
+    /* CodeOfSagar Inspired Light Studio Editorial Design Tokens */
+    --canvas-bg-rgb: 250 250 251;       /* #FAFAFB - Crisp Off-White Chalk Canvas */
+    --surface-card-rgb: 255 255 255;    /* #FFFFFF - Pure Crisp White Card Surface */
+    --surface-elevated-rgb: 241 245 249;/* #F1F5F9 - Subtle Elevated Surface */
+    --text-primary-rgb: 15 23 42;       /* #0F172A - Deep Charcoal Ink */
     
     /* Developer High-Tech Accent System */
     --accent-primary-rgb: 94 106 210;   /* #5E6AD2 - Linear Indigo */
-    --accent-cyan-rgb: 56 189 248;      /* #38BDF8 - Electric Sky / Cyan */
+    --accent-cyan-rgb: 51 65 85;        /* #334155 - Slate */
     --status-live-rgb: 16 185 129;      /* #10B981 - Developer Emerald Live */
 
-    --canvas-bg: #0B0F17;
-    --surface-card: #111726;
-    --surface-elevated: #1A2236;
+    --canvas-bg: #FAFAFB;
+    --surface-card: #FFFFFF;
+    --surface-elevated: #F1F5F9;
     
-    --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-hover: rgba(94, 106, 210, 0.40);
+    --border-subtle: rgba(15, 23, 42, 0.08);
+    --border-hover: rgba(94, 106, 210, 0.45);
     
-    --text-primary: #F8FAFC;
-    --text-muted: #94A3B8;              /* Readable Cool Slate Gray */
+    --text-primary: #0F172A;
+    --text-muted: #475569;              /* Readable Cool Slate Gray */
     --text-dim: #64748B;                /* Tech Slate Metadata */
     
     --accent-primary: #5E6AD2;
-    --accent-hover: #7580E0;
-    --accent-glow: rgba(94, 106, 210, 0.28);
-    --accent-cyan: #38BDF8;
+    --accent-hover: #4854B8;
+    --accent-glow: rgba(94, 106, 210, 0.14);
+    --accent-cyan: #334155;
     --status-live: #10B981;
 
     /* Legacy Fallback Mappings */
@@ -467,31 +473,31 @@ const structuredData = {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
     width: 100%;
   }
 
   body {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
     width: 100%;
     position: relative;
     background-color: var(--bg-deep);
     color: var(--text-muted);
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Geist', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
     font-size: var(--p-mobile);
     line-height: var(--line-height-normal);
   }
 
   body:has(.agency-page),
   body.agency-page-body {
-    background-color: #FAFAFA !important;
-    color: #334155 !important;
+    background-color: #090A0F !important;
+    color: #F8FAFC !important;
   }
 
   #main-content {
-    overflow-x: hidden;
+    overflow-x: clip;
     max-width: 100vw;
     width: 100%;
   }
@@ -504,21 +510,24 @@ const structuredData = {
   }
 
   h1, h2, h3, h4, h5, h6 {
-    color: var(--text-primary);
     font-family: 'Space Grotesk', sans-serif;
     font-weight: var(--fw-black);
     line-height: var(--line-height-tight);
     letter-spacing: var(--letter-spacing-tight);
   }
 
-  h1 { font-size: var(--h1-mobile); }
-  h2 { font-size: var(--h2-mobile); }
-  h3 { font-size: var(--h3-mobile); }
-  h4 { font-size: var(--h4-mobile); }
-  h5 { font-size: var(--h5-mobile); }
-  h6 { font-size: var(--h6-mobile); }
+  :where(h1, h2, h3, h4, h5, h6):not([class*="text-"]) {
+    color: var(--text-primary);
+  }
 
-  p {
+  :where(h1):not([class*="text-"]) { font-size: var(--h1-mobile); }
+  :where(h2):not([class*="text-"]) { font-size: var(--h2-mobile); }
+  :where(h3):not([class*="text-"]) { font-size: var(--h3-mobile); }
+  :where(h4):not([class*="text-"]) { font-size: var(--h4-mobile); }
+  :where(h5):not([class*="text-"]) { font-size: var(--h5-mobile); }
+  :where(h6):not([class*="text-"]) { font-size: var(--h6-mobile); }
+
+  :where(p):not([class*="text-"]) {
     font-size: var(--p-mobile);
     line-height: var(--line-height-relaxed);
     color: var(--text-muted);
@@ -526,59 +535,105 @@ const structuredData = {
 
   @media (min-width: 1024px) {
     body { font-size: var(--p-desktop); }
-    h1 { font-size: var(--h1-desktop); }
-    h2 { font-size: var(--h2-desktop); }
-    h3 { font-size: var(--h3-desktop); }
-    h4 { font-size: var(--h4-desktop); }
-    h5 { font-size: var(--h5-desktop); }
-    h6 { font-size: var(--h6-desktop); }
-    p { font-size: var(--p-desktop); }
+    :where(h1):not([class*="text-"]) { font-size: var(--h1-desktop); }
+    :where(h2):not([class*="text-"]) { font-size: var(--h2-desktop); }
+    :where(h3):not([class*="text-"]) { font-size: var(--h3-desktop); }
+    :where(h4):not([class*="text-"]) { font-size: var(--h4-desktop); }
+    :where(h5):not([class*="text-"]) { font-size: var(--h5-desktop); }
+    :where(h6):not([class*="text-"]) { font-size: var(--h6-desktop); }
+    :where(p):not([class*="text-"]) { font-size: var(--p-desktop); }
   }
 
   .cursor {
-    width: 25px;
-    height: 25px;
-    border-radius: 100%;
-    border: 1px solid var(--primary-color);
-    transition: all 150ms ease-out;
+    width: 24px;
+    height: 24px;
+    border-radius: 9999px;
+    border: 1px solid rgba(15, 23, 42, 0.35);
+    background-color: transparent;
+    transition: width 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                height 0.22s cubic-bezier(0.16, 1, 0.3, 1), 
+                background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
     position: fixed;
     pointer-events: none;
     left: 0;
     top: 0;
     transform: translate(-50%, -50%);
     z-index: 9999;
+    will-change: transform, width, height;
+  }
+
+  .cursor.is-pill {
+    width: auto !important;
+    min-width: 140px;
+    height: 38px !important;
+    padding: 0 16px;
+    background-color: rgba(15, 23, 42, 0.94) !important;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(15, 23, 42, 0.2) !important;
+    box-shadow: 0 16px 36px rgba(15, 23, 42, 0.22);
+    color: #FFFFFF !important;
+  }
+
+  .cursor.is-hover {
+    width: 52px;
+    height: 52px;
+    background-color: rgba(94, 106, 210, 0.08) !important;
+    border-color: rgba(94, 106, 210, 0.6) !important;
   }
 
   .cursor2 {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 100%;
-    background-color: var(--primary-color);
+    background-color: #0F172A;
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 9999;
-    transition: width 0.3s, height 0.3s, background-color 0.3s;
-  }
-
-  .hover {
-    background-color: var(--accent-glow);
-    border-color: var(--accent-primary);
-    width: 60px;
-    height: 60px;
+    transition: opacity 0.2s ease, transform 0.2s ease;
   }
 
   .cursorinnerhover {
     width: 4px;
     height: 4px;
-    background-color: white;
+    background-color: #0F172A;
   }
 
-  /* Framer High-Contrast Pure White to Slate Sheen Gradient */
+  /* CodeOfSagar High-Contrast Deep Ink Gradient */
   .text-gradient {
-    background: linear-gradient(135deg, #FFFFFF 20%, #E2E8F0 60%, #94A3B8 100%);
+    background: linear-gradient(135deg, #0F172A 15%, #334155 55%, #5E6AD2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+
+  /* Shared Iridescent Liquid Drapery Art (Arshawn Arbabi Hero Aesthetic) */
+  .liquid-aurora {
+    background: 
+      radial-gradient(circle at 18% 25%, rgba(220, 38, 38, 0.72) 0%, transparent 45%),
+      radial-gradient(circle at 45% 15%, rgba(245, 158, 11, 0.82) 0%, transparent 40%),
+      radial-gradient(circle at 75% 20%, rgba(13, 148, 136, 0.68) 0%, transparent 50%),
+      radial-gradient(circle at 90% 35%, rgba(94, 106, 210, 0.8) 0%, transparent 45%),
+      linear-gradient(135deg, #180d2b 0%, #291218 35%, #0f2228 70%, #0a0b0e 100%);
+    filter: blur(45px);
+    animation: auroraFlow 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes auroraFlow {
+    0% {
+      transform: scale(1.05) translate(0%, 0%) rotate(0deg);
+      filter: blur(45px) hue-rotate(0deg);
+    }
+    50% {
+      transform: scale(1.15) translate(-2%, 3%) rotate(1.5deg);
+      filter: blur(55px) hue-rotate(15deg);
+    }
+    100% {
+      transform: scale(1.08) translate(2%, -2%) rotate(-1deg);
+      filter: blur(48px) hue-rotate(-15deg);
+    }
   }
 
   /* Developer Live Status Pulse Indicator (Emerald Glow) */
@@ -881,72 +936,120 @@ const structuredData = {
     gsap.to(cursorinner, { scale: 1, duration: 0.3 });
   });
 
-  // Use event delegation for hover states
+  // High-End Lerp Cursor Interaction (Awwwards Style: Arshawn Arbabi & Code of Sagar)
   document.addEventListener("mouseover", (e) => {
-    const target = (e.target as HTMLElement).closest("a, button, .group, [data-hover-glow]");
-    if (target && cursor && cursorinner) {
-      gsap.to(cursor, { 
-        width: 80, 
-        height: 80, 
-        backgroundColor: "rgba(94, 106, 210, 0.08)",
-        borderColor: "rgba(94, 106, 210, 0.4)",
-        duration: 0.3 
-      });
-      gsap.to(cursorinner, { scale: 0.5, opacity: 0, duration: 0.3 });
+    if (!cursor || window.innerWidth < 1024) return;
+    const target = e.target as HTMLElement;
+    const pillTarget = target.closest<HTMLElement>("[data-cursor-text]");
+    const hoverTarget = target.closest<HTMLElement>("a, button, [data-hover-glow], .magnetic-btn");
+    const cursorLabel = document.getElementById("cursor-label");
+
+    if (pillTarget && cursorLabel) {
+      const text = pillTarget.getAttribute("data-cursor-text") || "EXPLORE ↗";
+      cursorLabel.textContent = text;
+      cursorLabel.classList.remove("hidden");
+      cursor.classList.remove("is-hover");
+      cursor.classList.add("is-pill");
+      if (cursorinner) (cursorinner as HTMLElement).style.opacity = "0";
+    } else if (hoverTarget) {
+      if (cursorLabel) cursorLabel.classList.add("hidden");
+      cursor.classList.remove("is-pill");
+      cursor.classList.add("is-hover");
+      if (cursorinner) {
+        (cursorinner as HTMLElement).style.opacity = "0.5";
+        (cursorinner as HTMLElement).style.transform = "translate(-50%, -50%) scale(0.6)";
+      }
     }
   });
 
   document.addEventListener("mouseout", (e) => {
-    const target = (e.target as HTMLElement).closest("a, button, .group, [data-hover-glow]");
-    if (target && cursor && cursorinner) {
-      gsap.to(cursor, { 
-        width: 25, 
-        height: 25, 
-        backgroundColor: "transparent",
-        borderColor: "var(--primary-color)",
-        duration: 0.3 
-      });
-      gsap.to(cursorinner, { scale: 1, opacity: 1, duration: 0.3 });
+    if (!cursor || window.innerWidth < 1024) return;
+    const related = e.relatedTarget as HTMLElement | null;
+
+    if (!related || (!related.closest("[data-cursor-text]") && !related.closest("a, button, [data-hover-glow], .magnetic-btn"))) {
+      const cursorLabel = document.getElementById("cursor-label");
+      if (cursorLabel) cursorLabel.classList.add("hidden");
+      cursor.classList.remove("is-pill", "is-hover");
+      if (cursorinner) {
+        (cursorinner as HTMLElement).style.opacity = "1";
+        (cursorinner as HTMLElement).style.transform = "translate(-50%, -50%) scale(1)";
+      }
     }
   });
 
-  // Portfolio-Wide GSAP ScrollTrigger, Video Parallax, 3D Card Tilt, Magnetic Buttons & Counters
+  // Portfolio-Wide GSAP ScrollTrigger, Parallax, 3D Hardware Tilt, Magnetic Buttons & Counters
   const initPortfolioMotion = () => {
     ScrollTrigger.getAll().forEach((t) => {
-      if (t.vars.id !== 'about-horizontal-trigger') {
+      const id = String(t.vars?.id || '');
+      if (id !== 'about-horizontal-trigger' && !id.startsWith('career-stack-depth-') && !id.startsWith('agency-')) {
         t.kill();
       }
     });
 
-    // 1. Hero Entrance Choreography (Transform-only, never hides opacity)
+    // 1. Hero Entrance Choreography (Transform + Clip Reveal, never stuck invisible)
     const heroWordmark = document.querySelector('[data-gsap-hero="wordmark"]');
+    const heroPortrait = document.querySelector('[data-gsap-hero="portrait"]');
     const heroHeadline = document.querySelector('[data-gsap-hero="headline"]');
+    const heroBio = document.querySelector('[data-gsap-hero="bio"]');
+    const heroRetrospective = document.querySelector('[data-gsap-hero="retrospective"]');
     const heroBottom = document.querySelector('[data-gsap-hero="bottombar"]');
 
     if (heroWordmark) {
       gsap.fromTo(
         heroWordmark,
-        { y: 26, scale: 0.97 },
-        { y: 0, scale: 1, duration: 1, ease: "power4.out" }
+        { y: 36, scale: 0.975 },
+        { y: 0, scale: 1, duration: 1.05, ease: "power4.out", clearProps: "transform" }
+      );
+    }
+    if (heroPortrait) {
+      gsap.fromTo(
+        heroPortrait,
+        { y: 28, scale: 0.94, clipPath: "inset(12% 0% 12% 0% round 24px)" },
+        { y: 0, scale: 1, clipPath: "inset(0% 0% 0% 0% round 24px)", duration: 1.1, delay: 0.1, ease: "power3.out", clearProps: "clipPath,transform" }
+      );
+    }
+    if (heroBio) {
+      gsap.fromTo(
+        heroBio,
+        { y: 28 },
+        { y: 0, duration: 0.95, delay: 0.14, ease: "power3.out", clearProps: "transform" }
+      );
+    }
+    if (heroRetrospective) {
+      gsap.fromTo(
+        heroRetrospective,
+        { y: 24 },
+        {
+          y: 0,
+          duration: 0.9,
+          ease: "power3.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: heroRetrospective,
+            start: "top 95%",
+            once: true,
+          },
+        }
       );
     }
     if (heroHeadline) {
       gsap.fromTo(
         heroHeadline,
-        { y: 22 },
-        { y: 0, duration: 0.95, delay: 0.08, ease: "power3.out" }
+        { y: 24 },
+        { y: 0, duration: 0.95, delay: 0.08, ease: "power3.out", clearProps: "transform" }
       );
     }
     if (heroBottom) {
       gsap.fromTo(
         heroBottom,
-        { y: 20 },
-        { y: 0, duration: 0.9, delay: 0.18, ease: "power3.out" }
+        { y: 22 },
+        { y: 0, duration: 0.9, delay: 0.18, ease: "power3.out", clearProps: "transform" }
       );
     }
 
-    // 2. Hero Background Video Scroll Parallax
+    // 2. Hero Background Video / Liquid Aurora Scroll Parallax
     const heroBgVideo = document.getElementById("hero-bg-video");
+    const heroAurora = document.querySelector<HTMLElement>(".liquid-aurora");
     const heroSection = document.getElementById("hero");
     if (heroBgVideo && heroSection) {
       gsap.to(heroBgVideo, {
@@ -961,47 +1064,160 @@ const structuredData = {
         },
       });
     }
+    if (heroAurora && heroSection) {
+      gsap.to(heroAurora, {
+        yPercent: 25,
+        ease: "none",
+        scrollTrigger: {
+          trigger: heroSection,
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.6,
+        },
+      });
+    }
 
-    // 3. Section Headings Kinetic Glide
+    // 3. Hardware Showcase Scrub Parallax ([data-gsap-parallax] moves chassis cleanly without scaling/cropping screen contents)
+    document.querySelectorAll<HTMLElement>("[data-gsap-parallax]").forEach((el) => {
+      gsap.fromTo(
+        el,
+        { y: 24, scale: 0.985 },
+        {
+          y: -14,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: el,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: 0.8,
+          },
+        }
+      );
+    });
+
+    // 4. 3D MacBook Hardware Stage Tilt & Specular Screen Reflection
+    document.querySelectorAll<HTMLElement>(".laptop-3d-stage").forEach((stage) => {
+      if (stage.dataset.tiltBound === "true") return;
+      stage.dataset.tiltBound = "true";
+
+      const chassis = stage.querySelector<HTMLElement>(".laptop-chassis");
+      const glare = stage.querySelector<HTMLElement>(".laptop-glare");
+      if (!chassis) return;
+
+      stage.addEventListener("mousemove", (e: MouseEvent) => {
+        if (window.innerWidth < 1024 || prefersReducedMotion) return;
+        const rect = stage.getBoundingClientRect();
+        const relX = (e.clientX - rect.left) / rect.width - 0.5;
+        const relY = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(chassis, {
+          rotateY: relX * 6,
+          rotateX: relY * -4,
+          transformPerspective: 1400,
+          duration: 0.45,
+          ease: "power2.out",
+        });
+
+        if (glare) {
+          gsap.to(glare, {
+            background: `radial-gradient(circle at ${(relX + 0.5) * 100}% ${(relY + 0.5) * 100}%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 40%, transparent 72%)`,
+            duration: 0.3,
+          });
+        }
+      });
+
+      stage.addEventListener("mouseleave", () => {
+        if (window.innerWidth < 1024) return;
+        gsap.to(chassis, {
+          rotateX: 0,
+          rotateY: 0,
+          duration: 0.7,
+          ease: "power3.out",
+        });
+      });
+    });
+
+    // 5. Section Headings Kinetic Masked Reveal
     document.querySelectorAll<HTMLElement>("[data-gsap-heading]").forEach((heading) => {
       gsap.fromTo(
         heading,
-        { y: 28, scale: 0.985 },
+        { y: 34, scale: 0.985 },
+        {
+          y: 0,
+          scale: 1,
+          duration: 0.9,
+          ease: "power3.out",
+          clearProps: "transform",
+          scrollTrigger: {
+            trigger: heading,
+            start: "top 92%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    // 6. Editorial Hairline Divider Sweep
+    document.querySelectorAll<HTMLElement>("[data-gsap-line]").forEach((line) => {
+      gsap.fromTo(
+        line,
+        { scaleX: 0, transformOrigin: "left center" },
+        {
+          scaleX: 1,
+          duration: 0.95,
+          ease: "power3.inOut",
+          scrollTrigger: {
+            trigger: line,
+            start: "top 92%",
+            once: true,
+          },
+        }
+      );
+    });
+
+    // 7. Cards ScrollTrigger Staggered Glide
+    document.querySelectorAll<HTMLElement>("[data-gsap-card]").forEach((card, idx) => {
+      gsap.fromTo(
+        card,
+        { y: 36, scale: 0.985 },
         {
           y: 0,
           scale: 1,
           duration: 0.85,
+          delay: (idx % 3) * 0.06,
           ease: "power3.out",
-          scrollTrigger: {
-            trigger: heading,
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
-    });
-
-    // 4. Cards ScrollTrigger Glide & 3D Tilt + Spotlight
-    document.querySelectorAll<HTMLElement>("[data-gsap-card]").forEach((card, idx) => {
-      gsap.fromTo(
-        card,
-        { y: 32, scale: 0.985 },
-        {
-          y: 0,
-          scale: 1,
-          duration: 0.8,
-          delay: (idx % 3) * 0.05,
-          ease: "power3.out",
+          clearProps: "transform",
           scrollTrigger: {
             trigger: card,
-            start: "top 92%",
-            toggleActions: "play none none none",
+            start: "top 93%",
+            once: true,
           },
         }
       );
     });
 
-    // 5. Spotlight Coordinates & Subtle 3D Tilt on Bento Cards
+    // 8. Footer Monumental Wordmark Scrub Reveal
+    const footerWordmark = document.querySelector<HTMLElement>(".footer-giant-wordmark");
+    if (footerWordmark) {
+      gsap.fromTo(
+        footerWordmark,
+        { yPercent: 12, scale: 0.97 },
+        {
+          yPercent: 0,
+          scale: 1,
+          ease: "none",
+          scrollTrigger: {
+            trigger: footerWordmark,
+            start: "top 95%",
+            end: "bottom 90%",
+            scrub: 0.6,
+          },
+        }
+      );
+    }
+
+    // 9. Spotlight Coordinates & Subtle 3D Tilt on Bento Cards
     document.querySelectorAll<HTMLElement>(".bento-spotlight").forEach((card) => {
       if (card.dataset.spotlightBound === "true") return;
       card.dataset.spotlightBound = "true";
@@ -1038,7 +1254,7 @@ const structuredData = {
       });
     });
 
-    // 6. Project Card Hover Video Preview
+    // 10. Project Card Hover Video Preview
     document.querySelectorAll<HTMLElement>(".project-item").forEach((item) => {
       const video = item.querySelector<HTMLVideoElement>(".project-hover-video");
       if (!video || item.dataset.videoBound === "true") return;
@@ -1052,7 +1268,7 @@ const structuredData = {
       });
     });
 
-    // 7. Magnetic Buttons
+    // 11. Magnetic Buttons
     document.querySelectorAll<HTMLElement>(".magnetic-btn").forEach((btn) => {
       if (btn.dataset.magneticBound === "true") return;
       btn.dataset.magneticBound = "true";
@@ -1070,7 +1286,7 @@ const structuredData = {
       });
     });
 
-    // 8. Animated Metric Counters
+    // 12. Animated Metric Counters
     document.querySelectorAll<HTMLElement>("[data-counter]").forEach((counterEl) => {
       if (counterEl.dataset.counterAnimated === "true") return;
       const targetVal = parseFloat(counterEl.getAttribute("data-counter") || "0");

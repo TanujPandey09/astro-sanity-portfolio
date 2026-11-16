@@ -8,6 +8,7 @@ import SideBar from './components/SideBar/SideBar'
 import About from './components/About/About'
 import LogoSection from './components/LogoSection'
 import ChatBot from './components/ChatBot'
+import AgencySettings from './components/AgencySettings'
 
-export const schemaTypes = [Banner, Skills, Project, Blog, Template, SideBar, SideMenu, About, LogoSection, ChatBot]
+export const schemaTypes = [Banner, Skills, Project, Blog, Template, SideBar, SideMenu, About, LogoSection, ChatBot, AgencySettings]
 
