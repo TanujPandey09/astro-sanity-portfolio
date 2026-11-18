@@ -105,7 +105,7 @@ const templatesData = await fetchAllTemplates();
                </button>
             </div>
 
-            <div id="repo-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div id="repo-grid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                {projectData?.slice(4).map((project, index) => (
                  <ProjectCard project={project} index={index} />
                ))}
@@ -205,19 +205,25 @@ const templatesData = await fetchAllTemplates();
     const repoGrid = document.getElementById('repo-grid');
     const repoIcon = document.getElementById('repo-icon');
 
-    expandBtn?.addEventListener('click', () => {
-      repoGrid?.classList.toggle('hidden');
-      repoIcon?.classList.toggle('rotate-180');
-      
-      const isExpanded = !repoGrid?.classList.contains('hidden');
-      expandBtn.setAttribute('aria-expanded', String(isExpanded));
+    if (!expandBtn || !repoGrid || expandBtn.dataset.bound === 'true') return;
+    expandBtn.dataset.bound = 'true';
+
+    expandBtn.addEventListener('click', () => {
+      const willExpand = repoGrid.classList.contains('hidden');
+      repoGrid.classList.toggle('hidden', !willExpand);
+      repoGrid.classList.toggle('grid', willExpand);
+      repoIcon?.classList.toggle('rotate-180', willExpand);
+
+      expandBtn.setAttribute('aria-expanded', String(willExpand));
       const labelSpan = expandBtn.querySelector('span');
       if (labelSpan) {
-        labelSpan.textContent = isExpanded ? 'Collapse List' : 'Show All';
+        const countMatch = labelSpan.textContent?.match(/\(\d+\)/)?.[0] || '';
+        labelSpan.textContent = willExpand ? 'Collapse List' : `Show All ${countMatch}`.trim();
       }
     });
   };
 
   setupRepoExpand();
+  document.addEventListener('astro:page-load', setupRepoExpand);
   document.addEventListener('astro:after-swap', setupRepoExpand);
 </script>

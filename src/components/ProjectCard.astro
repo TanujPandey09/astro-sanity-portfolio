@@ -10,7 +10,7 @@ const rawTags = project?.tags || project?.techStack || [];
 const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STACK', 'PRODUCTION'];
 ---
 
-<div class="group relative bg-white border border-black/[0.08] rounded-[20px] overflow-hidden hover:border-accent-primary/50 transition-all duration-500 hover:-translate-y-1 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]" data-cursor-text="VIEW CASE STUDY ↗" data-aos="fade-up" data-aos-delay={index * 50}>
+<div data-gsap-card class="bento-spotlight group relative bg-white border border-black/[0.08] rounded-[20px] overflow-hidden hover:border-accent-primary/50 transition-[border-color,box-shadow] duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.05)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]" data-cursor-text="VIEW CASE STUDY ↗" data-aos="fade-up" data-aos-delay={index * 50}>
   <a href={`/projects/${project.slug?.current}`} aria-label={`View project details for ${projectName}`} class="block">
     <div class="aspect-[16/10] relative overflow-hidden bg-[#F1F5F9] border-b border-black/[0.06]">
       {imageUrl && (

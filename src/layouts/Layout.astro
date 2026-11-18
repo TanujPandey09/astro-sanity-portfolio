@@ -695,8 +695,6 @@ const structuredData = {
   .bento-spotlight {
     position: relative;
     overflow: hidden;
-    transform-style: preserve-3d;
-    will-change: transform;
   }
   .bento-spotlight::before {
     content: "";
@@ -706,11 +704,11 @@ const structuredData = {
     pointer-events: none;
     z-index: 2;
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.3s ease;
     background: radial-gradient(
-      520px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      460px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
       rgba(94, 106, 210, 0.14),
-      transparent 45%
+      transparent 48%
     );
   }
   .bento-spotlight:hover::before {
@@ -1077,20 +1075,19 @@ const structuredData = {
       });
     }
 
-    // 3. Hardware Showcase Scrub Parallax ([data-gsap-parallax] moves chassis cleanly without scaling/cropping screen contents)
+    // 3. Hardware Showcase Scrub Parallax (Safe subtle vertical parallax without fighting hover/tilt)
     document.querySelectorAll<HTMLElement>("[data-gsap-parallax]").forEach((el) => {
       gsap.fromTo(
         el,
-        { y: 24, scale: 0.985 },
+        { y: 18 },
         {
-          y: -14,
-          scale: 1,
+          y: -10,
           ease: "none",
           scrollTrigger: {
             trigger: el,
             start: "top bottom",
             end: "bottom top",
-            scrub: 0.8,
+            scrub: 0.6,
           },
         }
       );
@@ -1176,21 +1173,20 @@ const structuredData = {
       );
     });
 
-    // 7. Cards ScrollTrigger Staggered Glide
+    // 7. Cards ScrollTrigger Staggered Glide (Never leaves cards rotated or trapped)
     document.querySelectorAll<HTMLElement>("[data-gsap-card]").forEach((card, idx) => {
       gsap.fromTo(
         card,
-        { y: 36, scale: 0.985 },
+        { y: 20 },
         {
           y: 0,
-          scale: 1,
-          duration: 0.85,
-          delay: (idx % 3) * 0.06,
-          ease: "power3.out",
+          duration: 0.65,
+          delay: (idx % 3) * 0.05,
+          ease: "power2.out",
           clearProps: "transform",
           scrollTrigger: {
             trigger: card,
-            start: "top 93%",
+            start: "top 98%",
             once: true,
           },
         }
@@ -1217,41 +1213,18 @@ const structuredData = {
       );
     }
 
-    // 9. Spotlight Coordinates & Subtle 3D Tilt on Bento Cards
+    // 9. Spotlight Coordinates on Bento Cards (pure CSS radial sheen, zero GSAP 3D conflict)
     document.querySelectorAll<HTMLElement>(".bento-spotlight").forEach((card) => {
       if (card.dataset.spotlightBound === "true") return;
       card.dataset.spotlightBound = "true";
 
-      card.addEventListener("mousemove", (e: MouseEvent) => {
+      card.addEventListener("pointermove", (e: PointerEvent) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         card.style.setProperty("--mouse-x", `${x}px`);
         card.style.setProperty("--mouse-y", `${y}px`);
-
-        if (window.innerWidth >= 1024 && !card.hasAttribute("data-exp-item")) {
-          const rotateY = ((x / rect.width) - 0.5) * 4;
-          const rotateX = ((y / rect.height) - 0.5) * -4;
-          gsap.to(card, {
-            rotateX,
-            rotateY,
-            transformPerspective: 1000,
-            duration: 0.35,
-            ease: "power2.out",
-          });
-        }
-      });
-
-      card.addEventListener("mouseleave", () => {
-        if (window.innerWidth >= 1024) {
-          gsap.to(card, {
-            rotateX: 0,
-            rotateY: 0,
-            duration: 0.5,
-            ease: "power3.out",
-          });
-        }
-      });
+      }, { passive: true });
     });
 
     // 10. Project Card Hover Video Preview

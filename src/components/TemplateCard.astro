@@ -27,7 +27,7 @@ const priceNumeric = price.replace(/[^0-9.]/g, "") || "49";
 <article 
   data-gsap-card
   data-cursor-text="EXPLORE TEMPLATE ↗"
-  class="template-card group relative rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-300 flex flex-col justify-between overflow-hidden"
+  class="bento-spotlight template-card group relative rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow] duration-300 flex flex-col justify-between overflow-hidden"
   data-category={categoryFilterKey}
   data-tags={tags.join(",").toLowerCase()}
   data-price={priceNumeric}

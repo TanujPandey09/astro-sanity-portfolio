@@ -115,7 +115,7 @@ const skillGroups = [
     <!-- 4 Clean, Scannable Domain Cards (Parsed in 3 Seconds) -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {skillGroups.map((group, idx) => (
-        <div data-gsap-card class="bento-spotlight group relative rounded-[24px] bg-white border border-black/[0.08] p-6 flex flex-col justify-between hover:border-accent-primary/40 transition-all duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+        <div data-gsap-card class="bento-spotlight group relative rounded-[24px] bg-white border border-black/[0.08] p-6 flex flex-col justify-between hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
           <div>
             <!-- Group Header -->
             <div class="flex items-center justify-between pb-4 mb-5 border-b border-black/[0.08]">

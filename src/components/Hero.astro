@@ -1,6 +1,7 @@
 ---
-// Arshawn Arbabi Inspired Editorial Hero: Deep Obsidian Canvas + Iridescent Liquid Drapery + Real Human Portrait Anchor
+// Editorial Hero: Obsidian Canvas + Linear Indigo Interactive Dot Grid & Threads + 3D Portrait Anchor
 import { optimizePortraitImage } from "../lib/optimizeImage";
+import PortfolioThreadsCanvas from "./Effects/PortfolioThreadsCanvas.astro";
 
 interface Props {
   portraitUrl?: string;
@@ -11,35 +12,37 @@ const heroPortrait = optimizePortraitImage(portraitUrl, "home");
 const currentYear = new Date().getFullYear();
 ---
 
-<section id="hero" class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-28 sm:pt-32 md:pt-36 pb-16 sm:pb-20 md:pb-24 border-b border-white/[0.08]">
-  <!-- 1. TOP IRIDESCENT LIQUID / METALLIC DRAPERY ART -->
-  <div class="absolute top-0 inset-x-0 h-48 sm:h-64 md:h-80 pointer-events-none select-none overflow-hidden z-0">
-    <div class="liquid-aurora absolute inset-0 w-full h-full opacity-65 mix-blend-screen scale-110"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0A0B0E]/60 to-[#0A0B0E]"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,transparent_30%,rgba(10,11,14,0.9)_100%)]"></div>
-  </div>
+<section id="hero" class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-20 sm:pt-24 md:pt-24 pb-10 sm:pb-12 md:pb-14 border-b border-white/[0.08]">
+  <!-- 1. INTERACTIVE DOT GRID + LINEAR INDIGO THREADS + 3D PORTRAIT TILT -->
+  <PortfolioThreadsCanvas />
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     
     <!-- 2. TOP WORDMARK & HEADER ROW -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-8 sm:pb-12 border-b border-white/[0.08]" data-gsap-hero="wordmark">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-5 sm:pb-6 border-b border-white/[0.08]" data-gsap-hero="wordmark">
       <div>
-        <span class="block text-[11px] font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-3">
+        <span class="block text-[11px] font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-2">
           PORTFOLIO · {currentYear}
         </span>
-        <h1 class="font-grotesk font-extrabold text-[3.8rem] xs:text-[5rem] sm:text-[6.8rem] md:text-[8.4rem] lg:text-[10.2rem] text-white tracking-[-0.055em] leading-[0.82] select-none">
+        <h1 class="font-grotesk font-extrabold text-[2.85rem] xs:text-[3.5rem] sm:text-[4.6rem] md:text-[5.5rem] lg:text-[6.25rem] text-white tracking-[-0.05em] leading-[0.88] select-none">
           Tanuj<br />Pandey
         </h1>
       </div>
 
       <div class="md:text-right space-y-2 pb-2">
-        <span class="block text-xs sm:text-sm font-mono font-medium uppercase tracking-[0.12em] text-slate-300">
-          Full-Stack Architect &amp; AI Engineer
-        </span>
+        <div class="flex md:justify-end items-center gap-2 text-xs sm:text-sm font-mono font-medium uppercase tracking-[0.12em] text-slate-300">
+          <span class="relative inline-flex h-5 sm:h-6 overflow-hidden align-middle">
+            <span id="hero-rotating-role" class="inline-block text-[#828FFF] font-semibold transition-all duration-300">
+              Full-Stack Architect
+            </span>
+          </span>
+          <span class="text-slate-500">·</span>
+          <span>AI Engineer</span>
+        </div>
         <div class="flex md:justify-end items-center gap-3 text-xs font-mono text-slate-300">
           <span class="inline-flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-[#10B981] animate-pulse"></span>
-            <span class="text-emerald-400">AVAILABLE FOR SELECT PROJECTS</span>
+            <span class="rb-shiny-emerald">AVAILABLE FOR SELECT PROJECTS</span>
           </span>
           <span class="text-slate-400">·</span>
           <span id="local-clock" class="tabular-nums">-- : -- IST</span>
@@ -69,10 +72,14 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- 3. HUMAN PORTRAIT ANCHOR + EDITORIAL STATEMENT -->
-    <div class="py-12 sm:py-16 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-12 lg:gap-14 items-center border-b border-white/[0.08]" data-gsap-hero="bio">
-      <!-- Real Photograph Portrait Card -->
-      <div class="md:col-span-5 lg:col-span-4" data-gsap-hero="portrait">
-        <div class="relative w-full max-w-[320px] sm:max-w-[360px] md:max-w-none rounded-[26px] overflow-hidden border border-white/15 bg-gradient-to-b from-white/12 to-white/[0.02] p-2 shadow-2xl group">
+    <div class="py-7 sm:py-9 md:py-10 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-center border-b border-white/[0.08]" data-gsap-hero="bio">
+      <!-- Real Photograph Portrait Card (Option 3: 3D Tilted Interactive Card) -->
+      <div class="md:col-span-4 lg:col-span-4 [perspective:1000px]" data-gsap-hero="portrait">
+        <div
+          id="hero-portrait-tilt"
+          class="relative w-full max-w-[270px] sm:max-w-[300px] md:max-w-[310px] lg:max-w-[330px] rounded-[24px] overflow-hidden border border-white/15 hover:border-[#828FFF]/50 bg-gradient-to-b from-white/12 to-white/[0.02] p-2 shadow-2xl group transition-all duration-300 ease-out will-change-transform"
+          style="transform-style: preserve-3d;"
+        >
           <div class="relative w-full aspect-[4/5] rounded-[20px] overflow-hidden bg-slate-900">
             <img
               src={heroPortrait}
@@ -84,8 +91,17 @@ const currentYear = new Date().getFullYear();
               decoding="async"
               class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
             />
+            <!-- Specular 3D Light Glare Tracking -->
+            <div
+              id="hero-portrait-sheen"
+              class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              style="background: radial-gradient(280px circle at var(--tilt-x, 50%) var(--tilt-y, 30%), rgba(130, 143, 255, 0.22), transparent 65%);"
+            ></div>
             <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
-            <div class="pointer-events-none absolute inset-x-3.5 bottom-3.5 flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-black/45 backdrop-blur-md border border-white/15">
+            <div
+              class="pointer-events-none absolute inset-x-3.5 bottom-3.5 flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-black/45 backdrop-blur-md border border-white/15 transition-transform duration-300"
+              style="transform: translateZ(20px);"
+            >
               <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-white font-semibold">Tanuj Pandey</span>
               <span class="text-[10px] font-mono text-emerald-300 flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
@@ -97,9 +113,9 @@ const currentYear = new Date().getFullYear();
       </div>
 
       <!-- Bold Conversational Statement -->
-      <div class="md:col-span-7 lg:col-span-8 space-y-6 sm:space-y-8">
-        <h2 class="font-grotesk font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white leading-[1.14] tracking-[-0.03em] max-w-4xl">
-          I have been designing and building websites and web apps for the past 4+ years. My focus is on crafting scalable full-stack architectures, production AI systems, and high-performance digital experiences.
+      <div class="md:col-span-8 lg:col-span-8 space-y-5 sm:space-y-6">
+        <h2 class="rb-blur-text font-grotesk font-semibold text-xl sm:text-2xl md:text-3xl lg:text-[2.35rem] text-white leading-[1.16] tracking-[-0.03em] max-w-3xl">
+          I have been designing and building websites and web apps for the past 4+ years. My focus is on crafting <span class="rb-shiny-indigo">scalable full-stack architectures</span>, production AI systems, and high-performance digital experiences.
         </h2>
 
         <!-- Instant Conversion CTAs (Zero-Scroll Direct Contact) -->
@@ -147,7 +163,7 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <!-- 4. TWO-COLUMN SPLIT: "What changed recently" -->
-    <div class="pt-10 sm:pt-14 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-10 items-start" data-gsap-hero="retrospective">
+    <div class="pt-6 sm:pt-8 grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start" data-gsap-hero="retrospective">
       <div class="md:col-span-4">
         <h3 class="font-grotesk text-xl sm:text-2xl font-bold text-white tracking-tight">
           What changed recently
@@ -292,10 +308,120 @@ const currentYear = new Date().getFullYear();
     }
   };
 
+  const initPortraitTiltAndRoles = () => {
+    const tiltCard = document.getElementById('hero-portrait-tilt');
+    const sheenEl = document.getElementById('hero-portrait-sheen');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (tiltCard && !reduceMotion && tiltCard.dataset.tiltBound !== 'true') {
+      tiltCard.dataset.tiltBound = 'true';
+      tiltCard.addEventListener('pointermove', (e: PointerEvent) => {
+        if (window.innerWidth < 768) return;
+        const rect = tiltCard.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotateY = (px - 0.5) * 14;
+        const rotateX = (0.5 - py) * 12;
+        tiltCard.style.transform = `rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015)`;
+        if (sheenEl) {
+          sheenEl.style.setProperty('--tilt-x', `${(px * 100).toFixed(1)}%`);
+          sheenEl.style.setProperty('--tilt-y', `${(py * 100).toFixed(1)}%`);
+        }
+      });
+      tiltCard.addEventListener('pointerleave', () => {
+        tiltCard.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+      });
+    }
+
+    const roleEl = document.getElementById('hero-rotating-role');
+    if (roleEl && !reduceMotion) {
+      const roles = [
+        'Full-Stack Architect',
+        'Multi-LLM AI Engineer',
+        'Next.js Systems Lead',
+        'SaaS Product Builder',
+      ];
+      const w = window as any;
+      if (w.__heroRoleInterval) clearInterval(w.__heroRoleInterval);
+      let idx = 0;
+      w.__heroRoleInterval = setInterval(() => {
+        idx = (idx + 1) % roles.length;
+        roleEl.style.opacity = '0';
+        roleEl.style.transform = 'translateY(-8px)';
+        setTimeout(() => {
+          roleEl.textContent = roles[idx];
+          roleEl.style.opacity = '1';
+          roleEl.style.transform = 'translateY(0px)';
+        }, 200);
+      }, 2800);
+    }
+  };
+
   initHeroClock();
   initVisitorTelemetry();
+  initPortraitTiltAndRoles();
   document.addEventListener('astro:page-load', () => {
     initHeroClock();
     initVisitorTelemetry();
+    initPortraitTiltAndRoles();
   });
 </script>
+
+<style>
+  @keyframes rbShineSweep {
+    0% { background-position: 140% center; }
+    100% { background-position: -140% center; }
+  }
+
+  @keyframes rbBlurIn {
+    from {
+      opacity: 0.25;
+      filter: blur(8px);
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+
+  .rb-blur-text {
+    animation: rbBlurIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .rb-shiny-indigo {
+    background: linear-gradient(110deg, #ffffff 30%, #828fff 48%, #5e6ad2 54%, #ffffff 72%);
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rbShineSweep 5.5s linear infinite;
+  }
+
+  .rb-shiny-emerald {
+    background: linear-gradient(110deg, #34d399 30%, #ffffff 50%, #34d399 70%);
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rbShineSweep 4.8s linear infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rb-blur-text {
+      animation: none;
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+    .rb-shiny-indigo,
+    .rb-shiny-emerald {
+      animation: none;
+      background: none;
+      color: inherit;
+    }
+    .rb-shiny-indigo { color: #828FFF; }
+    .rb-shiny-emerald { color: #34D399; }
+  }
+</style>

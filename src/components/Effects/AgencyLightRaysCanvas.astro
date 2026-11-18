@@ -1,0 +1,141 @@
+---
+// React Bits Inspired Volumetric "Light Rays" + Subtle Monochrome Grid
+// Strictly Obsidian (#090A0F) & Linear Indigo (#5E6AD2 / #828FFF) — zero pink/rainbow tones
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+  <canvas id="agency-lightrays-canvas" class="w-full h-full block"></canvas>
+  <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:32px_32px] opacity-20 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_18%,#000_35%,transparent_100%)]"></div>
+  <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090A0F] to-transparent"></div>
+</div>
+
+<script>
+  const initAgencyLightRays = () => {
+    const canvas = document.getElementById("agency-lightrays-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    const w = window as any;
+    if (w.__agencyRaysRaf) cancelAnimationFrame(w.__agencyRaysRaf);
+    if (w.__agencyRaysCleanup) w.__agencyRaysCleanup();
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let pointerNormX = 0.5;
+    let targetNormX = 0.5;
+    let time = 0;
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const section = canvas.closest("section");
+    const onPointerMove = (e: PointerEvent) => {
+      const rect = parent.getBoundingClientRect();
+      if (rect.width > 0) {
+        targetNormX = Math.max(0.2, Math.min(0.8, (e.clientX - rect.left) / rect.width));
+      }
+    };
+    const onPointerLeave = () => {
+      targetNormX = 0.5;
+    };
+
+    section?.addEventListener("pointermove", onPointerMove, { passive: true });
+    section?.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+
+    const rays = [
+      { angle: -0.38, width: 170, alpha: 0.22, speed: 0.65, hue: "94, 106, 210" },
+      { angle: -0.20, width: 120, alpha: 0.26, speed: 0.90, hue: "130, 143, 255" },
+      { angle: -0.04, width: 210, alpha: 0.18, speed: 0.50, hue: "94, 106, 210" },
+      { angle: 0.12,  width: 140, alpha: 0.24, speed: 0.80, hue: "255, 255, 255" },
+      { angle: 0.26,  width: 185, alpha: 0.20, speed: 0.60, hue: "130, 143, 255" },
+      { angle: 0.42,  width: 150, alpha: 0.18, speed: 0.72, hue: "94, 106, 210" },
+    ];
+
+    const render = () => {
+      if (document.visibilityState === "hidden") {
+        w.__agencyRaysRaf = requestAnimationFrame(render);
+        return;
+      }
+
+      pointerNormX += (targetNormX - pointerNormX) * 0.06;
+      ctx.clearRect(0, 0, width, height);
+
+      const originX = width * (0.44 + pointerNormX * 0.12);
+      const originY = -60;
+      const rayLength = Math.max(height * 0.95, 680);
+
+      // Soft top obsidian-indigo crown glow
+      const crown = ctx.createRadialGradient(originX, 20, 10, originX, 40, Math.min(width * 0.62, 620));
+      crown.addColorStop(0, "rgba(130, 143, 255, 0.28)");
+      crown.addColorStop(0.42, "rgba(94, 106, 210, 0.14)");
+      crown.addColorStop(1, "rgba(9, 10, 15, 0)");
+      ctx.fillStyle = crown;
+      ctx.fillRect(0, 0, width, height * 0.72);
+
+      // Volumetric volumetric rays downward
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      rays.forEach((r, idx) => {
+        const sway = Math.sin(time * r.speed + idx * 1.4) * 0.045 + (pointerNormX - 0.5) * 0.14;
+        const theta = r.angle + sway;
+        const endX = originX + Math.sin(theta) * rayLength;
+        const endY = originY + Math.cos(theta) * rayLength;
+
+        const perpX = Math.cos(theta);
+        const perpY = -Math.sin(theta);
+        const topSpread = 16;
+        const bottomSpread = r.width;
+
+        const grad = ctx.createLinearGradient(originX, originY, endX, endY);
+        const pulse = 0.85 + 0.15 * Math.sin(time * (r.speed * 1.3) + idx);
+        const a = r.alpha * pulse * (r.hue === "255, 255, 255" ? 0.38 : 1);
+        grad.addColorStop(0, `rgba(${r.hue}, ${a})`);
+        grad.addColorStop(0.5, `rgba(${r.hue}, ${a * 0.36})`);
+        grad.addColorStop(1, `rgba(${r.hue}, 0)`);
+
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.moveTo(originX - perpX * topSpread, originY - perpY * topSpread);
+        ctx.lineTo(originX + perpX * topSpread, originY + perpY * topSpread);
+        ctx.lineTo(endX + perpX * bottomSpread, endY + perpY * bottomSpread);
+        ctx.lineTo(endX - perpX * bottomSpread, endY - perpY * bottomSpread);
+        ctx.closePath();
+        ctx.fill();
+      });
+      ctx.restore();
+
+      if (!reduceMotion) {
+        time += 0.016;
+        w.__agencyRaysRaf = requestAnimationFrame(render);
+      }
+    };
+
+    render();
+
+    w.__agencyRaysCleanup = () => {
+      if (w.__agencyRaysRaf) cancelAnimationFrame(w.__agencyRaysRaf);
+      section?.removeEventListener("pointermove", onPointerMove);
+      section?.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("resize", resize);
+    };
+  };
+
+  initAgencyLightRays();
+  document.addEventListener("astro:page-load", initAgencyLightRays);
+</script>
+

@@ -1,0 +1,153 @@
+---
+// React Bits Inspired "Dot Grid + Interactive Threads" Canvas
+// Strictly calibrated to Obsidian (#0A0B0E) & Linear Indigo (#5E6AD2 / #828FFF)
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+  <canvas id="portfolio-threads-canvas" class="w-full h-full block"></canvas>
+  <div class="absolute inset-0 bg-gradient-to-b from-[#0A0B0E]/20 via-transparent to-[#0A0B0E]"></div>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(94,106,210,0.16)_0%,transparent_68%)]"></div>
+</div>
+
+<script>
+  const initPortfolioThreads = () => {
+    const canvas = document.getElementById("portfolio-threads-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    const w = window as any;
+    if (w.__portfolioThreadsRaf) cancelAnimationFrame(w.__portfolioThreadsRaf);
+    if (w.__portfolioThreadsCleanup) w.__portfolioThreadsCleanup();
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let mouseX = -9999;
+    let mouseY = -9999;
+    let targetMouseX = -9999;
+    let targetMouseY = -9999;
+    let t = 0;
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    const heroSection = canvas.closest("section");
+    const onPointerMove = (e: PointerEvent) => {
+      const rect = parent.getBoundingClientRect();
+      targetMouseX = e.clientX - rect.left;
+      targetMouseY = e.clientY - rect.top;
+    };
+    const onPointerLeave = () => {
+      targetMouseX = -9999;
+      targetMouseY = -9999;
+    };
+
+    heroSection?.addEventListener("pointermove", onPointerMove, { passive: true });
+    heroSection?.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+
+    const draw = () => {
+      if (document.visibilityState === "hidden") {
+        w.__portfolioThreadsRaf = requestAnimationFrame(draw);
+        return;
+      }
+
+      mouseX += (targetMouseX - mouseX) * 0.12;
+      mouseY += (targetMouseY - mouseY) * 0.12;
+
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Monochrome Dot Grid with Linear Indigo Pointer Spotlight
+      const spacing = width < 640 ? 28 : 32;
+      const radiusInfluence = 175;
+      for (let gx = spacing * 0.5; gx < width; gx += spacing) {
+        for (let gy = spacing * 0.5; gy < height; gy += spacing) {
+          const dx = gx - mouseX;
+          const dy = gy - mouseY;
+          const dist = Math.hypot(dx, dy);
+          const fadeY = Math.max(0, 1 - gy / (height * 0.92));
+
+          if (dist < radiusInfluence) {
+            const k = 1 - dist / radiusInfluence;
+            ctx.fillStyle = `rgba(130, 143, 255, ${(0.14 + k * 0.45) * (0.4 + 0.6 * fadeY)})`;
+            ctx.beginPath();
+            ctx.arc(gx, gy, 1.15 + k * 0.9, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            ctx.fillStyle = `rgba(255, 255, 255, ${0.075 * fadeY})`;
+            ctx.fillRect(gx - 0.6, gy - 0.6, 1.2, 1.2);
+          }
+        }
+      }
+
+      // 2. Flowing Linear Indigo Contour Threads that react to cursor
+      const threadCount = 6;
+      const baseAnchorY = height * 0.3;
+      const stepX = 18;
+      for (let i = 0; i < threadCount; i++) {
+        const offset = (i - (threadCount - 1) / 2) * 26;
+        const speed = 0.009 + i * 0.0018;
+        const amp = 22 + i * 4.5;
+        const alpha = 0.24 - i * 0.025;
+
+        ctx.beginPath();
+        for (let x = 0; x <= width + stepX; x += stepX) {
+          const wave =
+            Math.sin(x * 0.0038 + t * speed * 60 + i * 0.9) * amp +
+            Math.cos(x * 0.008 - t * speed * 35 + i) * 9;
+          let y = baseAnchorY + offset + wave;
+
+          if (mouseX > -100) {
+            const dx = x - mouseX;
+            const dy = y - mouseY;
+            const d = Math.hypot(dx, dy);
+            if (d < 190) {
+              const push = (1 - d / 190) * 34;
+              y += dy >= 0 ? push : -push;
+            }
+          }
+
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+
+        ctx.strokeStyle = i % 2 === 0
+          ? `rgba(94, 106, 210, ${alpha})`
+          : `rgba(130, 143, 255, ${alpha * 0.85})`;
+        ctx.lineWidth = i === 2 ? 1.4 : 1;
+        ctx.stroke();
+      }
+
+      if (!reduceMotion) {
+        t += 0.016;
+        w.__portfolioThreadsRaf = requestAnimationFrame(draw);
+      }
+    };
+
+    draw();
+
+    w.__portfolioThreadsCleanup = () => {
+      if (w.__portfolioThreadsRaf) cancelAnimationFrame(w.__portfolioThreadsRaf);
+      heroSection?.removeEventListener("pointermove", onPointerMove);
+      heroSection?.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("resize", resize);
+    };
+  };
+
+  initPortfolioThreads();
+  document.addEventListener("astro:page-load", initPortfolioThreads);
+</script>
+

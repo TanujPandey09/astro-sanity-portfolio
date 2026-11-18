@@ -1,5 +1,7 @@
 ---
-// NovaStack Agency Hero: Pixel-Perfect Dark Obsidian Canvas, Ambient Nebula Glow, Centered Editorial Display & 5-Card Fanned Showcase Arc
+// NovaStack Agency Hero: Deep Obsidian Canvas, Option 2 Monochrome Silk Wave, Centered Display, 5-Card Arc & Spotlight Proof Cards
+import SilkWaveCanvas from "../Effects/SilkWaveCanvas.astro";
+
 const fanCards = [
   {
     title: "Habot Enterprise",
@@ -39,13 +41,9 @@ const fanCards = [
 ];
 ---
 
-<section id="hero" class="relative w-full overflow-hidden bg-[#090A0F] text-white pt-16 sm:pt-24 md:pt-28 pb-20 sm:pb-28 border-b border-white/[0.08]">
-  <!-- Ambient Starfield + Dual Nebula Radial Aura (Matches Dark Editorial Reference) -->
-  <div class="pointer-events-none absolute inset-0 overflow-hidden">
-    <div class="absolute -top-24 left-1/2 -translate-x-1/2 w-[900px] h-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(94,106,210,0.32)_0%,rgba(168,85,247,0.16)_38%,transparent_72%)] blur-3xl"></div>
-    <div class="absolute top-12 left-1/2 -translate-x-1/3 w-[480px] h-[340px] rounded-full bg-[radial-gradient(ellipse_at_center,rgba(236,72,153,0.16)_0%,transparent_70%)] blur-3xl"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:32px_32px] opacity-25 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_15%,#000_40%,transparent_100%)]"></div>
-  </div>
+<section id="hero" class="relative w-full overflow-hidden bg-[#090A0F] text-white pt-14 sm:pt-18 md:pt-20 pb-16 sm:pb-20 border-b border-white/[0.08]">
+  <!-- Option 2: Dark Monochrome Linear Indigo Silk Wave -->
+  <SilkWaveCanvas />
 
   <div class="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -53,12 +51,12 @@ const fanCards = [
     <div class="max-w-4xl mx-auto text-center space-y-6">
       <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono uppercase tracking-[0.16em] text-slate-300">
         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>NOVASTACK STUDIO · USA · UK · UAE · AUS · IND</span>
+        <span>NOVASTACK STUDIO · AI &amp; FULL-STACK ENGINEERING</span>
       </div>
 
-      <h1 class="font-grotesk font-extrabold text-white tracking-[-0.045em] text-4xl xs:text-5xl sm:text-6xl md:text-[4.5rem] lg:text-[5.25rem] leading-[0.98]">
+      <h1 class="rb-agency-blur-in font-grotesk font-extrabold text-white tracking-[-0.045em] text-4xl xs:text-5xl sm:text-6xl md:text-[4.5rem] lg:text-[5.25rem] leading-[0.98]">
         We engineer products<br />
-        shaped by <span class="text-[#828FFF]">perception.</span>
+        shaped by <span class="rb-agency-shiny-indigo">perception.</span>
       </h1>
 
       <p class="text-sm sm:text-base md:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto font-sans">
@@ -127,44 +125,144 @@ const fanCards = [
       </p>
     </div>
 
-    <!-- 4. COMPACT METRIC PROOF STRIP (Preserves Live Telemetry Proof Without White Chrome Clash) -->
+    <!-- 4. COMPACT METRIC PROOF STRIP (React Bits Spotlight Card Tracking in Linear Indigo) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 max-w-5xl mx-auto">
-      <div data-agency-dir="left" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+      <div data-agency-dir="left" class="rb-spotlight-card rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
         <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
           <span>API LATENCY</span>
           <span class="text-emerald-400 font-semibold">P99</span>
         </div>
-        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">38 ms</div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">
+          <span data-count-target="38" data-count-suffix=" ms">38 ms</span>
+        </div>
         <div class="text-[11px] font-mono text-slate-400 mt-1">Edge Cached &amp; SSR Ready</div>
       </div>
 
-      <div data-agency-dir="left" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+      <div data-agency-dir="left" class="rb-spotlight-card rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
         <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
           <span>LLM PIPELINES</span>
           <span class="text-[#828FFF] font-semibold">MULTI-MODEL</span>
         </div>
-        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">4 Providers</div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">
+          <span data-count-target="4" data-count-suffix=" Providers">4 Providers</span>
+        </div>
         <div class="text-[11px] font-mono text-slate-400 mt-1">OpenAI · Claude · Gemini · RAG</div>
       </div>
 
-      <div data-agency-dir="right" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+      <div data-agency-dir="right" class="rb-spotlight-card rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
         <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
           <span>SCOPING SLA</span>
           <span class="text-emerald-400 font-semibold">DIRECT</span>
         </div>
-        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">&lt; 24h</div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">
+          &lt; <span data-count-target="24" data-count-suffix="h">24h</span>
+        </div>
         <div class="text-[11px] font-mono text-slate-400 mt-1">Senior Architect Review</div>
       </div>
 
-      <div data-agency-dir="right" class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
+      <div data-agency-dir="right" class="rb-spotlight-card rounded-2xl bg-white/[0.03] border border-white/[0.08] p-4 sm:p-5">
         <div class="flex items-center justify-between text-[10px] font-mono text-slate-300 mb-1">
           <span>CODE OWNERSHIP</span>
           <span class="text-emerald-400 font-semibold">VERIFIED</span>
         </div>
-        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">100% IP</div>
+        <div class="text-2xl sm:text-3xl font-bold font-grotesk text-white tabular-nums">
+          <span data-count-target="100" data-count-suffix="% IP">100% IP</span>
+        </div>
         <div class="text-[11px] font-mono text-slate-400 mt-1">Zero Lock-In Transfer</div>
       </div>
     </div>
 
   </div>
 </section>
+
+<style>
+  @keyframes rbAgencyBlur {
+    from {
+      opacity: 0.25;
+      filter: blur(8px);
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes rbAgencyShine {
+    0% { background-position: 140% center; }
+    100% { background-position: -140% center; }
+  }
+
+  .rb-agency-blur-in {
+    animation: rbAgencyBlur 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .rb-agency-shiny-indigo {
+    background: linear-gradient(110deg, #828fff 28%, #ffffff 48%, #5e6ad2 58%, #828fff 76%);
+    background-size: 240% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: rbAgencyShine 5s linear infinite;
+  }
+
+  .rb-spotlight-card {
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .rb-spotlight-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      260px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      rgba(94, 106, 210, 0.2),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+
+  .rb-spotlight-card:hover {
+    border-color: rgba(130, 143, 255, 0.45);
+  }
+
+  .rb-spotlight-card:hover::before {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rb-agency-blur-in {
+      animation: none;
+      opacity: 1;
+      filter: none;
+      transform: none;
+    }
+    .rb-agency-shiny-indigo {
+      animation: none;
+      background: none;
+      color: #828FFF;
+    }
+  }
+</style>
+
+<script>
+  const bindSpotlightCards = () => {
+    document.querySelectorAll<HTMLElement>('.rb-spotlight-card').forEach((card) => {
+      if (card.dataset.spotBound === 'true') return;
+      card.dataset.spotBound = 'true';
+      card.addEventListener('pointermove', (e: PointerEvent) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty('--spot-x', `${e.clientX - rect.left}px`);
+        card.style.setProperty('--spot-y', `${e.clientY - rect.top}px`);
+      });
+    });
+  };
+
+  bindSpotlightCards();
+  document.addEventListener('astro:page-load', bindSpotlightCards);
+</script>

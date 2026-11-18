@@ -1,0 +1,250 @@
+---
+// Option 1: Perspective Architectural "Beams" Grid
+// Crisp Linear-style orthogonal + perspective grid with Linear Indigo (#5E6AD2 / #828FFF) glowing pulses
+interface Props {
+  variant?: "portfolio" | "agency";
+}
+
+const { variant = "portfolio" } = Astro.props;
+const baseBg = variant === "agency" ? "#090A0F" : "#0A0B0E";
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+  <canvas data-beams-canvas data-base-bg={baseBg} class="w-full h-full block"></canvas>
+  <div
+    class="absolute inset-0"
+    style={`background: radial-gradient(ellipse at 50% 0%, rgba(94, 106, 210, 0.16) 0%, transparent 65%), linear-gradient(to bottom, transparent 58%, ${baseBg} 100%);`}
+  ></div>
+</div>
+
+<script>
+  const initBeamsGrid = () => {
+    const w = window as any;
+    if (Array.isArray(w.__beamsCleanups)) {
+      w.__beamsCleanups.forEach((fn: () => void) => fn());
+    }
+    w.__beamsCleanups = [];
+
+    const canvases = document.querySelectorAll<HTMLCanvasElement>("[data-beams-canvas]");
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    canvases.forEach((canvas) => {
+      const parent = canvas.parentElement;
+      const ctx = canvas.getContext("2d");
+      if (!parent || !ctx) return;
+
+      let width = 0;
+      let height = 0;
+      let dpr = 1;
+      let rafId = 0;
+      let mouseX = -9999;
+      let mouseY = -9999;
+
+      const spacing = 64;
+
+      interface Beam {
+        axis: "h" | "v";
+        lineIdx: number;
+        pos: number;
+        speed: number;
+        length: number;
+        indigoBright: boolean;
+      }
+
+      let beams: Beam[] = [];
+
+      const seedBeams = () => {
+        const cols = Math.max(4, Math.floor(width / spacing));
+        const rows = Math.max(4, Math.floor(height / spacing));
+        beams = [];
+
+        for (let i = 0; i < 6; i++) {
+          beams.push({
+            axis: "h",
+            lineIdx: 1 + ((i * 2) % Math.max(2, rows - 1)),
+            pos: Math.random() * width,
+            speed: (1.5 + Math.random() * 1.6) * (i % 2 === 0 ? 1 : -1),
+            length: 140 + Math.random() * 110,
+            indigoBright: i % 2 === 0,
+          });
+        }
+
+        for (let j = 0; j < 6; j++) {
+          beams.push({
+            axis: "v",
+            lineIdx: 1 + ((j * 3) % Math.max(2, cols - 1)),
+            pos: Math.random() * height,
+            speed: (1.2 + Math.random() * 1.4) * (j % 2 === 0 ? 1 : -1),
+            length: 120 + Math.random() * 90,
+            indigoBright: j % 2 === 1,
+          });
+        }
+      };
+
+      const resize = () => {
+        const rect = parent.getBoundingClientRect();
+        width = Math.max(1, Math.floor(rect.width));
+        height = Math.max(1, Math.floor(rect.height));
+        dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(width * dpr);
+        canvas.height = Math.floor(height * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        seedBeams();
+      };
+
+      const section = canvas.closest("section");
+      const onPointerMove = (e: PointerEvent) => {
+        const rect = parent.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+      };
+      const onPointerLeave = () => {
+        mouseX = -9999;
+        mouseY = -9999;
+      };
+
+      section?.addEventListener("pointermove", onPointerMove, { passive: true });
+      section?.addEventListener("pointerleave", onPointerLeave, { passive: true });
+      window.addEventListener("resize", resize, { passive: true });
+      resize();
+
+      const draw = () => {
+        if (document.visibilityState === "hidden") {
+          rafId = requestAnimationFrame(draw);
+          return;
+        }
+
+        ctx.clearRect(0, 0, width, height);
+
+        // 1. Subtle Architectural Grid Lines
+        ctx.lineWidth = 1;
+        for (let x = spacing; x < width; x += spacing) {
+          const nearMouse = mouseX > -100 && Math.abs(x - mouseX) < 120;
+          const alpha = nearMouse ? 0.095 - (Math.abs(x - mouseX) / 120) * 0.05 : 0.045;
+          ctx.strokeStyle = nearMouse
+            ? `rgba(130, 143, 255, ${alpha})`
+            : `rgba(255, 255, 255, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(x + 0.5, 0);
+          ctx.lineTo(x + 0.5, height);
+          ctx.stroke();
+        }
+
+        for (let y = spacing; y < height; y += spacing) {
+          const fadeY = Math.max(0.15, 1 - y / (height * 1.05));
+          const nearMouse = mouseY > -100 && Math.abs(y - mouseY) < 120;
+          const alpha = (nearMouse ? 0.095 : 0.045) * fadeY;
+          ctx.strokeStyle = nearMouse
+            ? `rgba(130, 143, 255, ${alpha})`
+            : `rgba(255, 255, 255, ${alpha})`;
+          ctx.beginPath();
+          ctx.moveTo(0, y + 0.5);
+          ctx.lineTo(width, y + 0.5);
+          ctx.stroke();
+        }
+
+        // 2. Highlight Intersections near Cursor
+        if (mouseX > -100) {
+          const startCol = Math.max(1, Math.floor((mouseX - 140) / spacing));
+          const endCol = Math.ceil((mouseX + 140) / spacing);
+          const startRow = Math.max(1, Math.floor((mouseY - 140) / spacing));
+          const endRow = Math.ceil((mouseY + 140) / spacing);
+
+          for (let c = startCol; c <= endCol; c++) {
+            for (let r = startRow; r <= endRow; r++) {
+              const ix = c * spacing;
+              const iy = r * spacing;
+              const dist = Math.hypot(ix - mouseX, iy - mouseY);
+              if (dist < 140) {
+                const k = 1 - dist / 140;
+                ctx.fillStyle = `rgba(130, 143, 255, ${0.55 * k})`;
+                ctx.beginPath();
+                ctx.arc(ix + 0.5, iy + 0.5, 2.1, 0, Math.PI * 2);
+                ctx.fill();
+              }
+            }
+          }
+        }
+
+        // 3. Linear Indigo Light Beams Gliding Along Grid Tracks
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        beams.forEach((b) => {
+          if (!reduceMotion) {
+            b.pos += b.speed;
+            if (b.axis === "h") {
+              if (b.speed > 0 && b.pos - b.length > width) b.pos = -20;
+              if (b.speed < 0 && b.pos + b.length < 0) b.pos = width + 20;
+            } else {
+              if (b.speed > 0 && b.pos - b.length > height) b.pos = -20;
+              if (b.speed < 0 && b.pos + b.length < 0) b.pos = height + 20;
+            }
+          }
+
+          const dir = b.speed >= 0 ? 1 : -1;
+          const tailPos = b.pos - dir * b.length;
+          const headColor = b.indigoBright ? "rgba(130, 143, 255, 0.9)" : "rgba(255, 255, 255, 0.65)";
+          const midColor = "rgba(94, 106, 210, 0.42)";
+
+          if (b.axis === "h") {
+            const y = b.lineIdx * spacing + 0.5;
+            if (y >= height) return;
+            const grad = ctx.createLinearGradient(tailPos, y, b.pos, y);
+            grad.addColorStop(0, "rgba(94, 106, 210, 0)");
+            grad.addColorStop(0.65, midColor);
+            grad.addColorStop(1, headColor);
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(tailPos, y);
+            ctx.lineTo(b.pos, y);
+            ctx.stroke();
+
+            ctx.fillStyle = headColor;
+            ctx.beginPath();
+            ctx.arc(b.pos, y, 1.8, 0, Math.PI * 2);
+            ctx.fill();
+          } else {
+            const x = b.lineIdx * spacing + 0.5;
+            if (x >= width) return;
+            const grad = ctx.createLinearGradient(x, tailPos, x, b.pos);
+            grad.addColorStop(0, "rgba(94, 106, 210, 0)");
+            grad.addColorStop(0.65, midColor);
+            grad.addColorStop(1, headColor);
+
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(x, tailPos);
+            ctx.lineTo(x, b.pos);
+            ctx.stroke();
+
+            ctx.fillStyle = headColor;
+            ctx.beginPath();
+            ctx.arc(x, b.pos, 1.8, 0, Math.PI * 2);
+            ctx.fill();
+          }
+        });
+        ctx.restore();
+
+        if (!reduceMotion) {
+          rafId = requestAnimationFrame(draw);
+        }
+      };
+
+      draw();
+
+      w.__beamsCleanups.push(() => {
+        if (rafId) cancelAnimationFrame(rafId);
+        section?.removeEventListener("pointermove", onPointerMove);
+        section?.removeEventListener("pointerleave", onPointerLeave);
+        window.removeEventListener("resize", resize);
+      });
+    });
+  };
+
+  initBeamsGrid();
+  document.addEventListener("astro:page-load", initBeamsGrid);
+</script>
+

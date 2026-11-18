@@ -112,11 +112,21 @@ const colTwo = [
       </div>
     </div>
 
-    <!-- 3. FULL MONUMENTAL GRADIENT SIGNATURE TYPOGRAPHY -->
-    <div class="relative py-10 sm:py-14 pointer-events-none select-none overflow-x-clip">
-      <span class="footer-giant-wordmark block w-full font-grotesk font-black text-[clamp(2.2rem,9.6vw,7.75rem)] tracking-[-0.045em] leading-[1.02] text-center uppercase whitespace-nowrap bg-gradient-to-b from-white via-slate-200 to-[#5E6AD2]/45 bg-clip-text text-transparent">
-        Tanuj Pandey
-      </span>
+    <!-- 3. FULL MONUMENTAL GRADIENT + INTERACTIVE SPOTLIGHT SIGNATURE TYPOGRAPHY -->
+    <div id="footer-wordmark-stage" class="relative py-10 sm:py-14 select-none overflow-x-clip cursor-default">
+      <div class="footer-giant-wordmark relative w-full text-center">
+        <!-- Base layer with subtle continuous Linear Indigo + White shimmer sweep -->
+        <span class="footer-wordmark-base block w-full font-grotesk font-black text-[clamp(2.2rem,9.6vw,7.75rem)] tracking-[-0.045em] leading-[1.02] uppercase whitespace-nowrap bg-clip-text text-transparent">
+          Tanuj Pandey
+        </span>
+        <!-- Cursor-tracking React Bits Spotlight layer illuminating letters under pointer -->
+        <span
+          aria-hidden="true"
+          class="footer-wordmark-spotlight pointer-events-none absolute inset-0 block w-full font-grotesk font-black text-[clamp(2.2rem,9.6vw,7.75rem)] tracking-[-0.045em] leading-[1.02] uppercase whitespace-nowrap bg-clip-text text-transparent opacity-0 transition-opacity duration-300"
+        >
+          Tanuj Pandey
+        </span>
+      </div>
     </div>
 
     <!-- 4. BOTTOM COPYRIGHT METADATA STRIP -->
@@ -127,3 +137,60 @@ const colTwo = [
 
   </div>
 </footer>
+
+<style>
+  @keyframes footerShineSweep {
+    0% { background-position: 140% center; }
+    100% { background-position: -140% center; }
+  }
+
+  .footer-wordmark-base {
+    background-image: linear-gradient(
+      110deg,
+      rgba(255, 255, 255, 0.78) 25%,
+      #ffffff 42%,
+      #828fff 50%,
+      rgba(94, 106, 210, 0.75) 58%,
+      rgba(255, 255, 255, 0.78) 76%
+    );
+    background-size: 240% 100%;
+    animation: footerShineSweep 7.5s linear infinite;
+  }
+
+  .footer-wordmark-spotlight {
+    background-image: radial-gradient(
+      260px circle at var(--fx, 50%) var(--fy, 50%),
+      #ffffff 0%,
+      #828fff 38%,
+      transparent 75%
+    );
+  }
+
+  #footer-wordmark-stage:hover .footer-wordmark-spotlight {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-wordmark-base {
+      animation: none;
+      background-image: linear-gradient(to bottom, #ffffff, #cbd5e1 65%, rgba(94, 106, 210, 0.65));
+    }
+  }
+</style>
+
+<script>
+  const bindFooterWordmarkSpotlight = () => {
+    const stage = document.getElementById("footer-wordmark-stage");
+    if (!stage || stage.dataset.bound === "true") return;
+    stage.dataset.bound = "true";
+
+    stage.addEventListener("pointermove", (e: PointerEvent) => {
+      const rect = stage.getBoundingClientRect();
+      stage.style.setProperty("--fx", `${e.clientX - rect.left}px`);
+      stage.style.setProperty("--fy", `${e.clientY - rect.top}px`);
+    });
+  };
+
+  bindFooterWordmarkSpotlight();
+  document.addEventListener("astro:page-load", bindFooterWordmarkSpotlight);
+</script>
