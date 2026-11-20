@@ -1,7 +1,7 @@
 ---
 import ProjectItem from "../ProjectItem.astro";
 import PremiumBackground from "../PremiumBackground.astro";
-import PortfolioThreadsCanvas from "../Effects/PortfolioThreadsCanvas.astro";
+import BeamsGridCanvas from "../Effects/BeamsGridCanvas.astro";
 
 interface Props {
   projectData: any[];
@@ -28,9 +28,9 @@ const topFilters = Array.from(tagCounts.entries())
 <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-x-clip bg-canvas">
   <PremiumBackground />
 
-  <!-- ACT 1: OBSIDIAN DARK HERO + LINEAR INDIGO DOT GRID & THREADS -->
+  <!-- ACT 1: OBSIDIAN DARK HERO + ARCHITECTURAL BEAMS GRID -->
   <section class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 border-b border-white/[0.08]">
-    <PortfolioThreadsCanvas />
+    <BeamsGridCanvas variant="portfolio" />
 
     <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8 border-b border-white/[0.08]" data-gsap-hero="wordmark">

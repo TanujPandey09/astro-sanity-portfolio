@@ -15,6 +15,7 @@ export interface TemplateItem {
   category?: string;
   tags?: string[];
   imageUrl?: string;
+  demoVideoUrl?: string;
   gallery?: Array<{ asset?: { url?: string } }>;
   highlights?: string[];
   included?: string[];
@@ -124,6 +125,7 @@ export const normalizeTemplate = (item: any): TemplateItem => {
     category: defaultCategory,
     tags: item.tags || ["Next.js", "Tailwind CSS", "TypeScript"],
     imageUrl,
+    demoVideoUrl: item.demoVideo?.asset?.url || item.demoVideoUrl || undefined,
     gallery: item.gallery || [],
     highlights: item.highlights?.length ? item.highlights : defaultHighlights,
     included: item.included?.length ? item.included : defaultIncluded,
@@ -143,6 +145,7 @@ export async function fetchAllTemplates(): Promise<TemplateItem[]> {
       ...,
       thumbnailImage{ asset->{ url } },
       BackgroundImage{ asset->{ url } },
+      demoVideo{ asset->{ url } },
       gallery[]{ asset->{ url } }
     }`;
 
@@ -154,7 +157,8 @@ export async function fetchAllTemplates(): Promise<TemplateItem[]> {
       "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
     ])]{
       ...,
-      BackgroundImage{ asset->{ url } }
+      BackgroundImage{ asset->{ url } },
+      demoVideo{ asset->{ url } }
     }`;
 
     const legacyTemplates = await client.fetch(legacyTemplatesQuery);
@@ -181,12 +185,14 @@ export async function fetchTemplateBySlug(slug: string): Promise<TemplateItem | 
     ...,
     thumbnailImage{ asset->{ url } },
     BackgroundImage{ asset->{ url } },
+    demoVideo{ asset->{ url } },
     gallery[]{ asset->{ url } }
   }`;
 
   const projectQuery = groq`*[_type == "projects" && slug.current == $slug][0]{
     ...,
-    BackgroundImage{ asset->{ url } }
+    BackgroundImage{ asset->{ url } },
+    demoVideo{ asset->{ url } }
   }`;
 
   const clients = [useSanityClient(), fallbackSanityClient].filter(Boolean);

@@ -1,47 +1,66 @@
 ---
-// NovaStack Agency Contact Section: High-Converting Project Inquiry Form
+// NovaStack Contact Section: Obsidian Architectural CTA Banner + Clean Project Inquiry Form
+// Unified Palette: #F4F4F5 surface, #09090B dark anchor banner, #5E6AD2 Linear Indigo accent
 ---
 
-<section id="contact" class="py-20 sm:py-28 bg-[#0C0E14] text-white border-b border-white/[0.08]">
+<section id="contact" class="py-20 sm:py-28 bg-[#F4F4F5] text-[#09090B] border-b border-[#E4E4E7]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
+
+    <!-- Dark Obsidian Architectural CTA Banner (High-Contrast Bottom Anchor, Zero Blue Blobs / Emojis) -->
+    <div class="mb-14 sm:mb-18 rounded-2xl sm:rounded-3xl bg-[#09090B] border border-white/10 p-8 sm:p-12 lg:p-14 text-center relative overflow-hidden">
+      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(94,106,210,0.18),transparent_60%)]"></div>
+
+      <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#A5AEF3] uppercase tracking-[0.18em]">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>07 / Start a Project</span>
+        </div>
+        <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-white tracking-[-0.035em] leading-[1.08]">
+          Get a Written Scope &amp; Fixed Quote in 24 Hours.
+        </h2>
+        <p class="text-sm sm:text-base text-[#A1A1AA] font-sans leading-relaxed">
+          Share your product goals, timeline, and stack preferences. You will receive a direct technical assessment and realistic estimate—zero sales pressure.
+        </p>
+      </div>
+    </div>
+
+    <!-- Contact & Form Grid -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-      
-      <!-- Left Column: Value Proposition & Direct Contact Channels -->
-      <div data-agency-dir="left" class="lg:col-span-5 space-y-8">
+
+      <!-- Left Column: Direct Communication Channels (5 cols) -->
+      <div class="lg:col-span-5 space-y-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
-            // START A CONVERSATION
-          </div>
-          <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-[1.08]">
-            Have an Idea? <br />
-            <span class="text-[#828FFF]">Let's Build It.</span>
-          </h2>
-          <p class="text-sm sm:text-base text-slate-300 leading-relaxed font-sans mt-4">
-            Whether you are launching an early-stage SaaS MVP, upgrading a legacy web application, or automating manual operations with production AI, we are ready to build.
+          <span class="text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] block mb-2">
+            Direct Channels
+          </span>
+          <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl text-[#09090B] tracking-tight">
+            Reach Tanuj directly.
+          </h3>
+          <p class="text-xs sm:text-sm text-[#52525B] leading-relaxed font-sans mt-2">
+            Prefer email or WhatsApp over forms? Send your brief or Figma link directly.
           </p>
         </div>
 
         <!-- Direct Contact Cards -->
-        <div class="space-y-4">
-          
+        <div class="space-y-3.5">
+
           <!-- Direct Email Card with One-Click Copy -->
-          <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-5">
+          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7]">
             <div class="flex items-center justify-between text-xs font-mono mb-2">
-              <span class="text-slate-400 uppercase tracking-wider">[ DIRECT INBOX ]</span>
-              <span class="text-emerald-300 font-semibold bg-emerald-500/15 border border-emerald-400/30 px-2.5 py-0.5 rounded-full text-[10px]">
-                Response &lt; 24h
+              <span class="text-[#71717A] uppercase tracking-wider font-semibold">Direct Inbox</span>
+              <span class="text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[10px]">
+                Reply &lt; 24h
               </span>
             </div>
             <div class="flex items-center justify-between gap-3">
-              <a href="mailto:tanujp09@gmail.com" class="text-sm sm:text-base font-mono font-bold text-white hover:text-[#828FFF] transition-colors truncate">
+              <a href="mailto:tanujp09@gmail.com" class="text-sm sm:text-base font-mono font-bold text-[#09090B] hover:text-[#5E6AD2] transition-colors truncate">
                 tanujp09@gmail.com
               </a>
               <button
                 type="button"
                 id="agency-copy-email-btn"
                 data-email="tanujp09@gmail.com"
-                class="shrink-0 px-3 py-1.5 rounded-full bg-white/[0.07] hover:bg-white/15 text-xs font-mono text-slate-200 transition-all active:scale-95 cursor-pointer border border-white/15"
+                class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F4F4F5] hover:bg-[#09090B] hover:text-white text-xs font-mono font-semibold text-[#09090B] transition-all active:scale-95 cursor-pointer border border-[#E4E4E7] hover:border-[#09090B]"
               >
                 <span id="agency-copy-email-text">Copy</span>
               </button>
@@ -49,56 +68,52 @@
           </div>
 
           <!-- Direct Phone / WhatsApp Card -->
-          <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-5 flex items-center justify-between gap-3">
+          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7] flex items-center justify-between gap-3">
             <div>
-              <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-0.5">
-                PHONE / WHATSAPP
+              <span class="text-[11px] font-mono uppercase tracking-wider text-[#71717A] font-semibold block mb-0.5">
+                Phone / WhatsApp
               </span>
-              <a href="tel:+919557321978" class="text-sm font-mono font-semibold text-white hover:text-[#828FFF] transition-colors tabular-nums">
+              <a href="tel:+919557321978" class="text-sm font-mono font-bold text-[#09090B] hover:text-[#5E6AD2] transition-colors tabular-nums">
                 +91 9557321978
               </a>
             </div>
             <a
-              href="https://wa.me/919557321978"
+              href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20visited%20NovaStack%20Studio%20and%20want%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
-              class="text-xs font-mono text-emerald-300 bg-emerald-500/15 border border-emerald-400/30 px-3 py-1 rounded-full hover:bg-emerald-500/25 transition-colors"
+              class="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-xl hover:bg-emerald-100 transition-colors"
             >
               WhatsApp ↗
             </a>
           </div>
 
-          <!-- Global Target Markets Pill Card -->
-          <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-5">
-            <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-2 font-semibold">
-              GLOBAL CLIENT COVERAGE
+          <!-- Technical Assessment Note -->
+          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7]">
+            <span class="text-[11px] font-mono uppercase tracking-wider text-[#09090B] block mb-1 font-semibold">
+              What Happens Next
             </span>
-            <div class="flex flex-wrap gap-1.5 text-xs font-mono text-slate-300">
-              <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">United States (EST/PST)</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">United Kingdom (GMT)</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">UAE (GST)</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">Australia (AEST)</span>
-              <span class="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/10">India (IST)</span>
-            </div>
+            <p class="text-xs font-sans text-[#52525B] leading-relaxed">
+              I review your brief personally and reply with architecture notes, a realistic timeline, and clear fixed or sprint pricing—usually within one business day.
+            </p>
           </div>
 
         </div>
 
-        <div class="pt-2 text-xs font-mono text-slate-400">
-          Founder Profile &amp; Case Studies: <a href="/" class="text-[#828FFF] font-semibold hover:text-white transition-colors">tanujbuilds.site ↗</a>
+        <div class="pt-1 text-xs font-mono text-[#71717A]">
+          Personal Portfolio: <a href="/" class="text-[#5E6AD2] font-bold hover:text-[#4E5AC2] transition-colors">tanujbuilds.site ↗</a>
         </div>
       </div>
 
-      <!-- Right Column: Professional Agency Inquiry Form -->
-      <div data-agency-dir="right" class="lg:col-span-7 bg-white/[0.03] border border-white/10 rounded-[26px] p-6 sm:p-8 md:p-10 shadow-2xl">
-        
-        <div class="mb-6 pb-4 border-b border-white/[0.08] flex items-center justify-between">
+      <!-- Right Column: Project Inquiry Form Card (7 cols) -->
+      <div class="agency-card lg:col-span-7 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 bg-white border border-[#E4E4E7]">
+
+        <div class="mb-6 pb-4 border-b border-[#E4E4E7] flex items-center justify-between">
           <div>
-            <h3 class="font-grotesk font-bold text-xl text-white">Project Scoping Inquiry</h3>
-            <p class="text-xs text-slate-300 font-sans mt-0.5">Please share your requirements below for an itemized proposal.</p>
+            <h3 class="font-grotesk font-bold text-xl text-[#09090B]">Project Inquiry Form</h3>
+            <p class="text-xs text-[#71717A] font-sans mt-0.5">Share your scope for a written assessment and estimate.</p>
           </div>
-          <span class="text-xs font-mono text-[#828FFF] bg-[#5E6AD2]/15 border border-[#5E6AD2]/30 px-3 py-1 rounded-full hidden sm:inline">
-            Direct Founder Review
+          <span class="text-[11px] font-mono font-semibold text-[#5E6AD2] bg-[#EEF0FB] border border-[#D5D9F5] px-3 py-1 rounded-full hidden sm:inline">
+            24h Turnaround
           </span>
         </div>
 
@@ -110,11 +125,11 @@
             <input id="agency-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <!-- Name & Email Row -->
+          <!-- 1. Name & Work Email Row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="space-y-1.5">
-              <label for="agency-name" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-                Full Name <span class="text-rose-400">*</span>
+              <label for="agency-name" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Full Name <span class="text-rose-600">*</span>
               </label>
               <input
                 id="agency-name"
@@ -122,121 +137,136 @@
                 type="text"
                 required
                 placeholder="Sarah Jenkins"
-                class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-[#828FFF] focus:outline-none transition-all font-sans"
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
               />
-              <span class="agency-error text-[11px] font-mono text-rose-400 hidden" id="err-name">Please provide your full name.</span>
+              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-name">Please provide your full name.</span>
             </div>
 
             <div class="space-y-1.5">
-              <label for="agency-email" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-                Business Email <span class="text-rose-400">*</span>
+              <label for="agency-email" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Work Email <span class="text-rose-600">*</span>
               </label>
               <input
                 id="agency-email"
                 name="from_email"
                 type="email"
                 required
-                placeholder="sarah@vanguard.com"
-                class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-[#828FFF] focus:outline-none transition-all font-sans"
+                placeholder="sarah@company.com"
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
               />
-              <span class="agency-error text-[11px] font-mono text-rose-400 hidden" id="err-email">Please enter a valid business email.</span>
+              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-email">Please enter a valid work email address.</span>
             </div>
           </div>
 
-          <!-- Company Name & Service Required Row -->
+          <!-- 2. Company Name & Project Type Row -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div class="space-y-1.5">
-              <label for="agency-company" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-                Company / Organization <span class="text-slate-400 font-normal font-sans">(Optional)</span>
+              <label for="agency-company" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Company / Studio <span class="text-[#71717A] font-normal font-sans">(Optional)</span>
               </label>
               <input
                 id="agency-company"
                 name="company_name"
                 type="text"
-                placeholder="Vanguard Technologies"
-                class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-[#828FFF] focus:outline-none transition-all font-sans"
+                placeholder="Acme Corp"
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
               />
             </div>
 
             <div class="space-y-1.5">
-              <label for="agency-service" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-                Service Required <span class="text-rose-400">*</span>
+              <label for="agency-service" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Project Type <span class="text-rose-600">*</span>
               </label>
               <select
                 id="agency-service"
                 name="service"
                 required
-                class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white focus:border-[#828FFF] focus:outline-none transition-all font-sans"
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
               >
-                <option value="">Select a discipline...</option>
-                <option value="Web Development (Next.js / React)">Web Development (Next.js / React)</option>
-                <option value="Mobile App Development (React Native)">Mobile App Development (React Native)</option>
-                <option value="AI & Automation Workflows">AI &amp; Automation Workflows</option>
-                <option value="SaaS & Custom Software MVP">SaaS &amp; Custom Software MVP</option>
-                <option value="SEO & GEO Architecture">Technical SEO &amp; GEO Architecture</option>
-                <option value="UI/UX & Product Design">UI/UX &amp; Product Design</option>
-                <option value="Dedicated Developer Capacity">Dedicated Developer Capacity (Retainer)</option>
-                <option value="Other / Multi-Discipline Project">Other / Multi-Discipline Project</option>
+                <option value="">Select project type...</option>
+                <option value="Website Development">Web Design &amp; Development</option>
+                <option value="SaaS Application">SaaS / Full-Stack Application</option>
+                <option value="AI Integration">AI Integration &amp; Automation</option>
+                <option value="Email Design Systems">Email Design System &amp; HTML</option>
+                <option value="Dedicated Engineering Support">Dedicated Engineering Support</option>
               </select>
-              <span class="agency-error text-[11px] font-mono text-rose-400 hidden" id="err-service">Please select a primary service category.</span>
+              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-service">Please select a project type.</span>
             </div>
           </div>
 
-          <!-- Project Budget Dropdown -->
-          <div class="space-y-1.5">
-            <label for="agency-budget" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-              Estimated Project Budget (USD) <span class="text-rose-400">*</span>
-            </label>
-            <select
-              id="agency-budget"
-              name="budget"
-              required
-              class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white focus:border-[#828FFF] focus:outline-none transition-all font-sans"
-            >
-              <option value="">Select an investment tier...</option>
-              <option value="$2,500 – $5,000 (Scoped Feature or Prototype)">$2,500 – $5,000 (Discrete Feature or Prototype)</option>
-              <option value="$5,000 – $10,000 (Complete Web App or MVP)">$5,000 – $10,000 (Complete Web App or MVP)</option>
-              <option value="$10,000 – $25,000 (Production SaaS or Mobile App)">$10,000 – $25,000 (Production SaaS or Mobile App)</option>
-              <option value="$25,000+ (Full Enterprise Solution)">$25,000+ (Full Enterprise Solution)</option>
-              <option value="Ongoing Monthly Retainer">Ongoing Monthly Retainer (Dedicated Capacity)</option>
-            </select>
-            <span class="agency-error text-[11px] font-mono text-rose-400 hidden" id="err-budget">Please select an estimated budget range.</span>
+          <!-- 3. Estimated Budget & Timeline Expectations Row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div class="space-y-1.5">
+              <label for="agency-budget" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Estimated Budget <span class="text-rose-600">*</span>
+              </label>
+              <select
+                id="agency-budget"
+                name="budget"
+                required
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+              >
+                <option value="">Select budget range...</option>
+                <option value="$500 – $1,500 USD (Email System / Landing Page)">$500 – $1,500 USD (Email System / Landing Page)</option>
+                <option value="$1,500 – $3,500 USD (Custom Marketing Website)">$1,500 – $3,500 USD (Custom Marketing Website)</option>
+                <option value="$3,500 – $6,000 USD (AI Integration & Automation)">$3,500 – $6,000 USD (AI Integration &amp; Automation)</option>
+                <option value="$6,000 – $15,000+ USD (SaaS MVP / Full-Stack)">$6,000 – $15,000+ USD (SaaS MVP / Full-Stack)</option>
+                <option value="Weekly Sprint / Monthly Retainer">Weekly Sprint / Monthly Retainer</option>
+              </select>
+              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-budget">Please select a budget range.</span>
+            </div>
+
+            <div class="space-y-1.5">
+              <label for="agency-timeline" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+                Target Timeline <span class="text-rose-600">*</span>
+              </label>
+              <select
+                id="agency-timeline"
+                name="timeline"
+                required
+                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+              >
+                <option value="">Select timeline...</option>
+                <option value="Immediate (< 2 weeks)">Immediate (&lt; 2 weeks)</option>
+                <option value="2 to 4 weeks">2 to 4 weeks</option>
+                <option value="1 to 2 months">1 to 2 months</option>
+                <option value="Flexible / Planning phase">Flexible / Planning phase</option>
+              </select>
+              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-timeline">Please select your timeline expectations.</span>
+            </div>
           </div>
 
-          <!-- Project Description Textarea -->
+          <!-- 4. Project Details / Description Textarea -->
           <div class="space-y-1.5">
-            <label for="agency-message" class="block text-xs font-grotesk font-semibold uppercase tracking-wider text-slate-300">
-              Project Description &amp; Scope <span class="text-rose-400">*</span>
+            <label for="agency-message" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
+              Project Brief <span class="text-rose-600">*</span>
             </label>
             <textarea
               id="agency-message"
               name="message"
               rows="4"
               required
-              placeholder="Tell us about your product goals, desired timeline, target audience, and any technical constraints..."
-              class="w-full rounded-xl border border-white/15 bg-[#090A0F] px-3.5 py-2.5 text-sm text-white placeholder:text-slate-400 focus:border-[#828FFF] focus:outline-none transition-all font-sans resize-y"
+              placeholder="Outline your goals, core features, existing links/Figma, and any stack preferences..."
+              class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans resize-y"
             ></textarea>
-            <span class="agency-error text-[11px] font-mono text-rose-400 hidden" id="err-message">Please provide details regarding your project scope.</span>
+            <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-message">Please provide a brief project description.</span>
           </div>
 
-          <!-- Submission Action Bar -->
-          <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <span class="text-xs font-mono text-slate-400">
-              [ 24-HOUR GUARANTEED RESPONSE SLA ]
-            </span>
-
+          <!-- Submit Button -->
+          <div class="pt-2">
             <button
               type="submit"
               id="agency-submit-btn"
-              class="inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-full bg-white hover:bg-slate-200 text-[#090A0F] font-grotesk font-bold text-xs uppercase tracking-wider shadow-lg transition-all active:scale-[0.98] cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              class="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-sm uppercase tracking-wider transition-all active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              <span id="agency-submit-btn-text">Submit Project Inquiry</span>
-              <span>→</span>
+              <span id="agency-submit-text">Send Project Inquiry</span>
+              <span id="agency-submit-icon" class="transition-transform duration-200 group-hover:translate-x-1">→</span>
             </button>
           </div>
 
-          <!-- Form Status Feedback Messages -->
-          <div id="agency-form-status" class="hidden p-4 rounded-xl text-xs font-mono border"></div>
+          <!-- Live Status Feedback Container -->
+          <div id="agency-form-status" class="hidden p-4 rounded-xl text-xs font-mono font-medium transition-all" role="status"></div>
+
         </form>
 
       </div>
@@ -247,146 +277,117 @@
 </section>
 
 <script>
-  const initAgencyContact = () => {
-    // Copy email button
-    const copyBtn = document.getElementById('agency-copy-email-btn');
-    const copyText = document.getElementById('agency-copy-email-text');
-
-    copyBtn?.addEventListener('click', async () => {
-      const email = copyBtn.getAttribute('data-email') || 'tanujp09@gmail.com';
-      try {
-        await navigator.clipboard.writeText(email);
-        if (copyText) {
-          copyText.textContent = 'Copied!';
-          setTimeout(() => { copyText.textContent = 'Copy'; }, 2000);
+  const setupAgencyContactForm = () => {
+    // 1. One-click copy email button
+    const copyBtn = document.getElementById("agency-copy-email-btn");
+    const copyText = document.getElementById("agency-copy-email-text");
+    if (copyBtn && copyText && !copyBtn.dataset.bound) {
+      copyBtn.dataset.bound = "true";
+      copyBtn.addEventListener("click", async () => {
+        const email = copyBtn.getAttribute("data-email") || "tanujp09@gmail.com";
+        try {
+          await navigator.clipboard.writeText(email);
+          copyText.textContent = "Copied ✓";
+          setTimeout(() => {
+            copyText.textContent = "Copy";
+          }, 2000);
+        } catch {
+          window.location.href = `mailto:${email}`;
         }
-      } catch {
-        window.location.href = `mailto:${email}`;
-      }
+      });
+    }
+
+    // 2. Contact Form Validation & Submission
+    const form = document.getElementById("agencyContactForm") as HTMLFormElement | null;
+    const submitBtn = document.getElementById("agency-submit-btn") as HTMLButtonElement | null;
+    const submitText = document.getElementById("agency-submit-text");
+    const statusBox = document.getElementById("agency-form-status");
+
+    if (!form || !submitBtn || form.dataset.bound === "true") return;
+    form.dataset.bound = "true";
+
+    const fields = [
+      { id: "agency-name", errId: "err-name", validate: (v: string) => v.trim().length > 1 },
+      { id: "agency-email", errId: "err-email", validate: (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) },
+      { id: "agency-service", errId: "err-service", validate: (v: string) => v.trim().length > 0 },
+      { id: "agency-budget", errId: "err-budget", validate: (v: string) => v.trim().length > 0 },
+      { id: "agency-timeline", errId: "err-timeline", validate: (v: string) => v.trim().length > 0 },
+      { id: "agency-message", errId: "err-message", validate: (v: string) => v.trim().length > 8 },
+    ];
+
+    fields.forEach(({ id, errId }) => {
+      const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+      const err = document.getElementById(errId);
+      if (!el || !err) return;
+
+      const clear = () => err.classList.add("hidden");
+      el.addEventListener("input", clear);
+      el.addEventListener("change", clear);
     });
 
-    // Handle URL parameters to pre-fill service or budget
-    try {
-      const params = new URLSearchParams(window.location.search || window.location.hash.split('?')[1]);
-      const serviceParam = params.get('service');
-      const modelParam = params.get('model');
-
-      if (serviceParam) {
-        const serviceSelect = document.getElementById('agency-service') as HTMLSelectElement | null;
-        if (serviceSelect) {
-          for (const opt of Array.from(serviceSelect.options)) {
-            if (opt.value.toLowerCase().includes(serviceParam.toLowerCase())) {
-              serviceSelect.value = opt.value;
-              break;
-            }
-          }
-        }
-      }
-
-      if (modelParam) {
-        const budgetSelect = document.getElementById('agency-budget') as HTMLSelectElement | null;
-        if (budgetSelect && modelParam.toLowerCase().includes('retainer')) {
-          budgetSelect.value = 'Ongoing Monthly Retainer';
-        }
-      }
-    } catch {}
-
-    // Form submission & validation
-    const form = document.getElementById('agencyContactForm') as HTMLFormElement | null;
-    const submitBtn = document.getElementById('agency-submit-btn') as HTMLButtonElement | null;
-    const submitBtnText = document.getElementById('agency-submit-btn-text');
-    const statusBox = document.getElementById('agency-form-status');
-
-    if (!form || !submitBtn) return;
-
-    const showStatus = (message: string, isError = false) => {
-      if (!statusBox) return;
-      statusBox.textContent = message;
-      statusBox.className = `p-4 rounded-xl text-xs font-mono border ${
-        isError
-          ? 'bg-rose-500/15 border-rose-400/30 text-rose-300'
-          : 'bg-emerald-500/15 border-emerald-400/30 text-emerald-300'
-      }`;
-      statusBox.classList.remove('hidden');
-    };
-
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      // Reset errors
-      document.querySelectorAll('.agency-error').forEach((el) => el.classList.add('hidden'));
-      statusBox?.classList.add('hidden');
-
-      const nameInput = document.getElementById('agency-name') as HTMLInputElement;
-      const emailInput = document.getElementById('agency-email') as HTMLInputElement;
-      const serviceSelect = document.getElementById('agency-service') as HTMLSelectElement;
-      const budgetSelect = document.getElementById('agency-budget') as HTMLSelectElement;
-      const messageInput = document.getElementById('agency-message') as HTMLTextAreaElement;
-
       let hasError = false;
+      fields.forEach(({ id, errId, validate }) => {
+        const el = document.getElementById(id) as HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement | null;
+        const err = document.getElementById(errId);
+        if (!el || !err) return;
 
-      if (!nameInput.value.trim()) {
-        document.getElementById('err-name')?.classList.remove('hidden');
-        hasError = true;
+        if (!validate(el.value)) {
+          err.classList.remove("hidden");
+          hasError = true;
+        } else {
+          err.classList.add("hidden");
+        }
+      });
+
+      if (hasError) {
+        if (statusBox) {
+          statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-rose-50 text-rose-800 border border-rose-200";
+          statusBox.textContent = "Please fill in all required fields accurately before submitting.";
+          statusBox.classList.remove("hidden");
+        }
+        return;
       }
 
-      const emailVal = emailInput.value.trim();
-      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-      if (!emailVal || !emailRe.test(emailVal)) {
-        document.getElementById('err-email')?.classList.remove('hidden');
-        hasError = true;
-      }
-
-      if (!serviceSelect.value) {
-        document.getElementById('err-service')?.classList.remove('hidden');
-        hasError = true;
-      }
-
-      if (!budgetSelect.value) {
-        document.getElementById('err-budget')?.classList.remove('hidden');
-        hasError = true;
-      }
-
-      if (!messageInput.value.trim()) {
-        document.getElementById('err-message')?.classList.remove('hidden');
-        hasError = true;
-      }
-
-      if (hasError) return;
-
-      // Submit to /api/contact
       submitBtn.disabled = true;
-      if (submitBtnText) submitBtnText.textContent = 'Transmitting...';
-
-      const formData = new FormData(form);
+      if (submitText) submitText.textContent = "Transmitting Inquiry...";
+      if (statusBox) statusBox.classList.add("hidden");
 
       try {
-        const resp = await fetch('/api/contact', {
-          method: 'POST',
+        const formData = new FormData(form);
+        const res = await fetch("/api/contact", {
+          method: "POST",
           body: formData,
         });
 
-        const data = await resp.json().catch(() => ({}));
+        const data = await res.json().catch(() => ({}));
 
-        if (resp.ok) {
-          showStatus(
-            data.message || 'Thank you for contacting NovaStack. Your project inquiry has been received, and our engineering lead will respond within 24 hours.'
-          );
+        if (res.ok) {
           form.reset();
+          if (statusBox) {
+            statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+            statusBox.textContent = data.message || "Thank you! Your project inquiry has been received. Tanuj will reply within 24 hours.";
+            statusBox.classList.remove("hidden");
+          }
+          if (submitText) submitText.textContent = "Inquiry Sent Successfully ✓";
         } else {
-          showStatus(data.message || 'Could not send inquiry. Please email tanujp09@gmail.com directly.', true);
+          throw new Error(data.message || "Failed to submit inquiry.");
         }
-      } catch (err) {
-        console.error('Agency Form Error:', err);
-        showStatus('Could not send inquiry. Please email tanujp09@gmail.com directly.', true);
+      } catch (err: any) {
+        if (statusBox) {
+          statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-rose-50 text-rose-800 border border-rose-200";
+          statusBox.textContent = err.message || "An error occurred while submitting. Please email tanujp09@gmail.com directly.";
+          statusBox.classList.remove("hidden");
+        }
+        if (submitText) submitText.textContent = "Send Project Inquiry";
       } finally {
         submitBtn.disabled = false;
-        if (submitBtnText) submitBtnText.textContent = 'Submit Project Inquiry';
       }
     });
   };
 
-  initAgencyContact();
-  document.addEventListener('astro:after-swap', initAgencyContact);
+  setupAgencyContactForm();
+  document.addEventListener("astro:page-load", setupAgencyContactForm);
 </script>
-

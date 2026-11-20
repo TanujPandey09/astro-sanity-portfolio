@@ -62,7 +62,7 @@ const itemList = {
   jsonLd={itemList}
   breadcrumbs={[{ name: "Home", path: "/" }, { name: "Blog", path: "/blogs" }]}
 >
-  <div class="relative min-h-screen overflow-hidden">
+  <div class="relative min-h-screen overflow-x-clip bg-canvas selection:bg-accent-primary/30">
     <PremiumBackground />
     <Blogs blogData={blogData || []} client:load />
   </div>

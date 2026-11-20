@@ -8,6 +8,7 @@ import TemplateCard from "../../components/TemplateCard.astro";
 import { PortableText } from "astro-portabletext";
 import { fetchAllTemplates, fetchTemplateBySlug, type TemplateItem } from "../../lib/templates";
 import { optimizeSanityImage } from "../../lib/optimizeImage";
+import { resolveDemoMedia } from "../../lib/videoEmbed";
 
 export async function getStaticPaths() {
   const templates = await fetchAllTemplates();
@@ -39,6 +40,7 @@ const rawImageUrl = template.imageUrl || "/og-image-dark.png";
 const ogImage = rawImageUrl.includes("cdn.sanity.io")
   ? optimizeSanityImage(rawImageUrl, 1200, 80)
   : rawImageUrl;
+const demoMedia = resolveDemoMedia(template.demoVideoUrl);
 
 const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
 
@@ -294,17 +296,42 @@ const portableTextComponents = {
               </div>
             </div>
 
-            <!-- Preview Image -->
-            <div class="relative w-full aspect-[16/9] md:aspect-[16/9] bg-[#F1F5F9] overflow-hidden">
-              {ogImage && (
-                <img 
-                  src={ogImage} 
-                  alt={`${template.templateName} high-resolution preview`}
-                  data-gsap-screen
-                  class="w-full h-full object-cover object-top"
-                  loading="eager"
-                  decoding="async"
-                />
+            <!-- Preview Video or Image -->
+            <div class="relative w-full aspect-[16/9] md:aspect-[16/9] bg-[#0B0D12] overflow-hidden flex items-center justify-center">
+              {demoMedia ? (
+                demoMedia.kind === "video" ? (
+                  <video
+                    src={demoMedia.src}
+                    poster={ogImage || undefined}
+                    controls
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    data-gsap-screen
+                    class="w-full h-full object-contain bg-[#0B0D12]"
+                  />
+                ) : (
+                  <iframe
+                    src={demoMedia.src}
+                    title={`${template.templateName} Demo Walkthrough`}
+                    class="w-full h-full border-0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    allowfullscreen
+                  ></iframe>
+                )
+              ) : (
+                ogImage && (
+                  <img 
+                    src={ogImage} 
+                    alt={`${template.templateName} high-resolution preview`}
+                    data-gsap-screen
+                    class="w-full h-full object-cover object-top"
+                    loading="eager"
+                    decoding="async"
+                  />
+                )
               )}
               <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.12] mix-blend-overlay"></div>
             </div>

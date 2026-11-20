@@ -1,254 +1,988 @@
 ---
-// NovaStack Featured Work: Custom Engineering & Commercial Templates
-interface WorkItem {
-  id: string;
-  name: string;
-  category: "CUSTOM CLIENT BUILD" | "COMMERCIAL WEBSITE TEMPLATE";
-  badgeColor: string;
-  subtitle: string;
-  description: string;
-  highlights: string[];
-  stack: string[];
-  caseStudyUrl: string;
-  demoUrl?: string;
-  commercialStatus?: string;
+// NovaStack Selected Work & Case Studies: 100% Sanity-Driven
+// Automatically renders your real Sanity `projects` & `templates` documents (or curated `agencySettings` selections)
+import { optimizeSanityImage } from "../../lib/optimizeImage";
+import { resolveDemoMedia } from "../../lib/videoEmbed";
+
+interface Props {
+  sanityProjects?: any[];
+  featuredCaseStudies?: any[];
+  curatedShowcase?: any[];
 }
 
-const workItems: WorkItem[] = [
-  {
-    id: "sawt-ai",
-    name: "SAWT AI",
-    category: "CUSTOM CLIENT BUILD",
-    badgeColor: "bg-[#5E6AD2]/15 text-[#828FFF] border-[#5E6AD2]/35",
-    subtitle: "Bilingual Arabic/English AI Survey & Analytics SaaS",
-    description: "Architected and shipped a bilingual AI survey intelligence platform for the Saudi market. Integrated multi-LLM pipelines with structured response validation, MyFatoorah payment gateway, and RTL-first UX.",
-    highlights: [
-      "Multi-LLM pipeline orchestration across OpenAI, Gemini, Grok & Perplexity",
-      "MyFatoorah subscription billing, webhooks & tier access control",
-      "RTL-first Arabic/English localization with sub-second transitions",
-      "Real-time CRM integration with Socket.IO & live SLA tracking"
-    ],
-    stack: ["Next.js", "Node.js", "Multi-LLM", "MyFatoorah", "Socket.IO", "TypeScript"],
-    caseStudyUrl: "/projects",
-    demoUrl: "https://cxisuite.com/",
-  },
-  {
-    id: "omnexia-crm",
-    name: "Omnexia CRM",
-    category: "CUSTOM CLIENT BUILD",
-    badgeColor: "bg-[#5E6AD2]/15 text-[#828FFF] border-[#5E6AD2]/35",
-    subtitle: "Real-Time Event Stream CRM & SLA Tracking Dashboard",
-    description: "Built a low-latency operations CRM for fast-moving customer service teams. Powered by Node.js, WebSockets, and Redis Pub/Sub to provide instant state synchronization across active agents.",
-    highlights: [
-      "Bi-directional state synchronization via Socket.IO & Redis Pub/Sub",
-      "Live ticket queue with automated SLA breach timers",
-      "Role-based authentication (RBAC) and audit logging",
-      "High-density responsive dashboard views for desktop & tablet"
-    ],
-    stack: ["Node.js", "Socket.IO", "Redis", "React.js", "Tailwind CSS"],
-    caseStudyUrl: "/projects",
-  },
-  {
-    id: "careai-portal",
-    name: "CareAI / CxiSuite Healthcare",
-    category: "CUSTOM CLIENT BUILD",
-    badgeColor: "bg-[#5E6AD2]/15 text-[#828FFF] border-[#5E6AD2]/35",
-    subtitle: "Multi-Role Medical Operations & Patient Management Portal",
-    description: "Solely owned the frontend architecture of a comprehensive multi-role healthcare SaaS from design through production release, handling administrative, doctor, clinic, and patient workflows.",
-    highlights: [
-      "4 distinct authentication portals (Super Admin, Doctor, Clinic, Patient)",
-      "10+ operational CRUD modules for medical records & scheduling",
-      "Interactive health metrics dashboards with data visualization",
-      "Clean REST API integration with Node.js & MongoDB services"
-    ],
-    stack: ["React.js", "Node.js", "MongoDB", "REST APIs", "Tailwind CSS"],
-    caseStudyUrl: "/projects",
-    demoUrl: "https://www.nasyait.com/",
-  },
-  {
-    id: "lumina-dental",
-    name: "Lumina Dental Clinic",
-    category: "COMMERCIAL WEBSITE TEMPLATE",
-    badgeColor: "bg-white/[0.08] text-slate-300 border-white/15",
-    subtitle: "Production-Ready Dental Clinic & Healthcare Web Platform",
-    description: "A commercially available Next.js website template engineered for modern dental clinics and medical practices, featuring high-converting consultation booking and silky smooth micro-interactions.",
-    highlights: [
-      "Fluid appointment consultation workflow with multi-step validation",
-      "Hardware-accelerated GSAP & Framer Motion micro-interactions",
-      "Interactive Before/After smile comparison slider module",
-      "100% PageSpeed performance score with Core Web Vitals optimization"
-    ],
-    stack: ["Next.js", "GSAP", "Tailwind CSS", "TypeScript"],
-    caseStudyUrl: "/templates/lumina-dental-premium-dental-website-template",
-    commercialStatus: "Available with Commercial License ($39)",
-  },
-  {
-    id: "apex-luxury",
-    name: "Apex Luxury Real Estate",
-    category: "COMMERCIAL WEBSITE TEMPLATE",
-    badgeColor: "bg-white/[0.08] text-slate-300 border-white/15",
-    subtitle: "Ultra-Luxury Real Estate & Architectural Discovery Platform",
-    description: "A premium commercial template engineered for high-end luxury real estate agencies and architectural firms, featuring interactive property map discovery and multi-currency pricing.",
-    highlights: [
-      "Interactive property showcase with dynamic map filtering",
-      "Refined architectural aesthetic with champagne & obsidian tones",
-      "Multilingual readiness (English, Spanish, German)",
-      "Multi-currency conversion and responsive mobile-first views"
-    ],
-    stack: ["Next.js", "Framer Motion", "Tailwind CSS", "TypeScript"],
-    caseStudyUrl: "/templates/apex-luxury-ultra-luxury-real-estate-and-architectural-web-template",
-    commercialStatus: "Available with Commercial License ($49)",
+const {
+  sanityProjects = [],
+  featuredCaseStudies = [],
+  curatedShowcase = [],
+} = Astro.props;
+
+const CATEGORY_LABELS: Record<string, string> = {
+  "real-estate": "Real Estate & Architecture",
+  healthcare: "Healthcare & Medical",
+  saas: "SaaS & Tech",
+  "ai-automation": "AI & Automation",
+  portfolio: "Agency & Portfolio",
+  ecommerce: "E-Commerce & Retail",
+  dashboard: "Dashboard & Web App",
+  fintech: "Fintech & Finance",
+  other: "Digital Product",
+};
+
+const formatCategory = (raw?: string): string => {
+  if (!raw) return "";
+  const clean = String(raw).trim();
+  return CATEGORY_LABELS[clean.toLowerCase()] || clean;
+};
+
+const getProjectImage = (item: any): string =>
+  item?.BackgroundImage?.asset?.url ||
+  item?.FeatureImage?.asset?.url ||
+  item?.thumbnailImage?.asset?.url ||
+  (Array.isArray(item?.gallery) && item.gallery[0]?.asset?.url) ||
+  "";
+
+const extractExcerpt = (rawExcerpt: any, fallbackTagline?: string): { summary: string; highlights: string[] } => {
+  if (typeof rawExcerpt === "string" && rawExcerpt.trim()) {
+    return { summary: rawExcerpt.trim(), highlights: [] };
   }
-];
+
+  if (Array.isArray(rawExcerpt)) {
+    const blocks = rawExcerpt
+      .map((block: any) => {
+        if (block?._type !== "block" || !Array.isArray(block.children)) return null;
+        const text = block.children
+          .map((child: any) => String(child?.text || ""))
+          .join("")
+          .trim();
+        if (!text) return null;
+        return { text, isList: Boolean(block.listItem) };
+      })
+      .filter(Boolean) as { text: string; isList: boolean }[];
+
+    const paragraphs = blocks.filter((b) => !b.isList).map((b) => b.text);
+    const listItems = blocks.filter((b) => b.isList).map((b) => b.text);
+
+    const summary =
+      paragraphs.find((p) => p.length > 35) ||
+      paragraphs[0] ||
+      fallbackTagline ||
+      "Production software engineered for speed, maintainability, and clean architecture.";
+
+    const highlights = listItems.slice(0, 4);
+    return { summary, highlights };
+  }
+
+  return {
+    summary:
+      fallbackTagline ||
+      "Production software engineered for speed, maintainability, and clean architecture.",
+    highlights: [],
+  };
+};
+
+interface ShowcaseCard {
+  key: string;
+  title: string;
+  tag: string;
+  badge: string;
+  liveUrl: string;
+  detailUrl: string;
+  displayUrlLabel: string;
+  img: string;
+  demoMedia: ReturnType<typeof resolveDemoMedia>;
+}
+
+const normalizeUrl = (val: any): string => {
+  if (!val) return "";
+  if (typeof val === "string") return val.trim();
+  if (typeof val === "object") {
+    const candidate = val.url || val.href || val.current || "";
+    return typeof candidate === "string" ? candidate.trim() : "";
+  }
+  return "";
+};
+
+const normalizeText = (val: any, fallback = ""): string => {
+  if (typeof val === "string") return val.trim() || fallback;
+  if (typeof val === "number") return String(val);
+  return fallback;
+};
+
+const mapSanityDocToShowcaseCard = (doc: any, override?: any): ShowcaseCard | null => {
+  const rawImg = override?.customImage?.asset?.url || getProjectImage(doc);
+  if (!rawImg || typeof rawImg !== "string") return null;
+
+  const isTemplate = doc?._type === "templates" || Boolean(doc?.gumroadLink);
+  const title =
+    normalizeText(override?.customTitle) ||
+    normalizeText(doc?.projectName) ||
+    normalizeText(doc?.templateName) ||
+    "Untitled Project";
+
+  const slug =
+    typeof doc?.slug === "string"
+      ? doc.slug.trim()
+      : normalizeText(doc?.slug?.current);
+
+  const detailUrl = slug
+    ? `${isTemplate ? "/templates/" : "/projects/"}${slug}`
+    : "/projects";
+
+  const overrideUrl = normalizeUrl(override?.customUrl);
+  const liveUrl = overrideUrl.startsWith("http")
+    ? overrideUrl
+    : normalizeUrl(doc?.demoLink);
+
+  const displayUrlLabel = liveUrl
+    ? liveUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : slug || title;
+
+  const tag =
+    normalizeText(override?.customTag) ||
+    normalizeText(doc?.agencyHeroTag) ||
+    formatCategory(doc?.category) ||
+    (Array.isArray(doc?.tags) && normalizeText(doc.tags[0])) ||
+    (isTemplate ? "Commercial Template" : "Production Build");
+
+  const badge = isTemplate
+    ? normalizeText(doc?.badge, "Commercial Template")
+    : normalizeText(doc?.role, "Production Project");
+
+  return {
+    key: String(doc?._id || override?._key || slug || title),
+    title,
+    tag,
+    badge,
+    liveUrl,
+    detailUrl,
+    displayUrlLabel,
+    img: optimizeSanityImage(rawImg, 1000, 85),
+    demoMedia: resolveDemoMedia(doc?.demoVideo?.asset?.url, normalizeUrl(doc?.demoVideoUrl)),
+  };
+};
+
+// 1. Build 100% Sanity-Driven Showcase Pool (deduped by _id / slug)
+const showcasePool: ShowcaseCard[] = [];
+const seenKeys = new Set<string>();
+
+// First include any curated items from Agency Settings (if configured in Sanity Studio)
+for (const entry of curatedShowcase) {
+  const doc = entry?.projectRef || {};
+  const card = mapSanityDocToShowcaseCard(doc, entry);
+  if (card && !seenKeys.has(card.key)) {
+    seenKeys.add(card.key);
+    showcasePool.push(card);
+  }
+}
+
+// Then append all real Sanity projects & templates that have an image
+for (const doc of sanityProjects) {
+  const card = mapSanityDocToShowcaseCard(doc);
+  if (card && !seenKeys.has(card.key)) {
+    seenKeys.add(card.key);
+    showcasePool.push(card);
+  }
+}
+
+// Split cleanly into 2 balanced rows without duplicating adjacent items unnecessarily
+const ensureMinRowLength = (items: ShowcaseCard[], minCount = 4): ShowcaseCard[] => {
+  if (!items.length) return [];
+  const out = [...items];
+  let idx = 0;
+  while (out.length < minCount) {
+    out.push(items[idx % items.length]);
+    idx++;
+  }
+  return out;
+};
+
+const rawRow1 = showcasePool.filter((_, idx) => idx % 2 === 0);
+const rawRow2 = showcasePool.filter((_, idx) => idx % 2 === 1);
+
+const baseRow1 = ensureMinRowLength(rawRow1.length ? rawRow1 : showcasePool, 4);
+const baseRow2 = ensureMinRowLength(rawRow2.length ? rawRow2 : [...showcasePool].reverse(), 4);
+
+// 2 identical halves ensure a mathematically 100% seamless infinite loop
+const fullRow1Items = [...baseRow1, ...baseRow1];
+const fullRow2Items = [...baseRow2, ...baseRow2];
+
+// 2. Build 100% Sanity-Driven Case Studies List
+// Priority: (a) Curated `featuredCaseStudies` in Agency Settings, else (b) all real Sanity `projects` (non-template)
+const autoProjects = (sanityProjects || []).filter(
+  (doc) =>
+    doc?._type === "projects" &&
+    !doc?.gumroadLink &&
+    Boolean(doc?.projectName) &&
+    Boolean(getProjectImage(doc))
+);
+
+const caseStudySource =
+  featuredCaseStudies.length > 0 ? featuredCaseStudies : autoProjects;
+
+const caseStudies = caseStudySource.map((doc, idx) => {
+  const slug =
+    typeof doc?.slug === "string"
+      ? doc.slug.trim()
+      : normalizeText(doc?.slug?.current);
+  const rawImg = getProjectImage(doc);
+  const { summary, highlights } = extractExcerpt(doc?.excerpt, normalizeText(doc?.tagline));
+  const metrics = Array.isArray(doc?.headlineMetrics)
+    ? doc.headlineMetrics.filter((m: any) => typeof m === "string" && m.trim()).slice(0, 3)
+    : [];
+  const tags = Array.isArray(doc?.tags)
+    ? doc.tags.filter((t: any) => typeof t === "string" && t.trim()).slice(0, 6)
+    : [];
+  const demoUrl = normalizeUrl(doc?.demoLink);
+
+  return {
+    num: String(idx + 1).padStart(2, "0"),
+    name: normalizeText(doc?.projectName) || normalizeText(doc?.templateName) || "Case Study",
+    projectType: normalizeText(doc?.role, "Production Project"),
+    category: formatCategory(doc?.category) || tags[0] || "Full-Stack Engineering",
+    summary,
+    highlights,
+    metrics,
+    stack: tags,
+    demoUrl,
+    caseStudyUrl: slug ? `/projects/${slug}` : "/projects",
+    posterUrl: rawImg ? optimizeSanityImage(rawImg, 1200, 85) : "",
+    demoMedia: resolveDemoMedia(doc?.demoVideo?.asset?.url, normalizeUrl(doc?.demoVideoUrl)),
+  };
+});
 ---
 
-<section id="work" class="py-20 sm:py-28 bg-[#090A0F] text-white border-b border-white/[0.08]">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
-        // FEATURED WORK &amp; ASSETS
+<section id="work" class="py-20 sm:py-28 bg-[#09090B] text-white border-b border-white/10 overflow-hidden relative">
+
+  <!-- Soft Neutral Indigo Ambient Glow Behind 3D Stage -->
+  <div class="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[760px] h-[460px] bg-[#5E6AD2]/12 blur-[130px] rounded-full"></div>
+
+  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12 sm:mb-16">
+
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#A5AEF3] uppercase tracking-[0.18em] mb-3">
+          <span class="w-5 h-px bg-[#5E6AD2]"></span>
+          <span>02 / Selected Work</span>
+        </div>
+        <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-white tracking-[-0.035em] leading-[1.08]">
+          Shipped Production Work.
+        </h2>
+        <p class="text-sm sm:text-base text-[#A1A1AA] mt-3 leading-relaxed font-sans">
+          Live client applications, full-stack web platforms, and commercial architectures synced directly from Sanity CMS.
+        </p>
       </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-tight">
-        Real Production Systems. Verifiable Engineering.
-      </h2>
-      <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-4 leading-relaxed font-sans">
-        We showcase real software platforms engineered for real production traffic. In our portfolio, we explicitly distinguish between custom client software developments and our commercially available web templates.
-      </p>
-    </div>
 
-    <!-- Category Legend Bar -->
-    <div class="mb-8 p-4 rounded-2xl bg-white/[0.03] border border-white/[0.08] flex flex-wrap items-center justify-between gap-4 text-xs font-mono text-slate-300">
-      <div class="flex flex-wrap items-center gap-4">
-        <span class="inline-flex items-center gap-1.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-[#828FFF]"></span>
-          <strong class="text-white">Custom Client Builds:</strong> Bespoke architectures tailored for commercial client operations.
-        </span>
-        <span class="inline-flex items-center gap-1.5">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-          <strong class="text-white">Commercial Templates:</strong> Pre-engineered, production-ready codebases available for purchase.
-        </span>
-      </div>
-      <a href="/projects" class="text-[#828FFF] font-semibold hover:text-white transition-colors">
-        View All Case Studies →
-      </a>
-    </div>
-
-    <!-- 5 Showcase Cards Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8">
-      {workItems.map((item, idx) => {
-        const isFeatured = idx === 0;
-        const colSpan = isFeatured ? "lg:col-span-12" : "lg:col-span-6";
-        const dir = isFeatured ? "center" : idx % 2 === 1 ? "left" : "right";
-
-        return (
-          <div 
-            data-agency-dir={dir}
-            class={`rounded-2xl bg-white/[0.03] hover:bg-white/[0.05] border border-white/[0.08] hover:border-[#828FFF]/40 p-6 sm:p-8 transition-all duration-300 flex flex-col justify-between ${colSpan}`}
-          >
-            <div>
-              <!-- Top Category Badge & Name -->
-              <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-                <span class={`text-[10px] font-mono uppercase tracking-wider font-semibold px-3 py-1 rounded-full border ${item.badgeColor}`}>
-                  {item.category}
-                </span>
-                {item.commercialStatus && (
-                  <span class="text-xs font-mono font-semibold text-emerald-300 bg-emerald-500/15 border border-emerald-400/30 px-3 py-0.5 rounded-full">
-                    {item.commercialStatus}
-                  </span>
-                )}
-              </div>
-
-              <!-- Project Title -->
-              <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl text-white tracking-tight mb-1">
-                {item.name}
-              </h3>
-              <p class="text-xs sm:text-sm font-mono text-[#828FFF] font-medium mb-4">
-                {item.subtitle}
-              </p>
-
-              <!-- Description -->
-              <p class="text-sm text-slate-300 leading-relaxed font-sans mb-6">
-                {item.description}
-              </p>
-
-              <!-- Highlights -->
-              <div class="mb-6 space-y-2">
-                <span class="text-[11px] font-mono uppercase tracking-wider text-slate-300 font-semibold block">
-                  Key Technical Features:
-                </span>
-                <ul class="space-y-1.5 text-xs text-slate-300 font-sans">
-                  {item.highlights.map((point) => (
-                    <li class="flex items-start gap-2">
-                      <span class="text-[#828FFF] font-bold mt-0.5 select-none font-mono">→</span>
-                      <span>{point}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <!-- Bottom: Tech Stack & Action Links -->
-            <div class="pt-5 border-t border-white/[0.08] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div class="flex flex-wrap gap-1.5">
-                {item.stack.map((tech) => (
-                  <span class="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-slate-300">
-                    {tech}
-                  </span>
-                ))}
-              </div>
-
-              <div class="flex items-center gap-3 shrink-0">
-                <a
-                  href={item.caseStudyUrl}
-                  class="inline-flex items-center gap-1.5 text-xs font-grotesk font-bold text-white hover:text-[#828FFF] transition-colors"
-                >
-                  <span>{item.category.includes('TEMPLATE') ? 'Template Details' : 'Case Study'}</span>
-                  <span>↗</span>
-                </a>
-                {item.demoUrl && (
-                  <a
-                    href={item.demoUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/15 text-xs font-mono font-medium text-slate-200 hover:bg-white/15 transition-all"
-                  >
-                    <span>Live Site</span>
-                    <span class="text-slate-400">↗</span>
-                  </a>
-                )}
-              </div>
-            </div>
-
-          </div>
-        );
-      })}
-    </div>
-
-    <!-- Bottom Archive Action -->
-    <div class="mt-12 text-center">
-      <p class="text-xs font-mono text-slate-400 mb-4">
-        Need a custom build similar to these, or looking to customize a commercial template?
-      </p>
-      <div class="inline-flex flex-wrap items-center justify-center gap-3">
+      <div class="flex flex-wrap items-center gap-3">
         <a
           href="#contact"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#090A0F] font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-slate-200 transition-all"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#5E6AD2] hover:bg-[#4E5AC2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all active:scale-98"
         >
-          <span>Discuss Your Architecture With Us</span>
+          <span>Discuss Your Project</span>
           <span>→</span>
         </a>
         <a
-          href="/templates"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white/[0.05] border border-white/15 text-white font-grotesk font-bold text-xs uppercase tracking-wider hover:bg-white/10 transition-all"
+          href="/projects"
+          class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-xs font-mono font-semibold text-white transition-all"
         >
-          <span>Browse All Templates</span>
-          <span>↗</span>
+          <span>All Projects ↗</span>
         </a>
       </div>
     </div>
 
   </div>
+
+  <!-- 3D TILTED-TO-STRAIGHT PERSPECTIVE CAROUSEL STAGE (100% SANITY-DRIVEN) -->
+  {fullRow1Items.length > 0 ? (
+    <>
+      <div id="screens-perspective-wrapper" class="relative w-full overflow-hidden py-6 sm:py-10 perspective-container">
+        <div
+          id="tilted-screens-stage"
+          class="screens-3d-stage w-full select-none"
+          style="transform: perspective(1200px) rotate(12deg) rotateX(12deg) rotateY(-12deg) scale(0.96); will-change: transform;"
+        >
+          <!-- ROW 1 CAROUSEL -->
+          <div class="carousel-track-wrapper overflow-hidden mb-6 sm:mb-8 [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
+            <div class="carousel-track-row1 flex items-center gap-6 sm:gap-8 whitespace-nowrap">
+              {fullRow1Items.map((proj) => (
+                <div class="carousel-card group relative w-[320px] sm:w-[440px] lg:w-[500px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111215] border border-white/10 shadow-2xl transition-[border-color,box-shadow] duration-300 hover:border-[#5E6AD2]/60">
+                  <div class="px-4 py-2.5 bg-[#09090B]/95 border-b border-white/10 flex items-center justify-between text-xs font-mono text-[#71717A]">
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                    </div>
+                    <span class="truncate max-w-[190px] text-zinc-300 font-medium bg-white/5 px-2.5 py-0.5 rounded text-[10px]">
+                      {proj.displayUrlLabel}
+                    </span>
+                    <span class="text-[10px] text-[#A5AEF3] font-bold truncate max-w-[130px]">{proj.badge}</span>
+                  </div>
+
+                  <div class="aspect-[16/10] w-full overflow-hidden bg-[#09090B] relative">
+                    <img
+                      src={proj.img}
+                      alt={proj.title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 sm:p-6">
+                      <div class="space-y-2 whitespace-normal">
+                        <span class="text-[10px] font-mono uppercase tracking-wider text-[#A5AEF3] font-bold block">
+                          {proj.tag}
+                        </span>
+                        <h4 class="font-grotesk font-extrabold text-xl text-white">
+                          {proj.title}
+                        </h4>
+                        <div class="flex flex-wrap items-center gap-2 pt-2">
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#5E6AD2] hover:bg-[#4E5AC2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all"
+                            >
+                              <span>Live Site ↗</span>
+                            </a>
+                          )}
+                          <a
+                            href={proj.detailUrl}
+                            class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white font-mono text-xs transition-colors"
+                          >
+                            <span>Case Study</span>
+                          </a>
+                          {proj.demoMedia && (
+                            <button
+                              type="button"
+                              data-open-showreel
+                              data-showreel-kind={proj.demoMedia.kind}
+                              data-showreel-src={proj.demoMedia.src}
+                              data-showreel-title={proj.title}
+                              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-mono font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all"
+                            >
+                              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                              <span>Demo</span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-3.5 bg-[#09090B] border-t border-white/10 flex items-center justify-between gap-3">
+                    <span class="font-grotesk font-bold text-sm text-white group-hover:text-[#A5AEF3] transition-colors truncate">
+                      {proj.title}
+                    </span>
+                    <span class="text-xs font-mono text-[#71717A] truncate shrink-0">
+                      {proj.tag}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <!-- ROW 2 CAROUSEL -->
+          <div class="carousel-track-wrapper overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
+            <div class="carousel-track-row2 flex items-center gap-6 sm:gap-8 whitespace-nowrap">
+              {fullRow2Items.map((proj) => (
+                <div class="carousel-card group relative w-[320px] sm:w-[440px] lg:w-[500px] shrink-0 rounded-2xl sm:rounded-3xl overflow-hidden bg-[#111215] border border-white/10 shadow-2xl transition-[border-color,box-shadow] duration-300 hover:border-[#5E6AD2]/60">
+                  <div class="px-4 py-2.5 bg-[#09090B]/95 border-b border-white/10 flex items-center justify-between text-xs font-mono text-[#71717A]">
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-700"></span>
+                    </div>
+                    <span class="truncate max-w-[190px] text-zinc-300 font-medium bg-white/5 px-2.5 py-0.5 rounded text-[10px]">
+                      {proj.displayUrlLabel}
+                    </span>
+                    <span class="text-[10px] text-[#A5AEF3] font-bold truncate max-w-[130px]">{proj.badge}</span>
+                  </div>
+
+                  <div class="aspect-[16/10] w-full overflow-hidden bg-[#09090B] relative">
+                    <img
+                      src={proj.img}
+                      alt={proj.title}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    />
+
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#09090B] via-[#09090B]/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 sm:p-6">
+                      <div class="space-y-2 whitespace-normal">
+                        <span class="text-[10px] font-mono uppercase tracking-wider text-[#A5AEF3] font-bold block">
+                          {proj.tag}
+                        </span>
+                        <h4 class="font-grotesk font-extrabold text-xl text-white">
+                          {proj.title}
+                        </h4>
+                        <div class="flex flex-wrap items-center gap-2 pt-2">
+                          {proj.liveUrl && (
+                            <a
+                              href={proj.liveUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#5E6AD2] hover:bg-[#4E5AC2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all"
+                            >
+                              <span>Live Site ↗</span>
+                            </a>
+                          )}
+                          <a
+                            href={proj.detailUrl}
+                            class="inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 text-white font-mono text-xs transition-colors"
+                          >
+                            <span>Case Study</span>
+                          </a>
+                          {proj.demoMedia && (
+                            <button
+                              type="button"
+                              data-open-showreel
+                              data-showreel-kind={proj.demoMedia.kind}
+                              data-showreel-src={proj.demoMedia.src}
+                              data-showreel-title={proj.title}
+                              class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-mono font-semibold cursor-pointer hover:bg-emerald-500/30 transition-all"
+                            >
+                              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                              <span>Demo</span>
+                            </button>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="p-3.5 bg-[#09090B] border-t border-white/10 flex items-center justify-between gap-3">
+                    <span class="font-grotesk font-bold text-sm text-white group-hover:text-[#A5AEF3] transition-colors truncate">
+                      {proj.title}
+                    </span>
+                    <span class="text-xs font-mono text-[#71717A] truncate shrink-0">
+                      {proj.tag}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center pt-8 pb-2">
+        <span class="inline-flex items-center gap-2 text-xs font-mono text-[#A1A1AA] bg-white/5 border border-white/10 px-4 py-1.5 rounded-full">
+          <span class="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] animate-pulse"></span>
+          <span>Scroll flattens 3D perspective · Hover any project to inspect</span>
+        </span>
+      </div>
+    </>
+  ) : (
+    <div class="mx-auto max-w-3xl px-4 text-center py-12">
+      <div class="rounded-2xl bg-[#111215] border border-white/10 p-8 space-y-3">
+        <p class="font-grotesk font-bold text-lg text-white">Published projects load automatically from Sanity CMS.</p>
+        <p class="text-xs font-mono text-[#A1A1AA]">Add or publish projects in Sanity Studio to populate this showcase.</p>
+      </div>
+    </div>
+  )}
+
 </section>
 
+<!-- DEDICATED SECTION: SANITY-DRIVEN CASE STUDIES & ARCHITECTURE BREAKDOWN -->
+{caseStudies.length > 0 && (
+  <section id="case-studies" class="py-20 sm:py-28 bg-white text-[#09090B] border-b border-[#E4E4E7] relative overflow-hidden">
+
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-12 sm:mb-14">
+        <div class="max-w-2xl">
+          <div class="flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] mb-3">
+            <span class="w-5 h-px bg-[#5E6AD2]"></span>
+            <span>Case Studies · {String(caseStudies.length).padStart(2, "0")} Published</span>
+          </div>
+          <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-[#09090B] tracking-[-0.035em] leading-[1.08]">
+            Architecture &amp; Delivery Breakdown.
+          </h2>
+          <p class="text-sm sm:text-base text-[#52525B] mt-3 leading-relaxed font-sans">
+            Every project published in Sanity appears here with its live architecture, stack, and walkthrough.
+          </p>
+        </div>
+
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#F4F4F5] hover:bg-[#09090B] hover:text-white border border-[#E4E4E7] text-xs font-mono font-semibold text-[#09090B] transition-all self-start sm:self-auto"
+        >
+          <span>View Full Index ↗</span>
+        </a>
+      </div>
+
+      <div class="space-y-8 sm:space-y-10">
+        {caseStudies.map((item) => (
+          <article class="rounded-2xl sm:rounded-3xl bg-[#F4F4F5] border border-[#E4E4E7] hover:border-[#D4D4D8] transition-all duration-300 overflow-hidden p-6 sm:p-8 lg:p-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+              <!-- Left Column: Live Sanity Metadata & Description (5 cols) -->
+              <div class="lg:col-span-5 flex flex-col justify-between space-y-5">
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-3">
+                    <span class="font-mono text-xs font-bold text-[#09090B] bg-white border border-[#D4D4D8] px-2.5 py-0.5 rounded-md">
+                      {item.num}
+                    </span>
+                    <span class="text-[10px] font-mono uppercase tracking-wider font-bold px-2.5 py-0.5 rounded-md bg-[#EEF0FB] text-[#5E6AD2] border border-[#D5D9F5]">
+                      {item.projectType}
+                    </span>
+                  </div>
+
+                  <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl text-[#09090B] tracking-tight leading-tight">
+                    {item.name}
+                  </h3>
+
+                  {item.category && (
+                    <p class="text-xs sm:text-sm font-mono text-[#5E6AD2] font-semibold mt-1">
+                      {item.category}
+                    </p>
+                  )}
+
+                  {item.metrics.length > 0 && (
+                    <div class="flex flex-wrap gap-2 mt-3">
+                      {item.metrics.map((metric: string) => (
+                        <span class="inline-flex items-center gap-1.5 text-[10.5px] font-mono font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                          <span>{metric}</span>
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <p class="text-xs sm:text-sm text-[#52525B] font-sans leading-relaxed mt-3 line-clamp-5">
+                    {item.summary}
+                  </p>
+                </div>
+
+                {item.highlights.length > 0 && (
+                  <div class="space-y-2 pt-3 border-t border-[#E4E4E7]">
+                    <span class="text-[10px] font-mono uppercase tracking-wider text-[#71717A] font-semibold block">
+                      Key Highlights
+                    </span>
+                    <div class="space-y-1.5 text-xs text-[#27272A] font-sans">
+                      {item.highlights.map((feat) => (
+                        <div class="flex items-start gap-2">
+                          <span class="text-[#5E6AD2] font-bold mt-0.5 select-none">✓</span>
+                          <span>{feat}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div class="pt-3 space-y-4 border-t border-[#E4E4E7]">
+                  {item.stack.length > 0 && (
+                    <div class="flex flex-wrap gap-1.5">
+                      {item.stack.map((tech: string) => (
+                        <span class="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white border border-[#E4E4E7] text-[#52525B] font-medium">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div class="flex flex-wrap items-center gap-3 pt-1">
+                    {item.demoUrl && (
+                      <a
+                        href={item.demoUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all"
+                      >
+                        <span>Visit Live Site</span>
+                        <span>↗</span>
+                      </a>
+                    )}
+
+                    <a
+                      href={item.caseStudyUrl}
+                      class="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white hover:bg-zinc-100 border border-[#D4D4D8] text-xs font-mono font-semibold text-[#09090B] transition-colors"
+                    >
+                      <span>Read Case Study ↗</span>
+                    </a>
+
+                    {item.demoMedia && (
+                      <button
+                        type="button"
+                        data-open-showreel
+                        data-showreel-kind={item.demoMedia.kind}
+                        data-showreel-src={item.demoMedia.src}
+                        data-showreel-title={item.name}
+                        class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-xs font-mono font-semibold text-emerald-800 transition-all cursor-pointer"
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span>Watch Demo</span>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right Column: Visual Frame (7 cols) -->
+              <div class="lg:col-span-7">
+                <div class="rounded-xl overflow-hidden border border-[#D4D4D8] bg-white shadow-xs">
+                  <div class="px-4 py-2.5 bg-white border-b border-[#E4E4E7] flex items-center justify-between text-[11px] font-mono text-[#71717A]">
+                    <div class="flex items-center gap-1.5">
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+                      <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+                    </div>
+                    <span class="truncate max-w-[220px] text-[#09090B] font-medium bg-[#F4F4F5] px-3 py-0.5 rounded border border-[#E4E4E7]">
+                      {item.demoUrl ? item.demoUrl.replace(/^https?:\/\//, "").replace(/\/$/, "") : item.name}
+                    </span>
+                    <span class="text-[#5E6AD2] font-semibold text-[10px] hidden sm:inline truncate max-w-[160px]">{item.category}</span>
+                  </div>
+
+                  <a
+                    href={item.demoUrl || item.caseStudyUrl}
+                    target={item.demoUrl ? "_blank" : "_self"}
+                    rel={item.demoUrl ? "noopener noreferrer" : undefined}
+                    class="group block aspect-[16/10] w-full overflow-hidden bg-zinc-100 relative"
+                  >
+                    {item.demoMedia?.kind === "video" ? (
+                      <video
+                        src={item.demoMedia.src}
+                        poster={item.posterUrl}
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        class="w-full h-full object-cover object-top"
+                      />
+                    ) : (
+                      <img
+                        src={item.posterUrl}
+                        alt={item.name}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-103"
+                      />
+                    )}
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+  </section>
+)}
+
+<!-- Fullscreen Showreel Lightbox Modal -->
+<div
+  id="agency-showreel-modal"
+  class="fixed inset-0 z-[90] hidden items-center justify-center bg-black/85 backdrop-blur-md p-4 sm:p-8"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="showreel-modal-title"
+>
+  <div class="relative w-full max-w-5xl rounded-2xl bg-white border border-zinc-200 shadow-2xl overflow-hidden">
+    <div class="px-4 sm:px-6 py-3.5 border-b border-zinc-200 flex items-center justify-between gap-4 bg-[#FAFAFA]">
+      <div class="flex items-center gap-2.5 min-w-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0"></span>
+        <span id="showreel-modal-title" class="font-grotesk font-bold text-sm sm:text-base text-[#09090B] truncate">
+          Product Walkthrough
+        </span>
+      </div>
+      <button
+        type="button"
+        id="close-showreel-modal"
+        aria-label="Close showreel player"
+        class="px-3 py-1.5 rounded-full bg-[#F4F4F5] hover:bg-zinc-200 text-xs font-mono font-semibold text-[#09090B] cursor-pointer transition-colors"
+      >
+        Close ✕
+      </button>
+    </div>
+    <div id="showreel-modal-body" class="relative w-full aspect-video bg-[#09090B] flex items-center justify-center"></div>
+  </div>
+</div>
+
+<style>
+  .perspective-container {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+    perspective-origin: center center;
+  }
+
+  .screens-3d-stage {
+    transform-style: preserve-3d;
+    perspective: 1200px;
+  }
+
+  .carousel-track-wrapper {
+    transform-style: preserve-3d;
+  }
+
+  .carousel-track-row1,
+  .carousel-track-row2 {
+    display: flex;
+    width: max-content;
+    transform-style: preserve-3d;
+  }
+
+  .carousel-card {
+    will-change: transform, opacity;
+    transform-origin: center bottom;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  @keyframes carouselScrollRow1 {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-50%); }
+  }
+
+  @keyframes carouselScrollRow2 {
+    0% { transform: translateX(-50%); }
+    100% { transform: translateX(0%); }
+  }
+
+  .carousel-track-row1 {
+    animation: carouselScrollRow1 45s linear infinite;
+  }
+
+  .carousel-track-row2 {
+    animation: carouselScrollRow2 45s linear infinite;
+  }
+
+  .carousel-track-row1:hover,
+  .carousel-track-row2:hover {
+    animation-play-state: paused;
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  let activeMatchMedia: gsap.MatchMedia | null = null;
+
+  const setupCodifyTiltedScroll = () => {
+    const stage = document.getElementById("tilted-screens-stage");
+    const wrapper = document.getElementById("screens-perspective-wrapper") || stage;
+    const cards = gsap.utils.toArray<HTMLElement>(".carousel-card");
+
+    if (!stage || !wrapper) return;
+
+    if (activeMatchMedia) {
+      activeMatchMedia.revert();
+      activeMatchMedia = null;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      stage.style.transform = "none";
+      if (cards.length) {
+        gsap.set(cards, { opacity: 1, scale: 1, clearProps: "all" });
+      }
+      return;
+    }
+
+    activeMatchMedia = gsap.matchMedia();
+
+    activeMatchMedia.add("(min-width: 641px)", () => {
+      gsap.set(stage, {
+        transformPerspective: 1200,
+        transformOrigin: "50% 50%",
+      });
+
+      gsap.fromTo(
+        stage,
+        {
+          rotation: 12,
+          rotationX: 12,
+          rotationY: -12,
+          skewX: 0,
+          skewY: 0,
+          scale: 0.95,
+          transformPerspective: 1200,
+        },
+        {
+          rotation: 0,
+          rotationX: 0,
+          rotationY: 0,
+          skewX: 0,
+          skewY: 0,
+          scale: 1,
+          transformPerspective: 1200,
+          ease: "none",
+          scrollTrigger: {
+            id: "agency-tilt-stage-desktop",
+            trigger: wrapper,
+            start: "top 90%",
+            end: "center 45%",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0.8, scale: 0.96 },
+          {
+            opacity: 1,
+            scale: 1,
+            ease: "power2.out",
+            stagger: 0.03,
+            scrollTrigger: {
+              id: "agency-tilt-cards-desktop",
+              trigger: wrapper,
+              start: "top 90%",
+              end: "center 45%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    });
+
+    activeMatchMedia.add("(max-width: 640px)", () => {
+      gsap.set(stage, {
+        transformPerspective: 1200,
+        transformOrigin: "50% 50%",
+      });
+
+      gsap.fromTo(
+        stage,
+        {
+          rotation: 8,
+          rotationX: 8,
+          rotationY: -8,
+          skewX: 0,
+          skewY: 0,
+          scale: 0.92,
+          transformPerspective: 1200,
+        },
+        {
+          rotation: 0,
+          rotationX: 0,
+          rotationY: 0,
+          skewX: 0,
+          skewY: 0,
+          scale: 1,
+          transformPerspective: 1200,
+          ease: "none",
+          scrollTrigger: {
+            id: "agency-tilt-stage-mobile",
+            trigger: wrapper,
+            start: "top 90%",
+            end: "center 45%",
+            scrub: 1,
+            invalidateOnRefresh: true,
+          },
+        }
+      );
+
+      if (cards.length) {
+        gsap.fromTo(
+          cards,
+          { opacity: 0.85, scale: 0.97 },
+          {
+            opacity: 1,
+            scale: 1,
+            ease: "power2.out",
+            stagger: 0.02,
+            scrollTrigger: {
+              id: "agency-tilt-cards-mobile",
+              trigger: wrapper,
+              start: "top 90%",
+              end: "center 45%",
+              scrub: 1,
+            },
+          }
+        );
+      }
+    });
+  };
+
+  const setupAgencyShowreel = () => {
+    const modal = document.getElementById("agency-showreel-modal");
+    const body = document.getElementById("showreel-modal-body");
+    const titleEl = document.getElementById("showreel-modal-title");
+    const closeBtn = document.getElementById("close-showreel-modal");
+    const triggers = document.querySelectorAll<HTMLButtonElement>("[data-open-showreel]");
+
+    if (!modal || !body || !titleEl || !closeBtn) return;
+
+    const closeModal = () => {
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+      body.innerHTML = "";
+      document.body.style.overflow = "";
+    };
+
+    if (!closeBtn.hasAttribute("data-bound")) {
+      closeBtn.setAttribute("data-bound", "true");
+      closeBtn.addEventListener("click", closeModal);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    triggers.forEach((btn) => {
+      if (btn.hasAttribute("data-bound")) return;
+      btn.setAttribute("data-bound", "true");
+      btn.addEventListener("click", () => {
+        const kind = btn.getAttribute("data-showreel-kind");
+        const src = btn.getAttribute("data-showreel-src");
+        const title = btn.getAttribute("data-showreel-title") || "Product Walkthrough";
+
+        if (!src) return;
+
+        titleEl.textContent = title;
+        body.innerHTML = "";
+
+        if (kind === "iframe") {
+          const iframe = document.createElement("iframe");
+          iframe.src = src;
+          iframe.className = "w-full h-full border-0";
+          iframe.allow = "autoplay; fullscreen; picture-in-picture";
+          iframe.setAttribute("allowfullscreen", "true");
+          body.appendChild(iframe);
+        } else {
+          const video = document.createElement("video");
+          video.src = src;
+          video.controls = true;
+          video.autoplay = true;
+          video.className = "w-full h-full object-contain";
+          body.appendChild(video);
+        }
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+      });
+    });
+  };
+
+  setupCodifyTiltedScroll();
+  setupAgencyShowreel();
+
+  document.addEventListener("astro:page-load", () => {
+    setupCodifyTiltedScroll();
+    setupAgencyShowreel();
+  });
+
+  document.addEventListener("astro:after-swap", () => {
+    setupCodifyTiltedScroll();
+    setupAgencyShowreel();
+  });
+
+  document.addEventListener("astro:before-swap", () => {
+    if (activeMatchMedia) {
+      activeMatchMedia.revert();
+      activeMatchMedia = null;
+    }
+  });
+
+  window.addEventListener("load", () => {
+    ScrollTrigger.refresh();
+  });
+</script>

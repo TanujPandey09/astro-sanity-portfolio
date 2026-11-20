@@ -21,7 +21,7 @@ import { fetchAllTemplates } from "../lib/templates";
 const query = groq`*[_type == "projects" && !defined(gumroadLink) && !(slug.current in [
   "lumina-dental-premium-dental-website-template",
   "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
-])]{...,BackgroundImage{asset->{url}}}`;
+])]{...,BackgroundImage{asset->{url}},demoVideo{asset->{url}}}`;
 const blogquery = groq`*[_type == "blogs"] | order(_createdAt desc) {...,FeatureImage{asset->{url}},BackgroundImage{asset->{url}}}`;
 const bannerQuery = groq`*[_type == "herobanner"] | order(_updatedAt desc)[0]{_updatedAt, BackgroundImage{asset->{url}}}`;
 const aboutPortraitQuery = groq`*[_type == "about"] | order(_updatedAt desc)[0]{_updatedAt, heroImage{asset->{url}}}`;

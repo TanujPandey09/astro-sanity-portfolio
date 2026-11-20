@@ -1,144 +1,171 @@
 ---
-// NovaStack Why Us: 6 Core Engineering Pillars
-const pillars = [
+// NovaStack Why Us: Matching "Discover Why We Stand Out" with 3 Pastel Bento Cards + Interactive Micro UI Widgets
+const differentiators = [
   {
     number: "01",
-    title: "Full-Stack Engineering Capabilities",
-    summary: "Complete stack mastery from database schemas and REST/GraphQL APIs to responsive, accessible client interfaces.",
-    benefit: "Eliminates cross-team communication overhead, mismatched API contracts, and sluggish delivery cycles."
+    tag: "DIRECT COLLABORATION",
+    title: "Direct Founder Communication",
+    description:
+      "Work directly with Tanuj Pandey. No account managers, no junior handoffs, no diluted requirements. Every discussion, technical question, and architectural decision goes directly to the engineer building your product.",
+    benefit: "Immediate answers to technical questions & rapid iteration cycles.",
+    bgColor: "bg-gradient-to-b from-[#FFFDF5] to-[#FEF3C7]/30",
+    borderColor: "border-[#FDE68A]",
+    tagColor: "bg-[#FEF3C7] text-[#92400E] border-[#FDE68A]",
+    accentDot: "bg-[#D97706]",
+    widgetType: "chat"
   },
   {
     number: "02",
-    title: "AI-First Implementation",
-    summary: "Practical, deterministic AI systems: multi-LLM orchestration, contextual RAG, structured JSON validation, and automated workflows.",
-    benefit: "We treat AI as a core architectural asset rather than an ad-hoc gimmick, keeping token costs down and outputs reliable."
+    tag: "MODERN ARCHITECTURE",
+    title: "Modern React & Next.js Development",
+    description:
+      "Built with contemporary architectures—Next.js 15, React 19, and strict TypeScript. No legacy template bloat, no obsolete jQuery libraries, and no brittle spaghetti code.",
+    benefit: "99+ Core Web Vitals, accessible UI, and clean component systems.",
+    bgColor: "bg-gradient-to-b from-[#F0F9FF] to-[#E0F2FE]/40",
+    borderColor: "border-[#BAE6FD]",
+    tagColor: "bg-[#E0F2FE] text-[#0369A1] border-[#BAE6FD]",
+    accentDot: "bg-[#0284C7]",
+    widgetType: "code"
   },
   {
     number: "03",
-    title: "Scalable Architecture",
-    summary: "Modular codebases, ACID-compliant databases, edge caching, and stateless APIs engineered to scale under real production loads.",
-    benefit: "Your software won't need an expensive ground-up rebuild when user traffic grows from 1,000 to 100,000 active sessions."
-  },
-  {
-    number: "04",
-    title: "Modern Technology Stack",
-    summary: "Built exclusively with Next.js, React 19, TypeScript, Node.js, and PostgreSQL. Zero legacy bloat, zero proprietary lock-in.",
-    benefit: "Clean, maintainable codebases that your internal developers or future hires can easily adopt, extend, and maintain."
-  },
-  {
-    number: "05",
-    title: "Direct Founder Communication",
-    summary: "You work directly with senior engineering leadership. No non-technical account managers, no telephone games, no excuses.",
-    benefit: "Direct technical accountability, immediate answers to architectural queries, and daily/weekly transparent progress updates."
-  },
-  {
-    number: "06",
-    title: "End-to-End Product Delivery",
-    summary: "We own the complete product lifecycle from discovery and architecture to UI/UX design, sprint development, QA, and deployment.",
-    benefit: "A singular, accountable partner who delivers a working, revenue-ready production system on time and within agreed scope."
+    tag: "100% IP HANDOVER",
+    title: "Maintainable Code & Full Ownership",
+    description:
+      "Full repository transfer, clear documentation, and clean code that any engineer can maintain. You own 100% of the GitHub repository, cloud hosting accounts, and intellectual property from day one.",
+    benefit: "Zero proprietary lock-in. Full ownership of your code and assets.",
+    bgColor: "bg-gradient-to-b from-[#F0FDF4] to-[#DCFCE7]/40",
+    borderColor: "border-[#BBF7D0]",
+    tagColor: "bg-[#DCFCE7] text-[#166534] border-[#BBF7D0]",
+    accentDot: "bg-[#16A34A]",
+    widgetType: "git"
   }
 ];
 ---
 
-<section id="why-us" class="py-20 sm:py-28 bg-[#0C0E14] text-white border-b border-white/[0.08]">
+<section id="why-us" class="py-20 sm:py-28 bg-white text-[#0F172A] border-b border-[#E2E8F0]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
-        // THE NOVASTACK ADVANTAGE
-      </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-tight">
-        Engineered for Founders Who Care About Code Quality.
+
+    <!-- Section Header (Matching "Discover Why We Stand Out") -->
+    <div class="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
+      <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#EFF6FF] border border-[#BFDBFE] text-[11px] font-mono font-semibold uppercase tracking-[0.16em] text-[#2563EB] mb-3">
+        // WHY WORK WITH NOVASTACK
+      </span>
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-[#0F172A] tracking-[-0.035em] leading-[1.08]">
+        Discover why we stand out.
       </h2>
-      <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-4 leading-relaxed font-sans">
-        Most agencies operate with non-technical middlemen, outsource code overseas, or deliver fragile prototypes that crumble in production. NovaStack was founded to provide an engineering-first alternative.
+      <p class="text-sm sm:text-base text-[#64748B] mt-3 leading-relaxed font-sans max-w-xl mx-auto">
+        Founder-led engineering without the layers, overhead, or misaligned incentives of traditional agencies.
       </p>
     </div>
 
-    <!-- 6 Pillars Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {pillars.map((pillar, idx) => {
-        const dir = idx % 3 === 0 ? 'left' : idx % 3 === 1 ? 'center' : 'right';
-        return (
-        <div data-agency-dir={dir} class="rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-[#828FFF]/40 p-6 sm:p-8 flex flex-col justify-between transition-all">
+    <!-- 3 Pastel Bento Cards (Matching Reference Template's Trio Grid) -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch mb-8">
+      {differentiators.map((item) => (
+        <div class={`agency-card rounded-2xl sm:rounded-3xl p-6 sm:p-7 border ${item.borderColor} ${item.bgColor} shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between`}>
           <div>
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-[#828FFF] bg-[#5E6AD2]/15 border border-[#5E6AD2]/30 px-2.5 py-0.5 rounded-full">
-                PILLAR {pillar.number}
+            <!-- Top Tag & Number -->
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class={`text-[10px] font-mono uppercase tracking-wider font-bold px-3 py-1 rounded-full border ${item.tagColor}`}>
+                {item.tag}
               </span>
-              <span class="w-2 h-2 rounded-full bg-white/25"></span>
+              <span class="font-mono text-xs font-bold text-[#64748B]">
+                {item.number}
+              </span>
             </div>
 
-            <h3 class="font-grotesk font-bold text-xl text-white tracking-tight mb-3">
-              {pillar.title}
+            <!-- Micro Interactive UI Widget Preview (Inspired by Reference Template) -->
+            <div class="mb-5 rounded-xl bg-white/80 backdrop-blur-xs border border-white/60 p-3.5 shadow-2xs">
+              {item.widgetType === "chat" && (
+                <div class="space-y-2">
+                  <div class="flex items-center gap-2 text-[11px] font-sans">
+                    <span class="w-6 h-6 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-[10px]">TP</span>
+                    <span class="bg-[#F1F5F9] px-2.5 py-1 rounded-lg text-[#0F172A] font-medium">Let's review the API architecture on staging today.</span>
+                  </div>
+                  <div class="flex items-center justify-end gap-2 text-[11px] font-sans">
+                    <span class="bg-[#EFF6FF] text-[#1D4ED8] border border-[#BFDBFE] px-2.5 py-1 rounded-lg font-medium">Looks great, staging demo approved! ✓</span>
+                  </div>
+                </div>
+              )}
+
+              {item.widgetType === "code" && (
+                <div class="space-y-1.5 font-mono text-[11px]">
+                  <div class="flex items-center justify-between text-[#64748B] text-[10px] pb-1 border-b border-slate-100">
+                    <span>Component.tsx</span>
+                    <span class="text-emerald-600 font-bold">TypeScript Strict</span>
+                  </div>
+                  <p class="text-[#0F172A] leading-snug">
+                    <span class="text-[#2563EB]">export const</span> Page = <span class="text-[#38BDF8]">async</span> () =&gt; &#123; <br />
+                    &nbsp;&nbsp;<span class="text-slate-500">// 99+ Core Web Vitals SSR</span>
+                  </p>
+                </div>
+              )}
+
+              {item.widgetType === "git" && (
+                <div class="flex items-center justify-between text-xs font-mono">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    <span class="font-bold text-[#0F172A]">Repo Handover</span>
+                  </div>
+                  <span class="text-[10px] bg-emerald-100 text-emerald-800 border border-emerald-200 px-2 py-0.5 rounded-full font-semibold">
+                    100% Transfer
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <h3 class="font-grotesk font-extrabold text-xl sm:text-2xl text-[#0F172A] tracking-tight mb-2.5">
+              {item.title}
             </h3>
 
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans mb-4">
-              {pillar.summary}
+            <p class="text-xs sm:text-sm text-[#64748B] leading-relaxed font-sans mb-5">
+              {item.description}
             </p>
           </div>
 
-          <div class="pt-4 border-t border-white/[0.08]">
-            <span class="block text-[11px] font-mono text-slate-300">
-              <strong class="text-white font-semibold font-sans">Business Value:</strong> {pillar.benefit}
+          <div class="pt-4 border-t border-black/5 text-xs font-mono text-[#0F172A]">
+            <span class="font-bold text-[#2563EB]">Advantage:</span> {item.benefit}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- 4th Differentiator: Full-Width Feature Banner (Clear Scope & Transparent Milestones) -->
+    <div class="agency-card rounded-2xl sm:rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-[#EFF6FF] via-[#F8FAFC] to-[#F0F9FF] border border-[#BFDBFE] shadow-sm">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        
+        <div class="lg:col-span-8 space-y-2">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-0.5 rounded-full bg-[#2563EB] text-white text-[10px] font-mono font-bold uppercase tracking-wider">
+              04 · PREDICTABLE PROCESS
+            </span>
+            <span class="text-xs font-mono text-[#64748B]">Zero unexpected scope creep</span>
+          </div>
+          <h3 class="font-grotesk font-extrabold text-xl sm:text-2xl text-[#0F172A] tracking-tight">
+            Clear Scope &amp; Transparent Milestones
+          </h3>
+          <p class="text-xs sm:text-sm text-[#64748B] font-sans leading-relaxed max-w-2xl">
+            Every project starts with defined deliverables, fixed quotes, and scheduled milestone reviews. You test working code on a private staging link before moving to the next sprint.
+          </p>
+        </div>
+
+        <div class="lg:col-span-4 flex flex-col justify-center items-start lg:items-end">
+          <div class="p-4 rounded-xl bg-white/90 backdrop-blur-xs border border-[#BFDBFE] w-full text-xs font-mono space-y-1.5 shadow-2xs">
+            <div class="flex items-center justify-between">
+              <span class="text-[#64748B]">Milestone Sign-Off</span>
+              <span class="text-[#2563EB] font-bold">5 Stages</span>
+            </div>
+            <div class="w-full bg-[#E2E8F0] h-1.5 rounded-full overflow-hidden">
+              <div class="bg-[#2563EB] h-full w-full rounded-full"></div>
+            </div>
+            <span class="text-[10px] text-[#15803D] font-bold block pt-0.5">
+              ✓ Tested on live private staging URL
             </span>
           </div>
         </div>
-      );})}
-    </div>
 
-    <!-- Traditional Agency vs NovaStack Comparison Table -->
-    <div data-agency-dir="center" class="mt-12 sm:mt-16 rounded-2xl bg-white/[0.03] border border-white/10 overflow-hidden">
-      <div class="p-5 sm:p-6 bg-white/[0.04] border-b border-white/[0.08]">
-        <h3 class="font-grotesk font-bold text-lg text-white">
-          How We Compare to Traditional Digital Agencies
-        </h3>
-        <p class="text-xs text-slate-300 font-sans mt-0.5">
-          A side-by-side breakdown of operational differences.
-        </p>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-xs sm:text-sm font-sans">
-          <thead class="bg-white/[0.02] font-mono text-[11px] uppercase tracking-wider text-slate-300 border-b border-white/[0.08]">
-            <tr>
-              <th class="py-3.5 px-4 sm:px-6">Dimension</th>
-              <th class="py-3.5 px-4 sm:px-6 text-slate-400">Typical Agency Model</th>
-              <th class="py-3.5 px-4 sm:px-6 text-[#828FFF] font-bold">The NovaStack Approach</th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-white/[0.06] text-slate-200">
-            <tr>
-              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Communication</td>
-              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Filtered through non-technical account managers</td>
-              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Direct Slack/Teams access to senior engineering leadership</td>
-            </tr>
-            <tr>
-              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Code Quality &amp; Types</td>
-              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Inconsistent, loose JavaScript, heavy technical debt</td>
-              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Strict TypeScript, modular components, clean Git branches</td>
-            </tr>
-            <tr>
-              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">AI Implementation</td>
-              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Basic API wrappers without caching or evaluation</td>
-              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Multi-LLM routing, structured outputs, prompt caching &amp; guardrails</td>
-            </tr>
-            <tr>
-              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Codebase Ownership</td>
-              <td class="py-3.5 px-4 sm:px-6 text-slate-400">Often held in agency repos with proprietary lock-in</td>
-              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">100% full IP and repository transfer on day one</td>
-            </tr>
-            <tr>
-              <td class="py-3.5 px-4 sm:px-6 font-semibold text-white">Speed to Market</td>
-              <td class="py-3.5 px-4 sm:px-6 text-slate-400">3 to 6 months of scope creep and delayed meetings</td>
-              <td class="py-3.5 px-4 sm:px-6 font-medium text-white">Production-ready MVPs shipped in 4 to 8 weeks</td>
-            </tr>
-          </tbody>
-        </table>
       </div>
     </div>
 
   </div>
 </section>
-

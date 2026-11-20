@@ -203,6 +203,7 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
     <meta name="description" content={description} />
     <!-- Core SEO & Search Indexing -->
     <meta name="keywords" content={resolvedKeywords} />
@@ -492,8 +493,8 @@ const structuredData = {
 
   body:has(.agency-page),
   body.agency-page-body {
-    background-color: #090A0F !important;
-    color: #F8FAFC !important;
+    background-color: #FAFAFB !important;
+    color: #0F172A !important;
   }
 
   #main-content {
@@ -979,7 +980,7 @@ const structuredData = {
   const initPortfolioMotion = () => {
     ScrollTrigger.getAll().forEach((t) => {
       const id = String(t.vars?.id || '');
-      if (id !== 'about-horizontal-trigger' && !id.startsWith('career-stack-depth-') && !id.startsWith('agency-')) {
+      if (id !== 'about-horizontal-trigger' && !id.startsWith('career-stack-depth-') && !id.startsWith('agency-') && !id.startsWith('tilt-')) {
         t.kill();
       }
     });

@@ -1,169 +1,131 @@
 ---
-// NovaStack Development Process: 6 Sequential Steps to Production
+// NovaStack Process Section: Unified Monochrome + Linear Indigo (#5E6AD2)
+// Clean architectural cards — no rainbow pastels, no repeated titles
 const steps = [
   {
     step: "01",
-    name: "Discovery & Technical Audit",
-    timeframe: "Week 1",
-    objective: "Understand business goals, user personas, existing technical constraints, and competitive landscapes.",
-    activities: [
-      "Deep dive consultation on product vision & requirements",
-      "Existing codebase or infrastructure audit (if applicable)",
-      "Feasibility analysis for AI models & external API integrations",
-      "Definition of MVP scope & critical path milestones"
-    ],
-    deliverable: "Product Scope Document & Technical Feasibility Report"
+    phase: "Alignment",
+    title: "Discovery",
+    summary: "Align on goals, scope, and constraints.",
+    description: "Review your product objectives, target users, technical requirements, and launch priorities.",
+    youApprove: "Written scope spec & fixed milestone schedule",
   },
   {
     step: "02",
-    name: "Strategy & Architecture Planning",
-    timeframe: "Week 1 – 2",
-    objective: "Architect database schemas, API contracts, cloud infrastructure, and sprint roadmaps before writing code.",
-    activities: [
-      "Relational database schema modeling (PostgreSQL / Prisma)",
-      "API contract specification (RESTful / GraphQL / WebSockets)",
-      "Multi-LLM pipeline strategy & prompt caching architecture",
-      "Two-week sprint roadmap with milestone commitments"
-    ],
-    deliverable: "System Architecture Blueprint & Sprint Schedule"
+    phase: "Architecture",
+    title: "Technical Planning",
+    summary: "Lock the stack, schema, and deliverables.",
+    description: "Select the optimal architecture, design data models and API contracts, and map clear weekly checkpoints.",
+    youApprove: "Architecture plan & itemized deliverables list",
   },
   {
     step: "03",
-    name: "UI/UX Design & Prototyping",
-    timeframe: "Week 2 – 3",
-    objective: "Create high-converting, accessible user interfaces and interactive prototypes that validate user journeys.",
-    activities: [
-      "Wireframing key user flows & core dashboard layouts",
-      "Interactive Figma prototyping for stakeholder review",
-      "Design system token setup (typography, spacing, states)",
-      "WCAG 2.1 AA accessibility & mobile responsiveness review"
-    ],
-    deliverable: "Clickable Figma Prototype & Approved Design Tokens"
+    phase: "Interface",
+    title: "UI/UX Design",
+    summary: "Craft responsive, high-conversion layouts.",
+    description: "Design clean, accessible user flows focused on clarity, mobile responsiveness, and measurable conversion.",
+    youApprove: "Interactive prototype & responsive UI specs",
   },
   {
     step: "04",
-    name: "Sprint-Based Engineering",
-    timeframe: "Week 3 – 6+",
-    objective: "Implement clean, modular TypeScript code across frontend and backend in rapid agile iterations.",
-    activities: [
-      "Full-stack development using Next.js, Node.js, and PostgreSQL",
-      "Bi-weekly staging deployments for client hands-on testing",
-      "Integration of authentication, billing, and AI services",
-      "Clean Git branch workflows and automated CI lint/type checks"
-    ],
-    deliverable: "Live Staging Environments & Functional Feature Releases"
+    phase: "Engineering",
+    title: "Sprint Development",
+    summary: "Build, test, and deploy to private staging.",
+    description: "Ship clean, type-safe code with continuous staging previews and asynchronous Loom walkthroughs.",
+    youApprove: "Hands-on testing on your private staging URL",
   },
   {
     step: "05",
-    name: "Testing, Hardening & Deployment",
-    timeframe: "Final 1 – 2 Weeks",
-    objective: "Rigorous quality assurance, performance optimization, and seamless zero-downtime production launch.",
-    activities: [
-      "Cross-browser and cross-device responsive validation",
-      "Core Web Vitals audit ensuring sub-second LCP & zero CLS",
-      "Security penetration checks & API rate-limiting validation",
-      "Cloudflare / Netlify / Vercel production deployment setup"
-    ],
-    deliverable: "Live Production Release & Complete Code Handover"
+    phase: "Handover",
+    title: "Production Launch",
+    summary: "Deploy live and transfer full ownership.",
+    description: "Deploy directly to your cloud accounts, verify DNS and analytics, and hand over 100% of the repository.",
+    youApprove: "Live production domain & full repository transfer",
   },
-  {
-    step: "06",
-    name: "Ongoing Support & Scaling",
-    timeframe: "Post-Launch",
-    objective: "Continuous monitoring, performance tuning, and iterative feature scaling as your user base expands.",
-    activities: [
-      "Uptime SLA monitoring and automated error tracking",
-      "Dependency updates, security patches & bug fixes",
-      "Feature backlog scoping and ongoing sprint capacity",
-      "Quarterly architecture reviews and scaling recommendations"
-    ],
-    deliverable: "Monthly Maintenance Retainers & Priority Engineering Support"
-  }
 ];
 ---
 
-<section id="process" class="py-20 sm:py-28 bg-[#090A0F] text-white border-b border-white/[0.08]">
+<section id="process" class="py-20 sm:py-28 bg-[#F4F4F5] text-[#09090B] border-b border-[#E4E4E7]">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
-        // DEVELOPMENT PROCESS
-      </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-white tracking-[-0.035em] leading-tight">
-        A Transparent, Step-by-Step Path to Launch.
-      </h2>
-      <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-4 leading-relaxed font-sans">
-        We eliminate guesswork with a proven six-step methodology. You receive regular staging preview builds, clear milestone check-ins, and direct visibility into your product's progress.
-      </p>
-    </div>
 
-    <!-- 6 Sequential Steps Timeline Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {steps.map((item, idx) => {
-        const dir = idx % 3 === 0 ? 'left' : idx % 3 === 1 ? 'center' : 'right';
-        return (
-        <div data-agency-dir={dir} class="rounded-2xl bg-white/[0.03] border border-white/[0.08] p-6 sm:p-7 flex flex-col justify-between hover:bg-white/[0.05] hover:border-[#828FFF]/40 transition-all">
-          <div>
-            <!-- Step Number & Estimated Timeframe -->
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-mono font-bold text-[#828FFF] bg-[#5E6AD2]/15 border border-[#5E6AD2]/30 px-2.5 py-0.5 rounded-full">
-                STEP {item.step}
-              </span>
-              <span class="text-xs font-mono text-slate-300 font-medium">
-                ⏱ {item.timeframe}
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+
+      <!-- Left Column (Sticky 5 cols) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+        <div>
+          <div class="flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] mb-3">
+            <span class="w-5 h-px bg-[#5E6AD2]"></span>
+            <span>03 / Delivery Process</span>
+          </div>
+          <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-[#09090B] tracking-[-0.035em] leading-[1.08]">
+            5-Step Sprint Process. <br class="hidden sm:inline" />
+            Zero Black-Box Weeks.
+          </h2>
+          <p class="text-sm sm:text-base text-[#52525B] mt-4 leading-relaxed font-sans">
+            Every sprint ships working software to a private staging link so you verify progress before signing off the next milestone.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-white border border-[#E4E4E7] space-y-2.5">
+          <div class="flex items-center gap-2 text-xs font-mono font-bold text-[#09090B]">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Milestone-Gated Sign-Off</span>
+          </div>
+          <p class="text-xs text-[#52525B] font-sans leading-relaxed">
+            Invoices are tied directly to approved deliverables on staging—never open-ended hourly billing or surprise retainers.
+          </p>
+        </div>
+
+        <div>
+          <a
+            href="#contact"
+            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all"
+          >
+            <span>Start Your Project</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Column: Crisp Monochrome Step Cards (7 cols) -->
+      <div class="lg:col-span-7 space-y-4">
+        {steps.map((item) => (
+          <div class="process-step-card agency-card rounded-2xl p-6 sm:p-7 bg-white border border-[#E4E4E7] hover:border-[#5E6AD2]/40 shadow-2xs hover:shadow-sm transition-all duration-300">
+            
+            <div class="flex items-center justify-between gap-3 mb-3">
+              <div class="flex items-center gap-2.5">
+                <span class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-[#EEF0FB] text-[#5E6AD2] border border-[#D5D9F5]">
+                  {item.step}
+                </span>
+                <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#71717A] font-semibold">
+                  {item.phase}
+                </span>
+              </div>
+              <span class="text-[10px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                Sign-Off Gate
               </span>
             </div>
 
-            <!-- Step Title -->
-            <h3 class="font-grotesk font-bold text-lg sm:text-xl text-white tracking-tight mb-2">
-              {item.name}
+            <h3 class="font-grotesk font-extrabold text-xl text-[#09090B] tracking-tight mb-1.5">
+              {item.title}
+              <span class="font-normal font-sans text-sm sm:text-base text-[#71717A]"> — {item.summary}</span>
             </h3>
 
-            <!-- Objective -->
-            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-sans mb-4">
-              {item.objective}
+            <p class="text-xs sm:text-sm text-[#52525B] leading-relaxed font-sans mb-4">
+              {item.description}
             </p>
 
-            <!-- Key Activities -->
-            <div class="space-y-1.5 mb-5 text-xs text-slate-200 font-sans">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-300 font-semibold block mb-1">
-                Core Activities:
-              </span>
-              {item.activities.map((act) => (
-                <div class="flex items-start gap-1.5">
-                  <span class="text-[#828FFF] font-mono text-[10px] mt-0.5">•</span>
-                  <span>{act}</span>
-                </div>
-              ))}
+            <!-- Sign-Off Deliverable Strip -->
+            <div class="px-3.5 py-2.5 rounded-xl bg-[#F4F4F5] border border-[#E4E4E7] flex items-center gap-2 text-xs">
+              <span class="text-[#5E6AD2] font-mono font-bold shrink-0">Deliverable:</span>
+              <span class="text-[#09090B] font-sans font-medium">{item.youApprove}</span>
             </div>
-          </div>
 
-          <!-- Deliverable Tag -->
-          <div class="pt-4 border-t border-white/[0.08]">
-            <span class="text-[11px] font-mono text-slate-300 block">
-              <strong class="text-white font-semibold font-sans">Key Deliverable:</strong>
-            </span>
-            <span class="text-xs font-mono text-[#828FFF] font-semibold mt-0.5 block">
-              {item.deliverable}
-            </span>
           </div>
-        </div>
-      );})}
-    </div>
-
-    <!-- Process Assurance Note -->
-    <div class="mt-10 sm:mt-12 rounded-2xl bg-white/[0.03] border border-white/10 p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-      <div>
-        <h4 class="font-grotesk font-bold text-sm text-white">Agile Staging Previews Every Sprint</h4>
-        <p class="text-xs text-slate-300 font-sans mt-0.5">You never wait months to see your product. We publish testable staging builds every two weeks with automated demo walkthroughs.</p>
+        ))}
       </div>
-      <a href="#contact" class="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-[#828FFF] hover:text-white transition-colors whitespace-nowrap">
-        <span>Schedule Discovery Call</span>
-        <span>→</span>
-      </a>
+
     </div>
 
   </div>
 </section>
-

@@ -1,0 +1,178 @@
+---
+// React Bits Inspired Calm Interactive "Particles / Constellation" Backdrop
+// Calibrated to Obsidian (#0A0B0E) & Linear Indigo (#5E6AD2 / #828FFF) for portrait/editorial focus
+---
+
+<div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+  <canvas id="about-particles-canvas" class="w-full h-full block"></canvas>
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_70%_55%_at_28%_22%,rgba(94,106,210,0.16)_0%,transparent_68%)]"></div>
+  <div class="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-[#0A0B0E] to-transparent"></div>
+</div>
+
+<script>
+  const initAboutParticles = () => {
+    const canvas = document.getElementById("about-particles-canvas") as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    const w = window as any;
+    if (w.__aboutParticlesRaf) cancelAnimationFrame(w.__aboutParticlesRaf);
+    if (w.__aboutParticlesCleanup) w.__aboutParticlesCleanup();
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let mouseX = -9999;
+    let mouseY = -9999;
+
+    interface Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      radius: number;
+      indigo: boolean;
+      alpha: number;
+    }
+
+    let particles: Particle[] = [];
+
+    const seedParticles = () => {
+      const count = width < 640 ? 18 : 30;
+      particles = Array.from({ length: count }, (_, i) => ({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.16,
+        vy: (Math.random() - 0.5) * 0.14,
+        radius: 1.0 + Math.random() * 1.4,
+        indigo: i % 3 !== 0,
+        alpha: 0.18 + Math.random() * 0.24,
+      }));
+    };
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seedParticles();
+    };
+
+    const section = canvas.closest("section");
+    const onPointerMove = (e: PointerEvent) => {
+      const rect = parent.getBoundingClientRect();
+      mouseX = e.clientX - rect.left;
+      mouseY = e.clientY - rect.top;
+    };
+    const onPointerLeave = () => {
+      mouseX = -9999;
+      mouseY = -9999;
+    };
+
+    section?.addEventListener("pointermove", onPointerMove, { passive: true });
+    section?.addEventListener("pointerleave", onPointerLeave, { passive: true });
+    window.addEventListener("resize", resize, { passive: true });
+    resize();
+
+    const maxLinkDist = 128;
+    const pointerRadius = 155;
+
+    const render = () => {
+      if (document.visibilityState === "hidden") {
+        w.__aboutParticlesRaf = requestAnimationFrame(render);
+        return;
+      }
+
+      ctx.clearRect(0, 0, width, height);
+
+      if (!reduceMotion) {
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.x < -10) p.x = width + 10;
+          if (p.x > width + 10) p.x = -10;
+          if (p.y < -10) p.y = height + 10;
+          if (p.y > height + 10) p.y = -10;
+
+          if (mouseX > -100) {
+            const dx = p.x - mouseX;
+            const dy = p.y - mouseY;
+            const dist = Math.hypot(dx, dy);
+            if (dist > 4 && dist < pointerRadius) {
+              const force = (1 - dist / pointerRadius) * 0.45;
+              p.x += (dx / dist) * force;
+              p.y += (dy / dist) * force;
+            }
+          }
+        }
+      }
+
+      // Subtle Constellation Links
+      ctx.lineWidth = 0.85;
+      for (let i = 0; i < particles.length; i++) {
+        const a = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const b = particles[j];
+          const dist = Math.hypot(a.x - b.x, a.y - b.y);
+          if (dist < maxLinkDist) {
+            const fade = 1 - dist / maxLinkDist;
+            ctx.strokeStyle = `rgba(130, 143, 255, ${fade * 0.14})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+
+        if (mouseX > -100) {
+          const mDist = Math.hypot(a.x - mouseX, a.y - mouseY);
+          if (mDist < pointerRadius) {
+            const k = 1 - mDist / pointerRadius;
+            ctx.strokeStyle = `rgba(130, 143, 255, ${k * 0.28})`;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(mouseX, mouseY);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Soft Nodes
+      for (const p of particles) {
+        const nearMouse = mouseX > -100 && Math.hypot(p.x - mouseX, p.y - mouseY) < pointerRadius;
+        ctx.fillStyle = p.indigo
+          ? `rgba(130, 143, 255, ${nearMouse ? Math.min(0.85, p.alpha + 0.35) : p.alpha})`
+          : `rgba(255, 255, 255, ${nearMouse ? 0.72 : p.alpha * 0.8})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, nearMouse ? p.radius + 0.6 : p.radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      if (!reduceMotion) {
+        w.__aboutParticlesRaf = requestAnimationFrame(render);
+      }
+    };
+
+    render();
+
+    w.__aboutParticlesCleanup = () => {
+      if (w.__aboutParticlesRaf) cancelAnimationFrame(w.__aboutParticlesRaf);
+      section?.removeEventListener("pointermove", onPointerMove);
+      section?.removeEventListener("pointerleave", onPointerLeave);
+      window.removeEventListener("resize", resize);
+    };
+  };
+
+  initAboutParticles();
+  document.addEventListener("astro:page-load", initAboutParticles);
+</script>
+

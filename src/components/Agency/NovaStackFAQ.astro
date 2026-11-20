@@ -1,66 +1,76 @@
 ---
-// NovaStack Frequently Asked Questions: 6 Core Answers
+// NovaStack FAQ: Unified Monochrome + Linear Indigo (#5E6AD2), Consistent Founder-Led Voice
 const faqs = [
   {
-    question: "What services does NovaStack provide?",
-    answer: "NovaStack is an AI & digital technology studio delivering six core disciplines: Full-Stack Web Development (Next.js, React 19), Cross-Platform Mobile App Development (React Native for iOS and Android), Applied AI & Automation (multi-LLM orchestration, RAG pipelines, chatbots, autonomous agents), SaaS & Custom Software Engineering (MVPs, CRM systems, subscription billing, real-time sync), Technical SEO & GEO (Core Web Vitals tuning, structured schema, machine-readable discovery), and UI/UX & Product Design (Figma prototyping, accessible design systems)."
+    question: "What kind of projects do you take on?",
+    answer:
+      "I partner with startups, digital agencies, and product teams across four core areas: custom marketing websites (Next.js, Astro, Sanity CMS), full-stack SaaS applications (MVPs, portals, RBAC, Stripe billing), applied AI workflows (RAG pipelines, autonomous agents, LLM APIs), and production HTML email design systems.",
   },
   {
-    question: "Do you work with international clients?",
-    answer: "Yes. Over 80% of our projects are with founders, startups, and businesses located internationally across the United States, United Kingdom, United Arab Emirates, Australia, and India. We accommodate asynchronous communication through Slack, Teams, Linear, and Loom, while maintaining reliable daily overlapping windows for sprint syncs, milestone reviews, and technical discussions."
+    question: "Who actually builds the product?",
+    answer:
+      "Every architectural decision, UI implementation, and backend integration is written directly by founder Tanuj Pandey. You communicate directly in Slack, WhatsApp, or email with the engineer shipping your commits—never an account manager or outsourced junior team.",
   },
   {
-    question: "Can you build custom SaaS applications from scratch?",
-    answer: "Yes. End-to-end SaaS engineering is our core specialty. We handle the complete product lifecycle: from initial database modeling (PostgreSQL / Prisma) and multi-tenant authentication (RBAC, JWT) to subscription billing (Stripe, MyFatoorah), real-time WebSockets state synchronization, and high-conversion client dashboards. We also build rapid 4-to-8 week SaaS MVPs designed for investor demos and early customer acquisition."
+    question: "How are milestones and payments structured?",
+    answer:
+      "Fixed-scope projects follow a 5-step milestone roadmap: Discovery, Technical Planning, UI/UX Design, Sprint Development, and Launch. Before coding starts, we lock a written scope and milestone schedule. You test working code on a private staging URL at each checkpoint before approving the next invoice.",
   },
   {
-    question: "Do you integrate AI into existing products without a full rewrite?",
-    answer: "Absolutely. We routinely audit existing codebases and embed production-grade AI features without disrupting your current user traffic. This includes multi-provider routing (OpenAI GPT-4o, Claude 3.5, Gemini 1.5) with fallback logic, custom RAG search over proprietary documents, automated customer support assistants, and background AI data processing workers."
+    question: "Do I own 100% of the source code and accounts?",
+    answer:
+      "Yes. All repositories, cloud hosting accounts (Vercel, Netlify, AWS, Neon), and Sanity CMS workspaces belong directly to your organization. On final sign-off, 100% intellectual property transfers cleanly with zero proprietary lock-in.",
   },
   {
-    question: "Do you provide ongoing maintenance and post-launch support?",
-    answer: "Yes. Every fixed-price project includes a complimentary 30-day post-launch warranty covering any bug fixes and deployment support. Beyond launch, we offer dedicated Monthly Maintenance & SLA retainers covering continuous uptime monitoring, security patching, library updates, performance tuning, and reserved hours for ongoing feature enhancements."
+    question: "How do custom HTML email design systems work?",
+    answer:
+      "I design and hand-code modular, table-based HTML email kits using inline CSS and Outlook VML fallbacks—tested across 50+ clients including Outlook 365, Gmail, and Apple Mail Dark Mode. Deliverables arrive as clean, reusable HTML ready for Klaviyo, Mailchimp, HubSpot, SendGrid, or Resend. (Campaign sending and list management stay with your team.)",
   },
-  {
-    question: "How can I start a project with NovaStack?",
-    answer: "Getting started is simple: fill out the inquiry form below with a brief summary of your product goals, timeline, and rough budget. Senior engineering leadership reviews every submission and responds within 24 hours with an initial technical assessment and a link to schedule a 30-minute discovery consultation."
-  }
 ];
 ---
 
-<section id="faq" class="py-20 sm:py-28 bg-[#090A0F] text-white border-b border-white/[0.08]">
-  <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-    
+<section id="faq" class="py-20 sm:py-28 bg-white text-[#09090B] border-b border-[#E4E4E7] relative overflow-hidden">
+  
+  <div class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
     <!-- Section Header -->
-    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono font-semibold text-[#828FFF] uppercase tracking-[0.16em] mb-4">
-        // FREQUENTLY ASKED QUESTIONS
+    <div class="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+      <div class="inline-flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] mb-3">
+        <span class="w-4 h-px bg-[#5E6AD2]"></span>
+        <span>06 / FAQ</span>
+        <span class="w-4 h-px bg-[#5E6AD2]"></span>
       </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl text-white tracking-[-0.03em] leading-tight">
-        Clear Answers to Common Questions.
+      <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-[#09090B] tracking-[-0.035em] leading-tight">
+        Common Questions.
       </h2>
-      <p class="text-sm sm:text-base text-slate-300 mt-3 font-sans">
-        Everything you need to know about partnering with NovaStack for software engineering and AI implementation.
+      <p class="text-sm sm:text-base text-[#52525B] mt-3 font-sans">
+        Straight answers on scope, engineering workflow, and ownership.
       </p>
     </div>
 
     <!-- Accordion List -->
-    <div class="space-y-4" id="faq-accordion-group">
+    <div class="space-y-3" id="faq-accordion-group">
       {faqs.map((faq, index) => {
         const isFirst = index === 0;
         return (
-          <div class="rounded-2xl bg-white/[0.03] border border-white/[0.08] overflow-hidden transition-all duration-200 hover:border-white/20">
+          <div class="agency-card rounded-2xl overflow-hidden bg-[#F4F4F5] border border-[#E4E4E7] hover:border-[#D4D4D8] transition-colors">
             <button
               type="button"
               id={`faq-btn-${index}`}
               aria-expanded={isFirst ? "true" : "false"}
               aria-controls={`faq-answer-${index}`}
-              class="faq-trigger w-full text-left px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
+              class="faq-trigger group w-full text-left px-6 py-5 flex items-center justify-between gap-4 cursor-pointer focus:outline-none"
             >
-              <span class="font-grotesk font-bold text-base sm:text-lg text-white tracking-tight pr-2">
+              <span class="font-grotesk font-bold text-base sm:text-lg text-[#09090B] group-hover:text-[#5E6AD2] transition-colors tracking-tight pr-2">
                 {faq.question}
               </span>
-              <span class={`faq-chevron w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-transform duration-300 ${isFirst ? 'rotate-180 bg-white text-[#090A0F] border-white' : 'bg-white/[0.05] text-slate-300 border-white/15'}`}>
+              <span
+                class={`faq-chevron w-8 h-8 rounded-full border flex items-center justify-center shrink-0 transition-all duration-300 ${
+                  isFirst
+                    ? "rotate-180 bg-[#5E6AD2] text-white border-[#5E6AD2]"
+                    : "bg-white text-[#52525B] border-[#D4D4D8]"
+                }`}
+              >
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -71,51 +81,61 @@ const faqs = [
               id={`faq-answer-${index}`}
               role="region"
               aria-labelledby={`faq-btn-${index}`}
-              class={`faq-content px-5 sm:px-7 pb-5 pt-2 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans border-t border-white/[0.06] ${isFirst ? '' : 'hidden'}`}
+              class={`px-6 pb-6 text-xs sm:text-sm text-[#52525B] font-sans leading-relaxed border-t border-[#E4E4E7] pt-4 bg-white/70 ${
+                isFirst ? "" : "hidden"
+              }`}
             >
-              {faq.answer}
+              <p>{faq.answer}</p>
             </div>
           </div>
         );
       })}
     </div>
 
-    <!-- Bottom Help Notice -->
-    <div class="mt-10 text-center text-xs font-mono text-slate-300">
-      Have a question not listed here? <a href="#contact" class="text-[#828FFF] font-semibold hover:text-white transition-colors">Ask our engineering lead directly →</a>
-    </div>
-
   </div>
 </section>
 
 <script>
-  const initFaqAccordions = () => {
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.faq-trigger');
-    
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
-        const targetId = btn.getAttribute('aria-controls');
-        if (!targetId) return;
-        const targetContent = document.getElementById(targetId);
-        const chevron = btn.querySelector('.faq-chevron');
+  const setupAgencyFAQ = () => {
+    const container = document.getElementById("faq-accordion-group");
+    if (!container || container.dataset.bound === "true") return;
+    container.dataset.bound = "true";
 
-        if (isExpanded) {
-          btn.setAttribute('aria-expanded', 'false');
-          targetContent?.classList.add('hidden');
-          chevron?.classList.remove('rotate-180', 'bg-white', 'text-[#090A0F]', 'border-white');
-          chevron?.classList.add('bg-white/[0.05]', 'text-slate-300', 'border-white/15');
+    const triggers = container.querySelectorAll<HTMLButtonElement>(".faq-trigger");
+
+    triggers.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const expanded = btn.getAttribute("aria-expanded") === "true";
+        const answerId = btn.getAttribute("aria-controls");
+        const answer = document.getElementById(answerId || "");
+        const chevron = btn.querySelector(".faq-chevron");
+
+        if (expanded) {
+          btn.setAttribute("aria-expanded", "false");
+          answer?.classList.add("hidden");
+          chevron?.classList.remove("rotate-180", "bg-[#5E6AD2]", "text-white", "border-[#5E6AD2]");
+          chevron?.classList.add("bg-white", "text-[#52525B]", "border-[#D4D4D8]");
         } else {
-          btn.setAttribute('aria-expanded', 'true');
-          targetContent?.classList.remove('hidden');
-          chevron?.classList.add('rotate-180', 'bg-white', 'text-[#090A0F]', 'border-white');
-          chevron?.classList.remove('bg-white/[0.05]', 'text-slate-300', 'border-white/15');
+          triggers.forEach((otherBtn) => {
+            if (otherBtn !== btn) {
+              otherBtn.setAttribute("aria-expanded", "false");
+              const otherAnswerId = otherBtn.getAttribute("aria-controls");
+              document.getElementById(otherAnswerId || "")?.classList.add("hidden");
+              const otherChevron = otherBtn.querySelector(".faq-chevron");
+              otherChevron?.classList.remove("rotate-180", "bg-[#5E6AD2]", "text-white", "border-[#5E6AD2]");
+              otherChevron?.classList.add("bg-white", "text-[#52525B]", "border-[#D4D4D8]");
+            }
+          });
+
+          btn.setAttribute("aria-expanded", "true");
+          answer?.classList.remove("hidden");
+          chevron?.classList.add("rotate-180", "bg-[#5E6AD2]", "text-white", "border-[#5E6AD2]");
+          chevron?.classList.remove("bg-white", "text-[#52525B]", "border-[#D4D4D8]");
         }
       });
     });
   };
 
-  initFaqAccordions();
-  document.addEventListener('astro:after-swap', initFaqAccordions);
+  setupAgencyFAQ();
+  document.addEventListener("astro:page-load", setupAgencyFAQ);
 </script>
-

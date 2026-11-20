@@ -7,12 +7,11 @@ import { optimizeSanityImage } from "../lib/optimizeImage";
 import Layout from "../layouts/Layout.astro";
 import NovaStackHeader from "../components/Agency/NovaStackHeader.astro";
 import NovaStackHero from "../components/Agency/NovaStackHero.astro";
-import NovaStackCapabilities from "../components/Agency/NovaStackCapabilities.astro";
 import NovaStackServices from "../components/Agency/NovaStackServices.astro";
 import NovaStackWork from "../components/Agency/NovaStackWork.astro";
-import NovaStackWhyUs from "../components/Agency/NovaStackWhyUs.astro";
 import NovaStackProcess from "../components/Agency/NovaStackProcess.astro";
 import NovaStackModels from "../components/Agency/NovaStackModels.astro";
+import NovaStackFounder from "../components/Agency/NovaStackFounder.astro";
 import NovaStackFAQ from "../components/Agency/NovaStackFAQ.astro";
 import NovaStackContact from "../components/Agency/NovaStackContact.astro";
 import NovaStackFooter from "../components/Agency/NovaStackFooter.astro";
@@ -24,33 +23,157 @@ const agencyQuery = groq`*[_type == "agencySettings"] | order(_updatedAt desc)[0
   logo{
     alt,
     asset->{url}
+  },
+  featuredCaseStudies[]->{
+    _id,
+    _type,
+    projectName,
+    "slug": slug.current,
+    excerpt,
+    category,
+    tags,
+    role,
+    demoLink,
+    gumroadLink,
+    headlineMetrics,
+    agencyHeroTag,
+    BackgroundImage{ asset->{ url } },
+    FeatureImage{ asset->{ url } },
+    demoVideo{ asset->{ url } },
+    demoVideoUrl
+  },
+  agencyServices[]{
+    _key,
+    serviceKey,
+    title,
+    category,
+    description,
+    mockupCaption,
+    mockupBadge,
+    mockupImage{
+      alt,
+      asset->{url}
+    }
+  },
+  heroFanProjects[]{
+    _key,
+    customTitle,
+    customTag,
+    customUrl,
+    customImage{
+      asset->{url}
+    },
+    projectRef->{
+      _id,
+      _type,
+      projectName,
+      templateName,
+      "slug": slug.current,
+      category,
+      tags,
+      role,
+      demoLink,
+      BackgroundImage{ asset->{url} },
+      FeatureImage{ asset->{url} },
+      thumbnailImage{ asset->{url} },
+      gallery[]{ asset->{url} },
+      demoVideo{ asset->{url} },
+      demoVideoUrl
+    }
+  }
+}`;
+
+const agencyProjectsQuery = groq`*[_type in ["projects", "templates"]] | order(_createdAt desc){
+  _id,
+  _type,
+  projectName,
+  templateName,
+  "slug": slug.current,
+  tagline,
+  excerpt,
+  category,
+  tags,
+  role,
+  badge,
+  demoLink,
+  gumroadLink,
+  headlineMetrics,
+  showInAgencyHero,
+  agencyHeroTag,
+  BackgroundImage{ asset->{ url } },
+  FeatureImage{ asset->{ url } },
+  thumbnailImage{ asset->{ url } },
+  gallery[]{ asset->{ url } },
+  demoVideo{ asset->{ url } },
+  demoVideoUrl
+}`;
+
+const aboutQuery = groq`*[_type == "about"] | order(_updatedAt desc)[0]{
+  heroImage{
+    asset->{ url }
   }
 }`;
 
 let agencySettings: any = null;
+let agencyProjects: any[] = [];
+let aboutData: any = null;
+
 try {
-  agencySettings = await useSanityClient().fetch(agencyQuery);
+  const [settingsRes, projectsRes, aboutRes] = await Promise.all([
+    useSanityClient().fetch(agencyQuery),
+    useSanityClient().fetch(agencyProjectsQuery),
+    useSanityClient().fetch(aboutQuery),
+  ]);
+  agencySettings = settingsRes;
+  agencyProjects = Array.isArray(projectsRes) ? projectsRes : [];
+  aboutData = aboutRes;
   if (!agencySettings) {
     agencySettings = await fallbackSanityClient.fetch(agencyQuery);
   }
+  if (!agencyProjects.length) {
+    agencyProjects = (await fallbackSanityClient.fetch(agencyProjectsQuery)) || [];
+  }
+  if (!aboutData) {
+    aboutData = await fallbackSanityClient.fetch(aboutQuery);
+  }
 } catch {
   try {
-    agencySettings = await fallbackSanityClient.fetch(agencyQuery);
+    const [settingsRes, projectsRes, aboutRes] = await Promise.all([
+      fallbackSanityClient.fetch(agencyQuery),
+      fallbackSanityClient.fetch(agencyProjectsQuery),
+      fallbackSanityClient.fetch(aboutQuery),
+    ]);
+    agencySettings = settingsRes;
+    agencyProjects = Array.isArray(projectsRes) ? projectsRes : [];
+    aboutData = aboutRes;
   } catch {}
 }
 
 const rawLogoUrl = agencySettings?.logo?.asset?.url;
 const agencyLogoUrl = rawLogoUrl ? optimizeSanityImage(rawLogoUrl, 360, 90) : "";
 const agencyLogoAlt = agencySettings?.logo?.alt || "NovaStack Logo";
-const agencyBrandName = agencySettings?.brandName || "NovaStack";
-const agencyTagline = agencySettings?.tagline || "AI & Digital Studio";
+const agencyBrandName = agencySettings?.brandName || "NovaStack Studio";
+const agencyTagline = agencySettings?.tagline || "Founder-Led Studio";
 const agencyLogoFullWidth = Boolean(agencySettings?.logoFullWidth);
+
+const rawFounderImg = aboutData?.heroImage?.asset?.url;
+const founderPortraitUrl = rawFounderImg ? optimizeSanityImage(rawFounderImg, 400, 85) : "";
+
+const sanityServices = Array.isArray(agencySettings?.agencyServices)
+  ? agencySettings.agencyServices
+  : [];
+const sanityFeaturedCaseStudies = Array.isArray(agencySettings?.featuredCaseStudies)
+  ? agencySettings.featuredCaseStudies.filter(Boolean)
+  : [];
+const sanityCuratedShowcase = Array.isArray(agencySettings?.heroFanProjects)
+  ? agencySettings.heroFanProjects.filter(Boolean)
+  : [];
 
 const siteUrl = "https://tanujbuilds.site";
 const canonicalURL = `${siteUrl}/agency`;
 
-const pageTitle = "NovaStack — AI & Digital Technology Studio | Web, Mobile & Custom SaaS";
-const pageDescription = "NovaStack is an AI & digital technology studio helping startups, founders, and businesses build scalable web applications, mobile platforms, and production AI automation workflows across the USA, UK, UAE, Australia, and India.";
+const pageTitle = "NovaStack Studio — From Complex Ideas to Powerful Digital Products | Websites, SaaS & AI Development";
+const pageDescription = "NovaStack Studio is an independent, founder-led software development studio operated by Tanuj Pandey. We design and build modern websites, scalable SaaS platforms, AI-powered applications, and custom HTML email templates.";
 
 const agencyJsonLd = {
   "@context": "https://schema.org",
@@ -59,47 +182,37 @@ const agencyJsonLd = {
       "@type": ["Organization", "ProfessionalService"],
       "@id": `${canonicalURL}#organization`,
       "name": agencyBrandName,
-      "alternateName": ["NovaStack Studio", "NovaStack AI & Digital Technology Studio"],
+      "alternateName": ["NovaStack Studio", "NovaStack Digital Development Studio"],
       "url": canonicalURL,
       "logo": agencyLogoUrl || `${siteUrl}/favicon.svg`,
       "image": `${siteUrl}/og-image-dark.png`,
       "description": pageDescription,
-      "slogan": "We Build. Automate. Optimize. Scale.",
+      "slogan": "From Complex Ideas to Powerful Digital Products.",
       "email": "tanujp09@gmail.com",
       "telephone": "+919557321978",
       "founder": {
         "@type": "Person",
         "@id": `${siteUrl}/#person`,
         "name": "Tanuj Pandey",
-        "jobTitle": "Founder & Lead Architect",
+        "jobTitle": "Founder & Full-Stack Developer",
         "url": siteUrl,
       },
-      "areaServed": [
-        { "@type": "Country", "name": "United States" },
-        { "@type": "Country", "name": "United Kingdom" },
-        { "@type": "Country", "name": "United Arab Emirates" },
-        { "@type": "Country", "name": "Australia" },
-        { "@type": "Country", "name": "India" }
-      ],
       "knowsAbout": [
-        "Full-Stack Web Development",
-        "Next.js & React 19 Applications",
-        "Mobile App Development with React Native",
-        "Applied Generative AI & Multi-LLM Orchestration",
-        "SaaS MVP Architecture & Subscription Platforms",
-        "Technical SEO & Generative Engine Optimization (GEO)",
-        "UI/UX Product Design & Design Systems"
+        "Web Design & Development",
+        "SaaS & Full-Stack Development",
+        "AI Integrations & Automation",
+        "Custom HTML Email Templates",
+        "React.js and Next.js Development",
+        "Node.js & PostgreSQL APIs"
       ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "NovaStack Services",
+        "name": "NovaStack Studio Services",
         "itemListElement": [
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Development" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Mobile App Development" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI & Automation" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SaaS & Custom Software" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SEO & GEO" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "UI/UX & Product Design" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Web Design & Development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "SaaS & Full-Stack Development" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Integrations & Automation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Custom HTML Email Templates" } }
         ]
       }
     }
@@ -122,12 +235,12 @@ const breadcrumbs = [
   hideDefaultFooter={true}
   isAgency={true}
 >
-  <!-- Dedicated Agency Container matching Deep Obsidian Architectural Aesthetic -->
-  <div class="agency-page w-full min-h-screen bg-[#090A0F] text-white font-sans selection:bg-[#5E6AD2]/35 selection:text-white overflow-x-clip">
-    <!-- Top Scroll Progress Hairline -->
-    <div id="agency-scroll-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-gradient-to-r from-[#5E6AD2] to-[#828FFF] z-[60] pointer-events-none transition-[width] duration-75"></div>
+  <!-- Dedicated Agency Container: Obsidian Monochrome (#09090B / #FFFFFF / #F4F4F5) + Linear Indigo (#5E6AD2) -->
+  <div class="agency-page w-full min-h-screen bg-white text-[#09090B] font-sans selection:bg-[#5E6AD2]/15 selection:text-[#09090B]">
+    <!-- Top Scroll Progress Bar -->
+    <div id="agency-scroll-progress" class="fixed top-0 left-0 h-[2px] w-0 bg-[#5E6AD2] z-[60] pointer-events-none transition-[width] duration-75"></div>
 
-    <!-- NovaStack Navigation Header -->
+    <!-- Section 1: Navigation Header -->
     <NovaStackHeader
       logoUrl={agencyLogoUrl}
       logoAlt={agencyLogoAlt}
@@ -136,37 +249,38 @@ const breadcrumbs = [
       logoFullWidth={agencyLogoFullWidth}
     />
 
-    <!-- Main Content Flow -->
-    <main id="agency-main-content" class="overflow-x-clip">
-      <!-- 1. Hero Section -->
+    <!-- Main Content Flow (Focused Non-Repetitive Agency Structure) -->
+    <main id="agency-main-content">
+      <!-- Section 1: Hero Section (Clean High-End Positioning + Architecture Showcase + Marquee) -->
       <NovaStackHero />
 
-      <!-- 2. Trusted Capabilities -->
-      <NovaStackCapabilities />
+      <!-- Section 2: Core Services (Sanity-Configurable Services & Custom Mockups + Interactive Fallbacks) -->
+      <NovaStackServices sanityServices={sanityServices} />
 
-      <!-- 3. Agency Services (6 Categories) -->
-      <NovaStackServices />
+      <!-- Section 3: Selected Work & Case Studies (100% Sanity-Driven) -->
+      <NovaStackWork
+        sanityProjects={agencyProjects}
+        featuredCaseStudies={sanityFeaturedCaseStudies}
+        curatedShowcase={sanityCuratedShowcase}
+      />
 
-      <!-- 4. Featured Work (Custom vs Commercial Templates) -->
-      <NovaStackWork />
-
-      <!-- 5. Why NovaStack (6 Pillars) -->
-      <NovaStackWhyUs />
-
-      <!-- 6. Development Process (6 Steps) -->
+      <!-- Section 4: Process (5-Step Milestone-Gated Delivery Flow) -->
       <NovaStackProcess />
 
-      <!-- 7. Engagement Models (4 Structures) -->
+      <!-- Section 5: Founder Spotlight (Tanuj Pandey — Direct Founder Collaboration) -->
+      <NovaStackFounder portraitUrl={founderPortraitUrl} />
+
+      <!-- Section 6: Engagement Models (Fixed-Scope, Freelance Support, Ongoing Collaboration) -->
       <NovaStackModels />
 
-      <!-- 8. Frequently Asked Questions -->
+      <!-- Section 7: FAQ (Client Objections Resolved in Compact Accordion) -->
       <NovaStackFAQ />
 
-      <!-- 9. Contact Section & Project Inquiry Form -->
+      <!-- Section 8: Contact / Project Discussion (High-Converting Inquiry Form) -->
       <NovaStackContact />
     </main>
 
-    <!-- 10. NovaStack Agency Footer -->
+    <!-- Footer: Minimalist Footer -->
     <NovaStackFooter
       logoUrl={agencyLogoUrl}
       logoAlt={agencyLogoAlt}
@@ -183,36 +297,45 @@ const breadcrumbs = [
     scroll-padding-top: 84px;
   }
 
-  /* Accessible focus indicators for international B2B clients */
+  /* Accessible focus indicators in Linear Indigo */
   .agency-page *:focus-visible {
     outline: 2px solid #5E6AD2 !important;
     outline-offset: 2px !important;
   }
 
-  /* Unified Linear Indigo Cursor-Tracking Spotlight across Agency Cards */
-  .agency-page [data-agency-dir].rounded-2xl,
-  .agency-page #agency-main-content .rounded-2xl {
+  /* Tactile Elevation on Cards */
+  .agency-page #agency-main-content .agency-card,
+  .agency-page #agency-main-content .codify-card {
     position: relative;
     overflow: hidden;
-    transition: border-color 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+    will-change: transform;
   }
 
-  .agency-page #agency-main-content .rounded-2xl::after {
+  .agency-page #agency-main-content .agency-card:hover,
+  .agency-page #agency-main-content .codify-card:hover {
+    transform: translateY(-3px);
+  }
+
+  /* Subtle Mouse-Follow Spotlight Glow */
+  .agency-page #agency-main-content .agency-card::after,
+  .agency-page #agency-main-content .codify-card::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: inherit;
     background: radial-gradient(
-      340px circle at var(--agency-spot-x, 50%) var(--agency-spot-y, 50%),
-      rgba(94, 106, 210, 0.14),
+      360px circle at var(--agency-spot-x, 50%) var(--agency-spot-y, 50%),
+      rgba(94, 106, 210, 0.055),
       transparent 70%
     );
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transition: opacity 0.3s ease;
     pointer-events: none;
   }
 
-  .agency-page #agency-main-content .rounded-2xl:hover::after {
+  .agency-page #agency-main-content .agency-card:hover::after,
+  .agency-page #agency-main-content .codify-card:hover::after {
     opacity: 1;
   }
 </style>
@@ -244,7 +367,7 @@ const breadcrumbs = [
     w.__agencyScrollProgressHandler();
 
     // 2. Global Agency Spotlight Cursor Tracking on all Section Cards
-    root.querySelectorAll<HTMLElement>('.rounded-2xl').forEach((card) => {
+    root.querySelectorAll<HTMLElement>('.agency-card, .codify-card').forEach((card) => {
       if (card.dataset.agencySpotBound === 'true') return;
       card.dataset.agencySpotBound = 'true';
       card.addEventListener('pointermove', (e: PointerEvent) => {
@@ -254,53 +377,26 @@ const breadcrumbs = [
       });
     });
 
-    // 3. Kill prior agency ScrollTriggers cleanly
+    // 3. Kill prior agency heading/stagger ScrollTriggers cleanly (preserve work section 3D tilt)
     ScrollTrigger.getAll().forEach((trigger) => {
       const id = String(trigger.vars?.id || '');
-      if (id.startsWith('agency-')) {
+      if (id.startsWith('agency-heading-') || id.startsWith('agency-stagger-')) {
         trigger.kill();
       }
     });
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const elements = Array.from(root.querySelectorAll('[data-agency-dir]')) as HTMLElement[];
-    const sectionHeadings = Array.from(root.querySelectorAll('section h2')) as HTMLElement[];
+    if (reduceMotion) return;
 
-    if (reduceMotion) {
-      elements.forEach((el) => {
-        el.style.opacity = '1';
-        el.style.transform = '';
-      });
-      return;
-    }
+    // 4. Section Heading Reveals (Codify Spring Motion)
+    const sectionHeaders = Array.from(root.querySelectorAll('section [class*="max-w-"]')) as HTMLElement[];
+    sectionHeaders.forEach((header, idx) => {
+      const heading = header.querySelector('h2');
+      if (!heading) return;
 
-    // 4. CountUp Proof Metrics Animation
-    root.querySelectorAll<HTMLElement>('[data-count-target]').forEach((counterEl) => {
-      const target = Number(counterEl.getAttribute('data-count-target') || 0);
-      const suffix = counterEl.getAttribute('data-count-suffix') || '';
-      if (!target) return;
-      const obj = { val: 0 };
-      gsap.to(obj, {
-        val: target,
-        duration: 1.4,
-        ease: 'power2.out',
-        scrollTrigger: {
-          id: `agency-count-${target}`,
-          trigger: counterEl,
-          start: 'top 92%',
-          once: true,
-        },
-        onUpdate: () => {
-          counterEl.textContent = `${Math.round(obj.val)}${suffix}`;
-        },
-      });
-    });
-
-    // 5. Section Heading Cinematic Reveals
-    sectionHeadings.forEach((h2, idx) => {
       gsap.fromTo(
-        h2,
-        { y: 22, opacity: 0.25 },
+        heading,
+        { y: 32, opacity: 0 },
         {
           y: 0,
           opacity: 1,
@@ -309,45 +405,48 @@ const breadcrumbs = [
           clearProps: 'transform,opacity',
           scrollTrigger: {
             id: `agency-heading-${idx}`,
-            trigger: h2,
-            start: 'top 92%',
+            trigger: heading,
+            start: 'top 90%',
             once: true,
           },
         }
       );
     });
 
-    // 6. Left / Right -> Center Convergence on Cards & Split Showcases
-    elements.forEach((el, index) => {
-      const dir = el.getAttribute('data-agency-dir') || 'center';
-      const offsetX = dir === 'left' ? -64 : dir === 'right' ? 64 : 0;
-      const offsetY = dir === 'center' ? 28 : 14;
-      const startScale = dir === 'center' ? 0.95 : 0.97;
+    // 5. Staggered Card Reveals per Section (Matched to Live DOM Selectors)
+    const sectionContainers = [
+      '#case-studies article',
+      '#process .process-step-card',
+      '#about .agency-card',
+      '#models .agency-card',
+      '#faq .agency-card',
+      '#contact .agency-card',
+    ];
 
-      gsap.fromTo(
-        el,
-        {
-          x: offsetX,
-          y: offsetY,
-          scale: startScale,
-          opacity: 0.2,
-        },
-        {
-          x: 0,
-          y: 0,
-          scale: 1,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          clearProps: 'transform,opacity',
-          scrollTrigger: {
-            id: `agency-reveal-${index}`,
-            trigger: el,
-            start: 'top 90%',
-            once: true,
-          },
-        }
-      );
+    sectionContainers.forEach((selector, idx) => {
+      const elements = Array.from(root.querySelectorAll(selector)) as HTMLElement[];
+      if (!elements.length) return;
+
+      elements.forEach((el, cardIdx) => {
+        gsap.fromTo(
+          el,
+          { y: 36, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay: cardIdx * 0.08,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: {
+              id: `agency-stagger-${idx}-${cardIdx}`,
+              trigger: el,
+              start: 'top 92%',
+              once: true,
+            },
+          }
+        );
+      });
     });
 
     ScrollTrigger.refresh();
@@ -357,4 +456,3 @@ const breadcrumbs = [
   document.addEventListener('astro:page-load', initAgencyProductionMotion);
   document.addEventListener('astro:after-swap', initAgencyProductionMotion);
 </script>
-

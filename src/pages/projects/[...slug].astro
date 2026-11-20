@@ -18,6 +18,11 @@ export async function getStaticPaths() {
       asset->{
         url
       }
+    },
+    demoVideo{
+      asset->{
+        url
+      }
     }
   }`;
 
@@ -56,6 +61,11 @@ const projectQuery = groq`*[_type == "projects" && slug.current == $slug][0]{
     }
   },
   BackgroundImage{
+    asset->{
+      url
+    }
+  },
+  demoVideo{
     asset->{
       url
     }

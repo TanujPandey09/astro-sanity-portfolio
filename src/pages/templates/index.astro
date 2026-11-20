@@ -2,12 +2,16 @@
 import Layout from "../../layouts/Layout.astro";
 import SectionHeader from "../../components/SectionHeader.astro";
 import PremiumBackground from "../../components/PremiumBackground.astro";
-import PortfolioThreadsCanvas from "../../components/Effects/PortfolioThreadsCanvas.astro";
 import TemplateCard from "../../components/TemplateCard.astro";
 import TemplateRow from "../../components/TemplateRow.astro";
 import { fetchAllTemplates, formatCategoryLabel } from "../../lib/templates";
 
 const templates = await fetchAllTemplates();
+const featuredTemplate = templates[0];
+const featuredRawImg = featuredTemplate?.imageUrl || "/img/custom-project.webp";
+const featuredImgUrl = featuredRawImg.includes("cdn.sanity.io")
+  ? `${featuredRawImg}${featuredRawImg.includes("?") ? "&" : "?"}auto=format&fit=max&w=1000&q=85`
+  : featuredRawImg;
 
 const siteUrl = "https://tanujbuilds.site";
 const itemList = {
@@ -161,97 +165,146 @@ const dynamicCategories = Array.from(categoryMap.values()).sort((a, b) => b.coun
   jsonLd={[itemList, templatesFaqJsonLd]}
   breadcrumbs={breadcrumbs}
 >
-  <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
+  <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-x-clip bg-canvas">
     <PremiumBackground />
 
-    <!-- ACT 1: OBSIDIAN DARK HERO + INTERACTIVE THREADS & DOT GRID -->
-    <section class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-28 sm:pt-32 md:pt-36 pb-14 sm:pb-20 border-b border-white/[0.08]">
-      <PortfolioThreadsCanvas />
+    <!-- ACT 1: OBSIDIAN STOREFRONT SPLIT HERO (CALM BLUEPRINT GRID, ZERO NOISE) -->
+    <section class="relative w-full overflow-hidden bg-[#0A0B0E] text-white pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 border-b border-white/[0.08]">
+      <!-- Crisp Static Linear Blueprint Grid + Soft Indigo Corner Glow -->
+      <div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_85%_75%_at_50%_20%,#000_45%,transparent_100%)]"></div>
+        <div class="absolute -top-24 right-0 w-[520px] h-[420px] bg-[radial-gradient(circle,rgba(94,106,210,0.22)_0%,transparent_70%)]"></div>
+        <div class="absolute inset-x-0 bottom-0 h-20 bg-gradient-to-t from-[#0A0B0E] to-transparent"></div>
+      </div>
 
       <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-8" data-gsap-hero="wordmark">
-          <div>
-            <span class="block text-xs font-mono uppercase tracking-[0.2em] text-[#828FFF] mb-3">
-              COMMERCIAL DIGITAL ASSETS // NEXT.JS &amp; REACT
-            </span>
-            <h1 class="font-grotesk font-extrabold text-[3rem] sm:text-[5rem] md:text-[6.5rem] lg:text-[7.5rem] text-white tracking-[-0.055em] leading-[0.88] select-none">
-              Production<br />Templates
-            </h1>
-          </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center" data-gsap-hero="wordmark">
+          <!-- Left Storefront Copy & Immediate Proof -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-[11px] font-mono uppercase tracking-[0.16em] text-[#828FFF]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>COMMERCIAL WEBSITE KITS · NEXT.JS &amp; REACT</span>
+            </div>
 
-          <div class="max-w-md space-y-5">
-            <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed">
-              Next.js 15, React 19, and TypeScript templates engineered for 99+ Lighthouse performance, lifetime updates, and unlimited commercial licenses.
+            <h1 class="font-grotesk font-extrabold text-4xl sm:text-5xl md:text-[3.5rem] lg:text-[4rem] text-white tracking-[-0.04em] leading-[0.98] max-w-2xl">
+              Website Kits <span class="text-slate-400 font-semibold">Built to Launch.</span>
+            </h1>
+
+            <p class="text-sm sm:text-base text-slate-300 font-sans leading-relaxed max-w-xl">
+              Clean Next.js 15, React 19, and TypeScript starter codebases engineered for 99+ Lighthouse performance, lifetime source updates, and unlimited client licensing.
             </p>
-            <div class="flex flex-wrap items-center gap-3">
+
+            <!-- Action Row -->
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <a
+                href="#templates-catalog"
+                class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all active:scale-95"
+              >
+                <span>Browse Catalog ({templates.length})</span>
+                <span>↓</span>
+              </a>
               <button
                 type="button"
                 data-open-contact
                 data-contact-subject="Template Customization / Bespoke Build"
-                class="magnetic-btn group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer active:scale-95"
+                class="magnetic-btn inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#5E6AD2]/15 border border-[#828FFF]/35 text-white hover:bg-[#5E6AD2]/25 font-grotesk font-semibold text-xs uppercase tracking-wider transition-all cursor-pointer"
               >
-                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                <span>Hire to Customize</span>
-                <span>↗</span>
+                <span>Hire to Customize ↗</span>
               </button>
               <a
                 href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20have%20a%20question%20about%20your%20website%20templates."
                 target="_blank"
                 rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white/[0.08] border border-white/15 text-white hover:bg-white/15 font-grotesk font-semibold text-xs uppercase tracking-wider transition-all"
+                class="inline-flex items-center gap-1.5 px-4 py-3 rounded-full bg-white/[0.06] border border-white/10 text-slate-200 hover:bg-white/12 font-grotesk font-semibold text-xs uppercase tracking-wider transition-all"
               >
                 <span>WhatsApp ↗</span>
               </a>
             </div>
+
+            <!-- Compact Verified Engineering Specs Strip -->
+            <div class="pt-4 border-t border-white/[0.08] grid grid-cols-2 sm:grid-cols-4 gap-3 text-[11px] font-mono">
+              <div class="px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <span class="text-emerald-300 font-bold block">99+ Score</span>
+                <span class="text-slate-400">Lighthouse Vitals</span>
+              </div>
+              <div class="px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <span class="text-[#828FFF] font-bold block">Strict TS</span>
+                <span class="text-slate-400">Clean Typed Code</span>
+              </div>
+              <div class="px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <span class="text-white font-bold block">Unlimited Use</span>
+                <span class="text-slate-400">Commercial License</span>
+              </div>
+              <div class="px-3 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08]">
+                <span class="text-white font-bold block">Instant ZIP</span>
+                <span class="text-slate-400">Lifetime Updates</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Featured Template Live Preview Card -->
+          <div class="lg:col-span-5">
+            {featuredTemplate ? (
+              <a
+                href={`/templates/${featuredTemplate.slug.current}`}
+                class="group block rounded-2xl bg-[#11131A] border border-white/12 hover:border-[#828FFF]/50 shadow-[0_24px_60px_rgba(0,0,0,0.45)] overflow-hidden transition-all duration-300"
+              >
+                <!-- Window Chrome Bar -->
+                <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.08] bg-white/[0.02]">
+                  <div class="flex items-center gap-1.5">
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-white/20"></span>
+                  </div>
+                  <span class="text-[10px] font-mono text-slate-400 truncate max-w-[180px]">
+                    /templates/{featuredTemplate.slug.current}
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono font-bold">
+                    {featuredTemplate.price || "$49"}
+                  </span>
+                </div>
+
+                <!-- Cover Image -->
+                <div class="relative aspect-[16/10] w-full overflow-hidden bg-[#0A0B0E]">
+                  <img
+                    src={featuredImgUrl}
+                    alt={featuredTemplate.templateName}
+                    loading="eager"
+                    decoding="async"
+                    class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                  />
+                  <span class="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono uppercase tracking-wider text-white">
+                    Featured Release
+                  </span>
+                </div>
+
+                <!-- Card Footer -->
+                <div class="p-4 sm:p-5 flex items-center justify-between gap-4 border-t border-white/[0.08]">
+                  <div class="min-w-0">
+                    <span class="text-[10px] font-mono uppercase tracking-wider text-[#828FFF] block mb-0.5">
+                      {formatCategoryLabel(featuredTemplate.category)}
+                    </span>
+                    <p class="font-grotesk font-bold text-base text-white truncate group-hover:text-[#828FFF] transition-colors">
+                      {featuredTemplate.templateName}
+                    </p>
+                  </div>
+                  <span class="shrink-0 inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-white text-[#0A0B0E] text-[11px] font-mono font-bold group-hover:bg-slate-200 transition-colors">
+                    Inspect ↗
+                  </span>
+                </div>
+              </a>
+            ) : (
+              <div class="rounded-2xl bg-[#11131A] border border-white/12 p-8 text-center">
+                <p class="font-grotesk font-bold text-lg text-white mb-2">Next.js 15 + TypeScript Kits</p>
+                <p class="text-xs font-mono text-slate-400">Production-grade UI architecture &amp; commercial licensing.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </section>
 
-    <main class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-20 md:pb-28 relative z-10">
-
-      <!-- Telemetry Trust Metrics Bar -->
-      <div class="mt-6 mb-10 sm:mb-12 grid grid-cols-2 lg:grid-cols-4 gap-4 text-xs font-mono">
-        <div data-gsap-card class="bento-spotlight rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 p-4 sm:p-5 shadow-xs flex items-center gap-3.5">
-          <div class="w-9 h-9 rounded-xl bg-emerald-50 border border-emerald-500/30 flex items-center justify-center text-emerald-700 font-bold shrink-0">
-            99+
-          </div>
-          <div>
-            <span class="text-[#0F172A] font-semibold block">Lighthouse Verified</span>
-            <span class="text-slate-600">Core Web Vitals P99</span>
-          </div>
-        </div>
-
-        <div data-gsap-card class="bento-spotlight rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 p-4 sm:p-5 shadow-xs flex items-center gap-3.5">
-          <div class="w-9 h-9 rounded-xl bg-[#5E6AD2]/10 border border-[#5E6AD2]/30 flex items-center justify-center text-[#5E6AD2] font-bold shrink-0">
-            TS
-          </div>
-          <div>
-            <span class="text-[#0F172A] font-semibold block">TypeScript Strict</span>
-            <span class="text-slate-600">Zero `any` Contract</span>
-          </div>
-        </div>
-
-        <div data-gsap-card class="bento-spotlight rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 p-4 sm:p-5 shadow-xs flex items-center gap-3.5">
-          <div class="w-9 h-9 rounded-xl bg-slate-100 border border-black/10 flex items-center justify-center text-[#0F172A] font-bold shrink-0">
-            01
-          </div>
-          <div>
-            <span class="text-[#0F172A] font-semibold block">Commercial License</span>
-            <span class="text-slate-600">Unlimited Client Sites</span>
-          </div>
-        </div>
-
-        <div data-gsap-card class="bento-spotlight rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 p-4 sm:p-5 shadow-xs flex items-center gap-3.5">
-          <div class="w-9 h-9 rounded-xl bg-[#5E6AD2]/10 border border-[#5E6AD2]/30 flex items-center justify-center text-[#5E6AD2] font-bold shrink-0">
-            ZIP
-          </div>
-          <div>
-            <span class="text-[#0F172A] font-semibold block">Instant Source Access</span>
-            <span class="text-slate-600">Lifetime Free Updates</span>
-          </div>
-        </div>
-      </div>
+    <main id="templates-catalog" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 md:pb-28 relative z-10">
 
       <!-- Real-Time Filter, Search & View Switcher Toolbar -->
       <div class="mb-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-black/[0.08] shadow-xs">

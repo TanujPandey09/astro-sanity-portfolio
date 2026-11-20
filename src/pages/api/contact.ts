@@ -60,9 +60,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         const company = singleLine(String(data.get('company_name') || ''));
         const service = singleLine(String(data.get('service') || ''));
         const budget = singleLine(String(data.get('budget') || ''));
+        const timeline = singleLine(String(data.get('timeline') || ''));
         const source = singleLine(String(data.get('source') || 'portfolio'));
 
-        const isAgency = source === 'novastack' || Boolean(service || budget || company);
+        const isAgency = source === 'novastack' || Boolean(service || budget || company || timeline);
         const subject = rawSubject || (isAgency ? `NovaStack Project Inquiry: ${service || 'General'}` : 'New Portfolio Contact');
 
         if (!name || !email || !message) {
@@ -117,23 +118,24 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
         const safeCompany = company ? escapeHtml(company) : 'Not specified';
         const safeService = service ? escapeHtml(service) : 'General Inquiry';
         const safeBudget = budget ? escapeHtml(budget) : 'Not specified';
+        const safeTimeline = timeline ? escapeHtml(timeline) : 'Not specified';
         const safeSubject = escapeHtml(subject);
         const safeMessage = escapeHtml(message);
 
         const emailSubject = isAgency
-            ? `[NovaStack Agency] ${safeService} — ${safeCompany !== 'Not specified' ? safeCompany : safeName}`
+            ? `[NovaStack Studio] ${safeService} — ${safeCompany !== 'Not specified' ? safeCompany : safeName}`
             : `[Portfolio Contact] ${safeSubject}`;
 
         const textContent = isAgency
-            ? `NovaStack Project Inquiry:\n\nName: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nService: ${service || 'General'}\nBudget: ${budget || 'N/A'}\n\nProject Scope:\n${message}`
+            ? `NovaStack Project Inquiry:\n\nName: ${name}\nEmail: ${email}\nCompany: ${company || 'N/A'}\nService: ${service || 'General'}\nBudget: ${budget || 'N/A'}\nTimeline: ${timeline || 'N/A'}\n\nProject Scope:\n${message}`
             : `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`;
 
         const htmlContent = isAgency
             ? `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; padding: 24px; border: 1px solid #E2E8F0; border-radius: 12px; max-width: 620px; background-color: #FFFFFF; color: #0F172A;">
-          <div style="border-bottom: 2px solid #0284C7; padding-bottom: 16px; margin-bottom: 20px;">
+          <div style="border-bottom: 2px solid #2563EB; padding-bottom: 16px; margin-bottom: 20px;">
             <h2 style="color: #0F172A; margin: 0; font-size: 20px; font-weight: 700;">NovaStack Project Inquiry</h2>
-            <p style="color: #64748B; margin: 4px 0 0 0; font-size: 13px;">AI & Digital Technology Studio · B2B Client Transmission</p>
+            <p style="color: #64748B; margin: 4px 0 0 0; font-size: 13px;">Founder-Led Digital Development Studio · Client Inquiry</p>
           </div>
           
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 14px;">
@@ -142,8 +144,8 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
               <td style="padding: 8px 0; color: #0F172A; font-weight: 600;">${safeName}</td>
             </tr>
             <tr>
-              <td style="padding: 8px 0; color: #64748B; font-weight: 500;">Business Email:</td>
-              <td style="padding: 8px 0; color: #0284C7; font-weight: 600;"><a href="mailto:${safeEmail}" style="color: #0284C7; text-decoration: none;">${safeEmail}</a></td>
+              <td style="padding: 8px 0; color: #64748B; font-weight: 500;">Work Email:</td>
+              <td style="padding: 8px 0; color: #2563EB; font-weight: 600;"><a href="mailto:${safeEmail}" style="color: #2563EB; text-decoration: none;">${safeEmail}</a></td>
             </tr>
             <tr>
               <td style="padding: 8px 0; color: #64748B; font-weight: 500;">Company:</td>
@@ -156,6 +158,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
             <tr>
               <td style="padding: 8px 0; color: #64748B; font-weight: 500;">Project Budget:</td>
               <td style="padding: 8px 0; color: #059669; font-weight: 600;">${safeBudget}</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px 0; color: #64748B; font-weight: 500;">Preferred Timeline:</td>
+              <td style="padding: 8px 0; color: #0F172A; font-weight: 600;">${safeTimeline}</td>
             </tr>
           </table>
 
@@ -170,10 +176,10 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
       `
             : `
         <div style="font-family: sans-serif; padding: 20px; border: 1px solid #eee; border-radius: 10px; max-width: 600px;">
-          <h2 style="color: #5E6AD2; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Portfolio Enquiry</h2>
+          <h2 style="color: #2563EB; border-bottom: 1px solid #eee; padding-bottom: 10px;">New Portfolio Enquiry</h2>
           <p><strong>From:</strong> ${safeName} &lt;${safeEmail}&gt;</p>
           <p><strong>Subject:</strong> ${safeSubject}</p>
-          <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border-left: 4px solid #5E6AD2;">
+          <div style="margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; border-left: 4px solid #2563EB;">
             <p style="margin-top: 0; font-weight: bold;">Message:</p>
             <p style="white-space: pre-wrap; color: #333; line-height: 1.6;">${safeMessage}</p>
           </div>
@@ -189,7 +195,7 @@ export const POST: APIRoute = async ({ request, clientAddress }) => {
             html: htmlContent,
         });
 
-        return json({ message: 'Thank you for contacting NovaStack. Your project inquiry has been received, and our team will get back to you within 24 hours.' });
+        return json({ message: 'Thank you for contacting NovaStack Studio. Your project inquiry has been received, and Tanuj will get back to you within 24 hours.' });
     } catch (error: any) {
         console.error('SMTP Error:', error);
         return json({ message: 'Failed to send inquiry. Please email tanujp09@gmail.com directly.' }, 500);

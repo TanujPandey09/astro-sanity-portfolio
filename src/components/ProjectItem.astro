@@ -1,5 +1,6 @@
 ---
 import { optimizeSanityImage } from "../lib/optimizeImage";
+import { resolveDemoMedia } from "../lib/videoEmbed";
 
 const { project, index } = Astro.props;
 
@@ -28,6 +29,7 @@ const tags = Array.isArray(rawTags) && rawTags.length > 0 ? rawTags : ['FULL-STA
 const primaryRole = tags.slice(0, 3).join(" · ");
 
 const projectUrl = `/projects/${project.slug?.current || ""}`;
+const demoMedia = resolveDemoMedia(project?.demoVideo?.asset?.url, project?.demoVideoUrl);
 
 // 4 Distinct Physical Staging Atmospheres (Arshawn Arbabi Style)
 const variant = index % 4;
@@ -87,19 +89,40 @@ const variant = index % 4;
           </span>
         </div>
 
-        <!-- The Display Screen Viewport (Fits full image edge-to-edge cleanly without slicing) -->
+        <!-- The Display Screen Viewport (Plays demo video loop if uploaded, else uncropped screenshot) -->
         <div class="relative rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden bg-[#0B0D12] flex items-center justify-center">
-          {imageUrl && (
-            <img
-              src={imageUrl}
-              alt={projectName}
-              loading={index === 0 ? "eager" : "lazy"}
-              decoding="async"
-              width="1600"
-              height="1000"
+          {demoMedia?.kind === "video" ? (
+            <video
+              src={demoMedia.src}
+              poster={imageUrl || undefined}
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="metadata"
               data-gsap-screen
               class="w-full h-auto max-h-[580px] object-contain object-center block"
             />
+          ) : (
+            imageUrl && (
+              <img
+                src={imageUrl}
+                alt={projectName}
+                loading={index === 0 ? "eager" : "lazy"}
+                decoding="async"
+                width="1600"
+                height="1000"
+                data-gsap-screen
+                class="w-full h-auto max-h-[580px] object-contain object-center block"
+              />
+            )
+          )}
+
+          {demoMedia && (
+            <span class="pointer-events-none absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Demo Video
+            </span>
           )}
 
           <!-- Subtle Screen Glass Reflection & Dynamic Glare Tracking -->

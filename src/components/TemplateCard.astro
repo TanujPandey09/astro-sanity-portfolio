@@ -1,6 +1,7 @@
 ---
 import { optimizeSanityImage } from "../lib/optimizeImage";
 import { formatCategoryLabel, type TemplateItem } from "../lib/templates";
+import { resolveDemoMedia } from "../lib/videoEmbed";
 
 interface Props {
   template: TemplateItem;
@@ -13,6 +14,7 @@ const rawImageUrl = template.imageUrl || "/og-image-dark.png";
 const imageUrl = rawImageUrl.includes("cdn.sanity.io") 
   ? optimizeSanityImage(rawImageUrl, 900, 80)
   : rawImageUrl;
+const demoMedia = resolveDemoMedia(template.demoVideoUrl);
 
 const price = template.price || "$49";
 const originalPrice = template.originalPrice;
@@ -49,13 +51,24 @@ const priceNumeric = price.replace(/[^0-9.]/g, "") || "49";
       </div>
     </div>
 
-    <!-- Preview Image Container -->
+    <!-- Preview Video or Image Container -->
     <a 
       href={`/templates/${slug}`} 
       aria-label={`Inspect ${template.templateName} details and live preview`} 
-      class="block relative w-full aspect-[16/10] cursor-pointer overflow-hidden group/thumb bg-[#F1F5F9]"
+      class="block relative w-full aspect-[16/10] cursor-pointer overflow-hidden group/thumb bg-[#0B0D12]"
     >
-      {imageUrl ? (
+      {demoMedia?.kind === "video" ? (
+        <video
+          src={demoMedia.src}
+          poster={imageUrl || undefined}
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="metadata"
+          class="w-full h-full object-cover object-top"
+        />
+      ) : imageUrl ? (
         <img 
           src={imageUrl} 
           alt={`${template.templateName} commercial web template preview`}
@@ -68,6 +81,13 @@ const priceNumeric = price.replace(/[^0-9.]/g, "") || "49";
           <span class="text-xl font-bold font-grotesk text-[#0F172A]">NovaStack</span>
           <span class="text-[10px]">Commercial Template</span>
         </div>
+      )}
+
+      {demoMedia && (
+        <span class="pointer-events-none absolute top-2.5 left-2.5 z-10 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-semibold">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          Demo Video
+        </span>
       )}
 
       <!-- Quick Action Hover Overlay -->

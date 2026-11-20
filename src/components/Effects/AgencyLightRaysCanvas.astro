@@ -1,12 +1,19 @@
 ---
 // React Bits Inspired Volumetric "Light Rays" + Subtle Monochrome Grid
-// Strictly Obsidian (#090A0F) & Linear Indigo (#5E6AD2 / #828FFF) — zero pink/rainbow tones
+// Strictly Obsidian (#090A0F / #0A0B0E) & Linear Indigo (#5E6AD2 / #828FFF) — zero pink/rainbow tones
+interface Props {
+  variant?: "portfolio" | "agency";
+}
+
+const { variant = "agency" } = Astro.props;
+const fadeFrom = variant === "portfolio" ? "from-[#0A0B0E]" : "from-[#090A0F]";
+const baseRgb = variant === "portfolio" ? "10, 11, 14" : "9, 10, 15";
 ---
 
 <div class="pointer-events-none absolute inset-0 overflow-hidden z-0" aria-hidden="true">
-  <canvas id="agency-lightrays-canvas" class="w-full h-full block"></canvas>
+  <canvas id="agency-lightrays-canvas" data-base-rgb={baseRgb} class="w-full h-full block"></canvas>
   <div class="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.1)_1px,transparent_1px)] [background-size:32px_32px] opacity-20 [mask-image:radial-gradient(ellipse_75%_55%_at_50%_18%,#000_35%,transparent_100%)]"></div>
-  <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-[#090A0F] to-transparent"></div>
+  <div class={`absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t ${fadeFrom} to-transparent`}></div>
 </div>
 
 <script>
@@ -80,10 +87,11 @@
       const rayLength = Math.max(height * 0.95, 680);
 
       // Soft top obsidian-indigo crown glow
+      const baseRgb = canvas.dataset.baseRgb || "9, 10, 15";
       const crown = ctx.createRadialGradient(originX, 20, 10, originX, 40, Math.min(width * 0.62, 620));
       crown.addColorStop(0, "rgba(130, 143, 255, 0.28)");
       crown.addColorStop(0.42, "rgba(94, 106, 210, 0.14)");
-      crown.addColorStop(1, "rgba(9, 10, 15, 0)");
+      crown.addColorStop(1, `rgba(${baseRgb}, 0)`);
       ctx.fillStyle = crown;
       ctx.fillRect(0, 0, width, height * 0.72);
 

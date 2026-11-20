@@ -1,8 +1,10 @@
 export function optimizeSanityImage(url?: string, width = 1200, quality = 80): string {
   if (!url) return "";
   if (!url.includes("cdn.sanity.io")) return url;
-  const separator = url.includes("?") ? "&" : "?";
-  return `${url}${separator}fm=webp&auto=format&fit=max&w=${width}&q=${quality}`;
+  // Guard against accidental height or invalid quality values (> 100)
+  const validQuality = typeof quality === "number" && quality >= 1 && quality <= 100 ? quality : 85;
+  const baseUrl = url.split("?")[0];
+  return `${baseUrl}?fm=webp&auto=format&fit=max&w=${width}&q=${validQuality}`;
 }
 
 export function optimizePortraitImage(
