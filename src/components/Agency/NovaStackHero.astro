@@ -1,280 +1,273 @@
 ---
-// NovaStack Studio Hero Section: Obsidian Monochrome + Linear Indigo (#5E6AD2)
-// Interactive constellation particles (viewport-aware rAF) + concentric orbital rings + proof strip
-const proofMetrics = [
-  { value: "4+ Yrs", label: "Production React & Next.js" },
-  { value: "2–6 Wks", label: "Fixed-Scope Sprint Delivery" },
-  { value: "< 24h", label: "Direct Founder Response" },
-  { value: "100%", label: "Repository & IP Ownership" },
+// NovaStack Studio Hero + Verified Proof Strip
+// Left-aligned oversized H1 (word stagger) + Compact Founder Credibility Chip + 3 Layered Real Sanity Browser Frames + Real Proof Bar
+import { optimizeSanityImage } from "../../lib/optimizeImage";
+import HeroProductShowcase, {
+  type HeroProductItem,
+} from "./HeroProductShowcase";
+
+interface Props {
+  sanityProjects?: any[];
+  founderPortraitUrl?: string;
+}
+
+const { sanityProjects = [], founderPortraitUrl = "" } = Astro.props;
+
+const getImg = (doc: any): string =>
+  doc?.BackgroundImage?.asset?.url ||
+  doc?.FeatureImage?.asset?.url ||
+  doc?.thumbnailImage?.asset?.url ||
+  (Array.isArray(doc?.gallery) && doc.gallery[0]?.asset?.url) ||
+  "";
+
+const normalizeUrl = (val: any): string => {
+  if (!val) return "";
+  if (typeof val === "string") return val.trim();
+  if (typeof val === "object") {
+    const c = val.url || val.href || val.current || "";
+    return typeof c === "string" ? c.trim() : "";
+  }
+  return "";
+};
+
+const toHeroItem = (doc: any): HeroProductItem | null => {
+  const rawImg = getImg(doc);
+  if (!rawImg) return null;
+  const title = String(doc?.projectName || doc?.templateName || "").trim();
+  if (!title) return null;
+
+  const isTemplate = doc?._type === "templates" || Boolean(doc?.gumroadLink);
+  const slug = typeof doc?.slug === "string" ? doc.slug : doc?.slug?.current || "";
+  const detailUrl = slug ? `${isTemplate ? "/templates/" : "/projects/"}${slug}` : "/projects";
+  const demoUrl = normalizeUrl(doc?.demoLink);
+  const displayUrl = demoUrl
+    ? demoUrl.replace(/^https?:\/\//, "").replace(/\/$/, "")
+    : `tanujbuilds.site${detailUrl}`;
+  const tag =
+    String(doc?.agencyHeroTag || doc?.category || (Array.isArray(doc?.tags) ? doc.tags[0] : "") || "").trim() ||
+    (isTemplate ? "Commercial Template" : "Production Software");
+
+  return {
+    title,
+    tag,
+    url: detailUrl || demoUrl || "/projects",
+    displayUrl,
+    imageUrl: optimizeSanityImage(rawImg, 1400, 92),
+    isExternal: false,
+  };
+};
+
+// Prioritize real verified products in Sanity: Sawt AI, Omnexia CRM, CxiSuite / Paperfloow
+const preferredMatchers = ["sawt", "omenixa", "omnexia", "cxisuite", "paperfloow"];
+const selectedDocs: any[] = [];
+const seenIds = new Set<string>();
+
+for (const matcher of preferredMatchers) {
+  if (selectedDocs.length >= 3) break;
+  const match = (sanityProjects || []).find((doc) => {
+    const id = String(doc?._id || doc?.slug || "");
+    if (seenIds.has(id) || !getImg(doc)) return false;
+    const hay = `${doc?.projectName || ""} ${doc?.templateName || ""} ${doc?.slug || ""}`.toLowerCase();
+    return hay.includes(matcher);
+  });
+  if (match) {
+    seenIds.add(String(match?._id || match?.slug || ""));
+    selectedDocs.push(match);
+  }
+}
+
+for (const doc of sanityProjects || []) {
+  if (selectedDocs.length >= 3) break;
+  const id = String(doc?._id || doc?.slug || "");
+  if (!seenIds.has(id) && getImg(doc)) {
+    seenIds.add(id);
+    selectedDocs.push(doc);
+  }
+}
+
+const heroProducts: HeroProductItem[] = selectedDocs
+  .map(toHeroItem)
+  .filter((item): item is HeroProductItem => Boolean(item));
+
+// Real project count from Sanity CMS (non-fabricated)
+const realSanityProjectCount = (sanityProjects || []).filter(
+  (doc) => Boolean(doc?.projectName || doc?.templateName) && Boolean(getImg(doc))
+).length;
+
+// Real technologies used across shipped projects (no fake client logos)
+const builtWithStack = [
+  "Next.js",
+  "React",
+  "TypeScript",
+  "Astro",
+  "Node.js",
+  "PostgreSQL",
+  "Sanity CMS",
+  "OpenAI / Claude",
+];
+
+// Real verified proof facts already stated on this site + live Sanity project count
+const verifiedProofFacts = [
+  {
+    value: "4+ Years",
+    label: "Production Engineering",
+    detail: "Shipping web apps, SaaS & AI systems",
+  },
+  ...(realSanityProjectCount > 0
+    ? [
+        {
+          value: String(realSanityProjectCount).padStart(2, "0"),
+          label: "Verified Builds",
+          detail: "Published directly in Sanity CMS",
+        },
+      ]
+    : []),
+  {
+    value: "2–6 Weeks",
+    label: "Fixed-Scope Sprints",
+    detail: "Milestone-gated staging releases",
+  },
+  {
+    value: "< 24 Hours",
+    label: "Founder Response",
+    detail: "Written technical scope & estimate",
+  },
 ];
 ---
 
-<section id="hero" class="relative w-full bg-white text-[#09090B] pt-16 sm:pt-24 pb-14 sm:pb-20 border-b border-[#E4E4E7] overflow-hidden">
-  
-  <!-- 1. Subtle Central Indigo Ambient Wash (No Neon / No Rainbow) -->
-  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_32%,rgba(94,106,210,0.065),transparent_65%)] z-0"></div>
+<section
+  id="hero"
+  class="relative w-full bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)] overflow-hidden"
+>
+  <!-- Single allowed subtle radial wash (< 8% opacity) behind hero -->
+  <div
+    class="pointer-events-none absolute inset-0"
+    style="background: radial-gradient(ellipse 65% 55% at 74% 28%, rgba(37, 99, 235, 0.065), transparent 72%);"
+    aria-hidden="true"
+  ></div>
 
-  <!-- 2. Concentric Orbital Depth Rings -->
-  <div class="pointer-events-none absolute top-[36%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 select-none">
-    <div class="w-[380px] h-[380px] rounded-full border border-[#5E6AD2]/10 animate-pulse-slow"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] rounded-full border border-[#09090B]/[0.05]"></div>
-    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[920px] h-[920px] rounded-full border border-[#09090B]/[0.035]"></div>
-  </div>
+  <div class="relative z-10 ns-container pt-12 pb-16 lg:pt-20 lg:pb-20">
+    <!-- Asymmetric 12-Col Composition: No Blank Voids at 1440px -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+      <!-- Left Column (6 cols): Who, What, Proof, Action -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="ns-hero-enter inline-flex items-center gap-2.5" style="--hero-delay: 0ms;">
+          <span class="ns-status-dot w-2 h-2 rounded-full bg-[var(--blue-600)]" aria-hidden="true"></span>
+          <span class="ns-mono-label text-[var(--muted)] font-medium">
+            NovaStack Studio · Independent Engineering
+          </span>
+        </div>
 
-  <!-- 3. Subtle Micro-Dot Matrix -->
-  <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(#A1A1AA_1.1px,transparent_1.1px)] bg-[size:32px_32px] opacity-30 [mask-image:radial-gradient(ellipse_75%_60%_at_50%_35%,#000_25%,transparent_100%)] z-0"></div>
+        <!-- Oversized Left-Aligned H1 (Instant SSR Paint + Subtle Stagger Rise) -->
+        <h1 class="ns-hero-enter ns-h1 text-[var(--ink)] tracking-[-0.03em] font-semibold" style="--hero-delay: 55ms;">
+          Engineering <span class="text-[var(--blue-600)]">Web, SaaS</span><br class="hidden sm:inline" />
+          &amp; <span class="text-[var(--blue-600)]">AI Products</span><br class="hidden sm:inline" />
+          Built to Ship.
+        </h1>
 
-  <!-- 4. Viewport-Aware Interactive Constellation Particles Canvas -->
-  <canvas id="hero-particles-canvas" class="pointer-events-none absolute inset-0 w-full h-full z-10"></canvas>
+        <!-- Concise 2-Line Subcopy (18px / 1.65 desktop, 16px mobile) -->
+        <p class="ns-hero-enter ns-body max-w-[540px]" style="--hero-delay: 110ms;">
+          Senior full-stack architecture for startups and digital agencies—fixed-scope sprints, clean TypeScript codebases, and 100% repository ownership.
+        </p>
 
-  <div class="relative z-20 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <!-- Primary Filled Blue CTA + Secondary Text Link with Arrow -->
+        <div class="ns-hero-enter flex flex-wrap items-center gap-6 pt-2" style="--hero-delay: 165ms;">
+          <a href="#contact" class="ns-btn-primary px-6 py-3.5 text-base">
+            <span>Start a Project</span>
+            <span class="ns-arrow" aria-hidden="true">→</span>
+          </a>
 
-    <!-- Hero Content Header -->
-    <div class="max-w-4xl mx-auto text-center space-y-5 sm:space-y-6">
+          <a
+            href="#work"
+            class="ns-link-arrow inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors duration-150 py-2"
+          >
+            <span>Explore Selected Work</span>
+            <span class="ns-arrow text-[var(--blue-600)]" aria-hidden="true">→</span>
+          </a>
+        </div>
 
-      <!-- Availability Status Pill (Never Stale) -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F4F4F5] border border-[#E4E4E7] text-xs font-mono font-medium text-[#09090B]">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>Booking New Projects · Founder-Led Studio</span>
-      </div>
-
-      <!-- Main Headline: High-Contrast Solid Typography (Zero AI Gradient Text) -->
-      <h1 class="font-grotesk font-extrabold text-[#09090B] tracking-[-0.04em] text-4xl sm:text-5xl md:text-6xl lg:text-[4rem] leading-[1.05] max-w-2xl mx-auto">
-        Web, SaaS &amp; AI. <br />
-        <span class="text-[#5E6AD2]">Built to Scale.</span>
-      </h1>
-
-      <!-- Supporting Copy -->
-      <p class="text-sm sm:text-base md:text-lg text-[#52525B] leading-relaxed max-w-xl mx-auto font-sans font-normal">
-        Senior full-stack engineering for startups and agencies—fixed-price sprints, direct founder execution, and production-ready codebases.
-      </p>
-
-      <!-- Primary & Secondary CTAs -->
-      <div class="pt-1 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-        <a
-          href="#contact"
-          class="group inline-flex items-center justify-center gap-3 pl-6 pr-2.5 py-3 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-xs sm:text-sm uppercase tracking-wider shadow-sm hover:shadow-md transition-all duration-300 active:scale-[0.98]"
-        >
-          <span>Discuss Your Project</span>
-          <span class="w-6 h-6 rounded-full bg-white text-[#09090B] group-hover:text-[#5E6AD2] flex items-center justify-center text-xs font-bold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
-        </a>
-        <a
-          href="#work"
-          class="group inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-white hover:bg-[#F4F4F5] border border-[#E4E4E7] text-[#09090B] font-grotesk font-semibold text-xs sm:text-sm uppercase tracking-wider hover:border-[#09090B]/30 transition-all duration-300"
-        >
-          <span>View Shipped Work</span>
-          <span class="text-[#71717A] transition-transform duration-300 group-hover:translate-y-0.5">↓</span>
-        </a>
-      </div>
-
-      <!-- Anchored 4-Column Studio Proof Strip (Replaces Generic Checkmarks) -->
-      <div class="pt-8 sm:pt-10 max-w-3xl mx-auto">
-        <div class="grid grid-cols-2 sm:grid-cols-4 rounded-2xl bg-[#F4F4F5]/90 backdrop-blur-xs border border-[#E4E4E7] divide-y sm:divide-y-0 sm:divide-x divide-[#E4E4E7] overflow-hidden">
-          {proofMetrics.map((metric) => (
-            <div class="px-4 py-3.5 sm:py-4 text-center">
-              <div class="font-grotesk font-extrabold text-lg sm:text-xl text-[#09090B] tracking-tight tabular-nums">
-                {metric.value}
-              </div>
-              <div class="text-[11px] font-mono text-[#52525B] mt-0.5 leading-snug">
-                {metric.label}
-              </div>
+        <!-- Compact Founder Credibility Chip (Real Avatar, Name, Role, Existing Fact) -->
+        <div class="ns-hero-enter pt-3" style="--hero-delay: 220ms;">
+          <a
+            href="#about"
+            class="group inline-flex items-center gap-3.5 p-2.5 pr-5 rounded-[16px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:-translate-y-0.5 transition-[transform,border-color,box-shadow] duration-200 hover:shadow-[0_10px_24px_-12px_rgba(11,17,26,0.14)]"
+          >
+            <div class="w-11 h-11 rounded-full overflow-hidden border border-[var(--border)] bg-[var(--surface)] shrink-0">
+              {founderPortraitUrl ? (
+                <img
+                  src={founderPortraitUrl}
+                  alt="Tanuj Pandey — Founder & Full-Stack Engineer"
+                  loading="eager"
+                  decoding="async"
+                  class="w-full h-full object-cover object-top transition-transform duration-300 ease-out group-hover:scale-105"
+                />
+              ) : (
+                <div class="w-full h-full flex items-center justify-center bg-[var(--ink)] text-white font-semibold text-xs">
+                  TP
+                </div>
+              )}
             </div>
-          ))}
+            <div class="min-w-0">
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="font-semibold text-[15px] text-[var(--ink)] group-hover:text-[var(--blue-600)] transition-colors">
+                  Tanuj Pandey
+                </span>
+                <span class="px-2.5 py-0.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-[11px] font-mono font-medium">
+                  Founder &amp; Engineer
+                </span>
+              </div>
+              <p class="text-[13px] font-mono text-[var(--muted)] mt-0.5">
+                4+ yrs production experience · Remote Worldwide
+              </p>
+            </div>
+          </a>
         </div>
       </div>
 
+      <!-- Right Column (6 cols): 3 Layered Real Product Browser Frames -->
+      <div class="lg:col-span-6 ns-hero-enter" style="--hero-delay: 140ms;">
+        <HeroProductShowcase client:load products={heroProducts} />
+      </div>
     </div>
 
+    <!-- Quiet "Built With" Real Technology Strip (Zero Fake Client Logos) -->
+    <div class="mt-14 pt-7 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <span class="ns-mono-label text-[var(--muted)] shrink-0">
+        Built with
+      </span>
+      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] font-mono text-[var(--muted)]">
+        {builtWithStack.map((tech) => (
+          <li class="inline-flex items-center gap-2">
+            <span class="w-1 h-1 rounded-full bg-[var(--border)]" aria-hidden="true"></span>
+            <span class="text-[var(--ink)] font-medium">{tech}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <!-- Verified Proof Strip (Only Existing Site Facts + Live Sanity Project Count) -->
+  <div class="bg-[var(--bg)] border-t border-[var(--border)]">
+    <div class="ns-container py-8 lg:py-10">
+      <dl
+        class={`grid grid-cols-2 gap-6 lg:gap-8 ${
+          verifiedProofFacts.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
+        }`}
+      >
+        {verifiedProofFacts.map((fact) => (
+          <div class="group pl-3.5 border-l-2 border-[var(--border)] hover:border-[var(--blue-600)] transition-colors duration-200 space-y-1">
+            <dt class="ns-mono-label text-[var(--blue-600)] font-medium">
+              {fact.label}
+            </dt>
+            <dd class="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-[var(--ink)]">
+              {fact.value}
+            </dd>
+            <p class="text-sm text-[var(--muted)] leading-snug">
+              {fact.detail}
+            </p>
+          </div>
+        ))}
+      </dl>
+    </div>
   </div>
 </section>
-
-<style>
-  @keyframes pulseSlow {
-    0%, 100% {
-      transform: scale(1);
-      opacity: 0.75;
-    }
-    50% {
-      transform: scale(1.03);
-      opacity: 1;
-    }
-  }
-
-  .animate-pulse-slow {
-    animation: pulseSlow 8s ease-in-out infinite;
-  }
-</style>
-
-<script>
-  // Viewport-Aware Interactive Constellation Particles (Pauses Off-Screen & Respects Reduced Motion)
-  let heroParticlesCleanup: (() => void) | null = null;
-
-  function initHeroModernParticles() {
-    if (heroParticlesCleanup) {
-      heroParticlesCleanup();
-      heroParticlesCleanup = null;
-    }
-
-    const canvas = document.getElementById("hero-particles-canvas") as HTMLCanvasElement | null;
-    const heroSection = document.getElementById("hero");
-    if (!canvas || !heroSection) return;
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    interface Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      radius: number;
-      color: string;
-      baseAlpha: number;
-      alpha: number;
-    }
-
-    let particles: Particle[] = [];
-    let animationFrameId: number | null = null;
-    let isVisible = true;
-    let width = 0;
-    let height = 0;
-
-    let mouseX = -9999;
-    let mouseY = -9999;
-
-    const colors = ["#5E6AD2", "#7C86DF", "#71717A"];
-
-    function resize() {
-      if (!canvas || !heroSection || !ctx) return;
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      width = heroSection.clientWidth;
-      height = heroSection.clientHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      initParticles();
-    }
-
-    function initParticles() {
-      particles = [];
-      const particleCount = Math.min(Math.max(Math.floor((width * height) / 30000), 22), 45);
-      for (let i = 0; i < particleCount; i++) {
-        const baseAlpha = Math.random() * 0.28 + 0.12;
-        particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          radius: Math.random() * 1.4 + 1.1,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          baseAlpha,
-          alpha: baseAlpha,
-        });
-      }
-    }
-
-    function handlePointerMove(e: PointerEvent) {
-      if (!heroSection) return;
-      const rect = heroSection.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-    }
-
-    function handlePointerLeave() {
-      mouseX = -9999;
-      mouseY = -9999;
-    }
-
-    function animate() {
-      if (!ctx || !isVisible) {
-        animationFrameId = null;
-        return;
-      }
-
-      ctx.clearRect(0, 0, width, height);
-
-      const maxDist = 110;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < maxDist) {
-            const lineAlpha = (1 - dist / maxDist) * 0.1;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(94, 106, 210, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
-            ctx.stroke();
-          }
-        }
-      }
-
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-
-        if (p.x < 0 || p.x > width) p.vx *= -1;
-        if (p.y < 0 || p.y > height) p.vy *= -1;
-
-        const dx = p.x - mouseX;
-        const dy = p.y - mouseY;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxMouseDist = 120;
-
-        if (dist > 0 && dist < maxMouseDist) {
-          const force = (1 - dist / maxMouseDist) * 0.75;
-          p.x += (dx / dist) * force;
-          p.y += (dy / dist) * force;
-          p.alpha = Math.min(p.baseAlpha + 0.3, 0.75);
-        } else {
-          p.alpha += (p.baseAlpha - p.alpha) * 0.05;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.alpha;
-        ctx.fill();
-        ctx.globalAlpha = 1;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        isVisible = Boolean(entry?.isIntersecting);
-        if (isVisible && animationFrameId === null) {
-          animationFrameId = requestAnimationFrame(animate);
-        }
-      },
-      { threshold: 0.01 }
-    );
-
-    observer.observe(heroSection);
-    heroSection.addEventListener("pointermove", handlePointerMove, { passive: true });
-    heroSection.addEventListener("pointerleave", handlePointerLeave, { passive: true });
-    window.addEventListener("resize", resize, { passive: true });
-
-    resize();
-    animationFrameId = requestAnimationFrame(animate);
-
-    heroParticlesCleanup = () => {
-      observer.disconnect();
-      if (animationFrameId !== null) cancelAnimationFrame(animationFrameId);
-      heroSection.removeEventListener("pointermove", handlePointerMove);
-      heroSection.removeEventListener("pointerleave", handlePointerLeave);
-      window.removeEventListener("resize", resize);
-    };
-  }
-
-  initHeroModernParticles();
-  document.addEventListener("astro:page-load", initHeroModernParticles);
-  document.addEventListener("astro:after-swap", initHeroModernParticles);
-</script>

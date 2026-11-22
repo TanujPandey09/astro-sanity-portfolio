@@ -1,131 +1,115 @@
 ---
-// NovaStack Process Section: Unified Monochrome + Linear Indigo (#5E6AD2)
-// Clean architectural cards — no rainbow pastels, no repeated titles
-const steps = [
+// NovaStack Process Section: Aligned Editorial Header + Scroll-Driven Framer Motion Timeline
+// Note: No overflow-hidden on section so sticky sidebar works and headings never clip
+import ProcessTimeline, { type ProcessStep } from "./ProcessTimeline";
+
+const steps: ProcessStep[] = [
   {
     step: "01",
     phase: "Alignment",
     title: "Discovery",
     summary: "Align on goals, scope, and constraints.",
-    description: "Review your product objectives, target users, technical requirements, and launch priorities.",
-    youApprove: "Written scope spec & fixed milestone schedule",
+    description:
+      "Review your product objectives, target users, technical constraints, and launch priorities before writing a line of code.",
+    deliverable: "Written scope spec & fixed milestone schedule",
   },
   {
     step: "02",
     phase: "Architecture",
     title: "Technical Planning",
     summary: "Lock the stack, schema, and deliverables.",
-    description: "Select the optimal architecture, design data models and API contracts, and map clear weekly checkpoints.",
-    youApprove: "Architecture plan & itemized deliverables list",
+    description:
+      "Select the optimal architecture, design data models and API contracts, and map clear weekly checkpoints.",
+    deliverable: "Architecture plan & itemized deliverables list",
   },
   {
     step: "03",
     phase: "Interface",
     title: "UI/UX Design",
-    summary: "Craft responsive, high-conversion layouts.",
-    description: "Design clean, accessible user flows focused on clarity, mobile responsiveness, and measurable conversion.",
-    youApprove: "Interactive prototype & responsive UI specs",
+    summary: "Craft responsive, high-clarity layouts.",
+    description:
+      "Design clean, accessible user flows focused on readability, mobile responsiveness, and conversion.",
+    deliverable: "Interactive prototype & responsive UI specs",
   },
   {
     step: "04",
     phase: "Engineering",
     title: "Sprint Development",
     summary: "Build, test, and deploy to private staging.",
-    description: "Ship clean, type-safe code with continuous staging previews and asynchronous Loom walkthroughs.",
-    youApprove: "Hands-on testing on your private staging URL",
+    description:
+      "Ship clean, type-safe code with continuous staging previews and asynchronous Loom walkthroughs.",
+    deliverable: "Hands-on testing on your private staging URL",
   },
   {
     step: "05",
     phase: "Handover",
     title: "Production Launch",
     summary: "Deploy live and transfer full ownership.",
-    description: "Deploy directly to your cloud accounts, verify DNS and analytics, and hand over 100% of the repository.",
-    youApprove: "Live production domain & full repository transfer",
+    description:
+      "Deploy directly to your cloud accounts, verify DNS and analytics, and hand over 100% of the repository.",
+    deliverable: "Live production domain & full repository transfer",
   },
 ];
 ---
 
-<section id="process" class="py-20 sm:py-28 bg-[#F4F4F5] text-[#09090B] border-b border-[#E4E4E7]">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-
-      <!-- Left Column (Sticky 5 cols) -->
-      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
-        <div>
-          <div class="flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] mb-3">
-            <span class="w-5 h-px bg-[#5E6AD2]"></span>
-            <span>03 / Delivery Process</span>
+<section id="process" class="ns-section bg-[var(--bg)] text-[var(--ink)] border-b border-[var(--border)]">
+  <div class="ns-container">
+    <!-- Split Layout: Sticky Left Heading + Assurance (4 cols) & Scroll-Driven Timeline (8 cols) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+      <!-- Left Sticky Column (Aligned cleanly to container left edge, generous top padding) -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-6 pt-1">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
+            <span class="ns-mono-label text-[var(--blue-600)] font-medium">
+              03 / Process
+            </span>
           </div>
-          <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-[#09090B] tracking-[-0.035em] leading-[1.08]">
-            5-Step Sprint Process. <br class="hidden sm:inline" />
-            Zero Black-Box Weeks.
+
+          <h2 class="ns-h2 text-[var(--ink)]">
+            A Clear 5-Step <span class="text-[var(--blue-600)]">Sprint</span> Timeline.
           </h2>
-          <p class="text-sm sm:text-base text-[#52525B] mt-4 leading-relaxed font-sans">
-            Every sprint ships working software to a private staging link so you verify progress before signing off the next milestone.
+
+          <p class="ns-body">
+            Working software deployed to a private staging URL at every milestone—so you inspect and sign off before moving forward.
           </p>
         </div>
 
-        <div class="p-5 rounded-2xl bg-white border border-[#E4E4E7] space-y-2.5">
-          <div class="flex items-center gap-2 text-xs font-mono font-bold text-[#09090B]">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span>Milestone-Gated Sign-Off</span>
-          </div>
-          <p class="text-xs text-[#52525B] font-sans leading-relaxed">
-            Invoices are tied directly to approved deliverables on staging—never open-ended hourly billing or surprise retainers.
+        <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 space-y-4">
+          <span class="ns-mono-label text-[var(--ink)] font-semibold block">
+            Milestone-Gated Execution
+          </span>
+          <p class="text-base leading-[1.65] text-[var(--muted)]">
+            Every stage produces a tangible deliverable you verify directly on staging. Invoices tie strictly to signed checkpoints.
           </p>
+          <ul class="space-y-2.5 pt-3 border-t border-[var(--border)] text-sm font-mono text-[var(--ink)]">
+            <li class="flex items-center gap-2.5">
+              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <span>Written scope before code</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <span>Weekly staging links &amp; Looms</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <span>100% repo transfer at launch</span>
+            </li>
+          </ul>
         </div>
 
-        <div>
-          <a
-            href="#contact"
-            class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all"
-          >
+        <div class="pt-1">
+          <a href="#contact" class="ns-btn-primary px-6 py-3.5 text-base">
             <span>Start Your Project</span>
-            <span>→</span>
+            <span class="ns-arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </div>
 
-      <!-- Right Column: Crisp Monochrome Step Cards (7 cols) -->
-      <div class="lg:col-span-7 space-y-4">
-        {steps.map((item) => (
-          <div class="process-step-card agency-card rounded-2xl p-6 sm:p-7 bg-white border border-[#E4E4E7] hover:border-[#5E6AD2]/40 shadow-2xs hover:shadow-sm transition-all duration-300">
-            
-            <div class="flex items-center justify-between gap-3 mb-3">
-              <div class="flex items-center gap-2.5">
-                <span class="text-[11px] font-mono font-bold px-2.5 py-0.5 rounded-md bg-[#EEF0FB] text-[#5E6AD2] border border-[#D5D9F5]">
-                  {item.step}
-                </span>
-                <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#71717A] font-semibold">
-                  {item.phase}
-                </span>
-              </div>
-              <span class="text-[10px] font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
-                Sign-Off Gate
-              </span>
-            </div>
-
-            <h3 class="font-grotesk font-extrabold text-xl text-[#09090B] tracking-tight mb-1.5">
-              {item.title}
-              <span class="font-normal font-sans text-sm sm:text-base text-[#71717A]"> — {item.summary}</span>
-            </h3>
-
-            <p class="text-xs sm:text-sm text-[#52525B] leading-relaxed font-sans mb-4">
-              {item.description}
-            </p>
-
-            <!-- Sign-Off Deliverable Strip -->
-            <div class="px-3.5 py-2.5 rounded-xl bg-[#F4F4F5] border border-[#E4E4E7] flex items-center gap-2 text-xs">
-              <span class="text-[#5E6AD2] font-mono font-bold shrink-0">Deliverable:</span>
-              <span class="text-[#09090B] font-sans font-medium">{item.youApprove}</span>
-            </div>
-
-          </div>
-        ))}
+      <!-- Right Column: Scroll-Driven Vertical Timeline -->
+      <div class="lg:col-span-7">
+        <ProcessTimeline client:visible steps={steps} />
       </div>
-
     </div>
-
   </div>
 </section>

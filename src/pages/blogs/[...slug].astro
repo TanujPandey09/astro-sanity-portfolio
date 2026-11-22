@@ -99,7 +99,7 @@ const detailsData =
   blogData.find((item) => item?.slug?.current === rawSlug);
 
 if (!detailsData) {
-  return Astro.redirect("/blogs");
+  return Astro.redirect("/blogs", 301);
 }
 
 // Extract description for SEO

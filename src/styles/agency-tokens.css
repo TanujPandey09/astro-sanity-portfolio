@@ -1,0 +1,223 @@
+/* NovaStack Studio Design System Tokens (Scoped to .agency-page)
+ * 85% Neutrals · 10% Brand Blue (#2563EB) · 5% Sky/Project Accents
+ * WCAG AA verified across every light and dark text/surface pair.
+ */
+
+.agency-page {
+  /* Brand */
+  --blue-600: #2563EB;
+  --blue-700: #1D4ED8;
+  --blue-50: #EAF1FE;
+  --sky-400: #38BDF8;
+
+  /* Neutrals */
+  --ink: #0B111A;
+  --ink-2: #121A26;
+  --bg: #F5F7FA;
+  --surface: #FFFFFF;
+  --border: #E2E8F0;
+  --muted: #4B5565;
+  --dark-border: #1F2A3A;
+  --dark-muted: #9AA6B8;
+
+  /* Layout & Elevation */
+  --container-max: 1200px;
+  --radius-card: 16px;
+  --radius-btn: 12px;
+  --radius-chip: 999px;
+  --shadow-hover: 0 12px 32px -12px rgba(11, 17, 26, 0.18);
+
+  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  overflow-x: clip;
+}
+
+.agency-page .ns-container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+@media (min-width: 1024px) {
+  .agency-page .ns-container {
+    padding-inline: 40px;
+  }
+}
+
+.agency-page .ns-section {
+  padding-block: 64px;
+}
+
+@media (min-width: 1024px) {
+  .agency-page .ns-section {
+    padding-block: 96px;
+  }
+}
+
+.agency-page .ns-h1 {
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: clamp(44px, 5.6vw, 80px);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+}
+
+.agency-page .ns-h2 {
+  font-family: "Geist", system-ui, sans-serif;
+  font-size: clamp(32px, 4.5vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  font-weight: 600;
+}
+
+.agency-page .ns-body {
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+
+@media (min-width: 768px) {
+  .agency-page .ns-body {
+    font-size: 18px;
+  }
+}
+
+.agency-page .ns-mono-label {
+  font-family: "Geist Mono", monospace;
+  font-size: 12px;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+@media (min-width: 768px) {
+  .agency-page .ns-mono-label {
+    font-size: 13px;
+  }
+}
+
+/* Hover-only elevation & button micro-transitions (150ms) */
+.agency-page .ns-card {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 200ms ease;
+}
+
+.agency-page .ns-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.agency-page .ns-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--blue-600);
+  color: #FFFFFF;
+  border-radius: var(--radius-btn);
+  font-weight: 500;
+  transition: transform 150ms ease, background-color 150ms ease;
+}
+
+.agency-page .ns-btn-primary:hover {
+  background-color: var(--blue-700);
+  transform: translateY(-1px);
+}
+
+.agency-page .ns-btn-primary:active {
+  transform: translateY(0) scale(0.985);
+}
+
+.agency-page .ns-btn-primary .ns-arrow,
+.agency-page .ns-link-arrow .ns-arrow {
+  display: inline-block;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agency-page .ns-btn-primary:hover .ns-arrow,
+.agency-page .ns-link-arrow:hover .ns-arrow {
+  transform: translateX(3px);
+}
+
+@keyframes nsStatusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.88);
+  }
+}
+
+.agency-page .ns-status-dot {
+  animation: nsStatusPulse 2.8s ease-in-out infinite;
+}
+
+/* Case Study editorial card micro-elevation + top hairline accent */
+.agency-page .ns-case-card {
+  position: relative;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 280ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 220ms ease;
+}
+
+.agency-page .ns-case-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(37, 99, 235, 0.4);
+  box-shadow: 0 16px 36px -14px rgba(11, 17, 26, 0.16);
+}
+
+/* Slow, calm screenshot pan/zoom on hover (750ms ease-out) */
+.agency-page .ns-shot-pan {
+  transition: transform 750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agency-page .group:hover .ns-shot-pan {
+  transform: scale(1.035) translateY(-1.5%);
+}
+
+/* Visible accessible keyboard focus ring */
+.agency-page *:focus-visible {
+  outline: 2px solid var(--blue-600) !important;
+  outline-offset: 2px !important;
+}
+
+/* Smooth CSS Accordion Height Animation */
+.agency-page .ns-faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.agency-page .ns-faq-body[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.agency-page .ns-faq-body > div {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .agency-page .ns-hero-enter,
+  .agency-page .ns-status-dot {
+    animation: none !important;
+  }
+  .agency-page .ns-card:hover,
+  .agency-page .ns-case-card:hover,
+  .agency-page .ns-btn-primary:hover,
+  .agency-page .ns-btn-primary:active,
+  .agency-page .ns-btn-primary:hover .ns-arrow,
+  .agency-page .ns-link-arrow:hover .ns-arrow,
+  .agency-page .group:hover .ns-shot-pan {
+    transform: none !important;
+  }
+}

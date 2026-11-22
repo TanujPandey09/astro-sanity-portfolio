@@ -4,6 +4,10 @@ export function optimizeSanityImage(url?: string, width = 1200, quality = 80): s
   // Guard against accidental height or invalid quality values (> 100)
   const validQuality = typeof quality === "number" && quality >= 1 && quality <= 100 ? quality : 85;
   const baseUrl = url.split("?")[0];
+  // For crisp UI mockups (quality === 100), avoid lossy WebP text ringing/blur
+  if (validQuality === 100) {
+    return `${baseUrl}?fit=max&w=${width}&q=100`;
+  }
   return `${baseUrl}?fm=webp&auto=format&fit=max&w=${width}&q=${validQuality}`;
 }
 

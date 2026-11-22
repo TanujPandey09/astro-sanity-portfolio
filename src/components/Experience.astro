@@ -23,7 +23,7 @@ const experienceData = [
       { value: "Real-Time", label: "Socket.IO CRM & Billing" }
     ],
     technologies: ["React.js", "Next.js", "Node.js", "TypeScript", "React Native", "Socket.IO", "PostgreSQL", "OpenAI / Gemini"],
-    logo: "https://cxisuite.com/assets/logo1_1757929917544-2LY1vMCS.png",
+    logo: "",
   },
   {
     role: "Frontend Developer",
@@ -46,7 +46,7 @@ const experienceData = [
       { value: "4 Portals", label: "Admin, Doctor, Patient, Clinic" }
     ],
     technologies: ["React.js", "Node.js", "MongoDB", "REST APIs", "Tailwind CSS"],
-    logo: "https://media.licdn.com/dms/image/v2/C4D0BAQHRS2pkyIQ-RQ/company-logo_200_200/company-logo_200_200/0/1630577732820/nasyait_logo?e=1763596800&v=beta&t=CGXPjRheeE9w7-_LqT0R1QXLenCDi8JQWjVejhUlBRg",
+    logo: "",
   },
   {
     role: "React Developer",
@@ -164,17 +164,19 @@ const experienceData = [
                   <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-500 select-none" aria-hidden="true">
                     {exp.company.slice(0, 2).toUpperCase()}
                   </span>
-                  <img
-                    src={exp.logo}
-                    alt={exp.company}
-                    width="40"
-                    height="40"
-                    loading="lazy"
-                    decoding="async"
-                    referrerpolicy="no-referrer"
-                    class="relative w-full h-full object-contain bg-white"
-                    onerror="this.style.display='none'"
-                  />
+                  {exp.logo && (
+                    <img
+                      src={exp.logo}
+                      alt={exp.company}
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                      decoding="async"
+                      referrerpolicy="no-referrer"
+                      class="relative w-full h-full object-contain bg-white"
+                      onerror="this.style.display='none'"
+                    />
+                  )}
                 </div>
 
                 <!-- Role & Company Title -->

@@ -1,79 +1,61 @@
 ---
-// NovaStack Contact Section: Obsidian Architectural CTA Banner + Clean Project Inquiry Form
-// Unified Palette: #F4F4F5 surface, #09090B dark anchor banner, #5E6AD2 Linear Indigo accent
+// NovaStack Contact Section: Two-Column Layout (Left Reassurance + Direct Channels | Right Prominent White Card Form)
+// Preserves /api/contact endpoint, FormData payload, and all field names 100% untouched
 ---
 
-<section id="contact" class="py-20 sm:py-28 bg-[#F4F4F5] text-[#09090B] border-b border-[#E4E4E7]">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-    <!-- Dark Obsidian Architectural CTA Banner (High-Contrast Bottom Anchor, Zero Blue Blobs / Emojis) -->
-    <div class="mb-14 sm:mb-18 rounded-2xl sm:rounded-3xl bg-[#09090B] border border-white/10 p-8 sm:p-12 lg:p-14 text-center relative overflow-hidden">
-      <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(94,106,210,0.18),transparent_60%)]"></div>
-
-      <div class="max-w-2xl mx-auto space-y-4 relative z-10">
-        <div class="inline-flex items-center gap-2 text-[11px] font-mono font-semibold text-[#A5AEF3] uppercase tracking-[0.18em]">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>07 / Start a Project</span>
-        </div>
-        <h2 class="font-grotesk font-extrabold text-3xl sm:text-5xl text-white tracking-[-0.035em] leading-[1.08]">
-          Get a Written Scope &amp; Fixed Quote in 24 Hours.
-        </h2>
-        <p class="text-sm sm:text-base text-[#A1A1AA] font-sans leading-relaxed">
-          Share your product goals, timeline, and stack preferences. You will receive a direct technical assessment and realistic estimate—zero sales pressure.
-        </p>
-      </div>
-    </div>
-
-    <!-- Contact & Form Grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-
-      <!-- Left Column: Direct Communication Channels (5 cols) -->
-      <div class="lg:col-span-5 space-y-6">
-        <div>
-          <span class="text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] block mb-2">
-            Direct Channels
-          </span>
-          <h3 class="font-grotesk font-extrabold text-2xl sm:text-3xl text-[#09090B] tracking-tight">
-            Reach Tanuj directly.
-          </h3>
-          <p class="text-xs sm:text-sm text-[#52525B] leading-relaxed font-sans mt-2">
-            Prefer email or WhatsApp over forms? Send your brief or Figma link directly.
+<section id="contact" class="ns-section bg-[var(--bg)] text-[var(--ink)]">
+  <div class="ns-container">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
+      <!-- Left Column (5 cols): Reassurance + Direct Email / WhatsApp -->
+      <div class="lg:col-span-5 space-y-8">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
+            <span class="ns-mono-label text-[var(--blue-600)] font-medium">
+              07 / Contact
+            </span>
+          </div>
+          <h2 class="ns-h2 text-[var(--ink)]">
+            Get a Written Scope &amp; <span class="text-[var(--blue-600)]">Fixed Quote</span> in 24h.
+          </h2>
+          <p class="ns-body">
+            Share your goals, timeline, and links. Founder Tanuj Pandey reviews every brief personally and replies with clear architecture notes and an estimate.
           </p>
         </div>
 
-        <!-- Direct Contact Cards -->
-        <div class="space-y-3.5">
-
-          <!-- Direct Email Card with One-Click Copy -->
-          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7]">
-            <div class="flex items-center justify-between text-xs font-mono mb-2">
-              <span class="text-[#71717A] uppercase tracking-wider font-semibold">Direct Inbox</span>
-              <span class="text-emerald-700 font-semibold bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full text-[10px]">
-                Reply &lt; 24h
+        <!-- Direct Channels -->
+        <div class="space-y-4">
+          <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-5 flex items-center justify-between gap-4">
+            <div class="min-w-0">
+              <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-1">
+                Direct Email
               </span>
-            </div>
-            <div class="flex items-center justify-between gap-3">
-              <a href="mailto:tanujp09@gmail.com" class="text-sm sm:text-base font-mono font-bold text-[#09090B] hover:text-[#5E6AD2] transition-colors truncate">
+              <a
+                href="mailto:tanujp09@gmail.com"
+                class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors truncate block"
+              >
                 tanujp09@gmail.com
               </a>
-              <button
-                type="button"
-                id="agency-copy-email-btn"
-                data-email="tanujp09@gmail.com"
-                class="shrink-0 px-3 py-1.5 rounded-xl bg-[#F4F4F5] hover:bg-[#09090B] hover:text-white text-xs font-mono font-semibold text-[#09090B] transition-all active:scale-95 cursor-pointer border border-[#E4E4E7] hover:border-[#09090B]"
-              >
-                <span id="agency-copy-email-text">Copy</span>
-              </button>
             </div>
+            <button
+              type="button"
+              id="agency-copy-email-btn"
+              data-email="tanujp09@gmail.com"
+              class="shrink-0 px-4 py-2 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] text-xs font-mono font-medium text-[var(--ink)] transition-colors cursor-pointer"
+            >
+              <span id="agency-copy-email-text">Copy</span>
+            </button>
           </div>
 
-          <!-- Direct Phone / WhatsApp Card -->
-          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7] flex items-center justify-between gap-3">
+          <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-5 flex items-center justify-between gap-4">
             <div>
-              <span class="text-[11px] font-mono uppercase tracking-wider text-[#71717A] font-semibold block mb-0.5">
+              <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-1">
                 Phone / WhatsApp
               </span>
-              <a href="tel:+919557321978" class="text-sm font-mono font-bold text-[#09090B] hover:text-[#5E6AD2] transition-colors tabular-nums">
+              <a
+                href="tel:+919557321978"
+                class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors tabular-nums"
+              >
                 +91 9557321978
               </a>
             </div>
@@ -81,55 +63,61 @@
               href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20visited%20NovaStack%20Studio%20and%20want%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
-              class="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3.5 py-1.5 rounded-xl hover:bg-emerald-100 transition-colors"
+              class="shrink-0 px-4 py-2 rounded-[12px] bg-[var(--blue-50)] text-[var(--blue-700)] hover:bg-[var(--blue-600)] hover:text-white text-xs font-mono font-medium transition-colors"
             >
               WhatsApp ↗
             </a>
           </div>
-
-          <!-- Technical Assessment Note -->
-          <div class="agency-card rounded-2xl p-5 bg-white border border-[#E4E4E7]">
-            <span class="text-[11px] font-mono uppercase tracking-wider text-[#09090B] block mb-1 font-semibold">
-              What Happens Next
-            </span>
-            <p class="text-xs font-sans text-[#52525B] leading-relaxed">
-              I review your brief personally and reply with architecture notes, a realistic timeline, and clear fixed or sprint pricing—usually within one business day.
-            </p>
-          </div>
-
         </div>
 
-        <div class="pt-1 text-xs font-mono text-[#71717A]">
-          Personal Portfolio: <a href="/" class="text-[#5E6AD2] font-bold hover:text-[#4E5AC2] transition-colors">tanujbuilds.site ↗</a>
+        <!-- Reassurance Steps -->
+        <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 space-y-3">
+          <span class="ns-mono-label text-[var(--blue-600)] font-medium block">
+            What Happens Next
+          </span>
+          <ol class="space-y-3 text-base leading-[1.6] text-[var(--muted)]">
+            <li>
+              <strong class="text-[var(--ink)] font-semibold">1. Direct Review:</strong> Tanuj inspects your brief, Figma, or existing codebase personally.
+            </li>
+            <li>
+              <strong class="text-[var(--ink)] font-semibold">2. Written Scope:</strong> Architecture plan, milestones, and estimate delivered within 24 hours.
+            </li>
+            <li>
+              <strong class="text-[var(--ink)] font-semibold">3. Optional Call:</strong> A focused 15-minute alignment call if helpful—no sales pitch.
+            </li>
+          </ol>
         </div>
       </div>
 
-      <!-- Right Column: Project Inquiry Form Card (7 cols) -->
-      <div class="agency-card lg:col-span-7 rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-10 bg-white border border-[#E4E4E7]">
-
-        <div class="mb-6 pb-4 border-b border-[#E4E4E7] flex items-center justify-between">
+      <!-- Right Column (7 cols): Clean White Form Card with 48px+ Inputs & Visible Labels -->
+      <div class="lg:col-span-7 rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 sm:p-8 lg:p-10">
+        <div class="mb-7 pb-5 border-b border-[var(--border)] flex flex-wrap items-center justify-between gap-3">
           <div>
-            <h3 class="font-grotesk font-bold text-xl text-[#09090B]">Project Inquiry Form</h3>
-            <p class="text-xs text-[#71717A] font-sans mt-0.5">Share your scope for a written assessment and estimate.</p>
+            <h3 class="text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
+              Project Inquiry
+            </h3>
+            <p class="text-base text-[var(--muted)] mt-1">
+              Tell me what you are building for a direct technical assessment.
+            </p>
           </div>
-          <span class="text-[11px] font-mono font-semibold text-[#5E6AD2] bg-[#EEF0FB] border border-[#D5D9F5] px-3 py-1 rounded-full hidden sm:inline">
-            24h Turnaround
+          <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium">
+            Reply &lt; 24h
           </span>
         </div>
 
         <form id="agencyContactForm" class="space-y-5" novalidate>
-          <!-- Hidden Fields: Source & Anti-Spam Honeypot -->
+          <!-- Hidden Fields: Source & Anti-Spam Honeypot (Untouched) -->
           <input type="hidden" name="source" value="novastack" />
           <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
             <label for="agency-company-website">Company Website</label>
             <input id="agency-company-website" type="text" name="company_website" tabindex="-1" autocomplete="off" />
           </div>
 
-          <!-- 1. Name & Work Email Row -->
+          <!-- Row 1: Name & Work Email -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div class="space-y-1.5">
-              <label for="agency-name" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Full Name <span class="text-rose-600">*</span>
+            <div class="space-y-2">
+              <label for="agency-name" class="block text-sm font-medium text-[var(--ink)]">
+                Full Name <span class="text-[#B91C1C]" aria-hidden="true">*</span>
               </label>
               <input
                 id="agency-name"
@@ -137,14 +125,16 @@
                 type="text"
                 required
                 placeholder="Sarah Jenkins"
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
-              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-name">Please provide your full name.</span>
+              <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-name">
+                Please provide your full name.
+              </span>
             </div>
 
-            <div class="space-y-1.5">
-              <label for="agency-email" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Work Email <span class="text-rose-600">*</span>
+            <div class="space-y-2">
+              <label for="agency-email" class="block text-sm font-medium text-[var(--ink)]">
+                Work Email <span class="text-[#B91C1C]" aria-hidden="true">*</span>
               </label>
               <input
                 id="agency-email"
@@ -152,36 +142,38 @@
                 type="email"
                 required
                 placeholder="sarah@company.com"
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
-              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-email">Please enter a valid work email address.</span>
+              <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-email">
+                Please enter a valid work email address.
+              </span>
             </div>
           </div>
 
-          <!-- 2. Company Name & Project Type Row -->
+          <!-- Row 2: Company & Project Type -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div class="space-y-1.5">
-              <label for="agency-company" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Company / Studio <span class="text-[#71717A] font-normal font-sans">(Optional)</span>
+            <div class="space-y-2">
+              <label for="agency-company" class="block text-sm font-medium text-[var(--ink)]">
+                Company / Studio <span class="text-[var(--muted)] font-normal">(Optional)</span>
               </label>
               <input
                 id="agency-company"
                 name="company_name"
                 type="text"
                 placeholder="Acme Corp"
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
             </div>
 
-            <div class="space-y-1.5">
-              <label for="agency-service" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Project Type <span class="text-rose-600">*</span>
+            <div class="space-y-2">
+              <label for="agency-service" class="block text-sm font-medium text-[var(--ink)]">
+                Project Type <span class="text-[#B91C1C]" aria-hidden="true">*</span>
               </label>
               <select
                 id="agency-service"
                 name="service"
                 required
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               >
                 <option value="">Select project type...</option>
                 <option value="Website Development">Web Design &amp; Development</option>
@@ -190,21 +182,23 @@
                 <option value="Email Design Systems">Email Design System &amp; HTML</option>
                 <option value="Dedicated Engineering Support">Dedicated Engineering Support</option>
               </select>
-              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-service">Please select a project type.</span>
+              <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-service">
+                Please select a project type.
+              </span>
             </div>
           </div>
 
-          <!-- 3. Estimated Budget & Timeline Expectations Row -->
+          <!-- Row 3: Budget & Timeline -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-            <div class="space-y-1.5">
-              <label for="agency-budget" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Estimated Budget <span class="text-rose-600">*</span>
+            <div class="space-y-2">
+              <label for="agency-budget" class="block text-sm font-medium text-[var(--ink)]">
+                Estimated Budget <span class="text-[#B91C1C]" aria-hidden="true">*</span>
               </label>
               <select
                 id="agency-budget"
                 name="budget"
                 required
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               >
                 <option value="">Select budget range...</option>
                 <option value="$500 – $1,500 USD (Email System / Landing Page)">$500 – $1,500 USD (Email System / Landing Page)</option>
@@ -213,18 +207,20 @@
                 <option value="$6,000 – $15,000+ USD (SaaS MVP / Full-Stack)">$6,000 – $15,000+ USD (SaaS MVP / Full-Stack)</option>
                 <option value="Weekly Sprint / Monthly Retainer">Weekly Sprint / Monthly Retainer</option>
               </select>
-              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-budget">Please select a budget range.</span>
+              <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-budget">
+                Please select a budget range.
+              </span>
             </div>
 
-            <div class="space-y-1.5">
-              <label for="agency-timeline" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-                Target Timeline <span class="text-rose-600">*</span>
+            <div class="space-y-2">
+              <label for="agency-timeline" class="block text-sm font-medium text-[var(--ink)]">
+                Target Timeline <span class="text-[#B91C1C]" aria-hidden="true">*</span>
               </label>
               <select
                 id="agency-timeline"
                 name="timeline"
                 required
-                class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans"
+                class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               >
                 <option value="">Select timeline...</option>
                 <option value="Immediate (< 2 weeks)">Immediate (&lt; 2 weeks)</option>
@@ -232,24 +228,28 @@
                 <option value="1 to 2 months">1 to 2 months</option>
                 <option value="Flexible / Planning phase">Flexible / Planning phase</option>
               </select>
-              <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-timeline">Please select your timeline expectations.</span>
+              <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-timeline">
+                Please select your timeline expectations.
+              </span>
             </div>
           </div>
 
-          <!-- 4. Project Details / Description Textarea -->
-          <div class="space-y-1.5">
-            <label for="agency-message" class="block text-xs font-grotesk font-bold uppercase tracking-wider text-[#09090B]">
-              Project Brief <span class="text-rose-600">*</span>
+          <!-- Row 4: Project Brief -->
+          <div class="space-y-2">
+            <label for="agency-message" class="block text-sm font-medium text-[var(--ink)]">
+              Project Brief <span class="text-[#B91C1C]" aria-hidden="true">*</span>
             </label>
             <textarea
               id="agency-message"
               name="message"
               rows="4"
               required
-              placeholder="Outline your goals, core features, existing links/Figma, and any stack preferences..."
-              class="w-full rounded-xl border border-[#E4E4E7] bg-[#FAFAFA] focus:bg-white px-3.5 py-2.5 text-sm text-[#09090B] placeholder:text-[#A1A1AA] focus:border-[#5E6AD2] focus:ring-1 focus:ring-[#5E6AD2] focus:outline-none transition-all font-sans resize-y"
+              placeholder="Outline your goals, core features, existing links or Figma, and any stack preferences..."
+              class="w-full rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors resize-y"
             ></textarea>
-            <span class="agency-error text-[11px] font-mono text-rose-600 hidden" id="err-message">Please provide a brief project description.</span>
+            <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-message">
+              Please provide a brief project description.
+            </span>
           </div>
 
           <!-- Submit Button -->
@@ -257,28 +257,23 @@
             <button
               type="submit"
               id="agency-submit-btn"
-              class="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-sm uppercase tracking-wider transition-all active:scale-98 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+              class="ns-btn-primary w-full py-4 px-6 text-base cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
               <span id="agency-submit-text">Send Project Inquiry</span>
-              <span id="agency-submit-icon" class="transition-transform duration-200 group-hover:translate-x-1">→</span>
+              <span id="agency-submit-icon" class="ns-arrow" aria-hidden="true">→</span>
             </button>
           </div>
 
-          <!-- Live Status Feedback Container -->
-          <div id="agency-form-status" class="hidden p-4 rounded-xl text-xs font-mono font-medium transition-all" role="status"></div>
-
+          <!-- Live Status Feedback -->
+          <div id="agency-form-status" class="hidden p-4 rounded-[12px] text-sm font-mono font-medium" role="status"></div>
         </form>
-
       </div>
-
     </div>
-
   </div>
 </section>
 
 <script>
   const setupAgencyContactForm = () => {
-    // 1. One-click copy email button
     const copyBtn = document.getElementById("agency-copy-email-btn");
     const copyText = document.getElementById("agency-copy-email-text");
     if (copyBtn && copyText && !copyBtn.dataset.bound) {
@@ -297,7 +292,6 @@
       });
     }
 
-    // 2. Contact Form Validation & Submission
     const form = document.getElementById("agencyContactForm") as HTMLFormElement | null;
     const submitBtn = document.getElementById("agency-submit-btn") as HTMLButtonElement | null;
     const submitText = document.getElementById("agency-submit-text");
@@ -344,7 +338,7 @@
 
       if (hasError) {
         if (statusBox) {
-          statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-rose-50 text-rose-800 border border-rose-200";
+          statusBox.className = "p-4 rounded-[12px] text-sm font-mono font-medium bg-[#FEF2F2] text-[#991B1B] border border-[#FECACA]";
           statusBox.textContent = "Please fill in all required fields accurately before submitting.";
           statusBox.classList.remove("hidden");
         }
@@ -352,7 +346,7 @@
       }
 
       submitBtn.disabled = true;
-      if (submitText) submitText.textContent = "Transmitting Inquiry...";
+      if (submitText) submitText.textContent = "Sending Inquiry...";
       if (statusBox) statusBox.classList.add("hidden");
 
       try {
@@ -367,17 +361,17 @@
         if (res.ok) {
           form.reset();
           if (statusBox) {
-            statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-emerald-50 text-emerald-800 border border-emerald-200";
+            statusBox.className = "p-4 rounded-[12px] text-sm font-mono font-medium bg-[#EFF6FF] text-[#1D4ED8] border border-[#BFDBFE]";
             statusBox.textContent = data.message || "Thank you! Your project inquiry has been received. Tanuj will reply within 24 hours.";
             statusBox.classList.remove("hidden");
           }
-          if (submitText) submitText.textContent = "Inquiry Sent Successfully ✓";
+          if (submitText) submitText.textContent = "Inquiry Sent ✓";
         } else {
           throw new Error(data.message || "Failed to submit inquiry.");
         }
       } catch (err: any) {
         if (statusBox) {
-          statusBox.className = "p-4 rounded-xl text-xs font-mono font-medium bg-rose-50 text-rose-800 border border-rose-200";
+          statusBox.className = "p-4 rounded-[12px] text-sm font-mono font-medium bg-[#FEF2F2] text-[#991B1B] border border-[#FECACA]";
           statusBox.textContent = err.message || "An error occurred while submitting. Please email tanujp09@gmail.com directly.";
           statusBox.classList.remove("hidden");
         }

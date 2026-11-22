@@ -89,7 +89,7 @@ if (!detailsData) {
 }
 
 if (!detailsData) {
-  return Astro.redirect("/projects");
+  return Astro.redirect("/projects", 301);
 }
 
 // Extract a plain text description from Portable Text for SEO
@@ -117,27 +117,16 @@ const gumroadUrl =
     : detailsData?.gumroadLink?.current;
 
 const projectJsonLd = {
-  "@type": "SoftwareApplication",
+  "@type": "CreativeWork",
   "@id": `${canonicalURL}#project`,
-  name: detailsData?.projectName,
+  name: detailsData?.projectName || "Project Case Study",
   description: projectDescription,
-  applicationCategory: "WebApplication",
-  operatingSystem: "Web",
   url: demoUrl || canonicalURL,
   author: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
   publisher: { "@type": "Person", "@id": `${siteUrl}/#person`, name: "Tanuj Pandey" },
   mainEntityOfPage: { "@id": `${canonicalURL}#webpage` },
   ...(ogImage ? { image: ogImage.startsWith("http") ? ogImage : `${siteUrl}${ogImage}` } : {}),
-  ...(githubUrl ? { codeRepository: githubUrl } : {}),
-  ...(gumroadUrl
-    ? {
-        offers: {
-          "@type": "Offer",
-          url: gumroadUrl,
-          availability: "https://schema.org/InStock",
-        },
-      }
-    : {}),
+  ...(githubUrl ? { sameAs: [githubUrl] } : {}),
   ...(detailsData?.tags?.length ? { keywords: detailsData.tags.join(", ") } : {}),
   ...(detailsData?._createdAt ? { dateCreated: detailsData._createdAt } : {}),
   ...(detailsData?._updatedAt ? { dateModified: detailsData._updatedAt } : {}),
@@ -151,7 +140,7 @@ const breadcrumbs = [
 ---
 
 <Layout
-  title={`${detailsData?.projectName} — Case Study | Tanuj Pandey`}
+  title={`${detailsData?.projectName || "Project"} — Case Study | Tanuj Pandey`}
   description={projectDescription}
   image={ogImage}
   breadcrumbs={breadcrumbs}

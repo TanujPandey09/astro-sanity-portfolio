@@ -47,6 +47,10 @@ const {
   isAgency = false,
 } = Astro.props;
 
+const resolvedTitle = (typeof title === "string" && title.trim())
+  ? title.trim()
+  : "Tanuj Pandey | Full-Stack & AI Engineer";
+
 const resolvedKeywords = Array.isArray(keywords)
   ? keywords.join(", ")
   : keywords || defaultKeywords;
@@ -79,14 +83,20 @@ const robotsContent = noindex
 const personId = `${siteUrl}/#person`;
 const websiteId = `${siteUrl}/#website`;
 const webpageId = `${canonicalURL}#webpage`;
-const additionalNodes = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const additionalNodes = jsonLd
+  ? Array.isArray(jsonLd)
+    ? jsonLd
+    : Array.isArray((jsonLd as any)["@graph"])
+      ? (jsonLd as any)["@graph"]
+      : [jsonLd]
+  : [];
 const primaryNode = additionalNodes.find((node: any) => node?.['@id'] && node?.['@type'] !== 'BreadcrumbList');
 const pageSchemaType = schemaType || (isHome ? 'ProfilePage' : 'WebPage');
 const pageSchema = {
   "@type": pageSchemaType,
   "@id": webpageId,
   "url": canonicalURL,
-  "name": title,
+  "name": resolvedTitle,
   "description": description,
   "isPartOf": { "@id": websiteId },
   "inLanguage": "en-US",
@@ -130,7 +140,7 @@ const structuredData = {
       },
       "sameAs": [
         "https://github.com/TanujPandey09",
-        "https://linkedin.com/in/tanujdev",
+        "https://www.linkedin.com/in/tanujdev/",
         "https://x.com/TanujPandey",
         siteUrl
       ],
@@ -174,9 +184,8 @@ const structuredData = {
           "@type": "Offer",
           "url": `${siteUrl}/templates`,
           "itemOffered": {
-            "@type": "SoftwareApplication",
+            "@type": "Service",
             "name": "Commercial Next.js & React Website Templates",
-            "applicationCategory": "WebApplication",
             "description": "Production-ready Next.js, React, and Tailwind CSS templates with 99+ Lighthouse scores and commercial licenses."
           }
         }
@@ -203,7 +212,7 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <title>{resolvedTitle}</title>
     <meta name="description" content={description} />
     <!-- Core SEO & Search Indexing -->
     <meta name="keywords" content={resolvedKeywords} />
@@ -262,14 +271,10 @@ const structuredData = {
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     
-    <!-- Google Fonts Preconnect & Optimized Async Link (Geist, Plus Jakarta Sans, Space Grotesk, Geist Mono) -->
+    <!-- Google Fonts Preconnect & Stylesheet (Geist, Plus Jakarta Sans, Space Grotesk, Geist Mono, Great Vibes) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'" />
-    <noscript>
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
-    </noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Great+Vibes&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
     <meta name="generator" content={Astro.generator} />
     <ClientRouter />
 

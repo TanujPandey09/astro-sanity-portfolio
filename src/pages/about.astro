@@ -19,8 +19,12 @@ try {
   if (!Array.isArray(aboutData) || aboutData.length === 0) {
     aboutData = await fallbackSanityClient.fetch(query);
   }
-} catch (err) {
-  aboutData = await fallbackSanityClient.fetch(query);
+} catch {
+  try {
+    aboutData = (await fallbackSanityClient.fetch(query)) || [];
+  } catch {
+    aboutData = [];
+  }
 }
 
 const skillquery = groq`*[_type == "skillsSection"] {
@@ -42,18 +46,20 @@ try {
   if (!Array.isArray(skillData) || skillData.length === 0) {
     skillData = await fallbackSanityClient.fetch(skillquery);
   }
-} catch (err) {
-  skillData = await fallbackSanityClient.fetch(skillquery);
+} catch {
+  try {
+    skillData = (await fallbackSanityClient.fetch(skillquery)) || [];
+  } catch {
+    skillData = [];
+  }
 }
 ---
 
-<div>
-  <Layout
-    title="About | Tanuj Pandey"
-    description="Learn more about Tanuj Pandey's professional journey, technical expertise, and passion for building scalable web applications."
-    schemaType="AboutPage"
-    breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]}
-  >
-    <AboutLayout aboutData={aboutData} skillData={skillData} />
-  </Layout>
-</div>
+<Layout
+  title="About | Tanuj Pandey"
+  description="Learn more about Tanuj Pandey's professional journey, technical expertise, and passion for building scalable web applications."
+  schemaType="AboutPage"
+  breadcrumbs={[{ name: "Home", path: "/" }, { name: "About", path: "/about" }]}
+>
+  <AboutLayout aboutData={aboutData} skillData={skillData} />
+</Layout>

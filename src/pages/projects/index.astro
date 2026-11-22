@@ -27,8 +27,12 @@ try {
   if (!Array.isArray(projectData) || projectData.length === 0) {
     projectData = await fallbackSanityClient.fetch(query);
   }
-} catch (err) {
-  projectData = await fallbackSanityClient.fetch(query);
+} catch {
+  try {
+    projectData = (await fallbackSanityClient.fetch(query)) || [];
+  } catch {
+    projectData = [];
+  }
 }
 
 const siteUrl = "https://tanujbuilds.site";

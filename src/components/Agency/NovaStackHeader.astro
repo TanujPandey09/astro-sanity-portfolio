@@ -1,6 +1,6 @@
 ---
-// NovaStack Studio Header: Clean Sticky Navigation with Mobile Menu
-// Unified Brand Palette: Obsidian #09090B, Neutral Surfaces #FFFFFF / #F4F4F5, Linear Indigo #5E6AD2
+// NovaStack Studio Header: Calm, Editorial Sticky Navigation
+// Tokens: --surface (#FFFFFF), --ink (#0B111A), --muted (#4B5565), --blue-600 (#2563EB), --border (#E2E8F0)
 interface Props {
   logoUrl?: string;
   logoAlt?: string;
@@ -13,7 +13,7 @@ const {
   logoUrl = "",
   logoAlt = "NovaStack Studio Logo",
   brandName = "NovaStack Studio",
-  tagline = "Software Development Studio",
+  tagline = "Independent Engineering Studio",
   logoFullWidth = false,
 } = Astro.props;
 
@@ -21,84 +21,86 @@ const navLinks = [
   { label: "Services", href: "#services" },
   { label: "Work", href: "#work" },
   { label: "Process", href: "#process" },
-  { label: "About", href: "#about" },
+  { label: "Founder", href: "#about" },
+  { label: "Pricing", href: "#models" },
   { label: "Contact", href: "#contact" },
 ];
 ---
 
 <header
-  class="sticky top-0 z-50 w-full bg-white/90 backdrop-blur-md border-b border-[#E4E4E7] transition-all duration-200"
+  class="sticky top-0 z-50 w-full bg-[var(--surface)] border-b border-[var(--border)]"
   id="agency-header"
 >
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 sm:h-[72px] items-center justify-between gap-4">
+  <div class="ns-container">
+    <div class="flex h-16 sm:h-[72px] items-center justify-between gap-6">
+      <!-- 1. Brand Wordmark -->
+      <a href="/agency" class="group flex items-center gap-3 shrink-0">
+        {logoUrl ? (
+          <img
+            src={logoUrl}
+            alt={logoAlt}
+            class={
+              logoFullWidth
+                ? "h-8 sm:h-9 w-auto max-w-[164px] object-contain"
+                : "h-9 w-9 rounded-[10px] object-contain bg-[var(--bg)] border border-[var(--border)] p-1 transition-colors group-hover:border-[var(--blue-600)]"
+            }
+            loading="eager"
+            decoding="async"
+          />
+        ) : (
+          <div class="w-9 h-9 rounded-[10px] bg-[var(--ink)] text-white flex items-center justify-center font-semibold text-sm tracking-tight transition-colors group-hover:bg-[var(--blue-600)]">
+            NS
+          </div>
+        )}
+        {!(logoUrl && logoFullWidth) && (
+          <div class="flex flex-col leading-none">
+            <span class="font-semibold text-base sm:text-[17px] tracking-[-0.02em] text-[var(--ink)]">
+              {brandName}
+            </span>
+            <span class="text-[11px] font-mono uppercase tracking-[0.08em] text-[var(--muted)] mt-1 hidden sm:block">
+              {tagline}
+            </span>
+          </div>
+        )}
+      </a>
 
-      <!-- 1. Brand Logo / Wordmark -->
-      <div class="flex items-center">
-        <a href="/agency" class="group flex items-center gap-2.5 text-decoration-none">
-          {logoUrl ? (
-            <img
-              src={logoUrl}
-              alt={logoAlt}
-              class={logoFullWidth ? "h-8 sm:h-9 w-auto max-w-[170px] object-contain" : "h-8 sm:h-9 w-8 sm:w-9 rounded-xl object-contain bg-[#F4F4F5] border border-[#E4E4E7] p-1 group-hover:border-[#5E6AD2] transition-colors"}
-              loading="eager"
-              decoding="async"
-            />
-          ) : (
-            <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#09090B] text-white flex items-center justify-center font-grotesk font-extrabold text-sm sm:text-base group-hover:bg-[#5E6AD2] transition-colors">
-              N<span class="text-[#A5AEF3]">S</span>
-            </div>
-          )}
-          {!(logoUrl && logoFullWidth) && (
-            <div class="flex flex-col">
-              <span class="font-grotesk font-extrabold text-base sm:text-lg tracking-tight text-[#09090B]">
-                NovaStack<span class="text-[#5E6AD2]">.</span>
-              </span>
-              <span class="text-[9px] font-mono uppercase tracking-[0.14em] text-[#71717A] -mt-0.5 hidden sm:block">
-                Founder-Led Studio
-              </span>
-            </div>
-          )}
-        </a>
-      </div>
-
-      <!-- 2. Desktop Navigation Links (5 Crisp Links) -->
-      <nav aria-label="Agency Navigation" class="hidden md:flex items-center gap-7 lg:gap-9">
+      <!-- 2. Desktop Navigation -->
+      <nav aria-label="Agency Navigation" class="hidden lg:flex items-center gap-7">
         {navLinks.map((link) => (
           <a
             href={link.href}
-            class="text-xs font-grotesk font-semibold uppercase tracking-[0.08em] text-[#52525B] hover:text-[#09090B] transition-colors py-2"
+            class="text-sm font-medium text-[var(--muted)] hover:text-[var(--ink)] transition-colors duration-150 py-2"
           >
             {link.label}
           </a>
         ))}
       </nav>
 
-      <!-- 3. Desktop Action Buttons (Decluttered: Portfolio + Primary CTA) -->
-      <div class="hidden sm:flex items-center gap-2.5">
+      <!-- 3. Desktop Actions -->
+      <div class="hidden sm:flex items-center gap-4">
         <a
           href="/"
-          class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-[#E4E4E7] bg-white hover:bg-[#F4F4F5] text-[11px] font-mono text-[#52525B] hover:text-[#09090B] transition-all"
+          class="ns-link-arrow inline-flex items-center gap-1 text-sm font-mono text-[var(--muted)] hover:text-[var(--blue-600)] transition-colors duration-150"
           title="Tanuj Pandey Personal Portfolio"
         >
           <span>Portfolio</span>
-          <span class="text-[#5E6AD2]">↗</span>
+          <span class="ns-arrow" aria-hidden="true">↗</span>
         </a>
 
         <a
           href="#contact"
-          class="group inline-flex items-center justify-center gap-2.5 pl-5 pr-2.5 py-2 rounded-full bg-[#09090B] hover:bg-[#5E6AD2] text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all active:scale-[0.98]"
+          class="ns-btn-primary px-5 py-2.5 text-sm"
         >
           <span>Start a Project</span>
-          <span class="w-6 h-6 rounded-full bg-white text-[#09090B] group-hover:text-[#5E6AD2] flex items-center justify-center text-xs font-bold transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">↗</span>
+          <span class="ns-arrow" aria-hidden="true">→</span>
         </a>
       </div>
 
-      <!-- 4. Mobile Menu Trigger Button -->
-      <div class="flex items-center gap-2 sm:hidden">
+      <!-- 4. Mobile Trigger -->
+      <div class="flex items-center gap-2.5 sm:hidden">
         <a
           href="#contact"
-          class="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-[#09090B] text-white font-grotesk font-bold text-xs uppercase tracking-wider"
+          class="ns-btn-primary px-3.5 py-2 text-xs"
         >
           Start
         </a>
@@ -107,69 +109,63 @@ const navLinks = [
           id="agency-menu-open-btn"
           aria-label="Open mobile navigation menu"
           aria-expanded="false"
-          class="w-10 h-10 rounded-xl bg-[#F4F4F5] border border-[#E4E4E7] flex flex-col items-center justify-center gap-1 text-[#09090B] hover:bg-zinc-200 transition-colors"
+          class="w-10 h-10 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] flex flex-col items-center justify-center gap-1.5 text-[var(--ink)] cursor-pointer"
         >
-          <span class="w-4 h-0.5 bg-[#09090B] rounded-full"></span>
-          <span class="w-4 h-0.5 bg-[#09090B] rounded-full"></span>
-          <span class="w-4 h-0.5 bg-[#09090B] rounded-full"></span>
+          <span class="w-4 h-[1.5px] bg-[var(--ink)]"></span>
+          <span class="w-4 h-[1.5px] bg-[var(--ink)]"></span>
+          <span class="w-4 h-[1.5px] bg-[var(--ink)]"></span>
         </button>
       </div>
-
     </div>
   </div>
 
-  <!-- Mobile Navigation Overlay & Drawer -->
+  <!-- Mobile Navigation Drawer -->
   <div
     id="agency-mobile-menu"
-    class="fixed inset-0 z-50 bg-[#09090B]/50 backdrop-blur-sm hidden sm:hidden transition-opacity"
+    class="fixed inset-0 z-50 bg-[#0B111A]/50 hidden sm:hidden"
     aria-hidden="true"
   >
     <div
-      class="absolute top-0 right-0 w-[84%] max-w-sm h-full bg-white border-l border-[#E4E4E7] shadow-2xl p-6 flex flex-col justify-between overflow-y-auto"
+      class="absolute top-0 right-0 w-[85%] max-w-sm h-full bg-[var(--surface)] border-l border-[var(--border)] p-6 flex flex-col justify-between overflow-y-auto"
       id="agency-mobile-drawer"
     >
       <div>
-        <div class="flex items-center justify-between pb-5 border-b border-[#E4E4E7] mb-6">
-          <div class="flex items-center gap-2">
-            <div class="w-7 h-7 rounded-lg bg-[#09090B] text-white flex items-center justify-center font-grotesk font-bold text-xs">
-              N<span class="text-[#A5AEF3]">S</span>
-            </div>
-            <span class="font-grotesk font-bold text-base text-[#09090B]">NovaStack Studio</span>
-          </div>
+        <div class="flex items-center justify-between pb-5 border-b border-[var(--border)] mb-6">
+          <span class="font-semibold text-base text-[var(--ink)]">{brandName}</span>
           <button
             type="button"
             id="agency-menu-close-btn"
             aria-label="Close mobile navigation menu"
-            class="w-9 h-9 rounded-lg bg-[#F4F4F5] border border-[#E4E4E7] text-[#09090B] flex items-center justify-center text-sm font-mono font-bold hover:bg-zinc-200 cursor-pointer"
+            class="w-9 h-9 rounded-[10px] bg-[var(--bg)] border border-[var(--border)] text-[var(--ink)] flex items-center justify-center text-sm font-mono cursor-pointer"
           >
             ✕
           </button>
         </div>
 
-        <nav class="space-y-1">
+        <nav class="space-y-1" aria-label="Mobile Navigation">
           {navLinks.map((link) => (
             <a
               href={link.href}
-              class="agency-mobile-nav-link flex items-center justify-between px-3.5 py-3 rounded-xl font-grotesk font-semibold text-base text-[#09090B] hover:bg-[#F4F4F5] hover:text-[#5E6AD2] transition-colors"
+              class="agency-mobile-nav-link flex items-center justify-between px-3 py-3 rounded-[12px] font-medium text-base text-[var(--ink)] hover:bg-[var(--bg)] hover:text-[var(--blue-600)] transition-colors"
             >
               <span>{link.label}</span>
-              <span class="text-xs text-[#71717A]">→</span>
+              <span class="text-sm text-[var(--muted)]" aria-hidden="true">→</span>
             </a>
           ))}
         </nav>
       </div>
 
-      <div class="pt-6 border-t border-[#E4E4E7] space-y-3">
+      <div class="pt-6 border-t border-[var(--border)] space-y-3">
         <a
           href="#contact"
-          class="agency-mobile-nav-link w-full py-3.5 rounded-full bg-[#5E6AD2] hover:bg-[#4E5AC2] text-white font-grotesk font-bold text-xs uppercase tracking-wider text-center flex items-center justify-center gap-2 transition-colors"
+          class="agency-mobile-nav-link ns-btn-primary w-full py-3.5 text-sm"
         >
           <span>Start a Project</span>
-          <span>↗</span>
+          <span class="ns-arrow" aria-hidden="true">→</span>
         </a>
         <a
           href="/"
-          class="w-full py-2.5 rounded-full bg-[#F4F4F5] border border-[#E4E4E7] text-[#09090B] font-mono text-xs text-center block hover:bg-zinc-200 transition-colors"
+          class="w-full py-3 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] text-[var(--ink)] font-mono text-xs text-center block"
         >
           Founder Portfolio (tanujbuilds.site) ↗
         </a>

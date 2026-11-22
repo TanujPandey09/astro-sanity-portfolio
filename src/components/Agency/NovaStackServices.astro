@@ -1,6 +1,6 @@
 ---
-// NovaStack Services Section: Sanity-Configurable Services & Custom Mockups + Interactive Fallbacks
-// Unified Obsidian Monochrome + Linear Indigo (#5E6AD2)
+// NovaStack Services Section: Interactive Split Showcase (Left Tab Navigator + Right Unified HD Light Mockup Stage)
+// Uses current NovaStack Design Tokens (--surface, --bg, --ink, --muted, --border, --blue-600, --blue-50) & Geist Sans/Mono scale
 import { optimizeSanityImage } from "../../lib/optimizeImage";
 
 interface SanityServiceInput {
@@ -29,8 +29,9 @@ interface ServiceItem {
   title: string;
   category: string;
   iconKey: string;
-  builtinMockupKey: string;
+  sketchKey: string;
   description: string;
+  deliverables: string;
   customMockupUrl?: string;
   customMockupAlt?: string;
   customMockupCaption?: string;
@@ -44,9 +45,10 @@ const defaultServices: ServiceItem[] = [
     title: "Web Design & Development",
     category: "High-Performance Websites & Web Apps",
     iconKey: "web",
-    builtinMockupKey: "web-dev",
+    sketchKey: "web-dev",
     description:
-      "Fast, conversion-focused websites built with Next.js 15, Astro, and headless Sanity CMS. 99+ Core Web Vitals and effortless team publishing.",
+      "Fast, conversion-focused websites built with Next.js 15, Astro, and headless Sanity CMS for effortless team publishing.",
+    deliverables: "Next.js / Astro · Sanity CMS · Core Web Vitals",
   },
   {
     id: "saas-dev",
@@ -54,9 +56,10 @@ const defaultServices: ServiceItem[] = [
     title: "SaaS & Full-Stack Development",
     category: "Web Software, Portals & MVPs",
     iconKey: "saas",
-    builtinMockupKey: "saas-dev",
+    sketchKey: "saas-dev",
     description:
-      "Production multi-tenant software: PostgreSQL schemas, role-based access control (RBAC), and automated Stripe billing—shipped in 4–8 weeks.",
+      "Production multi-tenant software with PostgreSQL schemas, role-based access control, and automated Stripe billing.",
+    deliverables: "PostgreSQL · RBAC · Stripe Billing · Multi-Tenant MVP",
   },
   {
     id: "ai-automation",
@@ -64,9 +67,10 @@ const defaultServices: ServiceItem[] = [
     title: "AI Integrations & Automation",
     category: "RAG Pipelines & Autonomous Agents",
     iconKey: "ai",
-    builtinMockupKey: "ai-automation",
+    sketchKey: "ai-automation",
     description:
-      "Embed Claude, OpenAI, and Gemini into real workflows: private vector RAG retrieval, tool-calling agents, and automated CRM/webhook sync.",
+      "Embed Claude, OpenAI, and Gemini into real workflows with private vector RAG retrieval, tool-calling agents, and CRM sync.",
+    deliverables: "LLM APIs · Vector RAG · Tool Agents · Webhooks",
   },
   {
     id: "html-email",
@@ -74,9 +78,10 @@ const defaultServices: ServiceItem[] = [
     title: "Email Design Systems & HTML",
     category: "Production Email Engineering",
     iconKey: "email",
-    builtinMockupKey: "html-email",
+    sketchKey: "html-email",
     description:
-      "Modular, bulletproof HTML email systems tested across 50+ clients including Outlook 365, Gmail, and Apple Mail Dark Mode. 100% table layout.",
+      "Modular, handcrafted table-based HTML email campaigns tested across Outlook 365, Gmail, and Apple Mail.",
+    deliverables: "Handcoded HTML · Inline CSS · Outlook VML · ESP-Ready",
   },
 ];
 
@@ -88,8 +93,7 @@ const iconForServiceKey = (key?: string): string => {
   return "custom";
 };
 
-// If the user configured `agencyServices` in Sanity Studio, use that list cleanly;
-// otherwise render the 4 built-in studio services.
+// Prioritize real Sanity `agencyServices` content & uploaded mockup images (q=100 lossless crispness)
 const servicesData: ServiceItem[] =
   Array.isArray(sanityServices) && sanityServices.length > 0
     ? sanityServices.map((s, idx) => {
@@ -102,9 +106,13 @@ const servicesData: ServiceItem[] =
           title: s?.title || fallback?.title || "Engineering Service",
           category: s?.category || fallback?.category || "Custom Capability",
           iconKey: iconForServiceKey(key),
-          builtinMockupKey: fallback ? fallback.builtinMockupKey : "custom",
+          sketchKey: fallback ? fallback.sketchKey : "custom",
           description: s?.description || fallback?.description || "",
-          customMockupUrl: rawImg ? optimizeSanityImage(rawImg, 1200, 88) : undefined,
+          deliverables:
+            fallback?.deliverables ||
+            s?.category ||
+            "Production Engineering Deliverable",
+          customMockupUrl: rawImg ? optimizeSanityImage(rawImg, 2400, 100) : undefined,
           customMockupAlt: s?.mockupImage?.alt || s?.title || "Service mockup preview",
           customMockupCaption: s?.mockupCaption || s?.category || s?.title || "Live Deliverable Preview",
           customMockupBadge: s?.mockupBadge || "Production Ready",
@@ -115,32 +123,31 @@ const servicesData: ServiceItem[] =
 const initialActiveId = servicesData[0]?.id || "web-dev";
 ---
 
-<section id="services" class="py-16 sm:py-24 bg-[#F4F4F5] text-[#09090B] border-b border-[#E4E4E7] relative overflow-hidden">
-  
-  <!-- Subtle Architectural Grid -->
-  <div class="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#E4E4E7_1px,transparent_1px),linear-gradient(to_bottom,#E4E4E7_1px,transparent_1px)] bg-[size:48px_48px] opacity-35"></div>
-
-  <div class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-
-    <!-- Section Header -->
-    <div class="max-w-2xl mb-10 sm:mb-14">
-      <div class="flex items-center gap-2.5 text-[11px] font-mono font-semibold text-[#5E6AD2] uppercase tracking-[0.18em] mb-3">
-        <span class="w-5 h-px bg-[#5E6AD2]"></span>
-        <span>01 / Core Capabilities</span>
+<section id="services" class="ns-section bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)]">
+  <div class="ns-container">
+    <!-- Section Header (Consistent Geist Sans/Mono Type Scale) -->
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 lg:mb-16">
+      <div class="max-w-2xl">
+        <div class="flex items-center gap-2.5 mb-3">
+          <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
+          <span class="ns-mono-label text-[var(--blue-600)] font-medium">
+            01 / Services
+          </span>
+        </div>
+        <h2 class="ns-h2 text-[var(--ink)]">
+          Focused Engineering, Built for <span class="text-[var(--blue-600)]">Production.</span>
+        </h2>
       </div>
-      <h2 class="font-grotesk font-extrabold text-3xl sm:text-4xl lg:text-5xl text-[#09090B] tracking-[-0.035em] leading-[1.08]">
-        Focused Engineering, Built for Production.
-      </h2>
-      <p class="text-sm sm:text-base text-[#52525B] mt-3 leading-relaxed font-sans max-w-xl">
-        Core disciplines engineered with strict TypeScript, measurable performance, and zero bloated handoffs.
+
+      <p class="ns-body max-w-md">
+        Four core disciplines delivered with strict TypeScript, clear architecture, and full repository handover.
       </p>
     </div>
 
-    <!-- Main Split Showcase Stage (Left 5 cols, Right 7 cols) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-      
-      <!-- Left Column: Services Navigator -->
-      <div class="lg:col-span-5 space-y-2.5" role="tablist" aria-label="NovaStack Services">
+    <!-- Equal-Height Split Showcase Layout (Left 41% Navigator | Right 59% Larger Crisp HD Mockup Stage) -->
+    <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] gap-6 items-stretch">
+      <!-- Left Column: Interactive Services Tabs -->
+      <div class="flex flex-col justify-between gap-2.5" role="tablist" aria-label="NovaStack Services">
         {servicesData.map((service) => {
           const isInitialActive = service.id === initialActiveId;
 
@@ -150,63 +157,57 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
               role="tab"
               aria-selected={isInitialActive ? "true" : "false"}
               tabindex="0"
-              class={`service-item-wrapper rounded-2xl cursor-pointer select-none transition-all duration-300 ${
+              class={`service-item-wrapper rounded-[16px] cursor-pointer select-none transition-all duration-200 ${
                 isInitialActive
-                  ? "bg-white border border-[#5E6AD2]/40 p-4 sm:p-5 shadow-sm ring-1 ring-[#5E6AD2]/15"
-                  : "p-3.5 sm:p-4 border border-transparent hover:bg-white/75 hover:border-[#E4E4E7]"
+                  ? "bg-[var(--bg)] border border-[var(--blue-600)] p-4 sm:p-5"
+                  : "bg-[var(--surface)] border border-[var(--border)] hover:border-[#CBD5E1] py-3.5 px-4 sm:px-5"
               }`}
             >
               <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-3.5 min-w-0">
+                  <!-- 40px Rounded Square Icon Container -->
                   <div
-                    class={`service-icon-badge w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border transition-colors duration-200 ${
+                    class={`service-icon-badge w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-colors duration-200 ${
                       isInitialActive
-                        ? "bg-[#EEF0FB] text-[#5E6AD2] border-[#D5D9F5]"
-                        : "bg-white text-[#52525B] border-[#E4E4E7]"
+                        ? "bg-[var(--blue-600)] text-white"
+                        : "bg-[var(--blue-50)] text-[var(--blue-600)]"
                     }`}
                   >
                     {service.iconKey === "web" && (
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="14" rx="2"></rect>
                         <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                        <path d="m7 8 2 2-2 2"></path>
-                        <path d="M12 12h2"></path>
+                        <line x1="12" y1="18" x2="12" y2="21"></line>
+                        <path d="M3 9h18"></path>
                       </svg>
                     )}
-
                     {service.iconKey === "saas" && (
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                        <path d="M12 12v9"></path>
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
                       </svg>
                     )}
-
                     {service.iconKey === "ai" && (
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M12 2v4"></path>
                         <path d="M12 18v4"></path>
                         <path d="M4.93 4.93l2.83 2.83"></path>
                         <path d="M16.24 16.24l2.83 2.83"></path>
                         <path d="M2 12h4"></path>
                         <path d="M18 12h4"></path>
-                        <path d="M4.93 19.07l2.83-2.83"></path>
-                        <path d="M16.24 7.76l2.83-2.83"></path>
                         <circle cx="12" cy="12" r="3"></circle>
                       </svg>
                     )}
-
                     {service.iconKey === "email" && (
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <rect x="2" y="4" width="20" height="16" rx="2"></rect>
                         <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
                       </svg>
                     )}
-
                     {service.iconKey === "custom" && (
-                      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
                         <polyline points="2 17 12 22 22 17"></polyline>
                         <polyline points="2 12 12 17 22 12"></polyline>
@@ -214,531 +215,313 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
                     )}
                   </div>
 
-                  <div>
-                    <h3 class="font-grotesk font-bold text-sm sm:text-base text-[#09090B] tracking-tight">
+                  <div class="min-w-0">
+                    <h3 class="text-lg sm:text-xl font-semibold text-[var(--ink)] tracking-[-0.02em] leading-snug">
                       {service.title}
                     </h3>
-                    <span class="text-[10px] font-mono text-[#71717A] block">
+                    <span class="text-xs font-mono text-[var(--muted)] block truncate mt-0.5">
                       {service.category}
                     </span>
                   </div>
                 </div>
 
                 <span
-                  class={`service-num-label text-[11px] font-mono font-semibold transition-colors ${
-                    isInitialActive ? "text-[#5E6AD2]" : "text-[#A1A1AA]"
+                  class={`service-num-label text-xs font-mono font-medium shrink-0 transition-colors ${
+                    isInitialActive ? "text-[var(--blue-600)]" : "text-[var(--muted)]"
                   }`}
                 >
                   {service.num}
                 </span>
               </div>
 
-              <div class={`service-details-panel mt-3 pl-12 ${isInitialActive ? "block" : "hidden"}`}>
-                <p class="text-xs text-[#52525B] font-sans leading-relaxed">
+              <!-- Expandable Description + Mono Deliverables (Current 16px Readable Copy) -->
+              <div class={`service-details-panel mt-3.5 pt-3.5 border-t border-[var(--border)] space-y-2.5 ${isInitialActive ? "block" : "hidden"}`}>
+                <p class="text-[15px] sm:text-base leading-[1.6] text-[var(--muted)]">
                   {service.description}
                 </p>
+                <div class="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
+                  <span class="text-[var(--blue-600)] font-semibold uppercase tracking-[0.06em] shrink-0">
+                    Deliverables:
+                  </span>
+                  <span class="truncate">{service.deliverables}</span>
+                </div>
               </div>
             </div>
           );
         })}
       </div>
 
-      <!-- Right Column: Sanity Custom Mockup Image OR Built-In Interactive Deliverable Stage -->
-      <div class="lg:col-span-7">
-        <div
-          id="mockup-stage-container"
-          class="rounded-[24px] sm:rounded-[28px] border border-[#E4E4E7] bg-white p-4 sm:p-6 shadow-sm relative overflow-hidden min-h-[420px] sm:min-h-[460px] flex items-center justify-center"
-        >
-          <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(#D4D4D8_1px,transparent_1px)] bg-[size:20px_20px] opacity-40"></div>
-          <div class="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-[#5E6AD2]/[0.06] blur-[90px] rounded-full"></div>
-
+      <!-- Right Column: Wider Crisp HD Mockup Card (Outer Light Frame + Inner Card, Bigger Clear UI) -->
+      <div class="flex flex-col">
+        <div id="mockup-stage-container" class="relative w-full flex-1 flex flex-col">
           {servicesData.map((service) => {
             const isInitialActive = service.id === initialActiveId;
 
             return (
               <div
                 data-mockup-panel={service.id}
-                class={`mockup-display-panel relative z-10 w-full max-w-xl transition-all duration-400 ease-out ${isInitialActive ? "" : "hidden"}`}
+                role="tabpanel"
+                class={`mockup-display-panel w-full flex-1 flex-col select-none ${isInitialActive ? "flex" : "hidden"}`}
               >
-                {/* CASE A: Custom Mockup Image uploaded in Sanity Studio — Rendered Cleanly Without Double Frame */}
                 {service.customMockupUrl ? (
-                  <div class="mockup-3d-stage select-none">
-                    <div class="rounded-2xl overflow-hidden bg-white shadow-[0_18px_42px_-16px_rgba(9,9,11,0.16)] ring-1 ring-black/[0.06]">
+                  /* PRIORITY 1: Real Sanity Uploaded HD Mockup Image (Bigger & Clearer Inside Crisp Inner Card) */
+                  <div class="flex-1 flex flex-col justify-between rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-2 sm:p-2.5">
+                    <div class="flex-1 min-h-[300px] sm:min-h-[380px] lg:min-h-0 w-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex items-center justify-center">
                       <img
                         src={service.customMockupUrl}
                         alt={service.customMockupAlt}
-                        loading="lazy"
-                        decoding="async"
-                        class="w-full h-auto block object-contain"
+                        loading="eager"
+                        decoding="sync"
+                        class="w-full h-full object-contain scale-[1.06] block"
                       />
                     </div>
-                  </div>
-                ) : service.builtinMockupKey === "web-dev" ? (
-                  /* BUILT-IN MOCKUP 1: WEB DESIGN & DEVELOPMENT */
-                  <div class="mockup-3d-stage space-y-2.5 select-none">
-                    <div class="rounded-2xl bg-white border border-[#E4E4E7] shadow-[0_14px_32px_-12px_rgba(9,9,11,0.12)] overflow-hidden">
-                      <div class="px-3.5 py-2 bg-[#FAFAFA] border-b border-[#E4E4E7] flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-1.5">
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                        </div>
-                        <div class="flex-1 max-w-[260px] mx-auto px-3 py-1 rounded-md bg-white border border-[#E4E4E7] text-[10px] font-mono text-[#71717A] flex items-center justify-between">
-                          <span class="truncate">https://acme-global.dev</span>
-                          <span class="text-emerald-600 font-bold text-[9px]">SSL ✓</span>
-                        </div>
-                        <div class="text-[9px] font-mono text-[#5E6AD2] bg-[#EEF0FB] px-2 py-0.5 rounded border border-[#D5D9F5] font-bold">
-                          Next.js 15
-                        </div>
+
+                    <div class="pt-2.5 px-1.5 flex items-center justify-between gap-3 shrink-0">
+                      <div class="flex items-center gap-2 min-w-0">
+                        <span class="w-2 h-2 rounded-full bg-[var(--blue-600)] shrink-0" aria-hidden="true"></span>
+                        <span class="text-xs font-mono text-[var(--muted)] truncate">
+                          {service.customMockupCaption}
+                        </span>
                       </div>
-
-                      <div class="p-3.5 space-y-2.5 bg-gradient-to-b from-white to-[#FAFAFA]">
-                        <div class="p-3.5 rounded-xl bg-white border border-[#E4E4E7] space-y-2">
-                          <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                              <div class="w-5 h-5 rounded-md bg-[#09090B] flex items-center justify-center text-white text-[9px] font-bold">A</div>
-                              <span class="font-grotesk font-bold text-xs text-[#09090B]">Acme Global</span>
-                            </div>
-                            <span class="text-[9px] font-mono text-emerald-700 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-full font-bold">● Production Live</span>
-                          </div>
-                          <div class="space-y-1">
-                            <h4 class="font-grotesk font-extrabold text-sm text-[#09090B] leading-tight">
-                              Next-Gen Digital Platform Engineered to Scale
-                            </h4>
-                            <p class="text-[10px] text-[#52525B] font-sans leading-relaxed">
-                              Sub-second load times, fluid responsive layout, and headless CMS publishing.
-                            </p>
-                          </div>
-                          <div class="flex items-center gap-2 pt-0.5">
-                            <span class="px-2.5 py-1 rounded-md bg-[#5E6AD2] text-white text-[9.5px] font-grotesk font-bold">
-                              Explore Platform →
-                            </span>
-                            <span class="px-2.5 py-1 rounded-md bg-white border border-[#D4D4D8] text-[#09090B] text-[9.5px] font-grotesk font-medium">
-                              Live Demo
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-stretch">
-                      <div class="sm:col-span-7 rounded-2xl bg-white border border-[#E4E4E7] p-3 shadow-xs flex flex-col justify-between space-y-2">
-                        <div class="flex items-center justify-between border-b border-[#F4F4F5] pb-1">
-                          <span class="text-[9px] font-mono text-[#71717A] uppercase font-bold">Core Web Vitals</span>
-                          <span class="text-[9px] font-mono text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded">Passed 100/100</span>
-                        </div>
-                        <div class="grid grid-cols-4 gap-1.5 text-center">
-                          {["Perf", "A11y", "Best", "SEO"].map((metric) => (
-                            <div class="space-y-0.5">
-                              <div class="w-8 h-8 rounded-full border-2 border-emerald-500 bg-emerald-50 flex items-center justify-center mx-auto text-emerald-700 font-grotesk font-bold text-xs">
-                                100
-                              </div>
-                              <span class="text-[8px] font-mono text-[#71717A] block">{metric}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-
-                      <div class="sm:col-span-5 rounded-2xl bg-[#09090B] border border-white/10 p-3 shadow-xs text-white flex flex-col justify-between space-y-1.5">
-                        <div class="flex items-center justify-between">
-                          <span class="text-[8.5px] font-mono text-[#A5AEF3] uppercase font-bold tracking-wider">HEADLESS CMS</span>
-                          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                        </div>
-                        <div>
-                          <span class="font-grotesk font-bold text-xs text-white block">Sanity Studio v3</span>
-                          <p class="text-[9px] text-[#A1A1AA] font-sans leading-tight mt-0.5">
-                            Real-time visual editing with instant edge publish.
-                          </p>
-                        </div>
-                        <div class="pt-0.5 flex items-center justify-between text-[8.5px] font-mono text-[#A1A1AA]">
-                          <span>TTFB: &lt;24ms</span>
-                          <span class="text-emerald-400 font-bold">Mobile Ready</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : service.builtinMockupKey === "saas-dev" ? (
-                  /* BUILT-IN MOCKUP 2: SAAS & FULL-STACK DEVELOPMENT */
-                  <div class="mockup-3d-stage space-y-2.5 select-none">
-                    <div class="rounded-2xl bg-white border border-[#E4E4E7] shadow-[0_14px_32px_-12px_rgba(9,9,11,0.12)] overflow-hidden">
-                      <div class="px-3.5 py-2 bg-[#FAFAFA] border-b border-[#E4E4E7] flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-1.5">
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                        </div>
-                        <div class="flex-1 max-w-[260px] mx-auto px-3 py-1 rounded-md bg-white border border-[#E4E4E7] text-[10px] font-mono text-[#71717A] flex items-center justify-between">
-                          <span class="truncate">app.cloudscale.io/admin/org</span>
-                          <span class="text-emerald-600 font-bold text-[9px]">Postgres 16 ✓</span>
-                        </div>
-                        <div class="text-[9px] font-mono text-[#5E6AD2] bg-[#EEF0FB] px-2 py-0.5 rounded border border-[#D5D9F5] font-bold">
-                          us-east-1
-                        </div>
-                      </div>
-
-                      <div class="p-3.5 space-y-2.5 bg-gradient-to-b from-white to-[#FAFAFA]">
-                        <div class="grid grid-cols-2 gap-2.5">
-                          <div class="p-2.5 rounded-xl bg-white border border-[#E4E4E7] space-y-1">
-                            <div class="flex items-center justify-between">
-                              <span class="text-[9px] font-mono text-[#71717A]">Monthly Revenue</span>
-                              <span class="text-[9px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">+24.2%</span>
-                            </div>
-                            <div class="flex items-baseline gap-1.5">
-                              <span class="font-grotesk font-extrabold text-lg text-[#09090B]">$42,850</span>
-                              <span class="text-[9.5px] font-mono text-[#71717A]">MRR</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-[#F4F4F5] rounded-full overflow-hidden">
-                              <div class="h-full bg-[#5E6AD2] rounded-full w-[82%]"></div>
-                            </div>
-                          </div>
-
-                          <div class="p-2.5 rounded-xl bg-white border border-[#E4E4E7] space-y-1">
-                            <div class="flex items-center justify-between">
-                              <span class="text-[9px] font-mono text-[#71717A]">Subscriptions</span>
-                              <span class="text-[9px] font-mono text-[#5E6AD2] bg-[#EEF0FB] px-1.5 py-0.5 rounded font-bold">Stripe Live</span>
-                            </div>
-                            <div class="flex items-baseline gap-1.5">
-                              <span class="font-grotesk font-extrabold text-lg text-[#09090B]">1,842</span>
-                              <span class="text-[9.5px] font-mono text-[#71717A]">seats</span>
-                            </div>
-                            <div class="h-1.5 w-full bg-[#F4F4F5] rounded-full overflow-hidden">
-                              <div class="h-full bg-emerald-500 rounded-full w-[90%]"></div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="p-3 rounded-xl bg-white border border-[#E4E4E7] space-y-2">
-                          <div class="flex items-center justify-between border-b border-[#F4F4F5] pb-1.5">
-                            <div class="flex items-center gap-2">
-                              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                              <span class="font-grotesk font-bold text-xs text-[#09090B]">Role-Based Access Control (RBAC)</span>
-                            </div>
-                            <span class="text-[9px] font-mono text-[#71717A] bg-[#F4F4F5] px-2 py-0.5 rounded">org_live_902</span>
-                          </div>
-                          <div class="space-y-1.5 text-xs font-sans">
-                            <div class="flex items-center justify-between p-1.5 px-2 rounded-lg bg-[#FAFAFA] border border-[#E4E4E7]">
-                              <div class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-[#5E6AD2] text-white flex items-center justify-center text-[8.5px] font-bold">A</span>
-                                <span class="font-medium text-[#09090B] text-[11px]">SuperAdmin (Alex Chen)</span>
-                              </div>
-                              <span class="text-[8.5px] font-mono bg-[#EEF0FB] text-[#5E6AD2] px-1.5 py-0.5 rounded font-bold">Full Access &amp; Billing</span>
-                            </div>
-                            <div class="flex items-center justify-between p-1.5 px-2 rounded-lg bg-[#FAFAFA] border border-[#E4E4E7]">
-                              <div class="flex items-center gap-2">
-                                <span class="w-4 h-4 rounded-full bg-[#09090B] text-white flex items-center justify-center text-[8.5px] font-bold">E</span>
-                                <span class="font-medium text-[#09090B] text-[11px]">Product Engineer</span>
-                              </div>
-                              <span class="text-[8.5px] font-mono bg-[#F4F4F5] text-[#52525B] px-1.5 py-0.5 rounded">PostgreSQL R/W · API Keys</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-stretch">
-                      <div class="sm:col-span-7 rounded-2xl bg-[#09090B] border border-white/10 p-3 shadow-xs text-white flex flex-col justify-between space-y-1.5">
-                        <div class="flex items-center justify-between">
-                          <span class="text-[8.5px] font-mono text-[#A5AEF3] uppercase font-bold tracking-wider">STRIPE WEBHOOK STREAM</span>
-                          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                        </div>
-                        <div class="font-mono text-[9.5px] space-y-1 text-zinc-300">
-                          <div class="flex items-center justify-between">
-                            <span class="text-emerald-400">● invoice.payment_succeeded</span>
-                            <span class="text-zinc-400">$1,400.00</span>
-                          </div>
-                          <div class="flex items-center justify-between text-zinc-500 text-[9px]">
-                            <span>customer.subscription.created</span>
-                            <span>200 OK · 1.2s ago</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="sm:col-span-5 rounded-2xl bg-white border border-[#E4E4E7] p-3 shadow-xs flex flex-col justify-between space-y-1.5">
-                        <span class="text-[8.5px] font-mono text-[#71717A] uppercase font-bold">DATABASE</span>
-                        <div>
-                          <span class="font-grotesk font-extrabold text-sm text-[#09090B] block">&lt;18ms p99 Latency</span>
-                          <span class="text-[9px] font-mono text-emerald-700 font-bold block mt-0.5">Zero-Downtime Migrations</span>
-                        </div>
-                        <span class="text-[8.5px] font-mono text-[#71717A]">Prisma + Neon Serverless</span>
-                      </div>
-                    </div>
-                  </div>
-                ) : service.builtinMockupKey === "ai-automation" ? (
-                  /* BUILT-IN MOCKUP 3: AI INTEGRATIONS & AUTOMATION */
-                  <div class="mockup-3d-stage space-y-2.5 select-none">
-                    <div class="rounded-2xl bg-white border border-[#E4E4E7] shadow-[0_14px_32px_-12px_rgba(9,9,11,0.12)] overflow-hidden">
-                      <div class="px-3.5 py-2 bg-[#FAFAFA] border-b border-[#E4E4E7] flex items-center justify-between gap-2">
-                        <div class="flex items-center gap-1.5">
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                        </div>
-                        <div class="flex-1 max-w-[260px] mx-auto px-3 py-1 rounded-md bg-white border border-[#E4E4E7] text-[10px] font-mono text-[#71717A] flex items-center justify-between">
-                          <span class="truncate">Agent: Ops-Copilot-v2.4</span>
-                          <span class="text-[#5E6AD2] font-bold text-[9px]">● Routing Live</span>
-                        </div>
-                        <div class="text-[9px] font-mono text-[#5E6AD2] bg-[#EEF0FB] px-2 py-0.5 rounded border border-[#D5D9F5] font-bold">
-                          Multi-LLM
-                        </div>
-                      </div>
-
-                      <div class="p-3.5 space-y-2 bg-gradient-to-b from-white to-[#FAFAFA]">
-                        <div class="p-2 rounded-lg bg-[#FAFAFA] border border-[#E4E4E7] flex items-start gap-2 text-[10px] font-mono">
-                          <span class="px-1.5 py-0.5 rounded bg-[#09090B] text-white font-bold text-[8.5px] shrink-0 mt-0.5">INBOUND</span>
-                          <span class="text-[#27272A] leading-tight font-sans text-[11px]">
-                            Ticket #8492: "Generate custom enterprise SLA contract for 200 seats and sync CRM."
-                          </span>
-                        </div>
-
-                        <div class="p-2 rounded-lg bg-[#EEF0FB] border border-[#D5D9F5] flex items-start gap-2 text-[10px] font-mono">
-                          <span class="px-1.5 py-0.5 rounded bg-[#5E6AD2] text-white font-bold text-[8.5px] shrink-0 mt-0.5">RAG 0.96</span>
-                          <div class="space-y-0.5 leading-tight">
-                            <span class="text-[#09090B] font-bold block text-[10.5px]">Matched Vector Index</span>
-                            <span class="text-[#5E6AD2] text-[9.5px] block font-mono">Enterprise_SLA_2025.pdf (Cosine similarity: 0.964)</span>
-                          </div>
-                        </div>
-
-                        <div class="p-2 rounded-lg bg-emerald-50/70 border border-emerald-200 flex items-start gap-2 text-[10px] font-mono">
-                          <span class="px-1.5 py-0.5 rounded bg-emerald-600 text-white font-bold text-[8.5px] shrink-0 mt-0.5">TOOL EXEC</span>
-                          <div class="space-y-0.5 leading-tight">
-                            <span class="text-emerald-950 font-bold block text-[10.5px]">crm.hubspot.create_deal(val="$48,000", seats=200)</span>
-                            <span class="text-emerald-800 text-[9.5px] block font-sans">
-                              ✓ Contract generated · 200 OK · Client notified automatically
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-stretch">
-                      <div class="sm:col-span-7 rounded-2xl bg-white border border-[#E4E4E7] p-3 shadow-xs flex items-center justify-between">
-                        <div class="space-y-0.5">
-                          <span class="text-[8.5px] font-mono text-[#71717A] uppercase font-bold">ACCURACY</span>
-                          <span class="font-grotesk font-extrabold text-lg text-emerald-700 block">99.8%</span>
-                          <span class="text-[8.5px] font-mono text-[#71717A]">Schema Guardrails</span>
-                        </div>
-                        <div class="h-8 w-px bg-[#E4E4E7]"></div>
-                        <div class="space-y-0.5 text-right">
-                          <span class="text-[8.5px] font-mono text-[#71717A] uppercase font-bold">AVG INFERENCE</span>
-                          <span class="font-grotesk font-extrabold text-lg text-[#5E6AD2] block">320ms</span>
-                          <span class="text-[8.5px] font-mono text-[#71717A]">Claude + OpenAI Router</span>
-                        </div>
-                      </div>
-
-                      <div class="sm:col-span-5 rounded-2xl bg-[#09090B] border border-white/10 p-3 shadow-xs text-white flex flex-col justify-between space-y-1">
-                        <span class="text-[8.5px] font-mono text-[#A5AEF3] uppercase font-bold tracking-wider">VECTOR PIPELINE</span>
-                        <div>
-                          <span class="font-grotesk font-bold text-xs text-white block">14,200 Chunks Synced</span>
-                          <span class="text-[9px] text-[#A1A1AA] font-sans block mt-0.5">Live webhook embedding updates</span>
-                        </div>
-                        <span class="text-[8.5px] font-mono text-emerald-400 font-bold">Private &amp; Encrypted</span>
-                      </div>
+                      <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium shrink-0">
+                        {service.customMockupBadge}
+                      </span>
                     </div>
                   </div>
                 ) : (
-                  /* BUILT-IN MOCKUP 4: EMAIL DESIGN SYSTEMS & HTML (also fallback for custom without image) */
-                  <div class="mockup-3d-stage space-y-2.5 select-none">
-                    <div class="rounded-2xl bg-white border border-[#E4E4E7] shadow-[0_14px_32px_-12px_rgba(9,9,11,0.12)] overflow-hidden">
-                      <div class="px-3.5 py-2 bg-[#FAFAFA] border-b border-[#E4E4E7] flex items-center justify-between gap-2">
+                  /* PRIORITY 2: Clean Neutral + Blue Light Browser Sketch Fallback (Exact Same Height as Left List) */
+                  <div class="flex-1 flex flex-col justify-between rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-2.5 sm:p-3">
+                    <div class="flex-1 min-h-[280px] sm:min-h-[340px] lg:min-h-0 w-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex flex-col">
+                      <!-- Thin Light Browser Bar -->
+                      <div class="h-10 px-4 bg-[var(--bg)] border-b border-[var(--border)] flex items-center justify-between gap-3 shrink-0">
                         <div class="flex items-center gap-1.5">
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-zinc-300"></span>
+                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
+                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
+                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
                         </div>
-                        <div class="flex-1 max-w-[260px] mx-auto px-3 py-1 rounded-md bg-white border border-[#E4E4E7] text-[10px] font-mono text-[#71717A] flex items-center justify-between">
-                          <span class="truncate">Litmus Suite: 58/58 Passing</span>
-                          <span class="text-emerald-600 font-bold text-[9px]">100% ✓</span>
-                        </div>
-                        <div class="text-[9px] font-mono text-[#5E6AD2] bg-[#EEF0FB] px-2 py-0.5 rounded border border-[#D5D9F5] font-bold">
-                          46KB Safe
-                        </div>
-                      </div>
-
-                      <div class="p-3.5 bg-gradient-to-b from-white to-[#FAFAFA]">
-                        <div class="grid grid-cols-2 gap-2.5">
-                          <div class="p-2.5 rounded-xl bg-white border border-[#E4E4E7] space-y-1.5">
-                            <div class="flex items-center justify-between border-b border-[#F4F4F5] pb-1">
-                              <span class="text-[9px] font-mono text-[#09090B] font-bold">Outlook 365 (Win)</span>
-                              <span class="text-[8px] font-mono text-emerald-700 bg-emerald-50 px-1 py-0.2 rounded font-bold">MSO ✓</span>
-                            </div>
-                            <div class="p-2 rounded-lg bg-[#FAFAFA] border border-[#E4E4E7] space-y-1 text-center">
-                              <span class="text-[8px] font-mono text-[#71717A] tracking-widest uppercase block font-bold">NOVA APPAREL</span>
-                              <h5 class="font-grotesk font-extrabold text-[10.5px] text-[#09090B] leading-tight">
-                                Winter Drop: Technical Outerwear
-                              </h5>
-                              <p class="text-[8px] text-[#52525B] font-sans leading-tight">
-                                Engineered for sub-zero performance.
-                              </p>
-                              <div class="pt-1">
-                                <span class="inline-block px-2 py-0.5 rounded bg-[#09090B] text-white text-[8px] font-grotesk font-bold">
-                                  Shop Drop →
-                                </span>
-                              </div>
-                            </div>
-                            <span class="text-[8px] font-mono text-[#71717A] block text-center">Table layout · Zero clipping</span>
-                          </div>
-
-                          <div class="p-2.5 rounded-xl bg-[#09090B] border border-white/10 space-y-1.5 text-white">
-                            <div class="flex items-center justify-between border-b border-white/10 pb-1">
-                              <span class="text-[9px] font-mono text-white font-bold">Apple Mail (Dark)</span>
-                              <span class="text-[8px] font-mono text-[#A5AEF3] bg-[#5E6AD2]/20 px-1 py-0.2 rounded font-bold">@dark ✓</span>
-                            </div>
-                            <div class="p-2 rounded-lg bg-[#111215] border border-white/10 space-y-1 text-center">
-                              <span class="text-[8px] font-mono text-[#A5AEF3] tracking-widest uppercase block font-bold">NOVA APPAREL</span>
-                              <h5 class="font-grotesk font-extrabold text-[10.5px] text-white leading-tight">
-                                Winter Drop: Technical Outerwear
-                              </h5>
-                              <p class="text-[8px] text-[#A1A1AA] font-sans leading-tight">
-                                Engineered for sub-zero performance.
-                              </p>
-                              <div class="pt-1">
-                                <span class="inline-block px-2 py-0.5 rounded bg-[#5E6AD2] text-white text-[8px] font-grotesk font-extrabold">
-                                  Shop Drop →
-                                </span>
-                              </div>
-                            </div>
-                            <span class="text-[8px] font-mono text-emerald-400 block text-center">AAA Contrast · Inversion-Safe</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-12 gap-2.5 items-stretch">
-                      <div class="sm:col-span-7 rounded-2xl bg-white border border-[#E4E4E7] p-3 shadow-xs flex flex-col justify-between space-y-1">
-                        <div class="flex items-center justify-between">
-                          <span class="text-[8.5px] font-mono text-[#71717A] uppercase font-bold">ENGINEERING STANDARDS</span>
-                          <span class="text-[8.5px] font-mono text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded font-bold">Zero Breakage</span>
-                        </div>
-                        <span class="font-grotesk font-bold text-xs text-[#09090B]">100% Handcrafted Table Layouts</span>
-                        <span class="text-[9px] text-[#52525B] font-sans">
-                          VML vector fallbacks for Outlook 2016–2021 &amp; Office 365.
+                        <span class="text-xs font-mono text-[var(--muted)] truncate">
+                          {service.title}
+                        </span>
+                        <span class="px-2.5 py-0.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-[11px] font-mono font-medium shrink-0">
+                          {service.num}
                         </span>
                       </div>
 
-                      <div class="sm:col-span-5 rounded-2xl bg-[#09090B] border border-white/10 p-3 shadow-xs text-white flex flex-col justify-between space-y-1">
-                        <span class="text-[8.5px] font-mono text-[#A5AEF3] uppercase font-bold tracking-wider">ESP READY</span>
-                        <span class="font-grotesk font-bold text-xs text-white">Klaviyo · Mailchimp</span>
-                        <span class="text-[8.5px] font-mono text-[#A1A1AA]">HubSpot · SendGrid · Resend</span>
-                      </div>
+                      <!-- Service-Specific Structural Sketch -->
+                      {service.sketchKey === "web-dev" ? (
+                        <div class="flex-1 p-5 sm:p-6 grid grid-cols-12 gap-4 items-stretch bg-[var(--bg)]/40" aria-hidden="true">
+                          <div class="col-span-8 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-5 flex flex-col justify-between">
+                            <div class="space-y-3">
+                              <div class="h-2.5 w-24 rounded-full bg-[var(--blue-50)]"></div>
+                              <div class="h-4 w-4/5 rounded bg-[#0B111A]/85"></div>
+                              <div class="h-4 w-3/5 rounded bg-[var(--blue-600)]"></div>
+                              <div class="h-2.5 w-11/12 rounded bg-[#E2E8F0] mt-3"></div>
+                              <div class="h-2.5 w-3/4 rounded bg-[#E2E8F0]"></div>
+                            </div>
+                            <div class="flex items-center gap-2.5 pt-4">
+                              <div class="h-7 w-28 rounded-[8px] bg-[var(--blue-600)]"></div>
+                              <div class="h-7 w-24 rounded-[8px] bg-[var(--bg)] border border-[var(--border)]"></div>
+                            </div>
+                          </div>
+                          <div class="col-span-4 rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-4 flex flex-col justify-between">
+                            <div class="w-10 h-1 rounded-full bg-[#CBD5E1] mx-auto"></div>
+                            <div class="space-y-2.5 my-3">
+                              <div class="h-2.5 w-full rounded bg-[#0B111A]/80"></div>
+                              <div class="h-2.5 w-3/4 rounded bg-[var(--blue-600)]"></div>
+                              <div class="h-14 w-full rounded-[8px] bg-[var(--blue-50)] mt-3"></div>
+                            </div>
+                            <div class="h-6 w-full rounded-[8px] bg-[var(--blue-600)]"></div>
+                          </div>
+                        </div>
+                      ) : service.sketchKey === "saas-dev" ? (
+                        <div class="flex-1 p-5 sm:p-6 flex gap-4 bg-[var(--bg)]/40" aria-hidden="true">
+                          <div class="w-1/4 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-3.5 flex flex-col justify-between">
+                            <div class="space-y-2.5">
+                              <div class="h-3.5 w-3/4 rounded bg-[#0B111A]/85"></div>
+                              <div class="h-2.5 w-full rounded bg-[var(--blue-50)] border border-[#BFDBFE]"></div>
+                              <div class="h-2.5 w-5/6 rounded bg-[#E2E8F0]"></div>
+                              <div class="h-2.5 w-4/5 rounded bg-[#E2E8F0]"></div>
+                              <div class="h-2.5 w-5/6 rounded bg-[#E2E8F0]"></div>
+                            </div>
+                            <div class="h-2.5 w-1/2 rounded bg-[#CBD5E1]"></div>
+                          </div>
+                          <div class="flex-1 flex flex-col gap-3.5">
+                            <div class="grid grid-cols-3 gap-3">
+                              <div class="h-16 rounded-[10px] bg-[var(--surface)] border border-[var(--border)] p-3 flex flex-col justify-between">
+                                <div class="h-2 w-12 rounded bg-[#CBD5E1]"></div>
+                                <div class="h-3.5 w-16 rounded bg-[var(--blue-600)]"></div>
+                              </div>
+                              <div class="h-16 rounded-[10px] bg-[var(--surface)] border border-[var(--border)] p-3 flex flex-col justify-between">
+                                <div class="h-2 w-12 rounded bg-[#CBD5E1]"></div>
+                                <div class="h-3.5 w-14 rounded bg-[#0B111A]/80"></div>
+                              </div>
+                              <div class="h-16 rounded-[10px] bg-[var(--surface)] border border-[var(--border)] p-3 flex flex-col justify-between">
+                                <div class="h-2 w-12 rounded bg-[#CBD5E1]"></div>
+                                <div class="h-3.5 w-16 rounded bg-[#0B111A]/80"></div>
+                              </div>
+                            </div>
+                            <div class="flex-1 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-4 flex flex-col justify-between">
+                              <div class="flex items-center justify-between">
+                                <div class="h-2.5 w-28 rounded bg-[#0B111A]/75"></div>
+                                <div class="h-2.5 w-16 rounded bg-[var(--blue-50)]"></div>
+                              </div>
+                              <div class="grid grid-cols-6 gap-2.5 items-end h-20 pt-3">
+                                <div class="h-8 rounded-t bg-[#E2E8F0]"></div>
+                                <div class="h-12 rounded-t bg-[#E2E8F0]"></div>
+                                <div class="h-10 rounded-t bg-[#BFDBFE]"></div>
+                                <div class="h-16 rounded-t bg-[var(--blue-600)]"></div>
+                                <div class="h-12 rounded-t bg-[#BFDBFE]"></div>
+                                <div class="h-18 rounded-t bg-[var(--blue-600)]"></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : service.sketchKey === "ai-automation" ? (
+                        <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between bg-[var(--bg)]/40" aria-hidden="true">
+                          <div class="flex items-center justify-between">
+                            <span class="text-xs font-mono text-[var(--blue-600)] font-medium">
+                              trigger → rag.query → tool.exec → webhook
+                            </span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-[var(--blue-600)]"></span>
+                          </div>
+                          <div class="grid grid-cols-3 gap-3.5 my-3">
+                            <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-4 space-y-2">
+                              <div class="w-7 h-7 rounded-[8px] bg-[var(--blue-50)]"></div>
+                              <div class="h-2.5 w-3/4 rounded bg-[#0B111A]/80"></div>
+                              <div class="h-2 w-1/2 rounded bg-[#CBD5E1]"></div>
+                            </div>
+                            <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--blue-600)] p-4 space-y-2">
+                              <div class="w-7 h-7 rounded-[8px] bg-[var(--blue-600)]"></div>
+                              <div class="h-2.5 w-4/5 rounded bg-[#0B111A]/85"></div>
+                              <div class="h-2 w-2/3 rounded bg-[#BFDBFE]"></div>
+                            </div>
+                            <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-4 space-y-2">
+                              <div class="w-7 h-7 rounded-[8px] bg-[var(--blue-50)]"></div>
+                              <div class="h-2.5 w-3/4 rounded bg-[#0B111A]/80"></div>
+                              <div class="h-2 w-1/2 rounded bg-[#CBD5E1]"></div>
+                            </div>
+                          </div>
+                          <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] px-4 py-3 font-mono text-xs text-[var(--muted)] flex items-center justify-between">
+                            <span>POST /api/agent/execute</span>
+                            <span class="text-[var(--blue-600)] font-medium">JSON Schema</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <div class="flex-1 p-5 sm:p-6 flex items-center justify-center bg-[var(--bg)]/40" aria-hidden="true">
+                          <div class="w-full max-w-[360px] h-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex flex-col">
+                            <div class="px-4 py-3 bg-[var(--blue-50)] border-b border-[var(--border)] flex items-center justify-between">
+                              <div class="h-3 w-24 rounded bg-[var(--blue-600)]"></div>
+                              <div class="h-2.5 w-14 rounded bg-white/80"></div>
+                            </div>
+                            <div class="p-4 space-y-3 flex-1 flex flex-col justify-between">
+                              <div class="space-y-2">
+                                <div class="h-3 w-4/5 rounded bg-[#0B111A]/85"></div>
+                                <div class="h-2.5 w-full rounded bg-[#E2E8F0]"></div>
+                                <div class="h-2.5 w-5/6 rounded bg-[#E2E8F0]"></div>
+                              </div>
+                              <div class="grid grid-cols-2 gap-2.5">
+                                <div class="h-14 rounded-[8px] bg-[var(--bg)] border border-[var(--border)]"></div>
+                                <div class="h-14 rounded-[8px] bg-[var(--bg)] border border-[var(--border)]"></div>
+                              </div>
+                              <div class="h-7 w-32 rounded-[8px] bg-[var(--blue-600)]"></div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    <div class="pt-4 px-1 flex items-center justify-between gap-3">
+                      <span class="text-xs font-mono text-[var(--muted)] truncate">
+                        {service.deliverables}
+                      </span>
+                      <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium shrink-0">
+                        Production Ready
+                      </span>
                     </div>
                   </div>
                 )}
               </div>
             );
           })}
-
         </div>
       </div>
-
     </div>
-
   </div>
 </section>
 
-<style>
-  .mockup-3d-stage {
-    perspective: 1200px;
-    transform-style: preserve-3d;
-    transform: perspective(1200px) rotateX(6deg) rotateY(-4deg) rotateZ(1deg);
-    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .mockup-3d-stage:hover {
-    transform: perspective(1200px) rotateX(1deg) rotateY(-0.5deg) rotateZ(0deg);
-  }
-
-  @media (max-width: 640px) {
-    .mockup-3d-stage,
-    .mockup-3d-stage:hover {
-      transform: none;
-    }
-  }
-
-  .service-item-wrapper {
-    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-</style>
-
 <script>
-  function initServicesNavigator() {
-    const serviceItems = document.querySelectorAll<HTMLElement>("[data-service-item]");
-    const mockupPanels = document.querySelectorAll<HTMLElement>("[data-mockup-panel]");
+  const setupNovaStackServices = () => {
+    const items = Array.from(document.querySelectorAll<HTMLElement>("[data-service-item]"));
+    const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-mockup-panel]"));
 
-    if (!serviceItems.length || !mockupPanels.length) return;
+    if (!items.length || !panels.length) return;
 
-    const activateService = (serviceId: string) => {
-      serviceItems.forEach((item) => {
-        const id = item.getAttribute("data-service-item") || "";
-        const details = item.querySelector<HTMLElement>(".service-details-panel");
-        const iconBadge = item.querySelector<HTMLElement>(".service-icon-badge");
-        const numLabel = item.querySelector<HTMLElement>(".service-num-label");
+    const activateService = (targetId: string) => {
+      items.forEach((item) => {
+        const isActive = item.getAttribute("data-service-item") === targetId;
+        const iconBadge = item.querySelector(".service-icon-badge");
+        const numLabel = item.querySelector(".service-num-label");
+        const details = item.querySelector(".service-details-panel");
 
-        if (id === serviceId) {
-          item.setAttribute("aria-selected", "true");
-          item.classList.add("bg-white", "border-[#5E6AD2]/40", "p-4", "sm:p-5", "shadow-sm", "ring-1", "ring-[#5E6AD2]/15");
-          item.classList.remove("p-3.5", "sm:p-4", "border-transparent", "hover:bg-white/75", "hover:border-[#E4E4E7]");
-          if (details) details.classList.remove("hidden");
-          if (iconBadge) {
-            iconBadge.classList.add("bg-[#EEF0FB]", "text-[#5E6AD2]", "border-[#D5D9F5]");
-            iconBadge.classList.remove("bg-white", "text-[#52525B]", "border-[#E4E4E7]");
-          }
-          if (numLabel) {
-            numLabel.classList.add("text-[#5E6AD2]");
-            numLabel.classList.remove("text-[#A1A1AA]");
-          }
+        item.setAttribute("aria-selected", isActive ? "true" : "false");
+
+        if (isActive) {
+          item.classList.remove("bg-[var(--surface)]", "border-[var(--border)]", "hover:border-[#CBD5E1]", "py-3.5", "px-4", "sm:px-5");
+          item.classList.add("bg-[var(--bg)]", "border-[var(--blue-600)]", "p-4", "sm:p-5");
+
+          iconBadge?.classList.remove("bg-[var(--blue-50)]", "text-[var(--blue-600)]");
+          iconBadge?.classList.add("bg-[var(--blue-600)]", "text-white");
+
+          numLabel?.classList.remove("text-[var(--muted)]");
+          numLabel?.classList.add("text-[var(--blue-600)]");
+
+          details?.classList.remove("hidden");
+          details?.classList.add("block");
         } else {
-          item.setAttribute("aria-selected", "false");
-          item.classList.remove("bg-white", "border-[#5E6AD2]/40", "p-4", "sm:p-5", "shadow-sm", "ring-1", "ring-[#5E6AD2]/15");
-          item.classList.add("p-3.5", "sm:p-4", "border-transparent", "hover:bg-white/75", "hover:border-[#E4E4E7]");
-          if (details) details.classList.add("hidden");
-          if (iconBadge) {
-            iconBadge.classList.remove("bg-[#EEF0FB]", "text-[#5E6AD2]", "border-[#D5D9F5]");
-            iconBadge.classList.add("bg-white", "text-[#52525B]", "border-[#E4E4E7]");
-          }
-          if (numLabel) {
-            numLabel.classList.remove("text-[#5E6AD2]");
-            numLabel.classList.add("text-[#A1A1AA]");
-          }
+          item.classList.remove("bg-[var(--bg)]", "border-[var(--blue-600)]", "p-4", "sm:p-5");
+          item.classList.add("bg-[var(--surface)]", "border-[var(--border)]", "hover:border-[#CBD5E1]", "py-3.5", "px-4", "sm:px-5");
+
+          iconBadge?.classList.remove("bg-[var(--blue-600)]", "text-white");
+          iconBadge?.classList.add("bg-[var(--blue-50)]", "text-[var(--blue-600)]");
+
+          numLabel?.classList.remove("text-[var(--blue-600)]");
+          numLabel?.classList.add("text-[var(--muted)]");
+
+          details?.classList.remove("block");
+          details?.classList.add("hidden");
         }
       });
 
-      mockupPanels.forEach((panel) => {
-        const panelId = panel.getAttribute("data-mockup-panel") || "";
-        if (panelId === serviceId) {
+      panels.forEach((panel) => {
+        const isMatch = panel.getAttribute("data-mockup-panel") === targetId;
+        if (isMatch) {
           panel.classList.remove("hidden");
-          panel.style.opacity = "0";
-          panel.style.transform = "translateY(6px)";
-          requestAnimationFrame(() => {
-            panel.style.transition = "opacity 0.35s ease, transform 0.35s ease";
-            panel.style.opacity = "1";
-            panel.style.transform = "translateY(0)";
-          });
+          panel.classList.add("flex");
         } else {
           panel.classList.add("hidden");
+          panel.classList.remove("flex");
         }
       });
     };
 
-    serviceItems.forEach((item) => {
-      if (item.hasAttribute("data-service-bound")) return;
-      item.setAttribute("data-service-bound", "true");
+    items.forEach((item) => {
+      if (item.dataset.bound === "true") return;
+      item.dataset.bound = "true";
 
-      item.addEventListener("click", () => {
-        const id = item.getAttribute("data-service-item");
-        if (id) activateService(id);
-      });
+      const id = item.getAttribute("data-service-item");
+      if (!id) return;
 
+      item.addEventListener("click", () => activateService(id));
       item.addEventListener("keydown", (e) => {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          const id = item.getAttribute("data-service-item");
-          if (id) activateService(id);
+          activateService(id);
         }
       });
     });
-  }
+  };
 
-  initServicesNavigator();
-  document.addEventListener("astro:page-load", initServicesNavigator);
-  document.addEventListener("astro:after-swap", initServicesNavigator);
+  setupNovaStackServices();
+  document.addEventListener("astro:page-load", setupNovaStackServices);
+  document.addEventListener("astro:after-swap", setupNovaStackServices);
 </script>

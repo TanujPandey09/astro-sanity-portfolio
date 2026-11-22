@@ -19,73 +19,12 @@ const itemList = {
   "@id": `${siteUrl}/templates#itemlist`,
   name: "Tanuj Pandey — Commercial Next.js & React Website Templates",
   description: "Production-ready Next.js, React, TypeScript, and Tailwind CSS website templates with 99+ Lighthouse performance, lifetime updates, and commercial licenses.",
-  itemListElement: templates.map((template, index) => {
-    const priceNumeric = template.price?.replace(/[^0-9.]/g, "") || "49";
-    const rawImg = template.imageUrl || "/og-image-dark.png";
-    const resolvedImg = rawImg.startsWith("http") ? rawImg : `${siteUrl}${rawImg.startsWith("/") ? "" : "/"}${rawImg}`;
-    return {
-      "@type": "ListItem",
-      position: index + 1,
-      name: template.templateName,
-      url: `${siteUrl}/templates/${template.slug.current}`,
-      item: {
-        "@type": "Product",
-        name: template.templateName,
-        description: template.tagline || "Production-ready commercial website template engineered with Next.js, React, and Tailwind CSS.",
-        image: [resolvedImg],
-        url: `${siteUrl}/templates/${template.slug.current}`,
-        sku: template.slug.current,
-        category: "SoftwareApplication",
-        brand: {
-          "@type": "Brand",
-          name: "Tanuj Builds",
-        },
-        offers: {
-          "@type": "Offer",
-          price: priceNumeric,
-          priceCurrency: "USD",
-          availability: "https://schema.org/InStock",
-          url: template.gumroadLink || `${siteUrl}/templates/${template.slug.current}`,
-          seller: {
-            "@type": "Organization",
-            name: "Tanuj Builds",
-          },
-          hasMerchantReturnPolicy: {
-            "@type": "MerchantReturnPolicy",
-            applicableCountry: "US",
-            returnPolicyCategory: "https://schema.org/MerchantReturnNotPermitted",
-          },
-          shippingDetails: {
-            "@type": "OfferShippingDetails",
-            shippingRate: {
-              "@type": "MonetaryAmount",
-              value: "0",
-              currency: "USD",
-            },
-            shippingDestination: {
-              "@type": "DefinedRegion",
-              addressCountry: "US",
-            },
-            deliveryTime: {
-              "@type": "ShippingDeliveryTime",
-              handlingTime: {
-                "@type": "QuantitativeValue",
-                minValue: 0,
-                maxValue: 0,
-                unitCode: "DAY",
-              },
-              transitTime: {
-                "@type": "QuantitativeValue",
-                minValue: 0,
-                maxValue: 0,
-                unitCode: "DAY",
-              },
-            },
-          },
-        },
-      },
-    };
-  }),
+  itemListElement: templates.map((template, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    name: template.templateName,
+    url: `${siteUrl}/templates/${template.slug.current}`,
+  })),
 };
 
 const templatesFaqJsonLd = {
@@ -304,7 +243,7 @@ const dynamicCategories = Array.from(categoryMap.values()).sort((a, b) => b.coun
       </div>
     </section>
 
-    <main id="templates-catalog" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 md:pb-28 relative z-10">
+    <div id="templates-catalog" class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-20 md:pb-28 relative z-10">
 
       <!-- Real-Time Filter, Search & View Switcher Toolbar -->
       <div class="mb-6 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-black/[0.08] shadow-xs">
@@ -551,7 +490,7 @@ const dynamicCategories = Array.from(categoryMap.values()).sort((a, b) => b.coun
         </div>
       </section>
 
-    </main>
+    </div>
   </div>
 </Layout>
 

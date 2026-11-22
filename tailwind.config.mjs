@@ -41,6 +41,24 @@ export default {
 				status: {
 					live: "rgb(var(--status-live-rgb) / <alpha-value>)",
 				},
+				ns: {
+					blue: {
+						600: "var(--blue-600, #2563EB)",
+						700: "var(--blue-700, #1D4ED8)",
+						50: "var(--blue-50, #EAF1FE)",
+					},
+					sky: {
+						400: "var(--sky-400, #38BDF8)",
+					},
+					ink: "var(--ink, #0B111A)",
+					"ink-2": "var(--ink-2, #121A26)",
+					bg: "var(--bg, #F5F7FA)",
+					surface: "var(--surface, #FFFFFF)",
+					border: "var(--border, #E2E8F0)",
+					muted: "var(--muted, #4B5565)",
+					"dark-border": "var(--dark-border, #1F2A3A)",
+					"dark-muted": "var(--dark-muted, #9AA6B8)",
+				},
 				dev: {
 					canvas: "#FAFAFB",
 					card: "#FFFFFF",
