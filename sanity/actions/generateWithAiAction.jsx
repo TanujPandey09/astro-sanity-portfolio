@@ -20,6 +20,7 @@ const isEmptyValue = (val) => {
   if (val === undefined || val === null) return true
   if (typeof val === 'string') return val.trim().length === 0
   if (Array.isArray(val)) return val.length === 0
+  if (typeof val === 'object' && val._type === 'slug') return !val.current
   return false
 }
 

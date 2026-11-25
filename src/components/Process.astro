@@ -4,24 +4,27 @@ import SectionHeader from "./SectionHeader.astro";
 const phases = [
   {
     step: "01",
-    name: "Discover",
-    tagline: "Architecture & System Scoping",
-    desc: "Before touching application code, we define the technical blueprint: data models, relational database schemas, multi-LLM workflows, API contracts, and milestone deliverables. This eliminates mid-sprint pivots and ensures zero architectural ambiguity.",
-    thumb: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80"
+    cadence: "Days 1 — 3",
+    name: "Discover & Architect",
+    tagline: "System Scoping & Blueprint",
+    desc: "Before writing application code, we lock down the technical blueprint: data models, relational schemas, multi-LLM workflows, API contracts, and milestone deliverables.",
+    outputs: ["DB Schema", "API Contracts", "Milestone Plan"],
   },
   {
     step: "02",
-    name: "Build",
+    cadence: "Weekly Sprints",
+    name: "Build & Ship",
     tagline: "Full-Stack & AI Engineering",
-    desc: "Development proceeds in rapid, transparent weekly cycles. I ship strict TypeScript interfaces, Node.js microservices, and validated AI orchestration pipelines. You receive live staging preview links on every pull request for immediate testing.",
-    thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80"
+    desc: "Development runs in transparent weekly cycles with strict TypeScript interfaces, Node.js services, validated AI pipelines, and live staging previews on every pull request.",
+    outputs: ["Strict TypeScript", "Staging Previews", "AI Pipelines"],
   },
   {
     step: "03",
-    name: "Polish & Scale",
-    tagline: "Performance QA & Production Release",
-    desc: "Every build undergoes rigorous verification: 99+ Lighthouse performance tuning, mobile responsiveness, RBAC security audits, and zero-downtime CI/CD deployment. Clean documentation and handoff ensure your engineers can scale it effortlessly.",
-    thumb: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80"
+    cadence: "Launch & Scale",
+    name: "Polish & Release",
+    tagline: "Performance QA & Handover",
+    desc: "Every build undergoes 99+ Lighthouse tuning, mobile responsiveness QA, RBAC security checks, zero-downtime CI/CD deployment, and clean repository documentation.",
+    outputs: ["99+ Lighthouse", "Security Audit", "Full Handover"],
   }
 ];
 
@@ -56,139 +59,160 @@ const faqs = [
       subtitle="A transparent three-stage engineering workflow from architectural scoping to zero-downtime production release."
     />
 
-    <!-- 2. EDITORIAL NUMBERED LEDGER -->
-    <div class="border-t border-black/[0.08] divide-y divide-black/[0.08]">
-      {phases.map((phase) => (
-        <div data-gsap-card class="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start group">
-          <!-- Step Number & Title -->
-          <div class="md:col-span-3">
-            <span class="font-mono text-xs font-semibold tracking-[0.12em] text-[#5E6AD2] block mb-1.5">STEP {phase.step}</span>
-            <h3 class="font-grotesk text-2xl sm:text-[26px] font-bold text-[#0F172A] tracking-tight group-hover:text-[#5E6AD2] transition-colors">
-              {phase.name}
-            </h3>
-            <span class="text-xs font-mono text-slate-500 mt-1 block">{phase.tagline}</span>
-          </div>
+    <!-- 2. ARCHITECTURAL 3-COLUMN PROCESS MATRIX (Zero Stock Photos) -->
+    <div data-gsap-card class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-xs">
+      <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-black/[0.08]">
+        {phases.map((phase, idx) => (
+          <div class={`p-6 sm:p-8 flex flex-col justify-between gap-6 ${idx === 1 ? "bg-[#F8FAFF]" : "bg-white"}`}>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between gap-3">
+                <span class="inline-flex items-center gap-2 font-mono text-xs font-semibold text-[#5E6AD2]">
+                  <span class="w-6 h-6 rounded-lg bg-[#5E6AD2]/10 border border-[#5E6AD2]/20 flex items-center justify-center">
+                    {phase.step}
+                  </span>
+                  <span class="uppercase tracking-[0.12em]">{phase.cadence}</span>
+                </span>
+                <span class="text-[11px] font-mono text-slate-400">
+                  Phase {phase.step}
+                </span>
+              </div>
 
-          <!-- Embedded Process Thumbnail -->
-          <div class="md:col-span-3">
-            <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-black/[0.08] bg-slate-100">
-              <img
-                src={phase.thumb}
-                alt={phase.name}
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 transition-all duration-500 ease-out group-hover:scale-105"
-              />
+              <div>
+                <h3 class="font-grotesk text-xl sm:text-2xl font-bold text-[#0F172A] tracking-tight">
+                  {phase.name}
+                </h3>
+                <span class="text-xs font-mono text-slate-500 mt-1 block">{phase.tagline}</span>
+              </div>
+
+              <p class="text-sm text-slate-600 font-sans leading-[1.7]">
+                {phase.desc}
+              </p>
+            </div>
+
+            <div class="pt-4 border-t border-black/[0.08] flex flex-wrap gap-1.5">
+              {phase.outputs.map((out) => (
+                <span class="px-2.5 py-0.5 rounded-full bg-white border border-black/[0.08] text-[11px] font-mono text-slate-700">
+                  {out}
+                </span>
+              ))}
             </div>
           </div>
+        ))}
+      </div>
 
-          <!-- Description Narrative -->
-          <div class="md:col-span-6 flex flex-col justify-center h-full">
-            <p class="text-slate-600 font-sans text-sm sm:text-[15px] leading-[1.7]">
-              {phase.desc}
-            </p>
+      <!-- Integrated Collaboration Fit Footer Bar -->
+      <div class="px-6 sm:px-8 py-5 bg-[#0A0B0E] text-white border-t border-white/10 flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div class="space-y-1 max-w-3xl">
+          <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#828FFF] font-semibold block">
+            Collaboration Fit
+          </span>
+          <p class="text-sm text-slate-200 font-sans leading-relaxed">
+            Partnering with founders, Series A–B startups, and product teams that value engineering rigor, clean architecture, and weekly shippable velocity.
+          </p>
+        </div>
+        <button
+          type="button"
+          data-open-contact
+          class="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-[#5E6AD2] text-[#0A0B0E] hover:text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer self-start lg:self-auto"
+        >
+          <span>Discuss a Build</span>
+          <span>↗</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. 2-COLUMN FAQ & SINGLE-ENGINEER GUARANTEE -->
+    <div id="faq" class="mt-14 sm:mt-16 pt-12 sm:pt-14 border-t border-black/[0.08] grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+      <!-- Left: Sticky Title + Compact Guarantee Card -->
+      <div class="lg:col-span-4 lg:sticky lg:top-24 space-y-6">
+        <div>
+          <div class="flex items-center gap-2.5 mb-2.5">
+            <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+            <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Common Questions</span>
           </div>
+          <h3 class="font-grotesk font-bold text-2xl sm:text-3xl text-[#0F172A] tracking-tight">
+            What you might ask.
+          </h3>
         </div>
-      ))}
-    </div>
 
-    <!-- 3. COMPACT COLLABORATION FIT BANNER -->
-    <div class="my-12 sm:my-16 rounded-2xl bg-white border border-black/[0.08] p-6 sm:p-8 lg:p-10 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
-      <div class="lg:col-span-4 space-y-2.5">
-        <div class="flex items-center gap-2.5">
-          <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
-          <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Collaboration Fit</span>
+        <div class="rounded-2xl bg-white border border-black/[0.08] p-5 shadow-xs space-y-2.5">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#0F172A] font-semibold">
+              Engineering Guarantee
+            </span>
+          </div>
+          <p class="text-xs sm:text-[13px] text-slate-600 font-sans leading-relaxed">
+            Direct single-engineer ownership on every architecture: weekly shippable progress, zero handoff bottlenecks, and strict type-safe code your team can scale with confidence.
+          </p>
         </div>
-        <h3 class="font-grotesk text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight leading-tight">
-          Who I work best with.
-        </h3>
       </div>
 
-      <div class="lg:col-span-8 space-y-3 border-t lg:border-t-0 lg:border-l border-black/[0.08] pt-5 lg:pt-0 lg:pl-8">
-        <p class="text-slate-700 font-sans text-sm sm:text-base leading-[1.7] font-medium">
-          I partner with ambitious founders, early-stage to Series B startups, and product teams that value engineering rigor, clean architecture, and velocity.
-        </p>
-        <p class="text-slate-600 font-sans text-sm leading-[1.7]">
-          Whether you need a complete SaaS platform built from scratch, multi-LLM orchestration integrated into an existing product, or a senior engineer to own and scale your web architecture, I bridge design nuance with backend reliability.
-        </p>
-      </div>
-    </div>
-
-    <!-- 4. FAQ: "What you might ask" (Clean Accordion) -->
-    <div id="faq" class="pt-10 sm:pt-12 border-t border-black/[0.08]">
-      <div class="mb-6 sm:mb-8">
-        <div class="flex items-center gap-2.5 mb-2.5">
-          <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
-          <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Common Questions</span>
-        </div>
-        <h3 class="font-grotesk font-bold text-2xl sm:text-3xl md:text-4xl text-[#0F172A] tracking-tight">
-          What you might ask.
-        </h3>
-      </div>
-
-      <div class="border-t border-black/[0.08]" id="faq-accordion">
-        {faqs.map((item, idx) => {
-          const isFirst = idx === 0;
-          return (
-            <div 
-              class={`faq-item border-b border-black/[0.08] transition-colors ${isFirst ? 'is-open bg-slate-50/60' : 'hover:bg-slate-50/40'}`}
-              data-faq-item={idx}
-            >
-              <button
-                type="button"
-                aria-expanded={isFirst ? "true" : "false"}
-                aria-controls={`faq-panel-${idx}`}
-                data-faq-trigger={idx}
-                class="w-full text-left py-5 sm:py-6 px-2 sm:px-4 flex items-center justify-between gap-6 cursor-pointer focus:outline-none group"
+      <!-- Right: Crisp Smooth Accordion Card -->
+      <div class="lg:col-span-8">
+        <div class="rounded-2xl bg-white border border-black/[0.08] divide-y divide-black/[0.08] overflow-hidden shadow-xs" id="faq-accordion">
+          {faqs.map((item, idx) => {
+            const isFirst = idx === 0;
+            return (
+              <div 
+                class={`faq-item transition-colors ${isFirst ? "is-open bg-[#F8FAFF]" : "hover:bg-slate-50/70"}`}
+                data-faq-item={idx}
               >
-                <div class="flex items-baseline gap-4 sm:gap-6 min-w-0">
-                  <span class="font-mono text-xs text-accent-primary font-bold tabular-nums shrink-0">
-                    0{idx + 1}/
-                  </span>
-                  <span class="font-grotesk font-bold text-base sm:text-lg md:text-xl text-[#0F172A] group-hover:text-accent-primary transition-colors tracking-tight">
-                    {item.q}
-                  </span>
-                </div>
-                <div class="w-7 h-7 rounded-full border border-black/10 flex items-center justify-center shrink-0 group-hover:border-accent-primary transition-colors">
-                  <span class="faq-icon font-mono text-sm font-semibold text-slate-600 group-hover:text-accent-primary transition-transform duration-300">
-                    {isFirst ? '−' : '+'}
-                  </span>
-                </div>
-              </button>
+                <button
+                  type="button"
+                  aria-expanded={isFirst ? "true" : "false"}
+                  aria-controls={`faq-panel-${idx}`}
+                  data-faq-trigger={idx}
+                  class="w-full text-left py-5 px-5 sm:px-6 flex items-center justify-between gap-4 cursor-pointer focus:outline-none group"
+                >
+                  <div class="flex items-baseline gap-3.5 min-w-0">
+                    <span class="font-mono text-xs text-[#5E6AD2] font-semibold tabular-nums shrink-0">
+                      0{idx + 1}
+                    </span>
+                    <span class="font-grotesk font-bold text-base sm:text-lg text-[#0F172A] group-hover:text-[#5E6AD2] transition-colors tracking-tight">
+                      {item.q}
+                    </span>
+                  </div>
+                  <div class="w-7 h-7 rounded-full border border-black/10 bg-white flex items-center justify-center shrink-0 group-hover:border-[#5E6AD2] transition-colors">
+                    <span class="faq-icon font-mono text-sm font-semibold text-slate-600 group-hover:text-[#5E6AD2]">
+                      {isFirst ? "−" : "+"}
+                    </span>
+                  </div>
+                </button>
 
-              <div
-                id={`faq-panel-${idx}`}
-                role="region"
-                aria-labelledby={`faq-trigger-${idx}`}
-                class={`faq-content px-2 sm:px-4 pb-6 transition-all duration-300 ${isFirst ? 'block' : 'hidden'}`}
-              >
-                <div class="pl-8 sm:pl-11 pr-4">
-                  <p class="text-xs sm:text-sm md:text-base text-slate-600 leading-relaxed font-sans max-w-3xl">
-                    {item.a}
-                  </p>
+                <div
+                  id={`faq-panel-${idx}`}
+                  role="region"
+                  aria-labelledby={`faq-trigger-${idx}`}
+                  class="faq-body grid transition-[grid-template-rows] duration-250 ease-out"
+                  data-open={isFirst ? "true" : "false"}
+                >
+                  <div class="overflow-hidden">
+                    <div class="px-5 sm:px-6 pb-5 pl-12 sm:pl-[52px]">
+                      <p class="text-sm text-slate-600 leading-[1.7] font-sans">
+                        {item.a}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-    </div>
-
-    <!-- 5. MY GUARANTEE -->
-    <div class="mt-16 sm:mt-24 pt-10 sm:pt-14 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-      <div class="md:col-span-4">
-        <h4 class="font-grotesk text-xl font-bold text-[#0F172A] tracking-tight">My Guarantee</h4>
-        <span class="text-xs font-mono text-slate-600 mt-1 block">Engineering Integrity</span>
-      </div>
-      <div class="md:col-span-8 space-y-3 text-sm text-slate-600 font-sans leading-relaxed">
-        <p>
-          I take complete single-engineer ownership of every architecture I build: direct communication, weekly shippable progress, zero handoff bottlenecks, and strict type-safe code that your team can run and scale with confidence.
-        </p>
+            );
+          })}
+        </div>
       </div>
     </div>
 
   </div>
 </section>
+
+<style>
+  .faq-body {
+    grid-template-rows: 0fr;
+  }
+  .faq-body[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+</style>
 
 <script>
   function setupFaq() {
@@ -198,29 +222,30 @@ const faqs = [
     const items = container.querySelectorAll('.faq-item');
     items.forEach((item) => {
       const trigger = item.querySelector('[data-faq-trigger]');
-      const content = item.querySelector('.faq-content');
+      const body = item.querySelector('.faq-body');
       const icon = item.querySelector('.faq-icon');
-      if (!trigger || !content || !icon) return;
+      if (!trigger || !body || !icon || trigger.hasAttribute('data-bound')) return;
+      trigger.setAttribute('data-bound', 'true');
 
       trigger.addEventListener('click', () => {
         const isOpen = item.classList.contains('is-open');
 
-        // Close all items
         items.forEach((other) => {
-          other.classList.remove('is-open', 'bg-slate-50/60');
+          other.classList.remove('is-open', 'bg-[#F8FAFF]');
+          other.classList.add('hover:bg-slate-50/70');
           const otherTrigger = other.querySelector('[data-faq-trigger]');
-          const otherContent = other.querySelector('.faq-content');
+          const otherBody = other.querySelector('.faq-body');
           const otherIcon = other.querySelector('.faq-icon');
           if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
-          if (otherContent) otherContent.classList.add('hidden');
+          if (otherBody) otherBody.setAttribute('data-open', 'false');
           if (otherIcon) otherIcon.textContent = '+';
         });
 
-        // Toggle clicked item
         if (!isOpen) {
-          item.classList.add('is-open', 'bg-slate-50/60');
+          item.classList.add('is-open', 'bg-[#F8FAFF]');
+          item.classList.remove('hover:bg-slate-50/70');
           trigger.setAttribute('aria-expanded', 'true');
-          content.classList.remove('hidden');
+          body.setAttribute('data-open', 'true');
           icon.textContent = '−';
         }
       });
@@ -229,4 +254,5 @@ const faqs = [
 
   setupFaq();
   document.addEventListener('astro:page-load', setupFaq);
+  document.addEventListener('astro:after-swap', setupFaq);
 </script>

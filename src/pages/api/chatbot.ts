@@ -69,91 +69,178 @@ Here are the official facts about Tanuj:
 
 Keep your answers concise, accurate, and directly aligned with Tanuj's background. If asked about his work, highlight his ability to take full ownership from zero to production. If asked about buying templates or ready-made themes, point them to /templates.`;
 
+const LOCAL_FALLBACK_INTENTS = [
+  {
+    keywords: ["skill", "stack", "tech", "language", "react", "next", "node", "ai", "llm"],
+    response:
+      "Tanuj's core production stack is TypeScript, React.js, Next.js, Node.js, Express, PostgreSQL/Prisma, MongoDB, Socket.IO, Tailwind CSS, and React Native — plus multi-LLM AI orchestration (OpenAI, Gemini, Claude, Perplexity) and RAG pipelines.",
+  },
+  {
+    keywords: ["experience", "work", "history", "company", "career", "years", "resume", "cv"],
+    response:
+      "Tanuj has 4+ years of full-stack engineering experience: Full Stack Developer at Cxisuite (Sawt AI, real-time CRM, React Native), Frontend Lead at Nasya IT (multi-role healthcare SaaS), React Developer at Techmatys (Moodle LMS), and Frontend Developer at Scube.co (Breeze SaaS, 50% faster Core Web Vitals).",
+  },
+  {
+    keywords: ["project", "built", "portfolio", "case study", "sawt", "breeze"],
+    response:
+      "Key shipped builds include Sawt AI (bilingual Arabic/English multi-LLM survey SaaS with MyFatoorah billing), a multi-role Healthcare SaaS platform, real-time Socket.IO CRM workflows, and Breeze SaaS. You can explore all full case studies at /projects.",
+  },
+  {
+    keywords: ["template", "gumroad", "buy", "theme", "apex", "lumina"],
+    response:
+      "Tanuj builds commercial Next.js & React templates including Apex Luxury (Real Estate) and Lumina Dental (Healthcare), with 99+ Lighthouse performance and full commercial licenses. Browse them at /templates.",
+  },
+  {
+    keywords: ["contact", "email", "hire", "touch", "phone", "whatsapp", "linkedin", "agency"],
+    response:
+      "You can reach Tanuj directly at tanujp09@gmail.com, WhatsApp +91 9557321978, or via the Contact section below. He is available for full-stack/AI engineering roles and agency builds through NovaStack Studio (/agency).",
+  },
+  {
+    keywords: ["hi", "hello", "hey", "greetings"],
+    response:
+      "Hi! I'm Tanuj's portfolio assistant. Ask me about his tech stack, 4+ years of work experience, shipped SaaS & AI projects, commercial templates, or how to get in touch.",
+  },
+];
+
+const resolveFallbackReply = async (message: string): Promise<string> => {
+  const cleanMessage = message.trim().toLowerCase();
+
+  try {
+    const query = `*[_type == "chatbot"]{ userQuestions, intent, botResponse }`;
+    const data = await useSanityClient().fetch(query);
+    if (Array.isArray(data)) {
+      const matched = data.find(
+        (item: any) =>
+          item.userQuestions?.some((q: string) => cleanMessage.includes(q.toLowerCase())) ||
+          (item.intent && cleanMessage.includes(item.intent.toLowerCase()))
+      );
+      if (matched?.botResponse) return matched.botResponse;
+    }
+  } catch {}
+
+  const localMatch = LOCAL_FALLBACK_INTENTS.find((entry) =>
+    entry.keywords.some((kw) => cleanMessage.includes(kw))
+  );
+  if (localMatch) return localMatch.response;
+
+  return "Tanuj Pandey is a Full-Stack & AI Engineer (4+ years experience) specializing in React, Next.js, Node.js, TypeScript, PostgreSQL, and multi-LLM AI systems. Ask about his skills, experience, projects (/projects), templates (/templates), or reach out at tanujp09@gmail.com.";
+};
+
 // POST request handles dynamic AI dialog completions
 export const POST = async ({ request }: { request: Request }) => {
   try {
-    const { message, history = [] } = await request.json();
+    const body = await request.json();
+    const message = String(body?.message || "").trim();
+    const history = Array.isArray(body?.history) ? body.history : [];
+
+    if (!message) {
+      return new Response(JSON.stringify({ response: "Please enter a question about Tanuj's work, stack, or projects." }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
     const apiKey = import.meta.env.GEMINI_API_KEY || process.env.GEMINI_API_KEY;
 
-    // Fallback: local intent-matching using Sanity chatbot dataset
     if (!apiKey) {
-      const query = `*[_type == "chatbot"]{
-        userQuestions,
-        intent,
-        botResponse
-      }`;
-      const client = useSanityClient();
-      const data = await client.fetch(query);
-      
-      const cleanMessage = message.trim().toLowerCase();
-      
-      // Find matching questions or keywords
-      const matched = data.find((item: any) =>
-        item.userQuestions?.some((q: string) => cleanMessage.includes(q.toLowerCase())) ||
-        item.intent?.toLowerCase() === cleanMessage ||
-        cleanMessage.includes(item.intent?.toLowerCase())
-      );
-
-      const reply = matched ? matched.botResponse : "I couldn't quite find that details in my registry. Could you please ask about Tanuj's skills, experience, or projects? 🛠️";
-      
+      const reply = await resolveFallbackReply(message);
       return new Response(JSON.stringify({ response: reply, isFallback: true }), {
         status: 200,
-        headers: { "Content-Type": "application/json" }
+        headers: { "Content-Type": "application/json" },
       });
     }
 
-    // Call Gemini API using standard fetch
-    const contents = [
-      {
-        role: "user",
-        parts: [{ text: systemPrompt }]
-      },
-      {
-        role: "model",
-        parts: [{ text: "Understood. I am ready to assist as Tanuj's Portfolio Assistant." }]
+    // Build strictly alternating Gemini contents from clean chat history
+    const contents: Array<{ role: "user" | "model"; parts: Array<{ text: string }> }> = [];
+    for (const msg of history.slice(-8)) {
+      const text = typeof msg?.content === "string" ? msg.content.trim() : "";
+      if (!text || text.includes("having trouble processing")) continue;
+      const role: "user" | "model" = msg.role === "user" ? "user" : "model";
+      if (contents.length === 0 && role === "model") continue;
+      if (contents.length > 0 && contents[contents.length - 1].role === role) {
+        contents[contents.length - 1].parts[0].text += `\n${text}`;
+      } else {
+        contents.push({ role, parts: [{ text }] });
       }
-    ];
+    }
 
-    // Map history to model role format
-    history.forEach((msg: any) => {
-      contents.push({
-        role: msg.role === "user" ? "user" : "model",
-        parts: [{ text: msg.content }]
-      });
-    });
+    if (contents.length > 0 && contents[contents.length - 1].role === "user") {
+      contents[contents.length - 1].parts[0].text += `\n${message}`;
+    } else {
+      contents.push({ role: "user", parts: [{ text: message }] });
+    }
 
-    contents.push({
-      role: "user",
-      parts: [{ text: message }]
-    });
+    const defaultModels = ["gemini-3.8-flash", "gemini-3.0-flash", "gemini-2.5-flash"];
+    let discovered: string[] = [];
+    try {
+      const listRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
+      );
+      if (listRes.ok) {
+        const listData = await listRes.json();
+        const supported = (listData?.models || [])
+          .filter(
+            (m: any) =>
+              typeof m?.name === "string" &&
+              Array.isArray(m?.supportedGenerationMethods) &&
+              m.supportedGenerationMethods.includes("generateContent")
+          )
+          .map((m: any) => String(m.name).replace(/^models\//, ""));
+        const flashModels = supported.filter((name: string) => /gemini.*flash/i.test(name));
+        const otherGemini = supported.filter(
+          (name: string) => /^gemini/i.test(name) && !flashModels.includes(name)
+        );
+        discovered = [...flashModels.reverse(), ...otherGemini.reverse()].slice(0, 6);
+      }
+    } catch {}
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
+    const models = Array.from(new Set([...defaultModels, ...discovered]));
+    let botReply = "";
+    let lastError = "";
+
+    for (const model of models) {
+      const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ contents })
-      }
-    );
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: systemPrompt }] },
+          contents,
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.statusText}`);
+      if (response.ok) {
+        const resData = await response.json();
+        const text = resData?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text && text.trim()) {
+          botReply = text.trim();
+          break;
+        }
+      } else {
+        lastError = `${model} (${response.status})`;
+      }
     }
 
-    const resData = await response.json();
-    const botReply = resData.candidates?.[0]?.content?.parts?.[0]?.text || "I'm having trouble analyzing this request. Could you rephrase your question?";
+    if (botReply) {
+      return new Response(JSON.stringify({ response: botReply, isFallback: false }), {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
 
-    return new Response(JSON.stringify({ response: botReply, isFallback: false }), {
+    console.warn("Chatbot Gemini fallback triggered:", lastError);
+    const fallbackReply = await resolveFallbackReply(message);
+    return new Response(JSON.stringify({ response: fallbackReply, isFallback: true }), {
       status: 200,
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
-
   } catch (error: any) {
     console.error("Chatbot POST Error:", error);
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-      headers: { "Content-Type": "application/json" }
+    const fallbackReply = await resolveFallbackReply("help");
+    return new Response(JSON.stringify({ response: fallbackReply, isFallback: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" },
     });
   }
 };

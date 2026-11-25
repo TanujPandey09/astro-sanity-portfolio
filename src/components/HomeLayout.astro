@@ -118,10 +118,12 @@ const templatesData = await fetchAllTemplates();
         )}
       </div>
     </section>
+  </div>
 
-    <!-- Impact & Domain Ticker -->
-    <Ticker />
+  <!-- Full-Bleed Impact & Domain Ticker -->
+  <Ticker />
 
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
     <!-- High-Value Bento Services -->
     <Services />
 
@@ -174,7 +176,7 @@ const templatesData = await fetchAllTemplates();
           subtitle="Deep dives on full-stack architecture, multi-LLM orchestration, and Core Web Vitals optimization."
         />
         
-        <div>
+        <div class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-xs">
           {blogData?.slice(0, 4).map((blog, index) => (
             <BlogItem blog={blog} index={index} />
           ))}
@@ -194,7 +196,7 @@ const templatesData = await fetchAllTemplates();
   </div>
 </div>
 
-<AiChatbot client:idle />
+<AiChatbot client:load />
 
 <script>
   const setupRepoExpand = () => {

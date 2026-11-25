@@ -62,10 +62,17 @@ const toPortableTextBlocks = (items: PortableBlockInput[] = []) => {
     });
 };
 
+const toSlug = (input: string): string =>
+  input
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 90);
+
 const buildPrompt = (docType: string, title: string, notes: string, existingTags: string[]) => {
   const contextBlock = [
     `Document Type: ${docType}`,
-    `Title: ${title || "Untitled"}`,
+    `Title: ${title || "Not set yet — infer a strong, accurate title from the notes"}`,
     existingTags.length ? `Existing Tags: ${existingTags.join(", ")}` : "",
     notes ? `Author Notes / Brief:\n${notes}` : "Author Notes: None provided — infer clean, realistic, non-exaggerated technical structure based on the title.",
   ]
@@ -76,11 +83,18 @@ const buildPrompt = (docType: string, title: string, notes: string, existingTags
     return `You are a senior staff full-stack engineer writing a sharp, credible engineering case study for Tanuj Pandey's portfolio and NovaStack Studio.
 Rules:
 - Be concise, architectural, and concrete. Zero hype, zero generic buzzwords, zero emojis.
-- Never fabricate fake revenue numbers or fake client testimonials if not mentioned in the notes.
+- Never fabricate fake revenue numbers, fake URLs, or fake client testimonials if not mentioned in the notes.
 - Return ONLY valid JSON matching this exact schema:
 {
-  "category": "Short 2-4 word domain label (e.g. B2B SaaS · Multi-LLM AI)",
-  "role": "Engineering role (e.g. Lead Full-Stack & AI Engineer)",
+  "projectName": "Clean project name (e.g. Tablely — Multi-Tenant QR Menu SaaS)",
+  "adminstrativetitle": "Short admin title for CMS list (e.g. Tablely — QR Menu & Ordering SaaS)",
+  "slug": "url-friendly-kebab-case-slug",
+  "category": "Short 2-4 word domain label (e.g. B2B SaaS · Multi-Tenant Hospitality)",
+  "role": "Engineering role (e.g. Lead Full-Stack Architect)",
+  "agencyHeroTag": "Short 2-3 word badge label (e.g. Hospitality SaaS)",
+  "agencyHeroBadgeTheme": "one of: sage, cobalt, ice, amber, peach, lavender",
+  "demoLink": "Live URL ONLY if explicitly present in notes, otherwise empty string",
+  "gitHubLink": "GitHub URL ONLY if explicitly present in notes, otherwise empty string",
   "tags": ["5 to 7 concise tech stack strings"],
   "headlineMetrics": ["4 concise engineering/product outcome statements (max 8 words each)"],
   "excerptText": "A crisp 1-2 sentence executive summary (max 38 words)",
@@ -106,6 +120,10 @@ Rules:
 - Write with clarity, concrete architectural patterns, and zero fluff or emojis.
 - Return ONLY valid JSON matching this exact schema:
 {
+  "projectName": "Compelling technical blog title",
+  "adminstrativetitle": "Short admin title for CMS list",
+  "slug": "url-friendly-kebab-case-slug",
+  "Category": "one of: technology, headlesscms, frameworks, integrations",
   "tags": ["4 to 6 concise technical tags"],
   "excerptText": "A crisp 1-2 sentence article summary for SEO and cards (max 35 words)",
   "contentBlocks": [
@@ -129,6 +147,11 @@ Rules:
 - Clear, conversion-ready, technical, zero hype or emojis.
 - Return ONLY valid JSON matching this exact schema:
 {
+  "templateName": "Clean commercial template name",
+  "adminstrativetitle": "Short admin title for CMS list",
+  "slug": "url-friendly-kebab-case-slug",
+  "category": "one of: real-estate, healthcare, saas, ai-automation, portfolio, ecommerce, dashboard, fintech, other",
+  "badge": "Short status badge (e.g. Featured or New)",
   "tagline": "1-line crisp value proposition (max 18 words)",
   "tags": ["4 to 6 stack tags"],
   "highlights": ["6 concise feature & performance highlights"],
@@ -147,28 +170,61 @@ Rules:
 ${contextBlock}`;
 };
 
+const discoverActiveGeminiModels = async (apiKey: string): Promise<string[]> => {
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models?key=${encodeURIComponent(apiKey)}`
+    );
+    if (!res.ok) return [];
+    const data = await res.json();
+    const list = Array.isArray(data?.models) ? data.models : [];
+    const supported = list
+      .filter(
+        (m: any) =>
+          typeof m?.name === "string" &&
+          Array.isArray(m?.supportedGenerationMethods) &&
+          m.supportedGenerationMethods.includes("generateContent")
+      )
+      .map((m: any) => String(m.name).replace(/^models\//, ""));
+
+    const flashModels = supported.filter((name: string) => /gemini.*flash/i.test(name));
+    const otherGemini = supported.filter(
+      (name: string) => /^gemini/i.test(name) && !flashModels.includes(name)
+    );
+    return [...flashModels.reverse(), ...otherGemini.reverse()].slice(0, 6);
+  } catch {
+    return [];
+  }
+};
+
 const callGeminiJson = async (apiKey: string, prompt: string) => {
-  const models = ["gemini-2.0-flash", "gemini-1.5-flash"];
+  const defaultModels = ["gemini-3.8-flash", "gemini-3.0-flash", "gemini-2.5-flash"];
+  const discovered = await discoverActiveGeminiModels(apiKey);
+  const models = Array.from(new Set([...defaultModels, ...discovered]));
   let lastError = "Unknown Gemini API error";
 
   for (const model of models) {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          contents: [{ role: "user", parts: [{ text: prompt }] }],
-          generationConfig: {
-            temperature: 0.4,
-            responseMimeType: "application/json",
-          },
-        }),
-      }
-    );
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+    const res = await fetch(endpoint, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.4,
+          responseMimeType: "application/json",
+        },
+      }),
+    });
 
     if (!res.ok) {
-      lastError = `${model}: ${res.status} ${res.statusText}`;
+      let detail = res.statusText;
+      try {
+        const errJson = await res.json();
+        detail = errJson?.error?.message || detail;
+      } catch {}
+      lastError = `${model} (${res.status}): ${detail}`;
       continue;
     }
 
@@ -248,10 +304,40 @@ export const POST: APIRoute = async ({ request }) => {
     const contentBlocks = toPortableTextBlocks(aiResult?.contentBlocks || []);
 
     const patch: Record<string, any> = {};
+    const validThemes = new Set(["sage", "cobalt", "ice", "amber", "peach", "lavender"]);
+    const validBlogCategories = new Set(["technology", "headlesscms", "frameworks", "integrations"]);
+    const validTemplateCategories = new Set([
+      "real-estate",
+      "healthcare",
+      "saas",
+      "ai-automation",
+      "portfolio",
+      "ecommerce",
+      "dashboard",
+      "fintech",
+      "other",
+    ]);
 
     if (docType === "projects") {
+      const resolvedName = String(aiResult?.projectName || title || "").trim();
+      if (resolvedName) patch.projectName = resolvedName;
+      if (aiResult?.adminstrativetitle || resolvedName) {
+        patch.adminstrativetitle = String(aiResult?.adminstrativetitle || resolvedName).trim();
+      }
+      const resolvedSlug = toSlug(String(aiResult?.slug || resolvedName || ""));
+      if (resolvedSlug) patch.slug = { _type: "slug", current: resolvedSlug };
       if (aiResult?.category) patch.category = String(aiResult.category);
       if (aiResult?.role) patch.role = String(aiResult.role);
+      if (aiResult?.agencyHeroTag) patch.agencyHeroTag = String(aiResult.agencyHeroTag);
+      if (validThemes.has(String(aiResult?.agencyHeroBadgeTheme || ""))) {
+        patch.agencyHeroBadgeTheme = String(aiResult.agencyHeroBadgeTheme);
+      }
+      if (typeof aiResult?.demoLink === "string" && /^https?:\/\//i.test(aiResult.demoLink.trim())) {
+        patch.demoLink = aiResult.demoLink.trim();
+      }
+      if (typeof aiResult?.gitHubLink === "string" && /^https?:\/\//i.test(aiResult.gitHubLink.trim())) {
+        patch.gitHubLink = aiResult.gitHubLink.trim();
+      }
       if (Array.isArray(aiResult?.tags) && aiResult.tags.length) patch.tags = aiResult.tags.slice(0, 7);
       if (Array.isArray(aiResult?.headlineMetrics) && aiResult.headlineMetrics.length) {
         patch.headlineMetrics = aiResult.headlineMetrics.slice(0, 4);
@@ -259,10 +345,31 @@ export const POST: APIRoute = async ({ request }) => {
       if (excerptBlocks.length) patch.excerpt = excerptBlocks;
       if (contentBlocks.length) patch.projectcontent = contentBlocks;
     } else if (docType === "blogs") {
+      const resolvedName = String(aiResult?.projectName || title || "").trim();
+      if (resolvedName) patch.projectName = resolvedName;
+      if (aiResult?.adminstrativetitle || resolvedName) {
+        patch.adminstrativetitle = String(aiResult?.adminstrativetitle || resolvedName).trim();
+      }
+      const resolvedSlug = toSlug(String(aiResult?.slug || resolvedName || ""));
+      if (resolvedSlug) patch.slug = { _type: "slug", current: resolvedSlug };
+      if (validBlogCategories.has(String(aiResult?.Category || ""))) {
+        patch.Category = String(aiResult.Category);
+      }
       if (Array.isArray(aiResult?.tags) && aiResult.tags.length) patch.tags = aiResult.tags.slice(0, 6);
       if (excerptBlocks.length) patch.excerpt = excerptBlocks;
       if (contentBlocks.length) patch.blogcontent = contentBlocks;
     } else if (docType === "templates") {
+      const resolvedName = String(aiResult?.templateName || title || "").trim();
+      if (resolvedName) patch.templateName = resolvedName;
+      if (aiResult?.adminstrativetitle || resolvedName) {
+        patch.adminstrativetitle = String(aiResult?.adminstrativetitle || resolvedName).trim();
+      }
+      const resolvedSlug = toSlug(String(aiResult?.slug || resolvedName || ""));
+      if (resolvedSlug) patch.slug = { _type: "slug", current: resolvedSlug };
+      if (validTemplateCategories.has(String(aiResult?.category || ""))) {
+        patch.category = String(aiResult.category);
+      }
+      if (aiResult?.badge) patch.badge = String(aiResult.badge);
       if (aiResult?.tagline) patch.tagline = String(aiResult.tagline);
       if (Array.isArray(aiResult?.tags) && aiResult.tags.length) patch.tags = aiResult.tags.slice(0, 6);
       if (Array.isArray(aiResult?.highlights) && aiResult.highlights.length) {

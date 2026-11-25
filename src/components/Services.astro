@@ -5,6 +5,8 @@ const services = [
   {
     span: "lg:col-span-7",
     featured: true,
+    dark: true,
+    icon: "layers",
     domain: "Core Architecture",
     title: "Full-Stack SaaS & Web Engineering",
     description: "End-to-end product development from database schema to sub-second React and Next.js interfaces. Built to handle real production traffic, complex role permissions, and clean team handoffs.",
@@ -14,6 +16,8 @@ const services = [
   {
     span: "lg:col-span-5",
     featured: true,
+    dark: false,
+    icon: "sparkles",
     domain: "Applied AI Systems",
     title: "Multi-LLM & Agentic Workflows",
     description: "Production LLM orchestration across OpenAI, Gemini, Claude, and Perplexity with structured output validation, RAG retrieval pipelines, and streaming conversational UIs.",
@@ -23,6 +27,8 @@ const services = [
   {
     span: "lg:col-span-3",
     featured: false,
+    dark: false,
+    icon: "pulse",
     domain: "Low-Latency",
     title: "Real-Time CRM & Event Streams",
     description: "Bi-directional state synchronization, live ticket pipelines, and SLA tracking powered by Socket.IO, WebSockets, and Redis Pub/Sub.",
@@ -31,6 +37,8 @@ const services = [
   {
     span: "lg:col-span-3",
     featured: false,
+    dark: false,
+    icon: "layout",
     domain: "Interface Craft",
     title: "Design Systems & RTL UX",
     description: "Accessible component libraries, bilingual Arabic/English RTL-first layouts, and hardware-accelerated motion that scores 99+ on Lighthouse.",
@@ -39,6 +47,8 @@ const services = [
   {
     span: "lg:col-span-3",
     featured: false,
+    dark: false,
+    icon: "database",
     domain: "Data Layer",
     title: "Database & Query Optimization",
     description: "High-throughput relational and document schemas, indexing strategies, and headless CMS pipelines with Sanity, Contentful, and Strapi.",
@@ -47,6 +57,8 @@ const services = [
   {
     span: "lg:col-span-3",
     featured: false,
+    dark: false,
+    icon: "shield",
     domain: "Monetization & Security",
     title: "Billing, RBAC & Guardrails",
     description: "Subscription lifecycles (Stripe, MyFatoorah), tier-based API metering, webhook idempotency, rate limiting, and audit logging.",
@@ -55,7 +67,7 @@ const services = [
 ];
 ---
 
-<section id="services" class="py-14 sm:py-16 lg:py-20 relative z-20 border-t border-black/[0.08]">
+<section id="services" class="py-14 sm:py-16 lg:py-20 relative z-20">
   <div class="w-full">
     
     <SectionHeader 
@@ -65,50 +77,110 @@ const services = [
       subtitle="Focused on the layers that turn early product ideas into revenue-generating software: resilient backends, multi-LLM intelligence, real-time state, and fast interfaces."
     />
 
-    <!-- Asymmetric 12-Column Engineering Grid -->
+    <!-- Asymmetric 12-Column Engineering Bento Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
       {services.map((item, index) => (
         <div
           data-gsap-card
-          class={`bento-spotlight group relative overflow-hidden rounded-2xl bg-white border border-black/[0.08] hover:border-[#5E6AD2]/45 transition-colors duration-200 p-6 flex flex-col justify-between shadow-xs ${item.span}`}
+          class={`group relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between transition-colors duration-200 ${
+            item.dark
+              ? "bg-[#0A0B0E] text-white border border-white/10 shadow-[0_18px_48px_-14px_rgba(10,11,14,0.38)]"
+              : "bg-white text-[#0F172A] border border-black/[0.08] hover:border-[#5E6AD2]/45 shadow-xs"
+          } ${item.span}`}
         >
           {item.featured && (
-            <div class="absolute top-0 inset-x-0 h-[2px] bg-[#5E6AD2]" aria-hidden="true"></div>
+            <div
+              class={`absolute top-0 inset-x-0 h-[2px] ${item.dark ? "bg-[#828FFF]" : "bg-[#5E6AD2]"}`}
+              aria-hidden="true"
+            ></div>
           )}
 
           <div>
-            <!-- Top Row: Domain + Index -->
-            <div class="flex items-center justify-between gap-3 mb-4">
-              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#5E6AD2] font-semibold">
-                {item.domain}
-              </span>
-              <span class="text-xs font-mono tabular-nums text-slate-400 font-semibold">
+            <!-- Top Row: Icon + Domain + Index -->
+            <div class="flex items-center justify-between gap-3 mb-5">
+              <div class="flex items-center gap-3 min-w-0">
+                <div
+                  class={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${
+                    item.dark
+                      ? "bg-[#5E6AD2]/20 border-[#828FFF]/30 text-[#828FFF]"
+                      : "bg-[#5E6AD2]/[0.08] border-[#5E6AD2]/20 text-[#5E6AD2]"
+                  }`}
+                >
+                  {item.icon === "layers" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                      <polyline points="2 17 12 22 22 17"></polyline>
+                      <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                  )}
+                  {item.icon === "sparkles" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 3v4"></path><path d="M12 17v4"></path>
+                      <path d="M3 12h4"></path><path d="M17 12h4"></path>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  )}
+                  {item.icon === "pulse" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                    </svg>
+                  )}
+                  {item.icon === "layout" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                      <path d="M3 9h18"></path><path d="M9 21V9"></path>
+                    </svg>
+                  )}
+                  {item.icon === "database" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                      <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"></path>
+                      <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"></path>
+                    </svg>
+                  )}
+                  {item.icon === "shield" && (
+                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                  )}
+                </div>
+                <span class={`text-[11px] font-mono uppercase tracking-[0.12em] font-semibold truncate ${item.dark ? "text-[#828FFF]" : "text-[#5E6AD2]"}`}>
+                  {item.domain}
+                </span>
+              </div>
+              <span class={`text-xs font-mono tabular-nums font-semibold shrink-0 ${item.dark ? "text-slate-500" : "text-slate-400"}`}>
                 {String(index + 1).padStart(2, "0")}
               </span>
             </div>
 
             <!-- Title -->
-            <h3 class={`font-grotesk ${item.featured ? "text-xl md:text-2xl" : "text-lg"} font-bold text-[#0F172A] tracking-[-0.025em] mb-2.5`}>
+            <h3 class={`font-grotesk ${item.featured ? "text-xl md:text-2xl" : "text-lg"} font-bold tracking-[-0.025em] mb-2.5 ${item.dark ? "text-white" : "text-[#0F172A]"}`}>
               {item.title}
             </h3>
 
             <!-- Description -->
-            <p class="text-sm text-slate-600 font-normal leading-[1.65] mb-4 font-sans">
+            <p class={`text-sm font-normal leading-[1.65] mb-4 font-sans ${item.dark ? "text-slate-300" : "text-slate-600"}`}>
               {item.description}
             </p>
 
             {item.deliverables && (
-              <p class="text-xs font-mono text-slate-700 font-medium mb-4">
-                <span class="text-[#5E6AD2] mr-1.5">→</span>{item.deliverables}
+              <p class={`text-xs font-mono font-medium mb-4 ${item.dark ? "text-slate-200" : "text-slate-700"}`}>
+                <span class={`mr-1.5 ${item.dark ? "text-[#828FFF]" : "text-[#5E6AD2]"}`}>→</span>{item.deliverables}
               </p>
             )}
           </div>
 
           <!-- Tech Chips -->
-          <div class="pt-4 border-t border-black/[0.08]">
+          <div class={`pt-4 border-t ${item.dark ? "border-white/10" : "border-black/[0.08]"}`}>
             <div class="flex flex-wrap gap-1.5">
               {item.stack.map((tech) => (
-                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-slate-50 border border-black/[0.08] text-slate-700">
+                <span
+                  class={`text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${
+                    item.dark
+                      ? "bg-white/[0.06] border-white/10 text-slate-200"
+                      : "bg-slate-50 border-black/[0.08] text-slate-700"
+                  }`}
+                >
                   {tech}
                 </span>
               ))}

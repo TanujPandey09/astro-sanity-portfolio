@@ -1,5 +1,6 @@
 ---
-// Award-Winning Direct Contact Studio (Arshawn Arbabi Editorial Contrast + Zero-Friction Conversion)
+import SectionHeader from "./SectionHeader.astro";
+
 const projectScopes = [
   "Full-Stack SaaS MVP",
   "AI / Multi-LLM System",
@@ -8,31 +9,22 @@ const projectScopes = [
 ];
 ---
 
-<section id="contact" class="py-16 sm:py-24 md:py-32 relative z-10 bg-canvas border-t border-black/[0.08]">
+<section id="contact" class="py-14 sm:py-16 lg:py-20 relative z-10 bg-canvas border-t border-black/[0.08]">
   <div class="w-full max-w-7xl mx-auto">
     
-    <!-- Editorial Heading -->
-    <div class="mb-12 sm:mb-16 md:mb-20 flex flex-col lg:flex-row lg:items-end justify-between gap-6" data-gsap-heading>
-      <div>
-        <span class="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-accent-primary mb-3">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>DIRECT CONTACT // REPLIES IN &lt; 2 HOURS</span>
-        </span>
-        <h2 class="font-grotesk font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-[-0.04em] text-[#0F172A] leading-[0.94]">
-          Let’s Work<br />Together
-        </h2>
-      </div>
+    <!-- Unified Section Header -->
+    <SectionHeader
+      eyebrow="08 / Direct Contact · Replies < 2 Hours"
+      title="Let’s Work"
+      gradientText="Together."
+      subtitle="Have a product to launch, an AI system to engineer, or a senior role to fill? Reach me directly on WhatsApp, copy my email, or send a quick brief below."
+    />
 
-      <p class="max-w-md text-sm sm:text-base text-slate-600 font-sans leading-relaxed lg:pb-2">
-        Have a product to launch, an AI system to engineer, or a senior role to fill? Reach me directly on WhatsApp, copy my email, or send a quick brief below.
-      </p>
-    </div>
-
-    <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+    <div class="grid lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
       
       <!-- Left Column: High-Contrast Obsidian Direct Channels Card -->
       <div class="lg:col-span-5 min-w-0 flex">
-        <div data-gsap-card class="w-full rounded-[28px] bg-[#0A0B0E] text-white border border-white/10 p-6 sm:p-8 md:p-10 flex flex-col justify-between space-y-8 shadow-2xl relative overflow-hidden">
+        <div data-gsap-card class="w-full rounded-2xl bg-[#0A0B0E] text-white border border-white/10 p-6 sm:p-8 flex flex-col justify-between space-y-8 shadow-xl relative overflow-hidden">
           <div class="absolute -top-24 -right-24 w-64 h-64 rounded-full bg-[radial-gradient(circle,rgba(94,106,210,0.28)_0%,transparent_70%)] pointer-events-none"></div>
 
           <div class="space-y-6 relative z-10">
@@ -119,7 +111,7 @@ const projectScopes = [
 
       <!-- Right Column: Clean Editorial Inquiry Form -->
       <div class="lg:col-span-7 min-w-0 flex">
-        <div data-gsap-card class="w-full rounded-[28px] bg-white border border-black/[0.08] p-6 sm:p-8 md:p-10 shadow-[0_10px_40px_rgba(0,0,0,0.05)] flex flex-col justify-between">
+        <div data-gsap-card class="w-full rounded-2xl bg-white border border-black/[0.08] p-6 sm:p-8 shadow-xs flex flex-col justify-between">
           <div>
             <!-- Quick Scope Chips -->
             <div class="mb-7 pb-6 border-b border-black/[0.08]">

@@ -190,13 +190,13 @@ const experienceData = [
                       {exp.company}
                     </span>
                     {exp.isCurrent ? (
-                      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-500/30 text-emerald-800 font-medium">
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse"></span>
+                      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-500/30 text-emerald-800 font-medium">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
                         {exp.badge}
                       </span>
                     ) : (
-                      <span class="hidden md:inline-flex text-[10px] font-mono px-2 py-0.5 bg-slate-100 border border-black/[0.08] text-slate-700">
-                        [ {exp.badge} ]
+                      <span class="hidden md:inline-flex text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 border border-black/[0.08] text-slate-700">
+                        {exp.badge}
                       </span>
                     )}
                   </div>
@@ -281,11 +281,11 @@ const experienceData = [
                         </div>
 
                         <!-- Core Stack Pills -->
-                        <div class="space-y-1.5">
-                          <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-slate-500 block">[ PRODUCTION STACK ]</span>
+                        <div class="space-y-2">
+                          <span class="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-500 font-semibold block">Production Stack</span>
                           <div class="flex flex-wrap gap-1.5">
                             {exp.technologies.map((tech) => (
-                              <span class="px-2 py-0.5 bg-slate-100 border border-black/[0.08] text-[11px] font-mono text-slate-700 rounded">
+                              <span class="px-2.5 py-0.5 bg-slate-50 border border-black/[0.08] text-[11px] font-mono text-slate-700 rounded-full">
                                 {tech}
                               </span>
                             ))}
