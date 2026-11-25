@@ -1,6 +1,6 @@
 ---
-// NovaStack Founder Section: Prominent Light-Mode Founder-Led Engineering Spotlight
-// Uses real Sanity portrait, verified roles, existing "How I work" workflow, and authentic links
+// NovaStack Founder Section: Editorial Split Letter (Boutique Independent Studio Pattern)
+// Open 2-column layout (no heavy outer box): compact portrait + signature + links on left; concise founder note, 1-line verified track record, and single CTA on right
 import SelfWritingSignature from "./SelfWritingSignature.astro";
 
 interface Props {
@@ -9,182 +9,138 @@ interface Props {
 
 const { portraitUrl = "" } = Astro.props;
 
-const howIWork = [
-  "Direct communication in Slack, WhatsApp, or email with the engineer writing your commits—zero account managers.",
-  "Written technical scope, schema plan, and fixed milestone schedule locked before Sprint 01 begins.",
-  "Weekly private staging deployments paired with concise Loom walkthroughs for transparent review.",
-  "All repositories, cloud infrastructure, and CMS workspaces live in your accounts from day one.",
-];
-
-const verifiedExperience = [
-  {
-    company: "Cxisuite",
-    role: "Full-Stack Developer",
-    focus: "Sawt AI bilingual survey SaaS & real-time CRM architecture.",
-  },
-  {
-    company: "Nasya IT",
-    role: "Frontend Developer",
-    focus: "Multi-role healthcare SaaS spanning 4 dedicated clinical portals.",
-  },
-  {
-    company: "Scube.co",
-    role: "Frontend Developer",
-    focus: "Breeze SaaS engineered in Next.js, TypeScript, and Sanity CMS.",
-  },
+const verifiedRoles = [
+  { company: "Cxisuite", detail: "Sawt AI & Real-Time CRM" },
+  { company: "Nasya IT", detail: "Multi-Role Healthcare SaaS" },
+  { company: "Scube.co", detail: "Next.js & Sanity SaaS" },
 ];
 ---
 
 <section id="about" class="ns-section bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)]">
   <div class="ns-container">
-    <!-- Section Header -->
-    <div class="max-w-3xl mb-12 lg:mb-16">
-      <div class="flex items-center gap-2.5 mb-3">
-        <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
-        <span class="ns-mono-label text-[var(--blue-600)] font-medium">
-          04 / Founder-Led Engineering
-        </span>
-      </div>
-      <h2 class="ns-h2 text-[var(--ink)]">
-        Work Directly with the <span class="text-[var(--blue-600)]">Engineer</span> Shipping Your Code.
-      </h2>
-      <p class="ns-body mt-4 max-w-2xl">
-        No sales handoffs or junior subcontractors. Every architecture decision, pull request, and production release is built personally by founder Tanuj Pandey.
-      </p>
-    </div>
-
-    <div class="ns-reveal rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-6 sm:p-10 lg:p-12">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-start">
-          <!-- Left Column: Large Real Portrait, Identity, Signature & Real Profiles (4 cols) -->
-          <div class="lg:col-span-4 space-y-6">
-            <div class="w-full max-w-[280px] aspect-[4/4.3] rounded-[16px] overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
-              {portraitUrl ? (
-                <img
-                  src={portraitUrl}
-                  alt="Tanuj Pandey — Founder & Full-Stack Engineer"
-                  loading="lazy"
-                  decoding="async"
-                  class="w-full h-full object-cover object-top"
-                />
-              ) : (
-                <div class="w-full h-full flex flex-col items-center justify-center bg-[var(--ink)] text-white">
-                  <span class="font-semibold text-4xl">TP</span>
-                  <span class="text-xs font-mono text-[var(--dark-muted)] mt-2">
-                    Tanuj Pandey
-                  </span>
-                </div>
-              )}
-            </div>
-
-            <div class="space-y-1.5">
-              <h3 class="text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
-                Tanuj Pandey
-              </h3>
-              <p class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--blue-600)] font-medium">
-                Founder &amp; Full-Stack Engineer
-              </p>
-              <p class="text-sm text-[var(--muted)]">
-                4+ Years Production Experience · Remote Worldwide
-              </p>
-            </div>
-
-            <!-- Signature -->
-            <div class="pt-2">
-              <SelfWritingSignature strokeColor="#0B111A" />
-            </div>
-
-            <!-- Verified Profiles -->
-            <div class="flex flex-wrap items-center gap-4 pt-2 border-t border-[var(--border)] text-sm font-mono">
-              <a
-                href="/"
-                class="text-[var(--blue-600)] hover:text-[var(--blue-700)] font-medium transition-colors"
-              >
-                Portfolio ↗
-              </a>
-              <a
-                href="https://github.com/TanujPandey09"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors"
-              >
-                GitHub ↗
-              </a>
-              <a
-                href="https://www.linkedin.com/in/tanujdev/"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors"
-              >
-                LinkedIn ↗
-              </a>
-            </div>
+    <div class="ns-reveal grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      <!-- Left Column (4 cols): Compact Portrait, Identity, Signature & Verified Profiles -->
+      <div class="lg:col-span-4 space-y-5">
+        <div class="flex flex-row lg:flex-col items-center lg:items-start gap-4 sm:gap-5">
+          <div class="w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 rounded-[16px] overflow-hidden border border-[var(--border)] bg-[var(--bg)] shrink-0">
+            {portraitUrl ? (
+              <img
+                src={portraitUrl}
+                alt="Tanuj Pandey — Founder & Full-Stack Engineer"
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover object-top"
+              />
+            ) : (
+              <div class="w-full h-full flex items-center justify-center bg-[var(--ink)] text-white font-semibold text-2xl">
+                TP
+              </div>
+            )}
           </div>
 
-          <!-- Right Column: First-Person Statement, How I Work & Verified Background (8 cols) -->
-          <div class="lg:col-span-8 space-y-8">
-            <blockquote class="pl-6 border-l-2 border-[var(--blue-600)]">
-              <p class="text-xl sm:text-2xl font-medium tracking-[-0.015em] text-[var(--ink)] leading-[1.45]">
-                “I partner directly with startup founders and digital agencies to turn product specifications into fast, maintainable web applications, SaaS platforms, and practical AI systems.”
-              </p>
-            </blockquote>
-
-            <!-- How I Work -->
-            <div class="space-y-3">
-              <span class="ns-mono-label text-[var(--muted)] font-medium block">
-                How I Work
-              </span>
-              <ul class="space-y-3">
-                {howIWork.map((point) => (
-                  <li class="flex items-start gap-3 text-base leading-[1.65] text-[var(--muted)]">
-                    <span
-                      class="w-5 h-5 rounded-full bg-[var(--blue-50)] text-[var(--blue-600)] flex items-center justify-center shrink-0 text-xs font-semibold mt-1"
-                      aria-hidden="true"
-                    >
-                      ✓
-                    </span>
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <!-- Verified Engineering Track Record -->
-            <div class="space-y-3 pt-2 border-t border-[var(--border)]">
-              <span class="ns-mono-label text-[var(--muted)] font-medium block pt-4">
-                Verified Engineering Background
-              </span>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {verifiedExperience.map((exp) => (
-                  <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-4 space-y-1.5">
-                    <span class="font-semibold text-base text-[var(--ink)] block">
-                      {exp.company}
-                    </span>
-                    <span class="text-xs font-mono text-[var(--blue-600)] font-medium block">
-                      {exp.role}
-                    </span>
-                    <p class="text-sm text-[var(--muted)] leading-relaxed pt-1">
-                      {exp.focus}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div class="pt-2 flex flex-wrap items-center gap-6">
-              <a href="#contact" class="ns-btn-primary px-6 py-3.5 text-base">
-                <span>Work Directly with Tanuj</span>
-                <span class="ns-arrow" aria-hidden="true">→</span>
-              </a>
-              <a
-                href="/about"
-                class="ns-link-arrow inline-flex items-center gap-1.5 text-sm font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors"
-              >
-                <span>Read full background</span>
-                <span class="ns-arrow" aria-hidden="true">↗</span>
-              </a>
-            </div>
+          <div class="space-y-1 min-w-0">
+            <h3 class="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
+              Tanuj Pandey
+            </h3>
+            <p class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--blue-600)] font-medium">
+              Founder &amp; Full-Stack Engineer
+            </p>
+            <p class="text-xs sm:text-sm text-[var(--muted)]">
+              4+ yrs production · Remote Worldwide
+            </p>
           </div>
         </div>
+
+        <!-- Executive Handwritten Signature -->
+        <div class="pt-1">
+          <SelfWritingSignature strokeColor="#0B111A" />
+        </div>
+
+        <!-- Verified Links -->
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-3 border-t border-[var(--border)] text-sm font-mono">
+          <a
+            href="/"
+            class="text-[var(--blue-600)] hover:text-[var(--blue-700)] font-medium transition-colors"
+          >
+            Portfolio ↗
+          </a>
+          <a
+            href="https://github.com/TanujPandey09"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+          >
+            GitHub ↗
+          </a>
+          <a
+            href="https://www.linkedin.com/in/tanujdev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+          >
+            LinkedIn ↗
+          </a>
+        </div>
       </div>
+
+      <!-- Right Column (8 cols): Integrated Heading, Concise First-Person Letter, 1-Line Track Record & CTA -->
+      <div class="lg:col-span-8 space-y-6">
+        <div class="space-y-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
+            <span class="ns-mono-label text-[var(--blue-600)] font-medium">
+              04 / Founder-Led Studio
+            </span>
+          </div>
+
+          <h2 class="ns-h2 text-[var(--ink)]">
+            Work Directly with the <span class="text-[var(--blue-600)]">Engineer</span> Shipping Your Code.
+          </h2>
+        </div>
+
+        <!-- Concise, High-Trust First-Person Founder Note -->
+        <div class="space-y-3.5 max-w-2xl">
+          <p class="text-lg sm:text-[19px] leading-[1.6] text-[var(--ink)] font-normal">
+            No account managers, sales handoffs, or junior subcontractors. Every architecture decision, pull request, and production release is engineered personally from spec to launch.
+          </p>
+          <p class="text-base leading-[1.65] text-[var(--muted)]">
+            I partner directly with startup founders and digital agencies to ship fast websites, scalable SaaS platforms, and practical AI systems—with weekly staging links and 100% repository ownership from day one.
+          </p>
+        </div>
+
+        <!-- Clean 1-Line Verified Track Record Strip (No Heavy Boxed Cards) -->
+        <div class="py-4 border-y border-[var(--border)] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+          <span class="ns-mono-label text-[var(--muted)] shrink-0">
+            Previously at
+          </span>
+          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+            {verifiedRoles.map((role, idx) => (
+              <div class="inline-flex items-baseline gap-1.5 text-sm">
+                {idx > 0 && (
+                  <span class="text-[var(--border)] mr-3 hidden sm:inline" aria-hidden="true">·</span>
+                )}
+                <span class="font-semibold text-[var(--ink)]">{role.company}</span>
+                <span class="text-xs font-mono text-[var(--muted)]">({role.detail})</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Single Clean Action Row -->
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 pt-1">
+          <a href="#contact" class="ns-btn-primary w-full sm:w-auto px-6 py-3.5 text-base">
+            <span>Work Directly with Tanuj</span>
+            <span class="ns-arrow" aria-hidden="true">→</span>
+          </a>
+          <a
+            href="/about"
+            class="ns-link-arrow inline-flex items-center justify-center sm:justify-start gap-1.5 text-sm font-mono font-medium text-[var(--muted)] hover:text-[var(--blue-600)] transition-colors py-1"
+          >
+            <span>Read full background</span>
+            <span class="ns-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

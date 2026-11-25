@@ -167,25 +167,25 @@ const portableTextComponents = {
   breadcrumbs={breadcrumbs}
   jsonLd={[productJsonLd, faqJsonLd]}
 >
-  <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
+  <div class="relative min-h-screen selection:bg-accent-primary/30 overflow-x-clip bg-canvas">
     <PremiumBackground />
 
-    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 md:pt-36 pb-20 md:pb-28 relative z-10">
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 md:pt-32 pb-16 md:pb-24 relative z-10">
       
       <!-- Top Navigation & Breadcrumb -->
-      <div class="mb-8 sm:mb-12 flex flex-wrap items-center justify-between gap-4">
+      <div class="mb-8 sm:mb-10 flex flex-wrap items-center justify-between gap-4">
         <a 
           href="/templates" 
-          class="group inline-flex items-center gap-2.5 text-xs font-mono text-slate-600 hover:text-black transition-colors"
+          class="group inline-flex items-center gap-2 text-xs font-mono text-slate-600 hover:text-[#0F172A] transition-colors"
         >
-          <span class="w-6 h-6 rounded-full bg-slate-100 border border-black/10 flex items-center justify-center group-hover:border-accent-primary transition-colors text-xs text-[#0F172A]">
+          <span class="w-6 h-6 rounded-full bg-white border border-black/10 flex items-center justify-center group-hover:border-accent-primary transition-colors text-xs text-[#0F172A]">
             ←
           </span>
           <span>Back to All Templates</span>
         </a>
 
         <div class="flex items-center gap-2 text-xs font-mono">
-          <span class="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider bg-slate-100 border border-black/10 text-slate-800 font-semibold">
+          <span class="px-2.5 py-1 rounded-full text-[10px] uppercase tracking-wider bg-white border border-black/10 text-slate-700 font-semibold">
             Commercial License Included
           </span>
           {template.badge && (
@@ -197,31 +197,33 @@ const portableTextComponents = {
       </div>
 
       <!-- Hero Header Section -->
-      <section class="max-w-5xl mb-12 sm:mb-16">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-500/20 text-[#5E6AD2] text-xs font-mono font-semibold mb-4">
-          <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
-          <span>COMMERCIAL CODEBASE // {template.category?.toUpperCase() || "WEB PLATFORM"}</span>
+      <section class="max-w-5xl mb-10 sm:mb-14">
+        <div class="flex items-center gap-2.5 mb-3.5">
+          <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+          <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+            Commercial Codebase · {template.category || "Web Platform"}
+          </span>
         </div>
 
-        <h1 class="font-grotesk font-extrabold text-3xl sm:text-5xl lg:text-6xl text-[#0F172A] tracking-tight leading-[1.08] mb-5">
+        <h1 class="font-grotesk font-bold text-3xl sm:text-5xl lg:text-[56px] text-[#0F172A] tracking-[-0.03em] leading-[1.08] mb-4">
           {template.templateName}
         </h1>
 
-        <p class="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-3xl mb-7 font-sans">
+        <p class="text-base sm:text-lg text-slate-600 font-normal leading-[1.7] max-w-3xl mb-6 font-sans">
           {template.tagline}
         </p>
 
         <!-- Tech Stack Pills -->
-        <div class="flex flex-wrap gap-2 mb-8">
+        <div class="flex flex-wrap gap-2 mb-7">
           {template.tags?.map((tag: string) => (
-            <span class="px-3 py-1 rounded-md text-xs font-mono bg-slate-100 border border-black/[0.08] text-slate-700">
+            <span class="px-3 py-1 rounded-full text-xs font-mono bg-white border border-black/[0.08] text-slate-700">
               {tag}
             </span>
           ))}
         </div>
 
         <!-- Hero Actions Bar -->
-        <div class="flex flex-wrap items-center gap-4 pt-6 border-t border-black/[0.08]">
+        <div class="flex flex-wrap items-center gap-3.5 pt-5 border-t border-black/[0.08]">
           <!-- Pricing -->
           <div class="flex items-baseline gap-2 mr-3 font-mono">
             <span class="text-3xl sm:text-4xl font-extrabold text-[#0F172A] tracking-tight">{template.price}</span>
@@ -236,10 +238,10 @@ const portableTextComponents = {
               href={template.gumroadLink}
               target="_blank"
               rel="noopener noreferrer"
-              class="group/btn inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-all duration-300 shadow-md active:scale-95"
+              class="group/btn inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-grotesk font-semibold uppercase tracking-wider bg-[#0F172A] hover:bg-[#5E6AD2] text-white transition-colors duration-200"
             >
               <span>Get on Gumroad</span>
-              <span class="text-xs transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
+              <span class="text-xs transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
             </a>
           )}
 
@@ -249,9 +251,9 @@ const portableTextComponents = {
               href={template.demoLink}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full text-xs font-grotesk font-semibold uppercase tracking-wider bg-white hover:bg-slate-50 text-[#0F172A] border border-black/10 hover:border-accent-primary/60 transition-all shadow-xs active:scale-95"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-grotesk font-semibold uppercase tracking-wider bg-white hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-[#0F172A] border border-black/10 transition-colors"
             >
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
               <span>Live Interactive Preview</span>
               <span class="text-xs">↗</span>
             </a>
@@ -263,7 +265,7 @@ const portableTextComponents = {
               href={template.gitHubLink}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-3.5 rounded-full text-xs font-mono uppercase tracking-wider bg-slate-100 border border-black/10 text-slate-700 hover:text-black hover:bg-slate-200 transition-colors"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-full text-xs font-mono uppercase tracking-wider bg-white border border-black/10 text-slate-700 hover:border-[#5E6AD2] hover:text-[#5E6AD2] transition-colors"
             >
               <span>GitHub Preview</span>
               <span>↗</span>
@@ -296,44 +298,33 @@ const portableTextComponents = {
               </div>
             </div>
 
-            <!-- Preview Video or Image -->
+            <!-- Preview Image (Always crisp PNG; Demo Video pops on click) -->
             <div class="relative w-full aspect-[16/9] md:aspect-[16/9] bg-[#0B0D12] overflow-hidden flex items-center justify-center">
-              {demoMedia ? (
-                demoMedia.kind === "video" ? (
-                  <video
-                    src={demoMedia.src}
-                    poster={ogImage || undefined}
-                    controls
-                    autoplay
-                    muted
-                    loop
-                    playsinline
-                    preload="metadata"
-                    data-gsap-screen
-                    class="w-full h-full object-contain bg-[#0B0D12]"
-                  />
-                ) : (
-                  <iframe
-                    src={demoMedia.src}
-                    title={`${template.templateName} Demo Walkthrough`}
-                    class="w-full h-full border-0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                    allowfullscreen
-                  ></iframe>
-                )
-              ) : (
-                ogImage && (
-                  <img 
-                    src={ogImage} 
-                    alt={`${template.templateName} high-resolution preview`}
-                    data-gsap-screen
-                    class="w-full h-full object-cover object-top"
-                    loading="eager"
-                    decoding="async"
-                  />
-                )
+              {ogImage && (
+                <img 
+                  src={ogImage} 
+                  alt={`${template.templateName} high-resolution preview`}
+                  data-gsap-screen
+                  class="w-full h-full object-cover object-top block"
+                  loading="eager"
+                  decoding="async"
+                />
               )}
-              <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-white/[0.12] mix-blend-overlay"></div>
+
+              {demoMedia && (
+                <button
+                  type="button"
+                  data-open-demo-modal
+                  data-demo-kind={demoMedia.kind}
+                  data-demo-src={demoMedia.src}
+                  data-demo-poster={ogImage || ""}
+                  data-demo-title={`${template.templateName} — Demo Walkthrough`}
+                  class="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A0B0E]/85 hover:bg-[#5E6AD2] border border-white/20 text-xs font-mono font-semibold text-white transition-colors cursor-pointer shadow-lg"
+                >
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>▶ Watch Demo Video</span>
+                </button>
+              )}
             </div>
 
           </div>
@@ -341,28 +332,31 @@ const portableTextComponents = {
       </section>
 
       <!-- 2-Column Split: Content & Capabilities vs. Sticky Purchase Card -->
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
         
         <!-- LEFT: Product Deep Dive (8 Cols) -->
-        <div class="lg:col-span-8 space-y-14">
+        <div class="lg:col-span-8 space-y-12">
           
           <!-- Key Highlights Grid -->
           {template.highlights && template.highlights.length > 0 && (
-            <section class="space-y-6">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-black/10 text-xs font-mono text-accent-primary">
-                // ARCHITECTURE &amp; CAPABILITIES
+            <section class="space-y-5">
+              <div class="flex items-center gap-2.5">
+                <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                  Architecture &amp; Capabilities
+                </span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
                 Key Features &amp; Performance Highlights
               </h2>
               
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {template.highlights.map((highlight: string) => (
-                  <div class="p-5 rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-all flex items-start gap-3.5 shadow-xs">
-                    <div class="w-6 h-6 rounded-full bg-accent-primary/10 text-accent-primary flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
+                  <div class="p-5 rounded-2xl bg-white border border-black/[0.08] hover:border-[#5E6AD2]/40 transition-colors flex items-start gap-3.5 shadow-xs">
+                    <div class="w-6 h-6 rounded-full bg-[#5E6AD2]/10 text-[#5E6AD2] flex items-center justify-center shrink-0 mt-0.5 text-xs font-bold">
                       ✓
                     </div>
-                    <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans font-normal">
+                    <p class="text-sm text-slate-600 leading-relaxed font-sans font-normal">
                       {highlight}
                     </p>
                   </div>
@@ -373,9 +367,12 @@ const portableTextComponents = {
 
           <!-- Package Contents / What's in the Box -->
           {template.included && template.included.length > 0 && (
-            <section class="space-y-6 pt-10 border-t border-black/[0.08]">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-black/10 text-xs font-mono text-accent-primary">
-                // PACKAGE CONTENTS
+            <section class="space-y-5 pt-10 border-t border-black/[0.08]">
+              <div class="flex items-center gap-2.5">
+                <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                  Package Contents
+                </span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
                 What's Included in Your Download
@@ -383,7 +380,7 @@ const portableTextComponents = {
 
               <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] space-y-3.5 shadow-xs">
                 {template.included.map((item: string) => (
-                  <div class="flex items-center gap-3 text-xs sm:text-sm text-[#0F172A] font-sans">
+                  <div class="flex items-center gap-3 text-sm text-[#0F172A] font-sans">
                     <svg class="w-4 h-4 text-emerald-600 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                     </svg>
@@ -394,49 +391,67 @@ const portableTextComponents = {
             </section>
           )}
 
-          <!-- Detailed Template Breakdown / PortableText -->
+          <!-- Detailed Template Breakdown / Sanity PortableText -->
           {template.content && (
-            <section class="space-y-6 pt-10 border-t border-black/[0.08]">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-black/10 text-xs font-mono text-accent-primary">
-                // DETAILED SPECIFICATION
+            <section class="space-y-5 pt-10 border-t border-black/[0.08]">
+              <div class="flex items-center gap-2.5">
+                <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                  Detailed Specification
+                </span>
               </div>
               <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
                 Design &amp; Engineering Details
               </h2>
-              <div class="template-portable-text leading-relaxed text-slate-700 text-sm sm:text-base space-y-4">
-                <PortableText value={template.content} components={portableTextComponents} />
-              </div>
+              <article class="rounded-2xl bg-white border border-black/[0.08] shadow-xs overflow-hidden">
+                <div class="px-6 sm:px-8 py-3.5 bg-slate-50/80 border-b border-black/[0.08] flex items-center justify-between gap-4">
+                  <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                    Technical Documentation
+                  </span>
+                  <span class="text-[11px] font-mono text-slate-500 truncate">
+                    {template.templateName}
+                  </span>
+                </div>
+                <div class="p-6 sm:p-8 lg:p-9">
+                  <div class="template-portable-text">
+                    <PortableText value={template.content} components={portableTextComponents} />
+                  </div>
+                </div>
+              </article>
             </section>
           )}
 
-          <!-- FAQ Accordion for Licensing -->
-          <section class="space-y-6 pt-10 border-t border-black/[0.08]">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-black/10 text-xs font-mono text-accent-primary">
-              // LICENSING &amp; SUPPORT
+          <!-- FAQ Section for Licensing -->
+          <section class="space-y-5 pt-10 border-t border-black/[0.08]">
+            <div class="flex items-center gap-2.5">
+              <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+              <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                Licensing &amp; Support
+              </span>
             </div>
             <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
               Frequently Asked Questions
             </h2>
 
-            <div class="space-y-4 mt-6">
-              <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs">
+            <div class="rounded-2xl bg-white border border-black/[0.08] divide-y divide-black/[0.08] shadow-xs overflow-hidden">
+              <div class="p-6">
                 <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A] mb-2">Can I use this template for commercial client projects?</h3>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                <p class="text-sm text-slate-600 leading-relaxed font-sans">
                   Yes, absolutely. The included commercial license grants you full rights to build and deploy unlimited websites for both personal usage and paying client projects with zero recurring royalties.
                 </p>
               </div>
 
-              <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs">
+              <div class="p-6">
                 <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A] mb-2">How do I receive updates?</h3>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
+                <p class="text-sm text-slate-600 leading-relaxed font-sans">
                   When updates, dependency upgrades, or bug fixes are published, Gumroad automatically sends you an email with instant access to the updated zip bundle.
                 </p>
               </div>
 
-              <div class="rounded-2xl p-6 bg-white border border-black/[0.08] shadow-xs">
+              <div class="p-6">
                 <h3 class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A] mb-2">Need help with setup or custom feature development?</h3>
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                  You can contact me directly at <a href="mailto:tanujp09@gmail.com" class="text-accent-primary hover:underline font-semibold">tanujp09@gmail.com</a>. I offer support for installation questions and can be hired for custom integrations.
+                <p class="text-sm text-slate-600 leading-relaxed font-sans">
+                  You can contact me directly at <a href="mailto:tanujp09@gmail.com" class="text-[#5E6AD2] hover:underline font-semibold">tanujp09@gmail.com</a>. I offer support for installation questions and can be hired for custom integrations.
                 </p>
               </div>
             </div>
@@ -445,18 +460,21 @@ const portableTextComponents = {
         </div>
 
         <!-- RIGHT: Sticky Purchase Box (4 Cols) -->
-        <div class="lg:col-span-4">
-          <div class="sticky top-28 rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] shadow-xl space-y-6">
+        <div class="lg:col-span-4 lg:sticky lg:top-24">
+          <div class="rounded-2xl p-6 sm:p-7 bg-white border border-black/[0.08] shadow-sm space-y-6">
             
             <div class="space-y-2">
-              <span class="text-[10px] font-mono uppercase tracking-wider text-slate-500 block">[ COMMERCIAL LICENSE ]</span>
+              <div class="flex items-center gap-2">
+                <span class="w-4 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Commercial License</span>
+              </div>
               <div class="flex items-baseline justify-between font-mono">
                 <span class="text-4xl font-extrabold text-[#0F172A]">{template.price}</span>
                 {template.originalPrice && (
                   <span class="text-sm line-through text-slate-400">{template.originalPrice}</span>
                 )}
               </div>
-              <p class="text-xs text-emerald-700 font-mono font-medium">One-time payment • Lifetime access</p>
+              <p class="text-xs text-emerald-700 font-mono font-medium">One-time payment · Lifetime access</p>
             </div>
 
             <div class="pt-4 border-t border-black/[0.08] space-y-3">
@@ -465,15 +483,15 @@ const portableTextComponents = {
                   href={template.gumroadLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group/btn w-full py-3.5 px-4 rounded-xl text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-all duration-300 shadow-md flex items-center justify-center gap-2 active:scale-95"
+                  class="group/btn w-full py-3.5 px-4 rounded-xl text-xs font-grotesk font-semibold uppercase tracking-wider bg-[#0F172A] hover:bg-[#5E6AD2] text-white transition-colors duration-200 flex items-center justify-center gap-2"
                 >
                   <span>Buy on Gumroad</span>
-                  <span class="text-xs transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
+                  <span class="text-xs transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
                 </a>
               ) : (
                 <a 
                   href="/#contact"
-                  class="w-full py-3.5 px-4 rounded-xl text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white text-center block"
+                  class="w-full py-3.5 px-4 rounded-xl text-xs font-grotesk font-semibold uppercase tracking-wider bg-[#0F172A] hover:bg-[#5E6AD2] text-white text-center block transition-colors"
                 >
                   Contact For Purchase
                 </a>
@@ -484,7 +502,7 @@ const portableTextComponents = {
                   href={template.demoLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="w-full py-3 px-4 rounded-xl text-xs font-grotesk font-semibold bg-slate-100 border border-black/10 text-[#0F172A] hover:bg-slate-200 transition-colors flex items-center justify-center gap-2"
+                  class="w-full py-3 px-4 rounded-xl text-xs font-grotesk font-semibold bg-slate-50 border border-black/10 text-[#0F172A] hover:border-[#5E6AD2] hover:text-[#5E6AD2] transition-colors flex items-center justify-center gap-2"
                 >
                   <span>Live Interactive Demo</span>
                   <span class="text-xs">↗</span>
@@ -495,7 +513,7 @@ const portableTextComponents = {
                 type="button"
                 data-open-contact
                 data-contact-subject={`Customize / Deploy ${template.templateName}`}
-                class="w-full py-3 px-4 rounded-xl text-xs font-mono font-semibold bg-indigo-50 hover:bg-indigo-100 border border-[#5E6AD2]/30 text-[#5E6AD2] transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                class="w-full py-3 px-4 rounded-xl text-xs font-mono font-semibold bg-[#5E6AD2]/[0.08] hover:bg-[#5E6AD2]/[0.14] border border-[#5E6AD2]/25 text-[#5E6AD2] transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Hire Tanuj to Customize</span>
                 <span class="text-xs">↗</span>
@@ -544,15 +562,18 @@ const portableTextComponents = {
 
       <!-- Other Templates Showcase -->
       {otherTemplates && otherTemplates.length > 0 && (
-        <section class="mt-24 md:mt-32 pt-16 border-t border-black/[0.08]">
-          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10">
+        <section class="mt-20 md:mt-24 pt-12 border-t border-black/[0.08]">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
             <div>
-              <p class="text-[11px] font-mono uppercase tracking-[0.25em] text-accent-primary mb-1">// MORE DIGITAL ASSETS</p>
-              <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A]">
+              <div class="flex items-center gap-2.5 mb-2">
+                <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">More Digital Assets</span>
+              </div>
+              <h2 class="text-2xl sm:text-3xl font-bold font-grotesk text-[#0F172A] tracking-tight">
                 Explore Other Commercial Templates
               </h2>
             </div>
-            <a href="/templates" class="text-xs font-mono text-slate-600 hover:text-black transition-colors">
+            <a href="/templates" class="text-xs font-mono text-slate-600 hover:text-[#5E6AD2] transition-colors">
               View All Templates ({allTemplates.length}) →
             </a>
           </div>
@@ -568,3 +589,161 @@ const portableTextComponents = {
     </div>
   </div>
 </Layout>
+
+<style>
+  .template-portable-text {
+    color: #334155;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.02rem;
+    line-height: 1.8;
+    max-width: 68ch;
+  }
+
+  .template-portable-text > :global(*:first-child) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+
+  .template-portable-text :global(p) {
+    margin-top: 0;
+    margin-bottom: 1.25rem;
+    color: #334155;
+  }
+
+  .template-portable-text :global(h1),
+  .template-portable-text :global(h2) {
+    color: #0F172A;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin-top: 2.25rem;
+    margin-bottom: 0.85rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .template-portable-text :global(h3) {
+    color: #0F172A;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-top: 1.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .template-portable-text :global(h4) {
+    color: #0F172A;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .template-portable-text :global(a) {
+    color: #5E6AD2;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(94, 106, 210, 0.35);
+    transition: text-decoration-color 180ms ease;
+  }
+
+  .template-portable-text :global(a:hover) {
+    text-decoration-color: #5E6AD2;
+  }
+
+  .template-portable-text :global(strong) {
+    color: #0F172A;
+    font-weight: 600;
+  }
+
+  .template-portable-text :global(ul) {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 1.35rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .template-portable-text :global(ol) {
+    list-style-type: decimal;
+    list-style-position: outside;
+    padding-left: 1.35rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .template-portable-text :global(li) {
+    color: #334155;
+    padding-left: 0.25rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+
+  .template-portable-text :global(li::marker) {
+    color: #5E6AD2;
+    font-weight: 600;
+  }
+
+  .template-portable-text :global(blockquote) {
+    border-left: 3px solid #5E6AD2;
+    background-color: #F8FAFF;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    color: #1E293B;
+    margin: 1.65rem 0;
+  }
+
+  .template-portable-text :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .template-portable-text :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.84em;
+    padding: 0.18rem 0.45rem;
+    border-radius: 0.375rem;
+    background-color: rgba(94, 106, 210, 0.09);
+    color: #4A55B8;
+  }
+
+  .template-portable-text :global(pre) {
+    background-color: #0F172A;
+    color: #E2E8F0;
+    padding: 1.15rem 1.25rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 1.65rem 0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+
+  .template-portable-text :global(pre code) {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
+  .template-portable-text :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 0.875rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    margin: 1.65rem 0;
+    max-width: 100%;
+  }
+
+  .template-portable-text :global(hr) {
+    border: 0;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    margin: 2rem 0;
+  }
+</style>

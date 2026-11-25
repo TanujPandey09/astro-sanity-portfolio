@@ -8,30 +8,27 @@ interface Props {
 }
 
 const { title, gradientText, subtitle, eyebrow = "SHOWCASE", center = false } = Astro.props;
-// Clean Developer Framer Eyebrow formatting
 const formattedEyebrow = eyebrow.toUpperCase().replace(/^REC:\s*/i, "");
 ---
 
-<div class={`mb-10 sm:mb-14 md:mb-16 ${center ? 'text-center flex flex-col items-center' : ''}`} data-gsap-heading>
-  <!-- Modern Design Engineer Eyebrow Badge (Light Studio Pill) -->
-  <div class={`inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-black/10 shadow-xs mb-4 sm:mb-5 ${center ? 'justify-center' : ''}`}>
-    <span class="w-1.5 h-1.5 rounded-full bg-accent-primary animate-pulse"></span>
-    <span class="text-[11px] sm:text-xs font-mono font-medium tracking-[0.14em] text-slate-700 uppercase">
-      [ // {formattedEyebrow} ]
+<div class={`mb-8 sm:mb-10 lg:mb-12 ${center ? "text-center flex flex-col items-center" : ""}`} data-gsap-heading>
+  <div class={`flex items-center gap-2.5 mb-3 ${center ? "justify-center" : ""}`}>
+    <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+    <span class="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.14em] text-[#5E6AD2] uppercase">
+      {formattedEyebrow}
     </span>
   </div>
 
-  <!-- Space Grotesk / Geist Display Heading + Subtitle -->
-  <div class={`w-full ${center ? 'flex flex-col items-center text-center' : 'flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-10'}`}>
-    <h2 class="font-grotesk font-bold tracking-[-0.04em] leading-[1.02] text-[2.25rem] sm:text-5xl md:text-6xl lg:text-[4rem]">
-      <span class="block text-[#0F172A]">{title}</span>
+  <div class={`w-full ${center ? "flex flex-col items-center text-center" : "flex flex-col lg:flex-row lg:items-end justify-between gap-4 lg:gap-10"}`}>
+    <h2 class="font-grotesk font-bold tracking-[-0.03em] leading-[1.08] text-3xl sm:text-4xl lg:text-[46px] text-[#0F172A]">
+      <span>{title}</span>
       {gradientText && (
-        <span class="block text-gradient mt-1">{gradientText}</span>
+        <span class="text-[#5E6AD2]"> {gradientText}</span>
       )}
     </h2>
 
     {subtitle && (
-      <p class={`max-w-md text-slate-600 text-sm sm:text-[15px] font-normal leading-[1.6] tracking-[-0.01em] ${center ? 'mt-4 mx-auto text-center' : 'lg:text-right lg:pb-1'}`}>
+      <p class={`max-w-md text-slate-600 text-sm sm:text-[15px] font-normal leading-[1.65] tracking-[-0.01em] ${center ? "mt-3 mx-auto text-center" : "lg:text-right"}`}>
         {subtitle}
       </p>
     )}

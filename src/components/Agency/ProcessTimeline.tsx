@@ -36,9 +36,9 @@ export default function ProcessTimeline({ steps }: Props) {
 
   return (
     <div ref={railRef} className="relative">
-      {/* 1px Vertical Track Rail (--border) + Blue Scroll-Driven Fill (#2563EB) */}
+      {/* 1px Vertical Track Rail (--border) + Blue Scroll-Driven Fill (#2563EB) — Visible on Mobile, Tablet & Desktop */}
       <div
-        className="hidden sm:block absolute left-[19px] top-6 bottom-6 w-px bg-[#E2E8F0]"
+        className="block absolute left-[13px] sm:left-[17px] top-5 bottom-5 w-px bg-[#E2E8F0]"
         aria-hidden="true"
       >
         <motion.div
@@ -51,26 +51,21 @@ export default function ProcessTimeline({ steps }: Props) {
         />
       </div>
 
-      <ol className="space-y-6">
+      <ol className="space-y-4">
         {steps.map((item) => (
-          <li key={item.step} className="relative sm:pl-16 ns-reveal">
-            {/* Blue Numbered Timeline Marker (01–05) */}
-            <div className="hidden sm:flex absolute left-0 top-6 w-10 h-10 rounded-full bg-white border border-[#2563EB] text-[#2563EB] font-mono font-semibold text-xs items-center justify-center z-10">
+          <li key={item.step} className="relative pl-10 sm:pl-14 ns-reveal">
+            {/* Blue Numbered Timeline Marker (01–05) — Storytelling Spine on All Viewports */}
+            <div className="flex absolute left-0 top-5 w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-white border border-[#2563EB] text-[#2563EB] font-mono font-semibold text-[11px] sm:text-xs items-center justify-center z-10">
               {item.step}
             </div>
 
             {/* Step Card */}
-            <div className="ns-card p-6 sm:p-8">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                <div className="flex items-center gap-2">
-                  <span className="sm:hidden inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#EAF1FE] text-[#1D4ED8] font-mono text-xs font-semibold">
-                    {item.step}
-                  </span>
-                  <span className="ns-mono-label text-[#2563EB] font-medium">
-                    Step {item.step} · {item.phase}
-                  </span>
-                </div>
-                <span className="px-3 py-1 rounded-full bg-[#F5F7FA] border border-[#E2E8F0] text-xs font-mono text-[#4B5565]">
+            <div className="ns-card p-4 sm:p-6">
+              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                <span className="ns-mono-label text-[#2563EB] font-medium">
+                  Step {item.step} · {item.phase}
+                </span>
+                <span className="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-[#F5F7FA] border border-[#E2E8F0] text-[11px] sm:text-xs font-mono text-[#4B5565]">
                   Milestone Gate
                 </span>
               </div>

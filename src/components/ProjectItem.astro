@@ -37,11 +37,12 @@ const variant = index % 4;
 
 <article class="project-showcase group w-full" data-gsap-card>
   <!-- 1. FULL-WIDTH CINEMATIC 3D HARDWARE STAGING FRAME -->
-  <a
-    href={projectUrl}
-    data-cursor-text="VIEW CASE STUDY ↗"
-    class="laptop-3d-stage relative block w-full rounded-[24px] sm:rounded-[32px] md:rounded-[44px] overflow-hidden p-6 sm:p-10 md:p-16 lg:p-20 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.14)] border border-black/[0.06]"
-  >
+  <div class="relative">
+    <a
+      href={projectUrl}
+      data-cursor-text="VIEW CASE STUDY ↗"
+      class="laptop-3d-stage relative block w-full rounded-[24px] sm:rounded-[32px] md:rounded-[44px] overflow-hidden p-6 sm:p-10 md:p-16 lg:p-20 transition-all duration-700 shadow-[0_10px_40px_rgba(0,0,0,0.06)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.14)] border border-black/[0.06]"
+    >
     <!-- Staging Surface Backdrops -->
     {variant === 0 && (
       /* Variant 0: Warm Rustic Timber & Landscape Ambient */
@@ -89,44 +90,21 @@ const variant = index % 4;
           </span>
         </div>
 
-        <!-- The Display Screen Viewport (Plays demo video loop if uploaded, else uncropped screenshot) -->
+        <!-- The Display Screen Viewport (Always renders crisp PNG; Demo Video pops on click) -->
         <div class="relative rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden bg-[#0B0D12] flex items-center justify-center">
-          {demoMedia?.kind === "video" ? (
-            <video
-              src={demoMedia.src}
-              poster={imageUrl || undefined}
-              autoplay
-              muted
-              loop
-              playsinline
-              preload="metadata"
+          {imageUrl && (
+            <img
+              src={imageUrl}
+              alt={projectName}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+              width="1600"
+              height="1000"
               data-gsap-screen
               class="w-full h-auto max-h-[580px] object-contain object-center block"
             />
-          ) : (
-            imageUrl && (
-              <img
-                src={imageUrl}
-                alt={projectName}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                width="1600"
-                height="1000"
-                data-gsap-screen
-                class="w-full h-auto max-h-[580px] object-contain object-center block"
-              />
-            )
           )}
 
-          {demoMedia && (
-            <span class="pointer-events-none absolute top-3 right-3 z-20 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/75 backdrop-blur-md border border-white/15 text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-semibold">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Demo Video
-            </span>
-          )}
-
-          <!-- Subtle Screen Glass Reflection & Dynamic Glare Tracking -->
-          <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-white/[0.09] mix-blend-overlay"></div>
           <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[10px] sm:rounded-[14px] md:rounded-[16px]"></div>
         </div>
       </div>
@@ -139,6 +117,22 @@ const variant = index % 4;
 
     </div>
   </a>
+
+  {demoMedia && (
+    <button
+      type="button"
+      data-open-demo-modal
+      data-demo-kind={demoMedia.kind}
+      data-demo-src={demoMedia.src}
+      data-demo-poster={imageUrl || ""}
+      data-demo-title={`${projectName} — Demo Walkthrough`}
+      class="absolute bottom-5 right-5 sm:bottom-7 sm:right-7 z-30 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A0B0E]/90 hover:bg-[#5E6AD2] border border-white/20 text-xs font-mono font-semibold text-white transition-colors cursor-pointer shadow-lg"
+    >
+      <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <span>▶ Watch Demo</span>
+    </button>
+  )}
+  </div>
 
   <!-- 3. MINIMALIST 3-PART EDITORIAL METADATA STRIP (Arshawn Arbabi Style) -->
   <div class="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-4 items-center">

@@ -22,45 +22,48 @@ const posterUrl = detailsData?.BackgroundImage?.asset?.url
 const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsData?.demoVideoUrl);
 ---
 
-<div class="relative min-h-screen selection:bg-accent-primary/30 overflow-hidden bg-canvas">
+<div class="relative min-h-screen selection:bg-accent-primary/30 overflow-x-clip bg-canvas">
   <PremiumBackground />
 
-  <main class="mx-auto w-full max-w-7xl px-4 md:px-6 lg:px-8 pt-28 pb-16 md:pt-36 md:pb-24 relative z-10">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-24 pb-16 sm:pt-28 md:pt-32 md:pb-24 relative z-10">
     <!-- Breadcrumb / Meta -->
-    <div class="mb-10 md:mb-14 flex items-center justify-between gap-4" data-aos="fade-down">
-       <a href="/projects" class="group inline-flex items-center gap-2.5 text-xs font-mono text-text-muted hover:text-text-primary transition-colors">
+    <div class="mb-8 md:mb-10 flex items-center justify-between gap-4">
+       <a href="/projects" class="group inline-flex items-center gap-2 text-xs font-mono text-slate-600 hover:text-[#0F172A] transition-colors">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="w-4 h-4 group-hover:-translate-x-1 transition-transform">
             <path d="M19 12H5m7-7-7 7 7 7"/>
           </svg>
           <span>All Case Studies</span>
        </a>
-       <span class="text-xs font-mono text-text-dim">Case Study · {formattedDate}</span>
+       <span class="text-xs font-mono text-slate-500">Case Study · {formattedDate}</span>
     </div>
 
     <!-- Project Identity -->
-    <section class="max-w-7xl mx-auto mb-16 md:mb-24">
-      <div class="flex flex-col gap-6 mb-12 md:mb-16" data-aos="fade-up">
+    <section class="w-full mb-12 md:mb-16">
+      <div class="flex flex-col gap-5 mb-10 md:mb-12">
          {detailsData?.category && (
-           <span class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-[#5E6AD2]/10 border border-[#5E6AD2]/25 text-[11px] font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
-             {detailsData.category}
-           </span>
+           <div class="flex items-center gap-2.5">
+             <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+             <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+               {detailsData.category}
+             </span>
+           </div>
          )}
-         <h1 class="text-3xl sm:text-5xl md:text-6xl font-extrabold text-[#0F172A] tracking-tight leading-[1.08] m-0">
+         <h1 class="font-grotesk text-3xl sm:text-5xl md:text-[56px] font-bold text-[#0F172A] tracking-[-0.03em] leading-[1.08] m-0">
            {detailsData?.projectName}
          </h1>
 
          <!-- Excerpt / Case Study Summary -->
          {detailsData?.excerpt && (
-           <div class="max-w-3xl text-base md:text-lg text-slate-600 leading-relaxed">
+           <div class="max-w-3xl text-base md:text-lg text-slate-600 leading-[1.7] prose-excerpt">
               <PortableText value={detailsData?.excerpt} components={components} />
            </div>
          )}
 
          <!-- Action and Tech Stack Row -->
-         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-black/[0.08]">
+         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 pt-5 border-t border-black/[0.08]">
             <div class="flex flex-wrap gap-2">
                {detailsData?.tags?.map((tag: string) => (
-                  <span class="px-3 py-1 rounded-md bg-slate-100 border border-black/[0.08] text-xs font-mono text-slate-700">
+                  <span class="px-3 py-1 rounded-full bg-white border border-black/[0.08] text-xs font-mono text-slate-700">
                      {tag}
                   </span>
                ))}
@@ -72,7 +75,7 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
                     href={typeof detailsData.gumroadLink === 'string' ? detailsData.gumroadLink : detailsData.gumroadLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-[#0F172A] text-white font-bold uppercase text-xs tracking-wider rounded-full hover:bg-black transition-all duration-300 text-center shadow-xs"
+                    class="px-6 py-2.5 bg-[#0F172A] text-white font-grotesk font-semibold text-xs uppercase tracking-wider rounded-full hover:bg-[#5E6AD2] transition-colors duration-200 text-center"
                   >
                     Get Template ↗
                   </a>
@@ -82,7 +85,7 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
                     href={typeof detailsData.demoLink === 'string' ? detailsData.demoLink : detailsData.demoLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-[#0F172A] text-white font-bold uppercase text-xs tracking-wider rounded-full hover:bg-black transition-all duration-300 text-center shadow-xs"
+                    class="px-6 py-2.5 bg-[#0F172A] text-white font-grotesk font-semibold text-xs uppercase tracking-wider rounded-full hover:bg-[#5E6AD2] transition-colors duration-200 text-center"
                   >
                     Live Application ↗
                   </a>
@@ -92,7 +95,7 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
                     href={typeof detailsData.gitHubLink === 'string' ? detailsData.gitHubLink : detailsData.gitHubLink.current} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    class="px-6 py-3 bg-slate-100 border border-black/10 text-[#0F172A] font-semibold text-xs uppercase tracking-wider rounded-full hover:bg-slate-200 transition-all duration-300 text-center"
+                    class="px-6 py-2.5 bg-white border border-black/10 text-[#0F172A] font-grotesk font-semibold text-xs uppercase tracking-wider rounded-full hover:border-[#5E6AD2] hover:text-[#5E6AD2] transition-colors duration-200 text-center"
                   >
                     Source Code ↗
                   </a>
@@ -101,34 +104,32 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
          </div>
       </div>
 
-      <!-- Hero Media in Realistic 3D MacBook Pro Studio Stage (Demo Video or Uncropped Screenshot) -->
+      <!-- Hero Media in Realistic 3D MacBook Pro Studio Stage (Always crisp PNG; Demo pops on click) -->
       <div class="laptop-3d-stage relative rounded-[24px] sm:rounded-[36px] p-6 sm:p-12 md:p-16 bg-gradient-to-b from-[#1C2233] via-[#101422] to-[#0A0D16] border border-black/10 shadow-[0_20px_60px_rgba(0,0,0,0.12)] overflow-hidden">
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(94,106,210,0.22)_0%,transparent_65%)] pointer-events-none"></div>
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_30%,rgba(94,106,210,0.18)_0%,transparent_65%)] pointer-events-none"></div>
 
         {demoMedia && (
           <div class="relative z-20 max-w-5xl mx-auto mb-5 flex flex-wrap items-center justify-between gap-3">
-            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15 text-[11px] font-mono uppercase tracking-[0.14em] text-emerald-300">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Interactive Product Walkthrough
+            <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.08] border border-white/15 text-[11px] font-mono uppercase tracking-[0.14em] text-slate-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              Demo Video Available
             </span>
-            {posterUrl && (
-              <div class="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/15 text-[11px] font-mono">
-                <button
-                  type="button"
-                  data-media-tab="video"
-                  class="px-3.5 py-1 rounded-full bg-white text-[#0A0B0E] font-bold transition-all cursor-pointer"
-                >
-                  Demo Video
-                </button>
-                <button
-                  type="button"
-                  data-media-tab="image"
-                  class="px-3.5 py-1 rounded-full text-slate-300 hover:text-white transition-all cursor-pointer"
-                >
-                  Screenshot
-                </button>
-              </div>
-            )}
+            <div class="inline-flex items-center p-1 rounded-full bg-white/[0.06] border border-white/15 text-[11px] font-mono">
+              <span class="px-3.5 py-1 rounded-full bg-white text-[#0A0B0E] font-bold">
+                Screenshot
+              </span>
+              <button
+                type="button"
+                data-open-demo-modal
+                data-demo-kind={demoMedia.kind}
+                data-demo-src={demoMedia.src}
+                data-demo-poster={posterUrl || ""}
+                data-demo-title={`${detailsData?.projectName || "Project"} — Demo Walkthrough`}
+                class="px-3.5 py-1 rounded-full text-slate-200 hover:text-white hover:bg-[#5E6AD2] transition-colors cursor-pointer font-semibold"
+              >
+                ▶ Watch Demo
+              </button>
+            </div>
           </div>
         )}
 
@@ -138,56 +139,30 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
               <span class="w-1.5 h-1.5 rounded-full bg-[#1A1D24] ring-1 ring-white/10"></span>
             </div>
             <div class="relative rounded-[10px] sm:rounded-[14px] md:rounded-[16px] overflow-hidden bg-[#0B0D12] flex items-center justify-center">
-              {demoMedia ? (
-                <>
-                  <div id="stage-video-pane" class="w-full">
-                    {demoMedia.kind === "video" ? (
-                      <video
-                        src={demoMedia.src}
-                        poster={posterUrl || undefined}
-                        controls
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                        class="w-full h-auto max-h-[620px] object-contain bg-[#0B0D12] block"
-                      />
-                    ) : (
-                      <div class="relative w-full aspect-video bg-[#0B0D12]">
-                        <iframe
-                          src={demoMedia.src}
-                          title={`${detailsData?.projectName || "Project"} Demo Walkthrough`}
-                          class="w-full h-full border-0"
-                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-                          allowfullscreen
-                        ></iframe>
-                      </div>
-                    )}
-                  </div>
-                  {posterUrl && (
-                    <img
-                      id="stage-image-pane"
-                      src={posterUrl}
-                      alt={detailsData?.projectName || "Project preview screenshot"}
-                      loading="lazy"
-                      decoding="async"
-                      class="hidden w-full h-auto max-h-[620px] object-contain object-center"
-                    />
-                  )}
-                </>
-              ) : (
-                posterUrl && (
-                  <img 
-                    src={posterUrl} 
-                    alt={detailsData?.projectName || "Project preview screenshot"}
-                    loading="eager"
-                    decoding="async"
-                    class="w-full h-auto max-h-[620px] object-contain object-center block"
-                  />
-                )
+              {posterUrl && (
+                <img 
+                  src={posterUrl} 
+                  alt={detailsData?.projectName || "Project preview screenshot"}
+                  loading="eager"
+                  decoding="async"
+                  class="w-full h-auto max-h-[620px] object-contain object-center block"
+                />
               )}
-              <div class="laptop-glare pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.03] to-white/[0.09] mix-blend-overlay"></div>
+
+              {demoMedia && (
+                <button
+                  type="button"
+                  data-open-demo-modal
+                  data-demo-kind={demoMedia.kind}
+                  data-demo-src={demoMedia.src}
+                  data-demo-poster={posterUrl || ""}
+                  data-demo-title={`${detailsData?.projectName || "Project"} — Demo Walkthrough`}
+                  class="absolute bottom-4 right-4 z-20 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0A0B0E]/85 hover:bg-[#5E6AD2] border border-white/20 text-xs font-mono font-semibold text-white transition-colors cursor-pointer shadow-lg"
+                >
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>▶ Watch Demo Video</span>
+                </button>
+              )}
             </div>
           </div>
           <div class="relative mx-auto w-[104%] -left-[2%] h-3.5 sm:h-5 md:h-6 bg-gradient-to-b from-[#555A64] via-[#32363E] to-[#1E2127] rounded-b-[14px] sm:rounded-b-[20px] shadow-[0_25px_50px_rgba(0,0,0,0.45)] border-t border-white/25">
@@ -195,40 +170,6 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
           </div>
         </div>
       </div>
-
-      {demoMedia && posterUrl && (
-        <script>
-          const setupStageMediaTabs = () => {
-            const buttons = document.querySelectorAll<HTMLButtonElement>("[data-media-tab]");
-            const videoPane = document.getElementById("stage-video-pane");
-            const imagePane = document.getElementById("stage-image-pane");
-            if (!buttons.length || !videoPane || !imagePane) return;
-
-            buttons.forEach((btn) => {
-              if (btn.hasAttribute("data-bound")) return;
-              btn.setAttribute("data-bound", "true");
-              btn.addEventListener("click", () => {
-                const target = btn.getAttribute("data-media-tab");
-                const showVideo = target === "video";
-                videoPane.classList.toggle("hidden", !showVideo);
-                imagePane.classList.toggle("hidden", showVideo);
-                imagePane.classList.toggle("block", !showVideo);
-
-                buttons.forEach((b) => {
-                  const active = b.getAttribute("data-media-tab") === target;
-                  b.classList.toggle("bg-white", active);
-                  b.classList.toggle("text-[#0A0B0E]", active);
-                  b.classList.toggle("font-bold", active);
-                  b.classList.toggle("text-slate-300", !active);
-                });
-              });
-            });
-          };
-
-          setupStageMediaTabs();
-          document.addEventListener("astro:page-load", setupStageMediaTabs);
-        </script>
-      )}
 
       <!-- Optional Headline Metrics Bento Strip -->
       {Array.isArray(detailsData?.headlineMetrics) && detailsData.headlineMetrics.length > 0 && (
@@ -248,68 +189,94 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
     </section>
 
     <!-- Project Architecture & Breakdown -->
-    <section class="max-w-5xl mx-auto pt-12 md:pt-20 border-t border-black/[0.08]">
-       <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-          <div class="lg:col-span-4">
-             <div class="rounded-2xl p-1.5 bg-white border border-black/[0.08] shadow-xs lg:sticky lg:top-28">
-               <div class="rounded-xl bg-white p-6 space-y-5">
-                 <h2 class="text-base font-bold text-[#0F172A] tracking-tight">Project Overview</h2>
-                 <div class="space-y-4 text-xs font-mono">
-                    <div class="flex items-start justify-between gap-4 py-2 border-b border-black/[0.06]">
-                       <span class="text-slate-600 shrink-0">Role</span>
-                       <span class="text-[#0F172A] font-medium text-right">{detailsData?.role || "Tanuj Pandey"}</span>
+    <section class="w-full pt-10 md:pt-14 border-t border-black/[0.08]">
+       <div class="grid lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          <!-- Sticky Project Metadata Sidebar -->
+          <div class="lg:col-span-4 lg:sticky lg:top-24">
+             <div class="rounded-2xl bg-white border border-black/[0.08] p-6 shadow-xs space-y-5">
+               <div class="flex items-center justify-between gap-2 pb-3.5 border-b border-black/[0.08]">
+                 <h2 class="font-grotesk text-base font-bold text-[#0F172A] tracking-tight m-0">Project Overview</h2>
+                 <span class="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-700 font-medium">
+                   <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                   Production
+                 </span>
+               </div>
+
+               <div class="space-y-3 text-xs font-mono">
+                  <div class="flex items-start justify-between gap-4 py-1.5 border-b border-black/[0.06]">
+                     <span class="text-slate-500 shrink-0">Role</span>
+                     <span class="text-[#0F172A] font-medium text-right">{detailsData?.role || "Lead Full-Stack Engineer"}</span>
+                  </div>
+                  <div class="flex items-center justify-between py-1.5 border-b border-black/[0.06]">
+                     <span class="text-slate-500">Shipped</span>
+                     <span class="text-[#0F172A] font-medium tabular-nums">{formattedDate}</span>
+                  </div>
+                  {detailsData?.category && (
+                    <div class="flex items-center justify-between gap-4 py-1.5">
+                       <span class="text-slate-500 shrink-0">Domain</span>
+                       <span class="text-[#0F172A] font-medium text-right">{detailsData.category}</span>
                     </div>
-                    <div class="flex items-center justify-between py-2 border-b border-black/[0.06]">
-                       <span class="text-slate-600">Timeline</span>
-                       <span class="text-[#0F172A] font-medium tabular-nums">{formattedDate}</span>
-                    </div>
-                    <div class="flex items-center justify-between py-2">
-                       <span class="text-slate-600">Status</span>
-                       <span class="inline-flex items-center gap-1.5 text-emerald-800 font-medium">
-                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                         Production
-                       </span>
-                    </div>
-                 </div>
-                 <div class="pt-4 border-t border-black/[0.08] space-y-2.5">
-                   <button
-                     type="button"
-                     data-open-contact
-                     data-contact-subject={`Similar Build Inquiry: ${detailsData?.projectName || "Case Study"}`}
-                     class="w-full py-3 px-4 rounded-full bg-[#0A0B0E] hover:bg-black text-white font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer shadow-sm"
-                   >
-                     Build Something Similar ↗
-                   </button>
-                   <a
-                     href="https://wa.me/919557321978"
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     class="w-full py-2.5 px-4 rounded-full bg-emerald-50 hover:bg-emerald-100 border border-emerald-500/25 text-emerald-900 font-mono font-semibold text-xs text-center block transition-colors"
-                   >
-                     WhatsApp Tanuj ↗
-                   </a>
-                 </div>
+                  )}
+               </div>
+
+               <div class="pt-4 border-t border-black/[0.08] space-y-2.5">
+                 <button
+                   type="button"
+                   data-open-contact
+                   data-contact-subject={`Similar Build Inquiry: ${detailsData?.projectName || "Case Study"}`}
+                   class="w-full py-3 px-4 rounded-xl bg-[#0F172A] hover:bg-[#5E6AD2] text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
+                 >
+                   Build Something Similar ↗
+                 </button>
+                 <a
+                   href="https://wa.me/919557321978"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="w-full py-2.5 px-4 rounded-xl bg-slate-50 hover:bg-slate-100 border border-black/[0.08] text-[#0F172A] font-mono font-medium text-xs text-center block transition-colors"
+                 >
+                   WhatsApp Tanuj ↗
+                 </a>
                </div>
              </div>
           </div>
           
-          <div class="lg:col-span-8">
-             <div class="prose-custom">
-               <PortableText value={detailsData?.projectcontent} components={components} />
-             </div>
+          <!-- Right: Editorial Sanity Case Study Document -->
+          <div class="lg:col-span-8 space-y-8">
+             <article class="rounded-2xl bg-white border border-black/[0.08] shadow-xs overflow-hidden">
+               <div class="px-6 sm:px-8 lg:px-10 py-4 bg-slate-50/80 border-b border-black/[0.08] flex items-center justify-between gap-4">
+                 <div class="flex items-center gap-2.5">
+                   <span class="w-4 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+                   <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">
+                     Engineering Case Study
+                   </span>
+                 </div>
+                 <span class="text-[11px] font-mono text-slate-500">
+                   {detailsData?.projectName}
+                 </span>
+               </div>
+
+               <div class="p-6 sm:p-8 lg:p-10">
+                 <div class="prose-custom">
+                   <PortableText value={detailsData?.projectcontent} components={components} />
+                 </div>
+               </div>
+             </article>
 
              <!-- Immediate Case Study Conversion Banner -->
-             <div class="mt-14 rounded-3xl bg-[#0A0B0E] text-white p-8 sm:p-10 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+             <div class="rounded-2xl bg-[#0F172A] text-white p-7 sm:p-9 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
                <div>
-                 <span class="text-[11px] font-mono uppercase tracking-[0.18em] text-[#828FFF] block mb-2">NEXT STEP</span>
-                 <h3 class="font-grotesk font-bold text-xl sm:text-2xl text-white">Want a system like {detailsData?.projectName}?</h3>
+                 <div class="flex items-center gap-2 mb-2">
+                   <span class="w-4 h-px bg-[#828FFF]" aria-hidden="true"></span>
+                   <span class="text-[11px] font-mono uppercase tracking-[0.16em] text-[#828FFF] font-medium">Next Step</span>
+                 </div>
+                 <h3 class="font-grotesk font-bold text-xl sm:text-2xl text-white tracking-tight">Want a system like {detailsData?.projectName}?</h3>
                  <p class="text-xs sm:text-sm text-slate-400 mt-1">Direct engineering delivery &amp; reply within 2 hours.</p>
                </div>
                <button
                  type="button"
                  data-open-contact
                  data-contact-subject={`Project Inquiry: ${detailsData?.projectName || "Custom Build"}`}
-                 class="shrink-0 px-6 py-3 rounded-full bg-white text-[#0A0B0E] hover:bg-slate-200 font-grotesk font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+                 class="shrink-0 px-6 py-3 rounded-full bg-white text-[#0F172A] hover:bg-[#5E6AD2] hover:text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-colors cursor-pointer"
                >
                  Contact Now ↗
                </button>
@@ -317,85 +284,168 @@ const demoMedia = resolveDemoMedia(detailsData?.demoVideo?.asset?.url, detailsDa
           </div>
        </div>
     </section>
-  </main>
+  </div>
 </div>
 
 <style>
+  .prose-excerpt :global(p) {
+    margin: 0;
+  }
+
   .prose-custom {
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    line-height: 1.75;
+    color: #334155;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1.03rem;
+    line-height: 1.82;
+    max-width: 68ch;
   }
+
+  .prose-custom > :global(*:first-child) {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: 0 !important;
+  }
+
   .prose-custom :global(p) {
-    margin-bottom: 1.75rem;
+    margin-top: 0;
+    margin-bottom: 1.35rem;
+    color: #334155;
   }
+
+  .prose-custom :global(h1),
+  .prose-custom :global(h2) {
+    color: #0F172A;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin-top: 2.5rem;
+    margin-bottom: 0.9rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+  }
+
+  .prose-custom :global(h3) {
+    color: #0F172A;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+    margin-top: 1.85rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .prose-custom :global(h4) {
+    color: #0F172A;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose-custom :global(a) {
+    color: #5E6AD2;
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(94, 106, 210, 0.35);
+    transition: text-decoration-color 180ms ease;
+  }
+
+  .prose-custom :global(a:hover) {
+    text-decoration-color: #5E6AD2;
+  }
+
+  .prose-custom :global(strong) {
+    color: #0F172A;
+    font-weight: 600;
+  }
+
+  .prose-custom :global(ul) {
+    list-style-type: disc;
+    list-style-position: outside;
+    padding-left: 1.35rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .prose-custom :global(ol) {
+    list-style-type: decimal;
+    list-style-position: outside;
+    padding-left: 1.35rem;
+    margin-top: 0.75rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .prose-custom :global(li) {
+    color: #334155;
+    padding-left: 0.25rem;
+    margin-bottom: 0.55rem;
+    line-height: 1.72;
+  }
+
+  .prose-custom :global(li::marker) {
+    color: #5E6AD2;
+    font-weight: 600;
+  }
+
+  .prose-custom :global(blockquote) {
+    border-left: 3px solid #5E6AD2;
+    background-color: #F8FAFF;
+    padding: 1rem 1.25rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    color: #1E293B;
+    font-style: normal;
+    margin: 1.75rem 0;
+  }
+
+  .prose-custom :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose-custom :global(code) {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.84em;
+    padding: 0.18rem 0.45rem;
+    border-radius: 0.375rem;
+    background-color: rgba(94, 106, 210, 0.09);
+    color: #4A55B8;
+  }
+
+  .prose-custom :global(pre) {
+    background-color: #0F172A;
+    color: #E2E8F0;
+    padding: 1.15rem 1.25rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 1.75rem 0;
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+
+  .prose-custom :global(pre code) {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+  }
+
   .prose-custom :global(img) {
     width: 100%;
     height: auto;
-    border-radius: 1rem;
-    border: 1px solid var(--border-subtle);
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    border-radius: 0.875rem;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    margin: 1.75rem 0;
     max-width: 100%;
   }
-  .prose-custom :global(h2) {
-    color: var(--text-primary);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.55rem;
-    font-weight: 700;
-    letter-spacing: -0.025em;
-    margin-top: 2.75rem;
-    margin-bottom: 1rem;
-  }
-  .prose-custom :global(h3),
-  .prose-custom :global(h4) {
-    color: var(--text-primary);
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 1.18rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin-top: 1.85rem;
-    margin-bottom: 0.75rem;
-  }
-  .prose-custom :global(code) {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85em;
-    padding: 0.15rem 0.4rem;
-    border-radius: 0.375rem;
-    background-color: rgba(94, 106, 210, 0.08);
-    color: #5E6AD2;
-  }
-  .prose-custom :global(blockquote) {
-    border-left: 3px solid #5E6AD2;
-    padding-left: 1rem;
-    color: #334155;
-    margin: 1.5rem 0;
-  }
-  .prose-custom :global(ul) {
-    list-style-type: disc;
-    list-style-position: inside;
-    margin-bottom: 2rem;
-  }
-  .prose-custom :global(ul > li + li) {
-    margin-top: 0.5rem;
-  }
-  .prose-custom :global(ol) {
-    list-style-type: decimal;
-    list-style-position: inside;
-    margin-bottom: 2rem;
-  }
-  .prose-custom :global(ol > li + li) {
-    margin-top: 0.5rem;
-  }
-  .prose-custom :global(li) {
-    color: var(--text-muted);
-    margin-left: 0.5rem;
-  }
-  .prose-custom :global(li::marker) {
-    color: var(--accent-primary);
-  }
-  .prose-custom :global(strong) {
-    color: var(--text-primary);
-    font-weight: 600;
+
+  .prose-custom :global(hr) {
+    border: 0;
+    border-top: 1px solid rgba(15, 23, 42, 0.08);
+    margin: 2.25rem 0;
   }
 </style>

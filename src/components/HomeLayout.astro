@@ -67,54 +67,51 @@ const templatesData = await fetchAllTemplates();
   <Hero portraitUrl={homePortraitUrl} />
 
   <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- Selected Work Showcase (Arshawn Arbabi Style: Full-Width 3D Mockups) -->
-    <section id="projects" class="py-16 sm:py-24 md:py-32 relative z-10">
+    <!-- Selected Work Showcase -->
+    <section id="projects" class="py-14 sm:py-16 lg:py-20 relative z-10">
       <div class="w-full">
-        <!-- Giant Editorial Section Title -->
-        <div class="mb-12 sm:mb-16 md:mb-20" data-gsap-heading>
-          <span class="block text-xs font-mono uppercase tracking-[0.2em] text-accent-primary mb-3">
-            PORTFOLIO · 01 — 04
-          </span>
-          <h2 class="font-grotesk font-extrabold text-5xl sm:text-7xl md:text-8xl lg:text-9xl tracking-[-0.04em] text-[#0F172A]">
-            Selected Work
-          </h2>
-        </div>
+        <SectionHeader
+          eyebrow="01 / Selected Work"
+          title="Selected"
+          gradientText="Work."
+          subtitle="Production SaaS platforms, multi-LLM systems, and high-performance web applications shipped end-to-end."
+        />
         
-        <!-- Featured Deliveries (Cinematic Full-Width Showcases) -->
-        <div class="flex flex-col gap-16 sm:gap-24 md:gap-32">
+        <!-- Featured Deliveries -->
+        <div class="flex flex-col gap-12 sm:gap-16 lg:gap-20">
           {projectData?.slice(0, 4).map((project, index) => (
             <ProjectItem project={project} index={index} />
           ))}
         </div>
         
         {projectData?.length > 4 && (
-          <div class="mt-20 md:mt-28 pt-12 border-t border-black/[0.08]">
+          <div class="mt-14 md:mt-20 pt-10 border-t border-black/[0.08]">
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-black/[0.08] gap-4">
                <div>
-                  <h3 class="text-xl md:text-2xl font-bold text-text-primary tracking-tight">More Shipped Builds</h3>
-                  <p class="text-xs sm:text-sm text-text-muted mt-1">Additional client deliveries, internal tools, and web applications.</p>
+                  <h3 class="font-grotesk text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight">More Shipped Builds</h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1">Additional client deliveries, internal tools, and web applications.</p>
                </div>
                <button 
                  id="expand-repo"
                  aria-label="Show all additional projects"
                  aria-expanded="false"
-                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono text-text-primary transition-all cursor-pointer shadow-xs hover:bg-slate-50"
+                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-xs font-mono text-[#0F172A] transition-colors cursor-pointer"
                >
                  <span>Show All ({projectData.length - 4})</span>
                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="repo-icon" class="transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
                </button>
             </div>
 
-            <div id="repo-grid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <div id="repo-grid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                {projectData?.slice(4).map((project, index) => (
                  <ProjectCard project={project} index={index} />
                ))}
             </div>
 
-            <div class="mt-10 md:mt-12 flex justify-center">
-               <a href="/projects" class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono font-semibold text-[#0F172A] transition-all duration-300 shadow-xs hover:bg-slate-50">
+            <div class="mt-10 flex justify-center">
+               <a href="/projects" class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors">
                   <span>View All Case Studies</span>
-                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
+                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
                </a>
             </div>
           </div>
@@ -139,28 +136,28 @@ const templatesData = await fetchAllTemplates();
 
     <!-- Commercial Templates & Digital Products Section -->
     {templatesData && templatesData.length > 0 && (
-      <section id="templates" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-black/[0.08]">
+      <section id="templates" class="py-14 sm:py-16 lg:py-20 relative z-10 border-t border-black/[0.08]">
         <div class="max-w-7xl mx-auto">
           <SectionHeader 
-            eyebrow="COMMERCIAL ASSETS"
+            eyebrow="06 / Commercial Assets"
             title="Commercial" 
-            gradientText="Templates" 
+            gradientText="Templates." 
             subtitle="Production-ready Next.js, React, and TypeScript templates with commercial licenses and 99+ Lighthouse performance."
           />
 
-          <div class="mt-10 md:mt-14 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {templatesData.slice(0, 2).map((template, index) => (
               <TemplateCard template={template} index={index} />
             ))}
           </div>
 
-          <div class="mt-12 flex justify-center">
+          <div class="mt-10 flex justify-center">
             <a 
               href="/templates" 
-              class="group inline-flex items-center gap-3 pl-6 pr-2.5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-mono font-semibold text-[#0F172A] transition-all duration-300 shadow-xs hover:bg-slate-50"
+              class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors"
             >
               <span>Browse All Templates</span>
-              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-accent-primary group-hover:text-white flex items-center justify-center transition-all font-bold">↗</span>
+              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
             </a>
           </div>
         </div>
@@ -168,25 +165,25 @@ const templatesData = await fetchAllTemplates();
     )}
 
     <!-- Blogs Section -->
-    <section id="blogs" class="py-16 sm:py-24 md:py-28 relative z-10 border-t border-black/[0.08]">
+    <section id="blogs" class="py-14 sm:py-16 lg:py-20 relative z-10 border-t border-black/[0.08]">
       <div class="max-w-7xl mx-auto">
         <SectionHeader 
-          eyebrow="ENGINEERING WRITING"
+          eyebrow="07 / Engineering Writing"
           title="Engineering" 
-          gradientText="Writing" 
+          gradientText="Writing." 
           subtitle="Deep dives on full-stack architecture, multi-LLM orchestration, and Core Web Vitals optimization."
         />
         
-        <div class="mt-10 md:mt-12">
+        <div>
           {blogData?.slice(0, 4).map((blog, index) => (
             <BlogItem blog={blog} index={index} />
           ))}
         </div>
         
-        <div class="mt-10 flex justify-start sm:justify-end">
-           <a href="/blogs" class="group inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white border border-black/10 hover:border-accent-primary text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-[#0F172A] shadow-xs hover:bg-slate-50 transition-all">
+        <div class="mt-8 flex justify-start sm:justify-end">
+           <a href="/blogs" class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors">
               <span>Read All Articles</span>
-              <span class="text-accent-primary group-hover:translate-x-0.5 transition-transform font-bold">↗</span>
+              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
            </a>
         </div>
       </div>

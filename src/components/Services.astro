@@ -55,46 +55,51 @@ const services = [
 ];
 ---
 
-<section id="services" class="py-16 sm:py-24 md:py-28 relative z-20 border-t border-black/[0.08]">
+<section id="services" class="py-14 sm:py-16 lg:py-20 relative z-20 border-t border-black/[0.08]">
   <div class="w-full">
     
     <SectionHeader 
-      eyebrow="SERVICES"
+      eyebrow="02 / Services"
       title="What I Build &" 
-      gradientText="Ship to Production" 
+      gradientText="Ship to Production." 
       subtitle="Focused on the layers that turn early product ideas into revenue-generating software: resilient backends, multi-LLM intelligence, real-time state, and fast interfaces."
     />
 
-    <!-- Developer HUD Asymmetric 12-Column Grid with All 6 Service Domains -->
-    <div class="mt-8 sm:mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
+    <!-- Asymmetric 12-Column Engineering Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
       {services.map((item, index) => (
         <div
           data-gsap-card
-          class={`bento-spotlight group relative rounded-[24px] bg-white border border-black/[0.08] hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 p-6 md:p-8 flex flex-col justify-between shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] ${item.span}`}
+          class={`bento-spotlight group relative overflow-hidden rounded-2xl bg-white border border-black/[0.08] hover:border-[#5E6AD2]/45 transition-colors duration-200 p-6 flex flex-col justify-between shadow-xs ${item.span}`}
         >
+          {item.featured && (
+            <div class="absolute top-0 inset-x-0 h-[2px] bg-[#5E6AD2]" aria-hidden="true"></div>
+          )}
 
           <div>
-            <!-- Top Row: Domain Tag + Index -->
-            <div class="flex items-center justify-between mb-5">
-              <span class="text-[11px] font-mono uppercase tracking-[0.08em] px-2.5 py-0.5 rounded-full bg-slate-100 border border-black/[0.08] text-slate-800 font-medium">
-                [ {item.domain} ]
+            <!-- Top Row: Domain + Index -->
+            <div class="flex items-center justify-between gap-3 mb-4">
+              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#5E6AD2] font-semibold">
+                {item.domain}
               </span>
-              <span class="text-xs font-mono tabular-nums text-slate-600 font-bold">{String(index + 1).padStart(2, "0")}/</span>
+              <span class="text-xs font-mono tabular-nums text-slate-400 font-semibold">
+                {String(index + 1).padStart(2, "0")}
+              </span>
             </div>
 
             <!-- Title -->
-            <h3 class={`font-grotesk ${item.featured ? 'text-xl md:text-2xl' : 'text-lg'} font-bold text-[#0F172A] tracking-[-0.03em] mb-2.5`}>
+            <h3 class={`font-grotesk ${item.featured ? "text-xl md:text-2xl" : "text-lg"} font-bold text-[#0F172A] tracking-[-0.025em] mb-2.5`}>
               {item.title}
             </h3>
 
             <!-- Description -->
-            <p class="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed mb-4 font-sans">
+            <p class="text-sm text-slate-600 font-normal leading-[1.65] mb-4 font-sans">
               {item.description}
             </p>
 
             {item.deliverables && (
-              <p class="text-[11px] font-mono text-slate-700 font-medium mb-5">
-                → {item.deliverables}
+              <p class="text-xs font-mono text-slate-700 font-medium mb-4">
+                <span class="text-[#5E6AD2] mr-1.5">→</span>{item.deliverables}
               </p>
             )}
           </div>
@@ -103,7 +108,7 @@ const services = [
           <div class="pt-4 border-t border-black/[0.08]">
             <div class="flex flex-wrap gap-1.5">
               {item.stack.map((tech) => (
-                <span class="text-[10px] font-mono uppercase tracking-[0.04em] px-2.5 py-1 rounded bg-slate-100/80 border border-black/[0.06] text-slate-700 font-medium">
+                <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-slate-50 border border-black/[0.08] text-slate-700">
                   {tech}
                 </span>
               ))}

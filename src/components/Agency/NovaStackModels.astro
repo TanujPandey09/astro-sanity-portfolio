@@ -1,16 +1,16 @@
 ---
-// NovaStack Engagement Models / Pricing: 3 Equal-Height Clean Light Cards
-// Recommended model highlighted ONLY with a blue top border + --blue-50 badge (no dark panels, no glow)
-
+// NovaStack Engagement Models: Unified Architectural 3-Column Studio Matrix
+// Single crisp white frame with 1px hairline dividers, subtle tint on recommended tier, inline "Best for" (no nested boxes), and integrated bottom assurance bar
 const models = [
   {
     id: "fixed-scope",
+    num: "01",
     highlighted: false,
-    badge: "Fixed-Scope Sprint",
+    tag: "Fixed-Scope",
     timeline: "2–6 Weeks",
     title: "Fixed-Scope Build",
     description:
-      "Defined specs, fixed investment, and milestone-gated delivery for websites, SaaS MVPs, and custom HTML email systems.",
+      "Defined specs, fixed investment, and milestone-gated delivery for marketing sites, SaaS MVPs, and HTML email systems.",
     bestFor: "Startups & businesses with clear launch goals.",
     highlights: [
       "Written technical scope & milestone roadmap",
@@ -23,26 +23,28 @@ const models = [
   },
   {
     id: "freelance-support",
+    num: "02",
     highlighted: true,
-    badge: "Recommended · Embedded",
+    tag: "Most Popular",
     timeline: "Immediate Start",
     title: "Dedicated Engineering",
     description:
-      "Senior React, Next.js, and full-stack reinforcement without hiring delays. Plug directly into your GitHub, Linear, and Slack.",
+      "Senior React, Next.js, and full-stack capacity without hiring delays—plugged directly into your GitHub, Linear, and Slack.",
     bestFor: "Digital agencies, studios & fast-moving product teams.",
     highlights: [
       "Direct GitHub, Linear/Jira & Slack integration",
       "High-velocity Next.js, React & TypeScript builds",
       "Daily async updates & Loom walkthroughs",
-      "Flexible weekly sprints—scale up or pause anytime",
+      "Flexible weekly sprints—scale or pause anytime",
     ],
     ctaText: "Check Availability",
     ctaHref: "#contact",
   },
   {
     id: "ongoing-collaboration",
+    num: "03",
     highlighted: false,
-    badge: "Monthly Retainer",
+    tag: "Retainer",
     timeline: "Month-to-Month",
     title: "Technical Partnership",
     description:
@@ -50,7 +52,7 @@ const models = [
     bestFor: "Post-launch SaaS founders iterating on live products.",
     highlights: [
       "Direct channel via Slack, WhatsApp, or email",
-      "Continuous feature sprints & third-party API sync",
+      "Continuous feature sprints & API integrations",
       "Core Web Vitals audits & dependency updates",
       "Transparent task board & cancel-anytime terms",
     ],
@@ -58,14 +60,20 @@ const models = [
     ctaHref: "#contact",
   },
 ];
+
+const guarantees = [
+  "100% Repository & IP Ownership",
+  "Staging-Verified Milestones",
+  "Direct Founder Execution",
+];
 ---
 
 <section id="models" class="ns-section bg-[var(--bg)] text-[var(--ink)] border-b border-[var(--border)]">
   <div class="ns-container">
     <!-- Section Header -->
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 lg:mb-16">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 lg:mb-10">
       <div class="max-w-2xl">
-        <div class="flex items-center gap-2.5 mb-3">
+        <div class="flex items-center gap-2.5 mb-2.5">
           <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
           <span class="ns-mono-label text-[var(--blue-600)] font-medium">
             05 / Engagement Models
@@ -81,54 +89,56 @@ const models = [
       </p>
     </div>
 
-    <!-- 3 Equal-Height Clean Cards -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch mb-10">
-      {models.map((model) => (
+    <!-- Unified Architectural Matrix Frame (Zero Card-Inside-Card Clutter) -->
+    <div class="ns-reveal rounded-[16px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-[var(--border)]">
+        {models.map((model) => (
           <article
-            class={`ns-card ns-reveal h-full p-6 sm:p-8 flex flex-col justify-between ${
-              model.highlighted ? "border-t-[3px] border-t-[var(--blue-600)]" : ""
+            class={`p-6 sm:p-7 flex flex-col justify-between gap-6 transition-colors duration-200 ${
+              model.highlighted ? "bg-[#F8FAFF]" : "bg-[var(--surface)]"
             }`}
           >
             <div class="space-y-5">
-              <!-- Top Mono Badges -->
-              <div class="flex items-center justify-between gap-2 flex-wrap">
+              <!-- Top Meta Row -->
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-mono text-[var(--muted)]">
+                  {model.num} · {model.timeline}
+                </span>
                 <span
-                  class={`px-3 py-1 rounded-full text-xs font-mono font-medium ${
+                  class={`px-2.5 py-0.5 rounded-full text-[11px] font-mono font-medium ${
                     model.highlighted
                       ? "bg-[var(--blue-50)] text-[var(--blue-700)]"
                       : "bg-[var(--bg)] text-[var(--muted)] border border-[var(--border)]"
                   }`}
                 >
-                  {model.badge}
-                </span>
-                <span class="text-xs font-mono text-[var(--muted)]">
-                  {model.timeline}
+                  {model.tag}
                 </span>
               </div>
 
-              <div class="space-y-2.5">
-                <h3 class="text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
+              <!-- Title & Concise Summary -->
+              <div class="space-y-2">
+                <h3 class="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
                   {model.title}
                 </h3>
-                <p class="text-base leading-[1.65] text-[var(--muted)]">
+                <p class="text-[15px] leading-[1.6] text-[var(--muted)]">
                   {model.description}
                 </p>
               </div>
 
-              <!-- Clear Best For Line -->
-              <div class="p-4 rounded-[12px] bg-[var(--bg)] border border-[var(--border)]">
-                <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--blue-600)] font-medium block mb-1">
-                  Best for
-                </span>
-                <p class="text-sm font-medium text-[var(--ink)] leading-snug">
-                  {model.bestFor}
+              <!-- Clean Inline "Best For" Line (No Nested Box) -->
+              <div class="py-3 border-y border-[var(--border)]">
+                <p class="text-sm text-[var(--ink)] leading-snug">
+                  <span class="font-mono text-[11px] uppercase tracking-[0.06em] text-[var(--blue-600)] font-semibold mr-2">
+                    Best for:
+                  </span>
+                  <span>{model.bestFor}</span>
                 </p>
               </div>
 
-              <!-- 4 Clear Bullets (>= 16px) -->
-              <ul class="space-y-3 text-base leading-[1.55] text-[var(--muted)] pt-1">
+              <!-- Clean Deliverables List -->
+              <ul class="space-y-2.5 text-[15px] leading-[1.55] text-[var(--muted)]">
                 {model.highlights.map((item) => (
-                  <li class="flex items-start gap-3">
+                  <li class="flex items-start gap-2.5">
                     <span
                       class="text-[var(--blue-600)] font-semibold shrink-0 mt-0.5"
                       aria-hidden="true"
@@ -142,13 +152,13 @@ const models = [
             </div>
 
             <!-- Action CTA -->
-            <div class="pt-7 mt-7 border-t border-[var(--border)]">
+            <div class="pt-2">
               <a
                 href={model.ctaHref}
                 class={
                   model.highlighted
-                    ? "ns-btn-primary w-full py-3.5 px-5 text-base"
-                    : "ns-link-arrow w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] text-base font-medium text-[var(--ink)] transition-colors duration-150"
+                    ? "ns-btn-primary w-full py-3.5 px-5 text-sm sm:text-base"
+                    : "ns-link-arrow w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] text-sm sm:text-base font-medium text-[var(--ink)] transition-colors duration-150"
                 }
               >
                 <span>{model.ctaText}</span>
@@ -156,38 +166,22 @@ const models = [
               </a>
             </div>
           </article>
-      ))}
-    </div>
+        ))}
+      </div>
 
-    <!-- Clean 3-Pillar Ownership Assurance Strip -->
-    <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 sm:p-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 divide-y md:divide-y-0 md:divide-x divide-[var(--border)]">
-        <div class="pt-4 first:pt-0 md:pt-0">
-          <h4 class="font-semibold text-base text-[var(--ink)]">
-            Full Repository &amp; IP Ownership
-          </h4>
-          <p class="text-sm text-[var(--muted)] mt-1 leading-relaxed">
-            Code, DNS, and cloud infrastructure live directly in your own accounts from day one.
-          </p>
-        </div>
-
-        <div class="pt-4 md:pt-0 md:pl-6">
-          <h4 class="font-semibold text-base text-[var(--ink)]">
-            Staging-Verified Milestones
-          </h4>
-          <p class="text-sm text-[var(--muted)] mt-1 leading-relaxed">
-            Inspect live builds on a private staging URL before approving milestone releases.
-          </p>
-        </div>
-
-        <div class="pt-4 md:pt-0 md:pl-6">
-          <h4 class="font-semibold text-base text-[var(--ink)]">
-            Direct Founder Execution
-          </h4>
-          <p class="text-sm text-[var(--muted)] mt-1 leading-relaxed">
-            Communicate directly with the senior engineer writing and deploying your code.
-          </p>
-        </div>
+      <!-- Integrated Slim Assurance Footer Strip -->
+      <div class="px-6 sm:px-7 py-4 bg-[var(--bg)] border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="ns-mono-label text-[var(--muted)] shrink-0">
+          Included on every engagement
+        </span>
+        <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono text-[var(--ink)]">
+          {guarantees.map((item) => (
+            <li class="inline-flex items-center gap-2">
+              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   </div>

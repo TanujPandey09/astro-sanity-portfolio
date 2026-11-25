@@ -31,9 +31,9 @@ const faqs = [
 
 <section id="faq" class="ns-section bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)]">
   <div class="ns-container">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
       <!-- Left Editorial Header (4 cols) -->
-      <div class="lg:col-span-4 space-y-4">
+      <div class="lg:col-span-4 space-y-3">
         <div class="flex items-center gap-2.5">
           <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
           <span class="ns-mono-label text-[var(--blue-600)] font-medium">
@@ -59,7 +59,7 @@ const faqs = [
                 id={`faq-btn-${index}`}
                 aria-expanded={isFirst ? "true" : "false"}
                 aria-controls={`faq-answer-${index}`}
-                class="faq-trigger group w-full text-left py-6 flex items-center justify-between gap-6 cursor-pointer focus:outline-none"
+                class="faq-trigger group w-full text-left py-4 sm:py-5 flex items-center justify-between gap-5 cursor-pointer focus:outline-none"
               >
                 <span class="text-lg sm:text-[19px] font-semibold text-[var(--ink)] group-hover:text-[var(--blue-600)] transition-colors duration-150 tracking-[-0.015em] leading-snug">
                   {faq.question}

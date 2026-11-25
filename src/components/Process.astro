@@ -1,23 +1,23 @@
 ---
-// Arshawn Arbabi Inspired Process: "How a project runs" Editorial Ledger + FAQ Accordion + Collaboration Philosophy
+import SectionHeader from "./SectionHeader.astro";
 
 const phases = [
   {
-    step: "01/",
+    step: "01",
     name: "Discover",
     tagline: "Architecture & System Scoping",
     desc: "Before touching application code, we define the technical blueprint: data models, relational database schemas, multi-LLM workflows, API contracts, and milestone deliverables. This eliminates mid-sprint pivots and ensures zero architectural ambiguity.",
     thumb: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80"
   },
   {
-    step: "02/",
+    step: "02",
     name: "Build",
     tagline: "Full-Stack & AI Engineering",
     desc: "Development proceeds in rapid, transparent weekly cycles. I ship strict TypeScript interfaces, Node.js microservices, and validated AI orchestration pipelines. You receive live staging preview links on every pull request for immediate testing.",
     thumb: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=400&q=80"
   },
   {
-    step: "03/",
+    step: "03",
     name: "Polish & Scale",
     tagline: "Performance QA & Production Release",
     desc: "Every build undergoes rigorous verification: 99+ Lighthouse performance tuning, mobile responsiveness, RBAC security audits, and zero-downtime CI/CD deployment. Clean documentation and handoff ensure your engineers can scale it effortlessly.",
@@ -45,49 +45,46 @@ const faqs = [
 ];
 ---
 
-<section id="process" class="py-16 sm:py-24 md:py-32 border-t border-black/[0.08] bg-canvas relative z-20">
+<section id="process" class="py-14 sm:py-16 lg:py-20 border-t border-black/[0.08] bg-canvas relative z-20">
   <div class="w-full max-w-7xl mx-auto">
     
-    <!-- 1. SECTION TITLE: Giant Editorial Header -->
-    <div class="mb-12 sm:mb-16 md:mb-20" data-gsap-heading>
-      <span class="block text-xs font-mono uppercase tracking-[0.2em] text-accent-primary mb-3">
-        METHODOLOGY · 01 — 03
-      </span>
-      <h2 class="font-grotesk font-extrabold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight text-[#0F172A]">
-        How a project runs
-      </h2>
-    </div>
+    <!-- 1. UNIFIED SECTION HEADER -->
+    <SectionHeader
+      eyebrow="05 / Process"
+      title="How a Project"
+      gradientText="Runs."
+      subtitle="A transparent three-stage engineering workflow from architectural scoping to zero-downtime production release."
+    />
 
-    <!-- 2. EDITORIAL NUMBERED LEDGER (Arshawn Arbabi Style) -->
+    <!-- 2. EDITORIAL NUMBERED LEDGER -->
     <div class="border-t border-black/[0.08] divide-y divide-black/[0.08]">
       {phases.map((phase) => (
-        <div data-gsap-card class="py-10 sm:py-14 md:py-16 grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 lg:gap-12 items-start group">
+        <div data-gsap-card class="py-8 sm:py-10 grid grid-cols-1 md:grid-cols-12 gap-5 sm:gap-8 items-start group">
           <!-- Step Number & Title -->
           <div class="md:col-span-3">
-            <span class="font-mono text-sm font-bold text-accent-primary block mb-1">{phase.step}</span>
-            <h3 class="font-grotesk text-2xl sm:text-3xl font-extrabold text-[#0F172A] tracking-tight group-hover:text-accent-primary transition-colors">
+            <span class="font-mono text-xs font-semibold tracking-[0.12em] text-[#5E6AD2] block mb-1.5">STEP {phase.step}</span>
+            <h3 class="font-grotesk text-2xl sm:text-[26px] font-bold text-[#0F172A] tracking-tight group-hover:text-[#5E6AD2] transition-colors">
               {phase.name}
             </h3>
-            <span class="text-xs font-mono text-slate-600 mt-1 block uppercase tracking-wider">{phase.tagline}</span>
+            <span class="text-xs font-mono text-slate-500 mt-1 block">{phase.tagline}</span>
           </div>
 
           <!-- Embedded Process Thumbnail -->
           <div class="md:col-span-3">
-            <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden border border-black/10 bg-slate-100 shadow-sm group-hover:shadow-md transition-all">
+            <div class="relative w-full aspect-[16/10] rounded-xl overflow-hidden border border-black/[0.08] bg-slate-100">
               <img
                 src={phase.thumb}
                 alt={phase.name}
                 loading="lazy"
                 decoding="async"
-                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 transition-all duration-700 ease-out group-hover:scale-105"
+                class="w-full h-full object-cover grayscale contrast-110 group-hover:grayscale-0 transition-all duration-500 ease-out group-hover:scale-105"
               />
-              <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
             </div>
           </div>
 
           <!-- Description Narrative -->
           <div class="md:col-span-6 flex flex-col justify-center h-full">
-            <p class="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
+            <p class="text-slate-600 font-sans text-sm sm:text-[15px] leading-[1.7]">
               {phase.desc}
             </p>
           </div>
@@ -95,40 +92,37 @@ const faqs = [
       ))}
     </div>
 
-    <!-- 3. VISUAL ART EMBLEM + "Who I work best with" -->
-    <div class="my-16 sm:my-24 md:my-32 pt-16 border-t border-black/[0.08] grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-      <!-- Left: Bespoke Typographic Sculpture / Monogram -->
-      <div class="md:col-span-5 flex justify-center md:justify-start">
-        <div class="relative w-48 h-48 sm:w-64 sm:h-64 rounded-3xl bg-gradient-to-br from-[#0F172A] via-[#1E293B] to-[#334155] p-2 shadow-2xl flex items-center justify-center overflow-hidden border border-black/10 group">
-          <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(94,106,210,0.4)_0%,transparent_70%)]"></div>
-          <span class="relative font-grotesk font-black text-7xl sm:text-8xl text-white tracking-tighter select-none group-hover:scale-105 transition-transform duration-500">
-            TP<span class="text-accent-primary">.</span>
-          </span>
-          <div class="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-3xl"></div>
+    <!-- 3. COMPACT COLLABORATION FIT BANNER -->
+    <div class="my-12 sm:my-16 rounded-2xl bg-white border border-black/[0.08] p-6 sm:p-8 lg:p-10 shadow-xs grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
+      <div class="lg:col-span-4 space-y-2.5">
+        <div class="flex items-center gap-2.5">
+          <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+          <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Collaboration Fit</span>
         </div>
+        <h3 class="font-grotesk text-2xl sm:text-3xl font-bold text-[#0F172A] tracking-tight leading-tight">
+          Who I work best with.
+        </h3>
       </div>
 
-      <!-- Right: "Who I work best with" Editorial Narrative -->
-      <div class="md:col-span-7 space-y-4 sm:space-y-6">
-        <span class="text-xs font-mono uppercase tracking-[0.2em] text-accent-primary font-bold block">COLLABORATION FIT</span>
-        <h3 class="font-grotesk text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#0F172A] tracking-tight">
-          Who I work best with
-        </h3>
-        <p class="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
+      <div class="lg:col-span-8 space-y-3 border-t lg:border-t-0 lg:border-l border-black/[0.08] pt-5 lg:pt-0 lg:pl-8">
+        <p class="text-slate-700 font-sans text-sm sm:text-base leading-[1.7] font-medium">
           I partner with ambitious founders, early-stage to Series B startups, and product teams that value engineering rigor, clean architecture, and velocity.
         </p>
-        <p class="text-slate-600 font-sans text-xs sm:text-sm leading-relaxed">
+        <p class="text-slate-600 font-sans text-sm leading-[1.7]">
           Whether you need a complete SaaS platform built from scratch, multi-LLM orchestration integrated into an existing product, or a senior engineer to own and scale your web architecture, I bridge design nuance with backend reliability.
         </p>
       </div>
     </div>
 
     <!-- 4. FAQ: "What you might ask" (Clean Accordion) -->
-    <div id="faq" class="pt-12 sm:pt-16 border-t border-black/[0.08]">
-      <div class="mb-8">
-        <span class="text-xs font-mono uppercase tracking-[0.2em] text-accent-primary font-bold block mb-2">COMMON QUESTIONS</span>
-        <h3 class="font-grotesk font-extrabold text-3xl sm:text-4xl md:text-5xl text-[#0F172A] tracking-tight">
-          What you might ask
+    <div id="faq" class="pt-10 sm:pt-12 border-t border-black/[0.08]">
+      <div class="mb-6 sm:mb-8">
+        <div class="flex items-center gap-2.5 mb-2.5">
+          <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+          <span class="text-xs font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold">Common Questions</span>
+        </div>
+        <h3 class="font-grotesk font-bold text-2xl sm:text-3xl md:text-4xl text-[#0F172A] tracking-tight">
+          What you might ask.
         </h3>
       </div>
 

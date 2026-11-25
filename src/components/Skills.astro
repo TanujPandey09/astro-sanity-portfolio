@@ -102,31 +102,31 @@ const skillGroups = [
 ];
 ---
 
-<section id="skills" class="py-16 sm:py-24 md:py-32 relative z-10 border-t border-black/[0.08]">
+<section id="skills" class="py-14 sm:py-16 lg:py-20 relative z-10 border-t border-black/[0.08]">
   <div class="w-full">
     
     <SectionHeader 
-      eyebrow="CORE STACK & TOOLS"
+      eyebrow="04 / Core Stack"
       title="The Stack" 
-      gradientText="In Production" 
+      gradientText="In Production." 
       subtitle="Core languages, frameworks, and architectural tools I use daily to ship fast, reliable software."
     />
 
-    <!-- 4 Clean, Scannable Domain Cards (Parsed in 3 Seconds) -->
+    <!-- 4 Clean, Scannable Domain Cards -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {skillGroups.map((group, idx) => (
-        <div data-gsap-card class="bento-spotlight group relative rounded-[24px] bg-white border border-black/[0.08] p-6 flex flex-col justify-between hover:border-accent-primary/40 transition-[border-color,box-shadow] duration-300 shadow-[0_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)]">
+        <div data-gsap-card class="bento-spotlight group relative rounded-2xl bg-white border border-black/[0.08] p-6 flex flex-col justify-between hover:border-[#5E6AD2]/45 transition-colors duration-200 shadow-xs">
           <div>
             <!-- Group Header -->
             <div class="flex items-center justify-between pb-4 mb-5 border-b border-black/[0.08]">
               <div>
-                <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-accent-primary font-bold block mb-1">0{idx + 1}/ DOMAIN</span>
+                <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#5E6AD2] font-semibold block mb-1">0{idx + 1} · Domain</span>
                 <h3 class="text-lg font-grotesk font-bold text-[#0F172A] tracking-[-0.025em]">
                   {group.title}
                 </h3>
               </div>
-              <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-slate-100 border border-black/[0.08] text-slate-700 font-semibold">
-                [{group.skills.length}]
+              <span class="text-[11px] font-mono text-slate-500">
+                {group.skills.length}
               </span>
             </div>
 
@@ -134,10 +134,10 @@ const skillGroups = [
             <div class="flex flex-wrap gap-2">
               {group.skills.map((skill) => (
                 <div 
-                  class={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 border cursor-default select-none ${
+                  class={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors duration-200 border cursor-default select-none ${
                     skill.highlight
-                      ? 'bg-slate-100/90 border-black/15 text-[#0F172A] hover:border-accent-primary/60 hover:bg-slate-200/60 shadow-2xs'
-                      : 'bg-slate-50 border-black/[0.08] text-slate-700 hover:border-black/20 hover:text-[#0F172A] hover:bg-slate-100'
+                      ? "bg-[#F8FAFF] border-[#5E6AD2]/25 text-[#0F172A] hover:border-[#5E6AD2]/60"
+                      : "bg-slate-50 border-black/[0.08] text-slate-700 hover:border-black/20 hover:text-[#0F172A]"
                   }`}
                 >
                   <!-- Real Logo or Brand Accent Dot -->

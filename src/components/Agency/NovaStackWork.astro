@@ -221,6 +221,14 @@ const caseStudies = caseStudySource.map((doc, idx) => {
     ? doc.tags.filter((t: any) => typeof t === "string" && t.trim()).slice(0, 5)
     : [];
   const demoUrl = normalizeUrl(doc?.demoLink);
+  let displayHost = slug ? `novastack.studio/projects/${slug}` : "novastack.studio/projects";
+  if (demoUrl) {
+    try {
+      displayHost = new URL(demoUrl).hostname.replace(/^www\./, "");
+    } catch {
+      // keep fallback displayHost
+    }
+  }
 
   return {
     num: String(idx + 1).padStart(2, "0"),
@@ -230,20 +238,24 @@ const caseStudies = caseStudySource.map((doc, idx) => {
     summary: extractSummary(doc?.excerpt, normalizeText(doc?.tagline)),
     stack,
     demoUrl,
+    displayHost,
     caseStudyUrl: slug ? `/projects/${slug}` : "/projects",
     posterUrl: rawImg ? optimizeSanityImage(rawImg, 1800, 95) : "",
     demoMedia: resolveDemoMedia(doc?.demoVideo?.asset?.url, normalizeUrl(doc?.demoVideoUrl)),
     accentHex: resolveProjectAccent(name, idx),
   };
 });
+
+const flagshipCase = caseStudies[0] || null;
+const ledgerCases = caseStudies.slice(1);
 ---
 
 <!-- DARK SECTION 1 OF 2: SELECTED WORK (3D TILTED-TO-STRAIGHT SCROLL SHOWCASE ON --ink #0B111A) -->
 <section id="work" class="ns-section bg-[var(--ink)] text-white border-b border-[var(--dark-border)] overflow-hidden relative">
-  <div class="ns-container mb-12 lg:mb-14">
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+  <div class="ns-container mb-8 lg:mb-10">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5">
       <div class="max-w-2xl">
-        <div class="flex items-center gap-2.5 mb-3">
+        <div class="flex items-center gap-2.5 mb-2.5">
           <span class="w-5 h-px bg-[var(--sky-400)]" aria-hidden="true"></span>
           <span class="ns-mono-label text-[var(--sky-400)] font-medium">
             02 / Selected Work
@@ -252,7 +264,7 @@ const caseStudies = caseStudySource.map((doc, idx) => {
         <h2 class="ns-h2 text-white">
           Shipped <span class="text-[var(--sky-400)]">Production</span> Systems.
         </h2>
-        <p class="text-base md:text-lg leading-[1.65] text-[var(--dark-muted)] mt-4 max-w-xl">
+        <p class="text-base leading-[1.6] text-[var(--dark-muted)] mt-3 max-w-xl">
           Live client applications, full-stack web platforms, and commercial architectures synced directly from Sanity CMS.
         </p>
       </div>
@@ -286,7 +298,7 @@ const caseStudies = caseStudySource.map((doc, idx) => {
           <div class="carousel-track-wrapper overflow-hidden mb-6 sm:mb-8 [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
             <div class="carousel-track-row1 flex items-center gap-6 sm:gap-8 whitespace-nowrap">
               {fullRow1Items.map((proj) => (
-                <div class="carousel-card group relative w-[320px] sm:w-[440px] lg:w-[500px] shrink-0 rounded-[16px] overflow-hidden bg-[var(--ink-2)] border border-[var(--dark-border)] transition-colors duration-200 hover:border-[var(--sky-400)]">
+                <div class="carousel-card group relative w-[280px] sm:w-[400px] lg:w-[500px] shrink-0 rounded-[16px] overflow-hidden bg-[var(--ink-2)] border border-[var(--dark-border)] transition-colors duration-200 hover:border-[var(--sky-400)]">
                   <!-- Top Browser Bar -->
                   <div class="px-4 py-2.5 bg-[var(--ink)] border-b border-[var(--dark-border)] flex items-center justify-between text-xs font-mono text-[var(--dark-muted)]">
                     <div class="flex items-center gap-1.5">
@@ -355,15 +367,15 @@ const caseStudies = caseStudySource.map((doc, idx) => {
                     </div>
                   </div>
 
-                  <!-- Bottom Caption Bar -->
-                  <div class="px-4 py-3.5 bg-[var(--ink)] border-t border-[var(--dark-border)] flex items-center justify-between gap-3">
+                  <!-- Bottom Caption Bar (Directly Tappable on Mobile & Tablet) -->
+                  <a href={proj.detailUrl} class="px-3.5 sm:px-4 py-3 bg-[var(--ink)] border-t border-[var(--dark-border)] flex items-center justify-between gap-3">
                     <span class="font-semibold text-sm text-white group-hover:text-[var(--sky-400)] transition-colors truncate">
                       {proj.title}
                     </span>
                     <span class="text-xs font-mono text-[var(--dark-muted)] truncate shrink-0">
                       {proj.tag}
                     </span>
-                  </div>
+                  </a>
                 </div>
               ))}
             </div>
@@ -371,9 +383,9 @@ const caseStudies = caseStudySource.map((doc, idx) => {
 
           <!-- ROW 2 -->
           <div class="carousel-track-wrapper overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]">
-            <div class="carousel-track-row2 flex items-center gap-6 sm:gap-8 whitespace-nowrap">
+            <div class="carousel-track-row2 flex items-center gap-5 sm:gap-8 whitespace-nowrap">
               {fullRow2Items.map((proj) => (
-                <div class="carousel-card group relative w-[320px] sm:w-[440px] lg:w-[500px] shrink-0 rounded-[16px] overflow-hidden bg-[var(--ink-2)] border border-[var(--dark-border)] transition-colors duration-200 hover:border-[var(--sky-400)]">
+                <div class="carousel-card group relative w-[280px] sm:w-[400px] lg:w-[500px] shrink-0 rounded-[16px] overflow-hidden bg-[var(--ink-2)] border border-[var(--dark-border)] transition-colors duration-200 hover:border-[var(--sky-400)]">
                   <!-- Top Browser Bar -->
                   <div class="px-4 py-2.5 bg-[var(--ink)] border-b border-[var(--dark-border)] flex items-center justify-between text-xs font-mono text-[var(--dark-muted)]">
                     <div class="flex items-center gap-1.5">
@@ -442,15 +454,15 @@ const caseStudies = caseStudySource.map((doc, idx) => {
                     </div>
                   </div>
 
-                  <!-- Bottom Caption Bar -->
-                  <div class="px-4 py-3.5 bg-[var(--ink)] border-t border-[var(--dark-border)] flex items-center justify-between gap-3">
+                  <!-- Bottom Caption Bar (Directly Tappable on Mobile & Tablet) -->
+                  <a href={proj.detailUrl} class="px-3.5 sm:px-4 py-3 bg-[var(--ink)] border-t border-[var(--dark-border)] flex items-center justify-between gap-3">
                     <span class="font-semibold text-sm text-white group-hover:text-[var(--sky-400)] transition-colors truncate">
                       {proj.title}
                     </span>
                     <span class="text-xs font-mono text-[var(--dark-muted)] truncate shrink-0">
                       {proj.tag}
                     </span>
-                  </div>
+                  </a>
                 </div>
               ))}
             </div>
@@ -476,13 +488,14 @@ const caseStudies = caseStudySource.map((doc, idx) => {
   )}
 </section>
 
-<!-- LIGHT EDITORIAL GRID: CASE STUDIES (--surface #FFFFFF) -->
-{caseStudies.length > 0 && (
+<!-- LIGHT ARCHITECTURAL SHOWCASE: CASE STUDIES (--surface #FFFFFF) -->
+  {caseStudies.length > 0 && (
   <section id="case-studies" class="ns-section bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)]">
     <div class="ns-container">
-      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 lg:mb-16">
+      <!-- Section Header -->
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 lg:mb-10">
         <div class="max-w-2xl">
-          <div class="flex items-center gap-2.5 mb-3">
+          <div class="flex items-center gap-2.5 mb-2.5">
             <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
             <span class="ns-mono-label text-[var(--blue-600)] font-medium">
               Case Studies · {String(caseStudies.length).padStart(2, "0")} Shipped
@@ -502,116 +515,390 @@ const caseStudies = caseStudySource.map((doc, idx) => {
         </a>
       </div>
 
-      <!-- Consistent Proportions Editorial 2-Column Grid with Refined Micro-Animations -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {caseStudies.map((item, idx) => (
-          <article
-            class="ns-case-card ns-reveal group h-full overflow-hidden flex flex-col"
-            data-reveal-delay={(idx % 2) * 80}
-          >
-            <!-- Subtle Per-Project Accent Hairline Reveal on Hover -->
-            <div
-              class="h-[2px] w-full origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out"
-              style={`background-color: ${item.accentHex};`}
-              aria-hidden="true"
-            ></div>
+      <!-- TIER 1: FLAGSHIP FEATURE DOSSIER (caseStudies[0]) -->
+      {flagshipCase && (
+        <article class="ns-case-card group rounded-[16px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden transition-colors duration-200 hover:border-[var(--blue-600)]">
+          <!-- Per-Project Accent Top Hairline -->
+          <div
+            class="h-[2px] w-full"
+            style={`background-color: ${flagshipCase.accentHex};`}
+            aria-hidden="true"
+          ></div>
 
-            <a
-              href={item.caseStudyUrl}
-              class="block relative aspect-[16/10] w-full overflow-hidden bg-[var(--bg)] border-b border-[var(--border)]"
-            >
-              <img
-                src={item.posterUrl}
-                alt={item.name}
-                loading="lazy"
-                decoding="async"
-                class="w-full h-full object-cover object-top ns-shot-pan"
-              />
-
-              <!-- Subtle Agency Corner Indicator (Slides in cleanly on hover) -->
-              <span
-                class="pointer-events-none absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] group-hover:bg-[var(--blue-600)] group-hover:border-[var(--blue-600)] group-hover:text-white flex items-center justify-center text-sm font-medium opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-250 ease-out"
-                aria-hidden="true"
+          <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,1.38fr)_minmax(0,1fr)]">
+            <!-- Left Visual Browser Stage -->
+            <div class="p-3 sm:p-4 lg:p-5 bg-[var(--bg)] flex flex-col justify-center">
+              <a
+                href={flagshipCase.caseStudyUrl}
+                class="block rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden shadow-[0_8px_24px_-12px_rgba(11,17,26,0.12)]"
               >
-                ↗
-              </span>
-            </a>
-
-            <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-5">
-              <div class="space-y-3">
-                <div class="flex items-center justify-between gap-3">
-                  <span class="ns-mono-label text-[var(--blue-600)] font-medium truncate">
-                    {item.num} · {item.category}
+                <!-- Minimal Browser Chrome -->
+                <div class="px-3.5 py-2.5 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                  </div>
+                  <span class="text-[11px] font-mono text-[var(--muted)] truncate">
+                    {flagshipCase.displayHost}
                   </span>
-                  <span class="text-xs font-mono text-[var(--muted)] shrink-0">
-                    {item.role}
+                  <span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[var(--blue-50)] text-[10px] font-mono font-medium uppercase tracking-[0.08em] text-[var(--blue-600)] shrink-0">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[var(--blue-600)]" aria-hidden="true"></span>
+                    Featured
                   </span>
                 </div>
 
-                <h3 class="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
+                <!-- 16:10 Lossless Preview -->
+                <div class="relative aspect-[16/10] w-full overflow-hidden bg-[var(--bg)]">
+                  <img
+                    src={flagshipCase.posterUrl}
+                    alt={flagshipCase.name}
+                    loading="lazy"
+                    decoding="async"
+                    class="w-full h-full object-cover object-top ns-shot-pan"
+                  />
+                  <span
+                    class="pointer-events-none absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] group-hover:bg-[var(--blue-600)] group-hover:border-[var(--blue-600)] group-hover:text-white flex items-center justify-center text-sm font-medium opacity-0 translate-y-1.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 ease-out"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </div>
+              </a>
+            </div>
+
+            <!-- Right Editorial Dossier -->
+            <div class="p-6 sm:p-7 lg:p-8 border-t lg:border-t-0 lg:border-l border-[var(--border)] flex flex-col justify-between gap-6 bg-[var(--surface)]">
+              <div class="space-y-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2.5 min-w-0">
+                    <span class="font-mono text-2xl sm:text-[26px] font-semibold leading-none tracking-[-0.03em] text-[var(--blue-600)]">
+                      {flagshipCase.num}
+                    </span>
+                    <span class="h-4 w-px bg-[var(--border)]" aria-hidden="true"></span>
+                    <span class="ns-mono-label text-[var(--muted)] font-medium truncate">
+                      {flagshipCase.category}
+                    </span>
+                  </div>
+                  <span class="text-xs font-mono text-[var(--muted)] shrink-0">
+                    {flagshipCase.role}
+                  </span>
+                </div>
+
+                <h3 class="text-2xl sm:text-[28px] lg:text-[32px] font-semibold tracking-[-0.025em] leading-[1.15] text-[var(--ink)]">
                   <a
-                    href={item.caseStudyUrl}
+                    href={flagshipCase.caseStudyUrl}
                     class="hover:text-[var(--blue-600)] transition-colors"
                   >
-                    {item.name}
+                    {flagshipCase.name}
                   </a>
                 </h3>
 
-                <p class="text-base leading-[1.65] text-[var(--muted)] line-clamp-2">
-                  {item.summary}
+                <p class="text-[15px] sm:text-base leading-[1.68] text-[var(--muted)]">
+                  {flagshipCase.summary}
                 </p>
+
+                {flagshipCase.stack.length > 0 && (
+                  <div class="pt-1 flex flex-wrap gap-1.5">
+                    {flagshipCase.stack.slice(0, 4).map((tech) => (
+                      <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs font-mono text-[var(--muted)]">
+                        <span
+                          class="w-1.5 h-1.5 rounded-full shrink-0"
+                          style={`background-color: ${flagshipCase.accentHex};`}
+                          aria-hidden="true"
+                        ></span>
+                        <span>{tech}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
 
-              <div class="pt-4 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-3">
-                <div class="flex flex-wrap gap-1.5">
-                  {item.stack.slice(0, 3).map((tech) => (
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--bg)] border border-[var(--border)] text-xs font-mono text-[var(--muted)]">
+              <div class="pt-5 border-t border-[var(--border)] flex flex-wrap items-center justify-between gap-3">
+                <a
+                  href={flagshipCase.caseStudyUrl}
+                  class="ns-btn-primary !h-10 !px-4 !text-sm !rounded-[10px]"
+                >
+                  <span>Read Case Study</span>
+                  <span aria-hidden="true">→</span>
+                </a>
+
+                <div class="flex items-center gap-4">
+                  {flagshipCase.demoMedia && (
+                    <button
+                      type="button"
+                      data-open-showreel
+                      data-showreel-kind={flagshipCase.demoMedia.kind}
+                      data-showreel-src={flagshipCase.demoMedia.src}
+                      data-showreel-title={flagshipCase.name}
+                      class="text-xs font-mono font-medium text-[var(--blue-600)] hover:text-[var(--blue-700)] transition-colors cursor-pointer"
+                    >
+                      Watch Demo
+                    </button>
+                  )}
+                  {flagshipCase.demoUrl && (
+                    <a
+                      href={flagshipCase.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-xs font-mono font-medium text-[var(--muted)] hover:text-[var(--blue-600)] transition-colors"
+                    >
+                      Live Site ↗
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+      )}
+
+      <!-- TIER 2: INTERACTIVE INDEX LEDGER + STICKY BROWSER PREVIEW STAGE -->
+      {ledgerCases.length > 0 && (
+        <div
+          id="ns-case-ledger-stage"
+          class="mt-8 lg:mt-10 grid grid-cols-1 lg:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] gap-7 lg:gap-9 items-start"
+        >
+          <!-- Left: Architectural Interactive Case Study Ledger -->
+          <div class="border-t border-[var(--border)]">
+            {ledgerCases.map((item, idx) => (
+              <article
+                class="ns-case-card ns-ledger-row group relative border-b border-[var(--border)] transition-colors duration-200"
+                data-ledger-index={idx}
+                data-active={idx === 0 ? "true" : "false"}
+                data-case-name={item.name}
+                data-case-num={item.num}
+                data-case-role={item.role}
+                data-case-host={item.displayHost}
+                data-case-url={item.caseStudyUrl}
+                data-case-live={item.demoUrl || ""}
+                data-case-accent={item.accentHex}
+                data-case-demo-kind={item.demoMedia?.kind || ""}
+                data-case-demo-src={item.demoMedia?.src || ""}
+              >
+                <!-- Left Active Accent Indicator (Desktop) -->
+                <span
+                  class="ns-ledger-bar hidden lg:block absolute left-0 top-0 bottom-0 w-[3px] transition-opacity duration-200"
+                  style={`background-color: ${item.accentHex};`}
+                  aria-hidden="true"
+                ></span>
+
+                <div class="py-5 sm:py-6 lg:px-5 flex flex-col gap-3.5">
+                  <!-- Top Metadata Line -->
+                  <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5 min-w-0">
+                      <span class="ns-ledger-num font-mono text-xs font-semibold tracking-[0.06em] text-[var(--muted)] transition-colors">
+                        {item.num}
+                      </span>
                       <span
                         class="w-1.5 h-1.5 rounded-full shrink-0"
                         style={`background-color: ${item.accentHex};`}
                         aria-hidden="true"
                       ></span>
-                      <span>{tech}</span>
+                      <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[var(--muted)] truncate">
+                        {item.category}
+                      </span>
+                    </div>
+                    <span class="text-xs font-mono text-[var(--muted)] shrink-0">
+                      {item.role}
                     </span>
-                  ))}
+                  </div>
+
+                  <!-- Title + Summary -->
+                  <div class="space-y-1.5">
+                    <h3 class="text-xl sm:text-[22px] font-semibold tracking-[-0.02em] leading-[1.22] text-[var(--ink)]">
+                      <a
+                        href={item.caseStudyUrl}
+                        class="ns-ledger-title inline-flex items-center gap-2 hover:text-[var(--blue-600)] transition-colors"
+                      >
+                        <span>{item.name}</span>
+                        <span class="text-sm font-normal text-[var(--blue-600)] opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 hidden lg:inline" aria-hidden="true">
+                          →
+                        </span>
+                      </a>
+                    </h3>
+                    <p class="text-[15px] leading-[1.6] text-[var(--muted)] line-clamp-2">
+                      {item.summary}
+                    </p>
+                  </div>
+
+                  <!-- Mobile & Tablet Inline Browser Preview (< lg) -->
+                  <a
+                    href={item.caseStudyUrl}
+                    class="lg:hidden block rounded-[12px] bg-[var(--bg)] border border-[var(--border)] overflow-hidden mt-1"
+                  >
+                    <div class="px-3 py-2 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-2">
+                      <div class="flex items-center gap-1" aria-hidden="true">
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                      </div>
+                      <span class="text-[11px] font-mono text-[var(--muted)] truncate">
+                        {item.displayHost}
+                      </span>
+                      <span class="text-[11px] font-mono text-[var(--blue-600)] shrink-0">
+                        {item.num}
+                      </span>
+                    </div>
+                    <div class="aspect-[16/10] w-full overflow-hidden bg-[var(--bg)]">
+                      <img
+                        src={item.posterUrl}
+                        alt={item.name}
+                        loading="lazy"
+                        decoding="async"
+                        class="w-full h-full object-cover object-top"
+                      />
+                    </div>
+                  </a>
+
+                  <!-- Bottom Stack Pills + Actions -->
+                  <div class="pt-1 flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex flex-wrap gap-1.5">
+                      {item.stack.slice(0, 3).map((tech) => (
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[11px] font-mono text-[var(--muted)]">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div class="flex items-center gap-4 shrink-0">
+                      {item.demoMedia && (
+                        <button
+                          type="button"
+                          data-open-showreel
+                          data-showreel-kind={item.demoMedia.kind}
+                          data-showreel-src={item.demoMedia.src}
+                          data-showreel-title={item.name}
+                          class="text-xs font-mono font-medium text-[var(--blue-600)] hover:text-[var(--blue-700)] transition-colors cursor-pointer"
+                        >
+                          Demo
+                        </button>
+                      )}
+                      {item.demoUrl && (
+                        <a
+                          href={item.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="text-xs font-mono font-medium text-[var(--muted)] hover:text-[var(--blue-600)] transition-colors"
+                        >
+                          Live ↗
+                        </a>
+                      )}
+                      <a
+                        href={item.caseStudyUrl}
+                        class="ns-link-arrow inline-flex items-center gap-1 text-sm font-medium text-[var(--blue-600)]"
+                      >
+                        <span>Details</span>
+                        <span class="ns-arrow" aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- Right: Sticky Browser Preview Stage (Desktop lg+) -->
+          <div class="hidden lg:block lg:sticky lg:top-24">
+            <div class="rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-3">
+              <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden">
+                <!-- Dynamic Browser Top Bar -->
+                <div class="px-4 py-2.5 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                    <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                  </div>
+                  <span
+                    id="ns-preview-host"
+                    class="text-[11px] font-mono text-[var(--muted)] truncate"
+                  >
+                    {ledgerCases[0].displayHost}
+                  </span>
+                  <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-medium text-[var(--ink)] shrink-0">
+                    <span
+                      id="ns-preview-dot"
+                      class="w-1.5 h-1.5 rounded-full"
+                      style={`background-color: ${ledgerCases[0].accentHex};`}
+                      aria-hidden="true"
+                    ></span>
+                    <span id="ns-preview-num">{ledgerCases[0].num}</span>
+                    <span class="text-[var(--muted)]">/ {String(caseStudies.length).padStart(2, "0")}</span>
+                  </span>
                 </div>
 
-                <div class="flex items-center gap-4 shrink-0">
-                  {item.demoMedia && (
+                <!-- Cross-Fading Stacked 16:10 Preview Canvas -->
+                <a
+                  id="ns-preview-image-link"
+                  href={ledgerCases[0].caseStudyUrl}
+                  class="block relative aspect-[16/10] w-full overflow-hidden bg-[var(--bg)] group/stage"
+                >
+                  {ledgerCases.map((item, idx) => (
+                    <img
+                      src={item.posterUrl}
+                      alt={item.name}
+                      loading="lazy"
+                      decoding="async"
+                      data-preview-img={idx}
+                      class={`absolute inset-0 w-full h-full object-cover object-top transition-all duration-300 ease-out ${
+                        idx === 0 ? "opacity-100 scale-100" : "opacity-0 scale-[1.015] pointer-events-none"
+                      }`}
+                    />
+                  ))}
+                  <span
+                    class="pointer-events-none absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[var(--ink)] group-hover/stage:bg-[var(--blue-600)] group-hover/stage:border-[var(--blue-600)] group-hover/stage:text-white flex items-center justify-center text-sm font-medium opacity-0 translate-y-1.5 group-hover/stage:opacity-100 group-hover/stage:translate-y-0 transition-all duration-200 ease-out"
+                    aria-hidden="true"
+                  >
+                    ↗
+                  </span>
+                </a>
+
+                <!-- Dynamic Stage Caption & Actions -->
+                <div class="px-5 py-4 border-t border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-4">
+                  <div class="min-w-0">
+                    <p
+                      id="ns-preview-title"
+                      class="text-base font-semibold tracking-[-0.015em] text-[var(--ink)] truncate"
+                    >
+                      {ledgerCases[0].name}
+                    </p>
+                    <p
+                      id="ns-preview-role"
+                      class="text-xs font-mono text-[var(--muted)] truncate mt-0.5"
+                    >
+                      {ledgerCases[0].role}
+                    </p>
+                  </div>
+
+                  <div class="flex items-center gap-3 shrink-0">
                     <button
                       type="button"
+                      id="ns-preview-demo-btn"
                       data-open-showreel
-                      data-showreel-kind={item.demoMedia.kind}
-                      data-showreel-src={item.demoMedia.src}
-                      data-showreel-title={item.name}
-                      class="text-xs font-mono font-medium text-[var(--blue-600)] hover:text-[var(--blue-700)] transition-colors cursor-pointer"
+                      data-showreel-kind={ledgerCases[0].demoMedia?.kind || ""}
+                      data-showreel-src={ledgerCases[0].demoMedia?.src || ""}
+                      data-showreel-title={ledgerCases[0].name}
+                      class={`text-xs font-mono font-medium text-[var(--blue-600)] hover:text-[var(--blue-700)] transition-colors cursor-pointer ${
+                        ledgerCases[0].demoMedia ? "" : "hidden"
+                      }`}
                     >
                       Demo
                     </button>
-                  )}
-                  {item.demoUrl && (
                     <a
-                      href={item.demoUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="text-xs font-mono font-medium text-[var(--muted)] hover:text-[var(--blue-600)] transition-colors"
+                      id="ns-preview-cta"
+                      href={ledgerCases[0].caseStudyUrl}
+                      class="ns-link-arrow inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[10px] bg-[var(--ink)] hover:bg-[var(--blue-600)] text-white text-xs font-medium transition-colors"
                     >
-                      Live ↗
+                      <span>Case Study</span>
+                      <span class="ns-arrow" aria-hidden="true">→</span>
                     </a>
-                  )}
-                  <a
-                    href={item.caseStudyUrl}
-                    class="ns-link-arrow inline-flex items-center gap-1 text-sm font-medium text-[var(--blue-600)]"
-                  >
-                    <span>Details</span>
-                    <span class="ns-arrow" aria-hidden="true">→</span>
-                  </a>
+                  </div>
                 </div>
               </div>
             </div>
-          </article>
-        ))}
-      </div>
+          </div>
+        </div>
+      )}
     </div>
   </section>
 )}
@@ -702,6 +989,39 @@ const caseStudies = caseStudySource.map((doc, idx) => {
     .carousel-track-row1,
     .carousel-track-row2 {
       animation: none;
+    }
+  }
+
+  /* Interactive Case Study Ledger Row — architectural hairline style (overrides generic card box) */
+  .ns-ledger-row {
+    border: 0 !important;
+    border-bottom: 1px solid var(--border) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background-color: transparent !important;
+    transform: none !important;
+    transition: background-color 200ms ease !important;
+  }
+
+  .ns-ledger-row .ns-ledger-bar {
+    opacity: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .ns-ledger-row[data-active="true"] {
+      background-color: #F8FAFF !important;
+    }
+
+    .ns-ledger-row[data-active="true"] .ns-ledger-bar {
+      opacity: 1;
+    }
+
+    .ns-ledger-row[data-active="true"] .ns-ledger-num {
+      color: var(--blue-600);
+    }
+
+    .ns-ledger-row[data-active="true"] .ns-ledger-title {
+      color: var(--blue-600);
     }
   }
 </style>
@@ -890,17 +1210,93 @@ const caseStudies = caseStudySource.map((doc, idx) => {
     });
   };
 
+  const setupCaseStudyLedger = () => {
+    const stage = document.getElementById("ns-case-ledger-stage");
+    if (!stage) return;
+
+    const rows = Array.from(stage.querySelectorAll<HTMLElement>(".ns-ledger-row"));
+    const imgs = Array.from(stage.querySelectorAll<HTMLImageElement>("[data-preview-img]"));
+    const hostEl = document.getElementById("ns-preview-host");
+    const dotEl = document.getElementById("ns-preview-dot");
+    const numEl = document.getElementById("ns-preview-num");
+    const titleEl = document.getElementById("ns-preview-title");
+    const roleEl = document.getElementById("ns-preview-role");
+    const imgLinkEl = document.getElementById("ns-preview-image-link") as HTMLAnchorElement | null;
+    const ctaEl = document.getElementById("ns-preview-cta") as HTMLAnchorElement | null;
+    const demoBtn = document.getElementById("ns-preview-demo-btn") as HTMLButtonElement | null;
+
+    if (!rows.length) return;
+
+    const activateIndex = (targetIdx: number) => {
+      const activeRow = rows[targetIdx];
+      if (!activeRow) return;
+
+      rows.forEach((row, i) => {
+        row.setAttribute("data-active", i === targetIdx ? "true" : "false");
+      });
+
+      imgs.forEach((img, i) => {
+        if (i === targetIdx) {
+          img.classList.remove("opacity-0", "scale-[1.015]", "pointer-events-none");
+          img.classList.add("opacity-100", "scale-100");
+        } else {
+          img.classList.add("opacity-0", "scale-[1.015]", "pointer-events-none");
+          img.classList.remove("opacity-100", "scale-100");
+        }
+      });
+
+      const name = activeRow.getAttribute("data-case-name") || "";
+      const num = activeRow.getAttribute("data-case-num") || "";
+      const role = activeRow.getAttribute("data-case-role") || "";
+      const host = activeRow.getAttribute("data-case-host") || "";
+      const url = activeRow.getAttribute("data-case-url") || "/projects";
+      const accent = activeRow.getAttribute("data-case-accent") || "#2563EB";
+      const demoKind = activeRow.getAttribute("data-case-demo-kind") || "";
+      const demoSrc = activeRow.getAttribute("data-case-demo-src") || "";
+
+      if (hostEl) hostEl.textContent = host;
+      if (numEl) numEl.textContent = num;
+      if (dotEl) dotEl.style.backgroundColor = accent;
+      if (titleEl) titleEl.textContent = name;
+      if (roleEl) roleEl.textContent = role;
+      if (imgLinkEl) imgLinkEl.href = url;
+      if (ctaEl) ctaEl.href = url;
+
+      if (demoBtn) {
+        if (demoSrc) {
+          demoBtn.classList.remove("hidden");
+          demoBtn.setAttribute("data-showreel-kind", demoKind);
+          demoBtn.setAttribute("data-showreel-src", demoSrc);
+          demoBtn.setAttribute("data-showreel-title", name);
+        } else {
+          demoBtn.classList.add("hidden");
+          demoBtn.setAttribute("data-showreel-src", "");
+        }
+      }
+    };
+
+    rows.forEach((row, idx) => {
+      if (row.hasAttribute("data-ledger-bound")) return;
+      row.setAttribute("data-ledger-bound", "true");
+      row.addEventListener("mouseenter", () => activateIndex(idx));
+      row.addEventListener("focusin", () => activateIndex(idx));
+    });
+  };
+
   setupTiltedProjectScroll();
   setupAgencyShowreel();
+  setupCaseStudyLedger();
 
   document.addEventListener("astro:page-load", () => {
     setupTiltedProjectScroll();
     setupAgencyShowreel();
+    setupCaseStudyLedger();
   });
 
   document.addEventListener("astro:after-swap", () => {
     setupTiltedProjectScroll();
     setupAgencyShowreel();
+    setupCaseStudyLedger();
   });
 
   document.addEventListener("astro:before-swap", () => {

@@ -32,11 +32,18 @@ interface ServiceItem {
   sketchKey: string;
   description: string;
   deliverables: string;
+  deliverableItems: string[];
   customMockupUrl?: string;
   customMockupAlt?: string;
-  customMockupCaption?: string;
-  customMockupBadge?: string;
+  customMockupCaption: string;
+  customMockupBadge: string;
 }
+
+const parseDeliverables = (raw: string): string[] =>
+  raw
+    .split("·")
+    .map((item) => item.trim())
+    .filter(Boolean);
 
 const defaultServices: ServiceItem[] = [
   {
@@ -49,6 +56,9 @@ const defaultServices: ServiceItem[] = [
     description:
       "Fast, conversion-focused websites built with Next.js 15, Astro, and headless Sanity CMS for effortless team publishing.",
     deliverables: "Next.js / Astro · Sanity CMS · Core Web Vitals",
+    deliverableItems: ["Next.js / Astro", "Sanity CMS", "Core Web Vitals"],
+    customMockupCaption: "High-Performance Websites & Web Apps",
+    customMockupBadge: "Production Ready",
   },
   {
     id: "saas-dev",
@@ -60,6 +70,9 @@ const defaultServices: ServiceItem[] = [
     description:
       "Production multi-tenant software with PostgreSQL schemas, role-based access control, and automated Stripe billing.",
     deliverables: "PostgreSQL · RBAC · Stripe Billing · Multi-Tenant MVP",
+    deliverableItems: ["PostgreSQL", "RBAC", "Stripe Billing", "Multi-Tenant MVP"],
+    customMockupCaption: "Web Software, Portals & MVPs",
+    customMockupBadge: "Production Ready",
   },
   {
     id: "ai-automation",
@@ -71,6 +84,9 @@ const defaultServices: ServiceItem[] = [
     description:
       "Embed Claude, OpenAI, and Gemini into real workflows with private vector RAG retrieval, tool-calling agents, and CRM sync.",
     deliverables: "LLM APIs · Vector RAG · Tool Agents · Webhooks",
+    deliverableItems: ["LLM APIs", "Vector RAG", "Tool Agents", "Webhooks"],
+    customMockupCaption: "RAG Pipelines & Autonomous Agents",
+    customMockupBadge: "Production Ready",
   },
   {
     id: "html-email",
@@ -82,6 +98,9 @@ const defaultServices: ServiceItem[] = [
     description:
       "Modular, handcrafted table-based HTML email campaigns tested across Outlook 365, Gmail, and Apple Mail.",
     deliverables: "Handcoded HTML · Inline CSS · Outlook VML · ESP-Ready",
+    deliverableItems: ["Handcoded HTML", "Inline CSS", "Outlook VML", "ESP-Ready"],
+    customMockupCaption: "Production Email Engineering",
+    customMockupBadge: "Production Ready",
   },
 ];
 
@@ -100,6 +119,10 @@ const servicesData: ServiceItem[] =
         const key = s?.serviceKey || "custom";
         const fallback = defaultServices.find((d) => d.id === key);
         const rawImg = s?.mockupImage?.asset?.url || "";
+        const deliverables =
+          fallback?.deliverables ||
+          s?.category ||
+          "Production Engineering Deliverable";
         return {
           id: s?._key || `${key}-${idx}`,
           num: String(idx + 1).padStart(2, "0"),
@@ -108,27 +131,28 @@ const servicesData: ServiceItem[] =
           iconKey: iconForServiceKey(key),
           sketchKey: fallback ? fallback.sketchKey : "custom",
           description: s?.description || fallback?.description || "",
-          deliverables:
-            fallback?.deliverables ||
-            s?.category ||
-            "Production Engineering Deliverable",
+          deliverables,
+          deliverableItems: parseDeliverables(deliverables),
           customMockupUrl: rawImg ? optimizeSanityImage(rawImg, 2400, 100) : undefined,
           customMockupAlt: s?.mockupImage?.alt || s?.title || "Service mockup preview",
-          customMockupCaption: s?.mockupCaption || s?.category || s?.title || "Live Deliverable Preview",
+          customMockupCaption:
+            s?.mockupCaption || s?.category || s?.title || "Live Deliverable Preview",
           customMockupBadge: s?.mockupBadge || "Production Ready",
         };
       })
     : defaultServices;
 
-const initialActiveId = servicesData[0]?.id || "web-dev";
+const initialService = servicesData[0] || defaultServices[0];
+const initialActiveId = initialService.id;
+const totalServicesFormatted = String(servicesData.length).padStart(2, "0");
 ---
 
 <section id="services" class="ns-section bg-[var(--surface)] text-[var(--ink)] border-b border-[var(--border)]">
   <div class="ns-container">
     <!-- Section Header (Consistent Geist Sans/Mono Type Scale) -->
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 lg:mb-16">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 lg:mb-10">
       <div class="max-w-2xl">
-        <div class="flex items-center gap-2.5 mb-3">
+        <div class="flex items-center gap-2.5 mb-2.5">
           <span class="w-5 h-px bg-[var(--blue-600)]" aria-hidden="true"></span>
           <span class="ns-mono-label text-[var(--blue-600)] font-medium">
             01 / Services
@@ -148,102 +172,150 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
     <div class="grid grid-cols-1 lg:grid-cols-[minmax(0,0.82fr)_minmax(0,1.18fr)] gap-6 items-stretch">
       <!-- Left Column: Interactive Services Tabs -->
       <div class="flex flex-col justify-between gap-2.5" role="tablist" aria-label="NovaStack Services">
-        {servicesData.map((service) => {
+        {servicesData.map((service, idx) => {
           const isInitialActive = service.id === initialActiveId;
 
           return (
             <div
               data-service-item={service.id}
+              data-active={isInitialActive ? "true" : "false"}
+              data-service-num={service.num}
+              data-service-caption={service.customMockupCaption}
+              data-service-badge={service.customMockupBadge}
+              data-service-title={service.title}
               role="tab"
               aria-selected={isInitialActive ? "true" : "false"}
-              tabindex="0"
-              class={`service-item-wrapper rounded-[16px] cursor-pointer select-none transition-all duration-200 ${
-                isInitialActive
-                  ? "bg-[var(--bg)] border border-[var(--blue-600)] p-4 sm:p-5"
-                  : "bg-[var(--surface)] border border-[var(--border)] hover:border-[#CBD5E1] py-3.5 px-4 sm:px-5"
-              }`}
+              tabindex={isInitialActive ? "0" : "-1"}
+              class="ns-service-tab relative overflow-hidden rounded-[16px] border cursor-pointer select-none transition-colors duration-200"
             >
-              <div class="flex items-center justify-between gap-3">
-                <div class="flex items-center gap-3.5 min-w-0">
-                  <!-- 40px Rounded Square Icon Container -->
-                  <div
-                    class={`service-icon-badge w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-colors duration-200 ${
-                      isInitialActive
-                        ? "bg-[var(--blue-600)] text-white"
-                        : "bg-[var(--blue-50)] text-[var(--blue-600)]"
-                    }`}
-                  >
-                    {service.iconKey === "web" && (
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="3" y="4" width="18" height="14" rx="2"></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="18" x2="12" y2="21"></line>
-                        <path d="M3 9h18"></path>
-                      </svg>
-                    )}
-                    {service.iconKey === "saas" && (
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="3" y="3" width="7" height="7" rx="1"></rect>
-                        <rect x="14" y="3" width="7" height="7" rx="1"></rect>
-                        <rect x="14" y="14" width="7" height="7" rx="1"></rect>
-                        <rect x="3" y="14" width="7" height="7" rx="1"></rect>
-                      </svg>
-                    )}
-                    {service.iconKey === "ai" && (
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <path d="M12 2v4"></path>
-                        <path d="M12 18v4"></path>
-                        <path d="M4.93 4.93l2.83 2.83"></path>
-                        <path d="M16.24 16.24l2.83 2.83"></path>
-                        <path d="M2 12h4"></path>
-                        <path d="M18 12h4"></path>
-                        <circle cx="12" cy="12" r="3"></circle>
-                      </svg>
-                    )}
-                    {service.iconKey === "email" && (
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                      </svg>
-                    )}
-                    {service.iconKey === "custom" && (
-                      <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                        <polyline points="2 17 12 22 22 17"></polyline>
-                        <polyline points="2 12 12 17 22 12"></polyline>
-                      </svg>
-                    )}
+              <!-- Left Active Accent Indicator -->
+              <span
+                class="ns-service-bar absolute left-0 top-0 bottom-0 w-[3px] bg-[var(--blue-600)] transition-opacity duration-200"
+                aria-hidden="true"
+              ></span>
+
+              <div class="p-4 sm:px-5 sm:py-4">
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3.5 min-w-0">
+                    <!-- 40px Rounded Square Icon Container -->
+                    <div class="ns-service-icon w-10 h-10 rounded-[10px] flex items-center justify-center shrink-0 transition-colors duration-200">
+                      {service.iconKey === "web" && (
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="3" y="4" width="18" height="14" rx="2"></rect>
+                          <line x1="8" y1="21" x2="16" y2="21"></line>
+                          <line x1="12" y1="18" x2="12" y2="21"></line>
+                          <path d="M3 9h18"></path>
+                        </svg>
+                      )}
+                      {service.iconKey === "saas" && (
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                          <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                          <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                          <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                        </svg>
+                      )}
+                      {service.iconKey === "ai" && (
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <path d="M12 2v4"></path>
+                          <path d="M12 18v4"></path>
+                          <path d="M4.93 4.93l2.83 2.83"></path>
+                          <path d="M16.24 16.24l2.83 2.83"></path>
+                          <path d="M2 12h4"></path>
+                          <path d="M18 12h4"></path>
+                          <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                      )}
+                      {service.iconKey === "email" && (
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                        </svg>
+                      )}
+                      {service.iconKey === "custom" && (
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                          <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                          <polyline points="2 17 12 22 22 17"></polyline>
+                          <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                      )}
+                    </div>
+
+                    <div class="min-w-0">
+                      <h3 class="text-lg sm:text-xl font-semibold text-[var(--ink)] tracking-[-0.02em] leading-snug">
+                        {service.title}
+                      </h3>
+                      <span class="text-xs font-mono text-[var(--muted)] block truncate mt-0.5">
+                        {service.category}
+                      </span>
+                    </div>
                   </div>
 
-                  <div class="min-w-0">
-                    <h3 class="text-lg sm:text-xl font-semibold text-[var(--ink)] tracking-[-0.02em] leading-snug">
-                      {service.title}
-                    </h3>
-                    <span class="text-xs font-mono text-[var(--muted)] block truncate mt-0.5">
-                      {service.category}
-                    </span>
-                  </div>
+                  <span class="ns-service-num text-xs font-mono font-medium shrink-0 transition-colors">
+                    {service.num}
+                  </span>
                 </div>
 
-                <span
-                  class={`service-num-label text-xs font-mono font-medium shrink-0 transition-colors ${
-                    isInitialActive ? "text-[var(--blue-600)]" : "text-[var(--muted)]"
-                  }`}
-                >
-                  {service.num}
-                </span>
-              </div>
+                <!-- Smooth Accordion Body: Description + Deliverable Pills + Inline Mobile/Tablet Visual Preview -->
+                <div class="ns-service-body" data-open={isInitialActive ? "true" : "false"}>
+                  <div class="overflow-hidden">
+                    <div class="mt-3.5 pt-3.5 border-t border-[var(--border)] space-y-3.5">
+                      <p class="text-[15px] sm:text-base leading-[1.6] text-[var(--muted)]">
+                        {service.description}
+                      </p>
 
-              <!-- Expandable Description + Mono Deliverables (Current 16px Readable Copy) -->
-              <div class={`service-details-panel mt-3.5 pt-3.5 border-t border-[var(--border)] space-y-2.5 ${isInitialActive ? "block" : "hidden"}`}>
-                <p class="text-[15px] sm:text-base leading-[1.6] text-[var(--muted)]">
-                  {service.description}
-                </p>
-                <div class="flex items-center gap-2 text-xs font-mono text-[var(--muted)]">
-                  <span class="text-[var(--blue-600)] font-semibold uppercase tracking-[0.06em] shrink-0">
-                    Deliverables:
-                  </span>
-                  <span class="truncate">{service.deliverables}</span>
+                      <!-- Scannable Deliverable Pills -->
+                      <div class="flex flex-wrap gap-1.5">
+                        {service.deliverableItems.map((item) => (
+                          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full bg-[var(--surface)] border border-[var(--border)] text-[11px] font-mono text-[var(--muted)]">
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+
+                      <!-- Storytelling Inline Mockup on Mobile & Tablet (< 1024px) -->
+                      {service.customMockupUrl && (
+                        <div class="lg:hidden pt-1">
+                          <div class="rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden">
+                            <div class="px-3 py-2 border-b border-[var(--border)] bg-[var(--bg)] flex items-center justify-between gap-2">
+                              <div class="flex items-center gap-1" aria-hidden="true">
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-[#CBD5E1]"></span>
+                              </div>
+                              <span class="text-[11px] font-mono text-[var(--muted)] truncate">
+                                {service.customMockupCaption}
+                              </span>
+                              <span class="text-[10px] font-mono font-medium text-[var(--blue-600)] shrink-0">
+                                {service.num}/{totalServicesFormatted}
+                              </span>
+                            </div>
+                            <div class="aspect-[16/10] w-full overflow-hidden flex items-center justify-center bg-[var(--surface)]">
+                              <img
+                                src={service.customMockupUrl}
+                                alt={service.customMockupAlt}
+                                loading={idx === 0 ? "eager" : "lazy"}
+                                decoding={idx === 0 ? "sync" : "async"}
+                                class="w-full h-full object-contain scale-[1.03] block"
+                              />
+                            </div>
+                            <div class="px-3 py-2 bg-[var(--surface)] border-t border-[var(--border)] flex items-center justify-between gap-2">
+                              <span class="px-2 py-0.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-[10px] font-mono font-medium shrink-0">
+                                {service.customMockupBadge}
+                              </span>
+                              <a
+                                href="#contact"
+                                class="ns-link-arrow inline-flex items-center gap-1 text-xs font-medium text-[var(--blue-600)]"
+                              >
+                                <span>Discuss this service</span>
+                                <span class="ns-arrow" aria-hidden="true">→</span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -251,65 +323,62 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
         })}
       </div>
 
-      <!-- Right Column: Wider Crisp HD Mockup Card (Outer Light Frame + Inner Card, Bigger Clear UI) -->
-      <div class="flex flex-col">
-        <div id="mockup-stage-container" class="relative w-full flex-1 flex flex-col">
-          {servicesData.map((service) => {
-            const isInitialActive = service.id === initialActiveId;
-
-            return (
-              <div
-                data-mockup-panel={service.id}
-                role="tabpanel"
-                class={`mockup-display-panel w-full flex-1 flex-col select-none ${isInitialActive ? "flex" : "hidden"}`}
+      <!-- Right Column: Unified Browser-Framed HD Mockup Stage (Desktop lg+ Side-by-Side) -->
+      <div class="hidden lg:flex flex-col">
+        <div class="flex-1 flex flex-col rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-2.5">
+          <div class="flex-1 flex flex-col rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden">
+            <!-- Cohesive Window Chrome Bar (Matches Case Studies Stage) -->
+            <div class="h-10 px-4 border-b border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-3 shrink-0">
+              <div class="flex items-center gap-1.5 shrink-0" aria-hidden="true">
+                <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+                <span class="w-2 h-2 rounded-full bg-[#CBD5E1]"></span>
+              </div>
+              <span
+                id="ns-service-stage-caption"
+                class="text-[11px] font-mono text-[var(--muted)] truncate"
               >
-                {service.customMockupUrl ? (
-                  /* PRIORITY 1: Real Sanity Uploaded HD Mockup Image (Bigger & Clearer Inside Crisp Inner Card) */
-                  <div class="flex-1 flex flex-col justify-between rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-2 sm:p-2.5">
-                    <div class="flex-1 min-h-[300px] sm:min-h-[380px] lg:min-h-0 w-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex items-center justify-center">
-                      <img
-                        src={service.customMockupUrl}
-                        alt={service.customMockupAlt}
-                        loading="eager"
-                        decoding="sync"
-                        class="w-full h-full object-contain scale-[1.06] block"
-                      />
-                    </div>
+                {initialService.customMockupCaption}
+              </span>
+              <span class="inline-flex items-center gap-1.5 text-[11px] font-mono font-medium text-[var(--ink)] shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--blue-600)]" aria-hidden="true"></span>
+                <span id="ns-service-stage-num">{initialService.num}</span>
+                <span class="text-[var(--muted)]">/ {totalServicesFormatted}</span>
+              </span>
+            </div>
 
-                    <div class="pt-2.5 px-1.5 flex items-center justify-between gap-3 shrink-0">
-                      <div class="flex items-center gap-2 min-w-0">
-                        <span class="w-2 h-2 rounded-full bg-[var(--blue-600)] shrink-0" aria-hidden="true"></span>
-                        <span class="text-xs font-mono text-[var(--muted)] truncate">
-                          {service.customMockupCaption}
-                        </span>
-                      </div>
-                      <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium shrink-0">
-                        {service.customMockupBadge}
-                      </span>
-                    </div>
-                  </div>
-                ) : (
-                  /* PRIORITY 2: Clean Neutral + Blue Light Browser Sketch Fallback (Exact Same Height as Left List) */
-                  <div class="flex-1 flex flex-col justify-between rounded-[16px] bg-[var(--bg)] border border-[var(--border)] p-2.5 sm:p-3">
-                    <div class="flex-1 min-h-[280px] sm:min-h-[340px] lg:min-h-0 w-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex flex-col">
-                      <!-- Thin Light Browser Bar -->
-                      <div class="h-10 px-4 bg-[var(--bg)] border-b border-[var(--border)] flex items-center justify-between gap-3 shrink-0">
-                        <div class="flex items-center gap-1.5">
-                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
-                          <span class="w-2.5 h-2.5 rounded-full bg-[#CBD5E1]"></span>
-                        </div>
-                        <span class="text-xs font-mono text-[var(--muted)] truncate">
-                          {service.title}
-                        </span>
-                        <span class="px-2.5 py-0.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-[11px] font-mono font-medium shrink-0">
-                          {service.num}
-                        </span>
-                      </div>
+            <!-- Cross-Fading Stacked Stage Canvas -->
+            <div id="mockup-stage-container" class="relative flex-1 min-h-[360px] w-full overflow-hidden bg-[var(--surface)]">
+              {servicesData.map((service, idx) => {
+                const isInitialActive = service.id === initialActiveId;
 
-                      <!-- Service-Specific Structural Sketch -->
-                      {service.sketchKey === "web-dev" ? (
-                        <div class="flex-1 p-5 sm:p-6 grid grid-cols-12 gap-4 items-stretch bg-[var(--bg)]/40" aria-hidden="true">
+                return (
+                  <div
+                    data-mockup-panel={service.id}
+                    data-active={isInitialActive ? "true" : "false"}
+                    role="tabpanel"
+                    aria-hidden={isInitialActive ? "false" : "true"}
+                    class={`ns-mockup-panel absolute inset-0 flex flex-col select-none transition-all duration-300 ease-out ${
+                      isInitialActive
+                        ? "opacity-100 scale-100 pointer-events-auto"
+                        : "opacity-0 scale-[1.015] pointer-events-none"
+                    }`}
+                  >
+                    {service.customMockupUrl ? (
+                      /* PRIORITY 1: Real Sanity Uploaded HD Mockup Image */
+                      <div class="flex-1 w-full h-full overflow-hidden flex items-center justify-center bg-[var(--surface)]">
+                        <img
+                          src={service.customMockupUrl}
+                          alt={service.customMockupAlt}
+                          loading={idx === 0 ? "eager" : "lazy"}
+                          decoding={idx === 0 ? "sync" : "async"}
+                          class="w-full h-full object-contain scale-[1.04] block"
+                        />
+                      </div>
+                    ) : (
+                      /* PRIORITY 2: Clean Neutral + Blue Light Structural Sketch Fallback */
+                      service.sketchKey === "web-dev" ? (
+                        <div class="flex-1 p-5 sm:p-6 grid grid-cols-12 gap-4 items-stretch bg-[var(--bg)]" aria-hidden="true">
                           <div class="col-span-8 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-5 flex flex-col justify-between">
                             <div class="space-y-3">
                               <div class="h-2.5 w-24 rounded-full bg-[var(--blue-50)]"></div>
@@ -334,7 +403,7 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
                           </div>
                         </div>
                       ) : service.sketchKey === "saas-dev" ? (
-                        <div class="flex-1 p-5 sm:p-6 flex gap-4 bg-[var(--bg)]/40" aria-hidden="true">
+                        <div class="flex-1 p-5 sm:p-6 flex gap-4 bg-[var(--bg)]" aria-hidden="true">
                           <div class="w-1/4 rounded-[12px] bg-[var(--surface)] border border-[var(--border)] p-3.5 flex flex-col justify-between">
                             <div class="space-y-2.5">
                               <div class="h-3.5 w-3/4 rounded bg-[#0B111A]/85"></div>
@@ -377,7 +446,7 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
                           </div>
                         </div>
                       ) : service.sketchKey === "ai-automation" ? (
-                        <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between bg-[var(--bg)]/40" aria-hidden="true">
+                        <div class="flex-1 p-5 sm:p-6 flex flex-col justify-between bg-[var(--bg)]" aria-hidden="true">
                           <div class="flex items-center justify-between">
                             <span class="text-xs font-mono text-[var(--blue-600)] font-medium">
                               trigger → rag.query → tool.exec → webhook
@@ -407,11 +476,11 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
                           </div>
                         </div>
                       ) : (
-                        <div class="flex-1 p-5 sm:p-6 flex items-center justify-center bg-[var(--bg)]/40" aria-hidden="true">
+                        <div class="flex-1 p-5 sm:p-6 flex items-center justify-center bg-[var(--bg)]" aria-hidden="true">
                           <div class="w-full max-w-[360px] h-full rounded-[12px] bg-[var(--surface)] border border-[var(--border)] overflow-hidden flex flex-col">
                             <div class="px-4 py-3 bg-[var(--blue-50)] border-b border-[var(--border)] flex items-center justify-between">
                               <div class="h-3 w-24 rounded bg-[var(--blue-600)]"></div>
-                              <div class="h-2.5 w-14 rounded bg-white/80"></div>
+                              <div class="h-2.5 w-14 rounded bg-white"></div>
                             </div>
                             <div class="p-4 space-y-3 flex-1 flex flex-col justify-between">
                               <div class="space-y-2">
@@ -427,84 +496,157 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
                             </div>
                           </div>
                         </div>
-                      )}
-                    </div>
-
-                    <div class="pt-4 px-1 flex items-center justify-between gap-3">
-                      <span class="text-xs font-mono text-[var(--muted)] truncate">
-                        {service.deliverables}
-                      </span>
-                      <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium shrink-0">
-                        Production Ready
-                      </span>
-                    </div>
+                      )
+                    )}
                   </div>
-                )}
+                );
+              })}
+            </div>
+
+            <!-- Stage Footer Bar: Active Badge + Contextual Inquiry CTA -->
+            <div class="px-4 py-3 border-t border-[var(--border)] bg-[var(--surface)] flex items-center justify-between gap-4 shrink-0">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span
+                  id="ns-service-stage-badge"
+                  class="px-2.5 py-0.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-[11px] font-mono font-medium shrink-0"
+                >
+                  {initialService.customMockupBadge}
+                </span>
+                <span
+                  id="ns-service-stage-title"
+                  class="text-xs font-mono text-[var(--muted)] truncate"
+                >
+                  {initialService.title}
+                </span>
               </div>
-            );
-          })}
+
+              <a
+                href="#contact"
+                class="ns-link-arrow inline-flex items-center gap-1.5 text-xs font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors shrink-0"
+              >
+                <span>Discuss this service</span>
+                <span class="ns-arrow text-[var(--blue-600)]" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<style>
+  .ns-service-tab {
+    background-color: var(--surface);
+    border-color: var(--border);
+  }
+
+  .ns-service-tab:hover {
+    border-color: #CBD5E1;
+  }
+
+  .ns-service-tab .ns-service-bar {
+    opacity: 0;
+  }
+
+  .ns-service-tab .ns-service-icon {
+    background-color: var(--blue-50);
+    color: var(--blue-600);
+  }
+
+  .ns-service-tab .ns-service-num {
+    color: var(--muted);
+  }
+
+  .ns-service-tab[data-active="true"] {
+    background-color: #F8FAFF;
+    border-color: var(--blue-600);
+  }
+
+  .ns-service-tab[data-active="true"] .ns-service-bar {
+    opacity: 1;
+  }
+
+  .ns-service-tab[data-active="true"] .ns-service-icon {
+    background-color: var(--blue-600);
+    color: #FFFFFF;
+  }
+
+  .ns-service-tab[data-active="true"] .ns-service-num {
+    color: var(--blue-600);
+  }
+
+  /* Smooth CSS Accordion Expansion */
+  .ns-service-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .ns-service-body[data-open="true"] {
+    grid-template-rows: 1fr;
+  }
+</style>
+
 <script>
   const setupNovaStackServices = () => {
     const items = Array.from(document.querySelectorAll<HTMLElement>("[data-service-item]"));
     const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-mockup-panel]"));
+    const captionEl = document.getElementById("ns-service-stage-caption");
+    const numEl = document.getElementById("ns-service-stage-num");
+    const badgeEl = document.getElementById("ns-service-stage-badge");
+    const titleEl = document.getElementById("ns-service-stage-title");
 
     if (!items.length || !panels.length) return;
 
     const activateService = (targetId: string) => {
+      let activeItem: HTMLElement | null = null;
+
       items.forEach((item) => {
         const isActive = item.getAttribute("data-service-item") === targetId;
-        const iconBadge = item.querySelector(".service-icon-badge");
-        const numLabel = item.querySelector(".service-num-label");
-        const details = item.querySelector(".service-details-panel");
+        const body = item.querySelector<HTMLElement>(".ns-service-body");
 
+        item.setAttribute("data-active", isActive ? "true" : "false");
         item.setAttribute("aria-selected", isActive ? "true" : "false");
+        item.setAttribute("tabindex", isActive ? "0" : "-1");
+
+        if (body) {
+          body.setAttribute("data-open", isActive ? "true" : "false");
+        }
 
         if (isActive) {
-          item.classList.remove("bg-[var(--surface)]", "border-[var(--border)]", "hover:border-[#CBD5E1]", "py-3.5", "px-4", "sm:px-5");
-          item.classList.add("bg-[var(--bg)]", "border-[var(--blue-600)]", "p-4", "sm:p-5");
-
-          iconBadge?.classList.remove("bg-[var(--blue-50)]", "text-[var(--blue-600)]");
-          iconBadge?.classList.add("bg-[var(--blue-600)]", "text-white");
-
-          numLabel?.classList.remove("text-[var(--muted)]");
-          numLabel?.classList.add("text-[var(--blue-600)]");
-
-          details?.classList.remove("hidden");
-          details?.classList.add("block");
-        } else {
-          item.classList.remove("bg-[var(--bg)]", "border-[var(--blue-600)]", "p-4", "sm:p-5");
-          item.classList.add("bg-[var(--surface)]", "border-[var(--border)]", "hover:border-[#CBD5E1]", "py-3.5", "px-4", "sm:px-5");
-
-          iconBadge?.classList.remove("bg-[var(--blue-600)]", "text-white");
-          iconBadge?.classList.add("bg-[var(--blue-50)]", "text-[var(--blue-600)]");
-
-          numLabel?.classList.remove("text-[var(--blue-600)]");
-          numLabel?.classList.add("text-[var(--muted)]");
-
-          details?.classList.remove("block");
-          details?.classList.add("hidden");
+          activeItem = item;
         }
       });
 
       panels.forEach((panel) => {
         const isMatch = panel.getAttribute("data-mockup-panel") === targetId;
+        panel.setAttribute("data-active", isMatch ? "true" : "false");
+        panel.setAttribute("aria-hidden", isMatch ? "false" : "true");
+
         if (isMatch) {
-          panel.classList.remove("hidden");
-          panel.classList.add("flex");
+          panel.classList.remove("opacity-0", "scale-[1.015]", "pointer-events-none");
+          panel.classList.add("opacity-100", "scale-100", "pointer-events-auto");
         } else {
-          panel.classList.add("hidden");
-          panel.classList.remove("flex");
+          panel.classList.add("opacity-0", "scale-[1.015]", "pointer-events-none");
+          panel.classList.remove("opacity-100", "scale-100", "pointer-events-auto");
         }
       });
+
+      if (activeItem) {
+        const caption = (activeItem as HTMLElement).getAttribute("data-service-caption") || "";
+        const num = (activeItem as HTMLElement).getAttribute("data-service-num") || "";
+        const badge = (activeItem as HTMLElement).getAttribute("data-service-badge") || "";
+        const title = (activeItem as HTMLElement).getAttribute("data-service-title") || "";
+
+        if (captionEl && caption) captionEl.textContent = caption;
+        if (numEl && num) numEl.textContent = num;
+        if (badgeEl && badge) badgeEl.textContent = badge;
+        if (titleEl && title) titleEl.textContent = title;
+      }
     };
 
-    items.forEach((item) => {
+    items.forEach((item, index) => {
       if (item.dataset.bound === "true") return;
       item.dataset.bound = "true";
 
@@ -516,6 +658,22 @@ const initialActiveId = servicesData[0]?.id || "web-dev";
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           activateService(id);
+        } else if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = items[(index + 1) % items.length];
+          const nextId = next?.getAttribute("data-service-item");
+          if (next && nextId) {
+            activateService(nextId);
+            next.focus();
+          }
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = items[(index - 1 + items.length) % items.length];
+          const prevId = prev?.getAttribute("data-service-item");
+          if (prev && prevId) {
+            activateService(prevId);
+            prev.focus();
+          }
         }
       });
     });

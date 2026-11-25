@@ -146,11 +146,11 @@ const verifiedProofFacts = [
     aria-hidden="true"
   ></div>
 
-  <div class="relative z-10 ns-container pt-12 pb-16 lg:pt-20 lg:pb-20">
-    <!-- Asymmetric 12-Col Composition: No Blank Voids at 1440px -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+  <div class="relative z-10 ns-container pt-8 pb-10 lg:pt-12 lg:pb-14">
+    <!-- Asymmetric 12-Col Composition: Tight, Readable Above-the-Fold Rhythm -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
       <!-- Left Column (6 cols): Who, What, Proof, Action -->
-      <div class="lg:col-span-6 space-y-6">
+      <div class="lg:col-span-6 space-y-5">
         <div class="ns-hero-enter inline-flex items-center gap-2.5" style="--hero-delay: 0ms;">
           <span class="ns-status-dot w-2 h-2 rounded-full bg-[var(--blue-600)]" aria-hidden="true"></span>
           <span class="ns-mono-label text-[var(--muted)] font-medium">
@@ -171,15 +171,15 @@ const verifiedProofFacts = [
         </p>
 
         <!-- Primary Filled Blue CTA + Secondary Text Link with Arrow -->
-        <div class="ns-hero-enter flex flex-wrap items-center gap-6 pt-2" style="--hero-delay: 165ms;">
-          <a href="#contact" class="ns-btn-primary px-6 py-3.5 text-base">
+        <div class="ns-hero-enter flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-3.5 sm:gap-6 pt-1" style="--hero-delay: 165ms;">
+          <a href="#contact" class="ns-btn-primary w-full sm:w-auto px-6 py-3.5 text-base">
             <span>Start a Project</span>
             <span class="ns-arrow" aria-hidden="true">→</span>
           </a>
 
           <a
             href="#work"
-            class="ns-link-arrow inline-flex items-center gap-2 text-base font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors duration-150 py-2"
+            class="ns-link-arrow inline-flex items-center justify-center sm:justify-start gap-2 text-base font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors duration-150 py-2"
           >
             <span>Explore Selected Work</span>
             <span class="ns-arrow text-[var(--blue-600)]" aria-hidden="true">→</span>
@@ -187,10 +187,10 @@ const verifiedProofFacts = [
         </div>
 
         <!-- Compact Founder Credibility Chip (Real Avatar, Name, Role, Existing Fact) -->
-        <div class="ns-hero-enter pt-3" style="--hero-delay: 220ms;">
+        <div class="ns-hero-enter pt-1" style="--hero-delay: 220ms;">
           <a
             href="#about"
-            class="group inline-flex items-center gap-3.5 p-2.5 pr-5 rounded-[16px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:-translate-y-0.5 transition-[transform,border-color,box-shadow] duration-200 hover:shadow-[0_10px_24px_-12px_rgba(11,17,26,0.14)]"
+            class="group flex sm:inline-flex w-full sm:w-auto items-center gap-3.5 p-2.5 pr-4 sm:pr-5 rounded-[16px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:-translate-y-0.5 transition-[transform,border-color,box-shadow] duration-200 hover:shadow-[0_10px_24px_-12px_rgba(11,17,26,0.14)]"
           >
             <div class="w-11 h-11 rounded-full overflow-hidden border border-[var(--border)] bg-[var(--surface)] shrink-0">
               {founderPortraitUrl ? (
@@ -231,11 +231,11 @@ const verifiedProofFacts = [
     </div>
 
     <!-- Quiet "Built With" Real Technology Strip (Zero Fake Client Logos) -->
-    <div class="mt-14 pt-7 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div class="mt-9 pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
       <span class="ns-mono-label text-[var(--muted)] shrink-0">
         Built with
       </span>
-      <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-[13px] font-mono text-[var(--muted)]">
+      <ul class="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13px] font-mono text-[var(--muted)]">
         {builtWithStack.map((tech) => (
           <li class="inline-flex items-center gap-2">
             <span class="w-1 h-1 rounded-full bg-[var(--border)]" aria-hidden="true"></span>
@@ -248,21 +248,21 @@ const verifiedProofFacts = [
 
   <!-- Verified Proof Strip (Only Existing Site Facts + Live Sanity Project Count) -->
   <div class="bg-[var(--bg)] border-t border-[var(--border)]">
-    <div class="ns-container py-8 lg:py-10">
+    <div class="ns-container py-6 lg:py-7">
       <dl
-        class={`grid grid-cols-2 gap-6 lg:gap-8 ${
+        class={`grid grid-cols-2 gap-5 lg:gap-6 ${
           verifiedProofFacts.length === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3"
         }`}
       >
         {verifiedProofFacts.map((fact) => (
-          <div class="group pl-3.5 border-l-2 border-[var(--border)] hover:border-[var(--blue-600)] transition-colors duration-200 space-y-1">
-            <dt class="ns-mono-label text-[var(--blue-600)] font-medium">
+          <div class="group pl-3 border-l-2 border-[var(--border)] hover:border-[var(--blue-600)] transition-colors duration-200 space-y-0.5 sm:space-y-1">
+            <dt class="ns-mono-label text-[11px] sm:text-[12px] text-[var(--blue-600)] font-medium">
               {fact.label}
             </dt>
-            <dd class="text-2xl sm:text-3xl font-semibold tracking-[-0.025em] text-[var(--ink)]">
+            <dd class="text-xl sm:text-3xl font-semibold tracking-[-0.025em] text-[var(--ink)]">
               {fact.value}
             </dd>
-            <p class="text-sm text-[var(--muted)] leading-snug">
+            <p class="text-xs sm:text-sm text-[var(--muted)] leading-snug">
               {fact.detail}
             </p>
           </div>

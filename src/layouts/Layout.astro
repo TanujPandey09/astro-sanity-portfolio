@@ -344,6 +344,36 @@ const structuredData = {
 
     {!hideDefaultFooter && <Footer />}
     {!isAgency && <QuickContactDrawer />}
+
+    <!-- Global Demo Video Lightbox Modal (On-Demand Video Playback, Zero Autoplay/Refresh Conflict) -->
+    <div
+      id="global-demo-modal"
+      class="fixed inset-0 z-[120] hidden items-center justify-center bg-[#0A0B0E]/85 p-4 sm:p-8"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="global-demo-modal-title"
+    >
+      <div class="relative w-full max-w-5xl rounded-2xl bg-white border border-black/10 overflow-hidden shadow-2xl">
+        <div class="px-5 py-3.5 border-b border-black/[0.08] flex items-center justify-between gap-4 bg-slate-50">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <span class="w-2 h-2 rounded-full bg-[#5E6AD2] shrink-0"></span>
+            <span id="global-demo-modal-title" class="font-grotesk font-bold text-sm sm:text-base text-[#0F172A] truncate">
+              Product Demo Walkthrough
+            </span>
+          </div>
+          <button
+            type="button"
+            id="close-global-demo-modal"
+            aria-label="Close demo video"
+            class="px-3.5 py-1.5 rounded-lg bg-white border border-black/10 hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] cursor-pointer transition-colors"
+          >
+            Close ✕
+          </button>
+        </div>
+        <div id="global-demo-modal-body" class="relative w-full aspect-video bg-[#0A0B0E] flex items-center justify-center"></div>
+      </div>
+    </div>
+
     {!isAgency && (
       <div id="magnetic-cursor" class="cursor flex items-center justify-center overflow-hidden">
         <span id="cursor-label" class="cursor-label hidden text-[10px] font-mono font-bold tracking-wider uppercase text-white whitespace-nowrap px-2.5"></span>
@@ -697,28 +727,10 @@ const structuredData = {
     box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.06), 0 8px 24px -4px rgba(0, 0, 0, 0.4);
   }
 
-  /* Real-Time Mouse-Tracking Radial Spotlight Surface */
+  /* Clean Card Container (No blueish radial hover overlay glitch) */
   .bento-spotlight {
     position: relative;
     overflow: hidden;
-  }
-  .bento-spotlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    background: radial-gradient(
-      460px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      rgba(94, 106, 210, 0.14),
-      transparent 48%
-    );
-  }
-  .bento-spotlight:hover::before {
-    opacity: 1;
   }
 
   @media only screen and (max-width: 1024px) {
@@ -1099,13 +1111,12 @@ const structuredData = {
       );
     });
 
-    // 4. 3D MacBook Hardware Stage Tilt & Specular Screen Reflection
+    // 4. 3D MacBook Hardware Stage Subtle Tilt (Zero glare gradient flicker)
     document.querySelectorAll<HTMLElement>(".laptop-3d-stage").forEach((stage) => {
       if (stage.dataset.tiltBound === "true") return;
       stage.dataset.tiltBound = "true";
 
       const chassis = stage.querySelector<HTMLElement>(".laptop-chassis");
-      const glare = stage.querySelector<HTMLElement>(".laptop-glare");
       if (!chassis) return;
 
       stage.addEventListener("mousemove", (e: MouseEvent) => {
@@ -1115,19 +1126,12 @@ const structuredData = {
         const relY = (e.clientY - rect.top) / rect.height - 0.5;
 
         gsap.to(chassis, {
-          rotateY: relX * 6,
-          rotateX: relY * -4,
+          rotateY: relX * 5,
+          rotateX: relY * -3.5,
           transformPerspective: 1400,
           duration: 0.45,
           ease: "power2.out",
         });
-
-        if (glare) {
-          gsap.to(glare, {
-            background: `radial-gradient(circle at ${(relX + 0.5) * 100}% ${(relY + 0.5) * 100}%, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.04) 40%, transparent 72%)`,
-            duration: 0.3,
-          });
-        }
       });
 
       stage.addEventListener("mouseleave", () => {
@@ -1135,7 +1139,7 @@ const structuredData = {
         gsap.to(chassis, {
           rotateX: 0,
           rotateY: 0,
-          duration: 0.7,
+          duration: 0.65,
           ease: "power3.out",
         });
       });
@@ -1219,19 +1223,85 @@ const structuredData = {
       );
     }
 
-    // 9. Spotlight Coordinates on Bento Cards (pure CSS radial sheen, zero GSAP 3D conflict)
-    document.querySelectorAll<HTMLElement>(".bento-spotlight").forEach((card) => {
-      if (card.dataset.spotlightBound === "true") return;
-      card.dataset.spotlightBound = "true";
+    // 9. Global Demo Video Lightbox Modal (Delegated — survives ClientRouter swaps cleanly)
+    if (!(window as any).__globalDemoModalBound) {
+      (window as any).__globalDemoModalBound = true;
 
-      card.addEventListener("pointermove", (e: PointerEvent) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty("--mouse-x", `${x}px`);
-        card.style.setProperty("--mouse-y", `${y}px`);
-      }, { passive: true });
-    });
+      const closeDemoModal = () => {
+        const modal = document.getElementById("global-demo-modal");
+        const body = document.getElementById("global-demo-modal-body");
+        if (!modal || !body) return;
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        body.innerHTML = "";
+        document.body.style.overflow = "";
+      };
+
+      document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
+
+        const closeBtn = target.closest("#close-global-demo-modal");
+        if (closeBtn || target.id === "global-demo-modal") {
+          closeDemoModal();
+          return;
+        }
+
+        const trigger = target.closest<HTMLElement>("[data-open-demo-modal]");
+        if (!trigger) return;
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const modal = document.getElementById("global-demo-modal");
+        const body = document.getElementById("global-demo-modal-body");
+        const titleEl = document.getElementById("global-demo-modal-title");
+        if (!modal || !body || !titleEl) return;
+
+        const kind = trigger.getAttribute("data-demo-kind") || "video";
+        const src = trigger.getAttribute("data-demo-src") || "";
+        const poster = trigger.getAttribute("data-demo-poster") || "";
+        const title = trigger.getAttribute("data-demo-title") || "Product Demo Walkthrough";
+        if (!src) return;
+
+        titleEl.textContent = title;
+        body.innerHTML = "";
+
+        if (kind === "iframe") {
+          const iframe = document.createElement("iframe");
+          iframe.src = src;
+          iframe.title = title;
+          iframe.className = "w-full h-full border-0";
+          iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen";
+          iframe.setAttribute("allowfullscreen", "true");
+          body.appendChild(iframe);
+        } else {
+          const video = document.createElement("video");
+          video.src = src;
+          if (poster) video.poster = poster;
+          video.controls = true;
+          video.autoplay = true;
+          video.playsInline = true;
+          video.preload = "auto";
+          video.className = "w-full h-full object-contain bg-[#0A0B0E]";
+          body.appendChild(video);
+          video.play().catch(() => {});
+        }
+
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          const modal = document.getElementById("global-demo-modal");
+          if (modal && !modal.classList.contains("hidden")) {
+            closeDemoModal();
+          }
+        }
+      });
+    }
 
     // 10. Project Card Hover Video Preview
     document.querySelectorAll<HTMLElement>(".project-item").forEach((item) => {
