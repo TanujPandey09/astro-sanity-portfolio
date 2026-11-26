@@ -18,6 +18,9 @@ const models = [
     highlighted: false,
     tag: "Fixed-Scope",
     timeline: "2–6 Weeks",
+    pricePrefix: "Starting at",
+    price: "$1,500",
+    priceUnit: "USD / project",
     title: "Fixed-Scope Build",
     description:
       "Defined specs, fixed investment, and milestone-gated delivery for marketing sites, SaaS MVPs, and HTML email systems.",
@@ -37,6 +40,9 @@ const models = [
     highlighted: true,
     tag: "Most Popular",
     timeline: "Immediate Start",
+    pricePrefix: "Starting at",
+    price: "$2,500",
+    priceUnit: "USD / month",
     title: "Dedicated Engineering",
     description:
       "Senior React, Next.js, and full-stack capacity without hiring delays—plugged directly into your GitHub, Linear, and Slack.",
@@ -56,6 +62,9 @@ const models = [
     highlighted: false,
     tag: "Retainer",
     timeline: "Month-to-Month",
+    pricePrefix: "Starting at",
+    price: "$1,200",
+    priceUnit: "USD / month",
     title: "Technical Partnership",
     description:
       "Continuous feature iterations, API integrations, performance audits, and active maintenance with zero long-term lock-in.",
@@ -144,6 +153,19 @@ const guarantees = [
                 <p class="text-[15px] leading-[1.6] text-[var(--muted)]">
                   {model.description}
                 </p>
+              </div>
+
+              <!-- Transparent USD Starting Anchor -->
+              <div class="pt-1 flex items-baseline gap-2">
+                <span class="text-[11px] font-mono uppercase tracking-[0.08em] text-[var(--muted)]">
+                  {model.pricePrefix}
+                </span>
+                <span class="text-2xl sm:text-3xl font-semibold tracking-[-0.03em] text-[var(--ink)] tabular-nums">
+                  {model.price}
+                </span>
+                <span class="text-xs font-mono text-[var(--muted)]">
+                  {model.priceUnit}
+                </span>
               </div>
 
               <!-- Clean Inline "Best For" Line (No Nested Box) -->

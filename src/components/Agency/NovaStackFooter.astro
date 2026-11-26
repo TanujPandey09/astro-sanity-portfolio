@@ -1,5 +1,8 @@
 ---
 // DARK SECTION 2 OF 2: Final CTA Band + Minimalist Studio Footer (--ink #0B111A)
+import { PiWhatsappLogoDuotone } from "react-icons/pi";
+import { SiGithub, SiLinkedin } from "react-icons/si";
+
 interface Props {
   logoUrl?: string;
   logoAlt?: string;
@@ -92,6 +95,7 @@ const currentYear = new Date().getFullYear();
         <a href="#about" class="hover:text-white transition-colors">Founder</a>
         <a href="#models" class="hover:text-white transition-colors">Pricing</a>
         <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+        <a href="/templates" class="hover:text-white transition-colors">Templates</a>
         <a href="/" class="text-[var(--sky-400)] hover:text-white transition-colors inline-flex items-center gap-1 font-medium">
           <span>Portfolio</span>
           <span aria-hidden="true">↗</span>
@@ -101,8 +105,34 @@ const currentYear = new Date().getFullYear();
 
     <div class="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[var(--dark-muted)]">
       <span>© {currentYear} NovaStack Studio · Tanuj Pandey.</span>
-      <div class="flex items-center gap-4">
-        <span>Remote Worldwide</span>
+      <div class="flex flex-wrap items-center gap-4">
+        <a
+          href="https://github.com/TanujPandey09"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+        >
+          <SiGithub className="w-3.5 h-3.5" />
+          <span>GitHub</span>
+        </a>
+        <a
+          href="https://www.linkedin.com/in/tanujdev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+        >
+          <SiLinkedin className="w-3.5 h-3.5 text-[#38BDF8]" />
+          <span>LinkedIn</span>
+        </a>
+        <a
+          href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20visited%20NovaStack%20Studio%20and%20want%20to%20discuss%20a%20project."
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 hover:text-white transition-colors"
+        >
+          <PiWhatsappLogoDuotone className="w-4 h-4 text-emerald-400" />
+          <span>WhatsApp</span>
+        </a>
         <span aria-hidden="true">·</span>
         <a href="#hero" class="hover:text-white transition-colors">Back to top ↑</a>
       </div>
