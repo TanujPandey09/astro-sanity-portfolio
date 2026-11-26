@@ -5,14 +5,17 @@ import {
   PiBroadcastDuotone,
   PiSwatchesDuotone,
   PiArrowRightBold,
+  PiLightningDuotone,
+  PiGaugeDuotone,
+  PiBriefcaseDuotone,
 } from "react-icons/pi";
 import { SiOpenai, SiAnthropic, SiStripe, SiGooglegemini } from "react-icons/si";
 
 const metrics = [
-  { value: "10+", label: "Shipped Production Modules", detail: "Multi-role portals & SaaS APIs" },
-  { value: "50%", label: "Faster Page Load Speed", detail: "SSR, code splitting & edge caching" },
-  { value: "99+", label: "Core Web Vitals Score", detail: "Across Next.js & Astro storefronts" },
-  { value: "4+ Yrs", label: "Full-Stack Experience", detail: "React, Node.js, PostgreSQL & AI" },
+  { id: "systems", value: "10+", label: "Shipped Production Modules", detail: "Multi-role portals & SaaS APIs" },
+  { id: "speed", value: "50%", label: "Faster Page Load Speed", detail: "SSR, code splitting & edge caching" },
+  { id: "vitals", value: "99+", label: "Core Web Vitals Score", detail: "Across Next.js & Astro storefronts" },
+  { id: "exp", value: "4+ Yrs", label: "Full-Stack Experience", detail: "React, Node.js, PostgreSQL & AI" },
 ];
 
 const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
@@ -66,20 +69,31 @@ const techStack = [
       </div>
     </div>
 
-    <!-- Unified 4-Metric Dark Architectural Proof Strip -->
+    <!-- Unified 4-Metric Dark Architectural Proof Strip (Uniform Surface, Clear Internal Hierarchy) -->
     <div data-gsap-card class="mb-7 rounded-2xl bg-[#11141E] border border-white/10 overflow-hidden">
-      <div class="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-white/10">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 sm:divide-x divide-white/10">
         {metrics.map((m) => (
-          <div class="p-5 sm:p-6 hover:bg-white/[0.03] transition-colors">
-            <div class="font-grotesk font-bold text-2xl sm:text-3xl text-white tracking-[-0.03em] tabular-nums">
-              {m.value}
+          <div class="p-6 flex flex-col justify-between gap-4 hover:bg-white/[0.025] transition-colors">
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-xs font-grotesk font-semibold text-[#828FFF] tracking-[-0.01em]">
+                {m.label}
+              </span>
+              <span class="w-8 h-8 rounded-lg bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#828FFF] shrink-0" aria-hidden="true">
+                {m.id === "systems" && <PiStackDuotone className="w-4 h-4" />}
+                {m.id === "speed" && <PiLightningDuotone className="w-4 h-4" />}
+                {m.id === "vitals" && <PiGaugeDuotone className="w-4 h-4" />}
+                {m.id === "exp" && <PiBriefcaseDuotone className="w-4 h-4" />}
+              </span>
             </div>
-            <div class="text-xs font-grotesk font-semibold text-[#828FFF] mt-1">
-              {m.label}
+
+            <div>
+              <div class="font-grotesk font-bold text-3xl sm:text-4xl text-white tracking-[-0.03em] leading-none tabular-nums">
+                {m.value}
+              </div>
+              <p class="text-xs font-sans text-slate-300 mt-2.5 leading-relaxed">
+                {m.detail}
+              </p>
             </div>
-            <p class="text-[11px] font-mono text-slate-400 mt-1 leading-relaxed">
-              {m.detail}
-            </p>
           </div>
         ))}
       </div>

@@ -1,5 +1,12 @@
 ---
-// Full-Bleed Domain Marquee & High-Contrast Impact Bento Strip
+// Full-Bleed Domain Marquee & Unified Architectural Impact Proof Strip
+import {
+  PiStackDuotone,
+  PiLightningDuotone,
+  PiGaugeDuotone,
+  PiBriefcaseDuotone,
+} from "react-icons/pi";
+
 const domains = [
   "REACT.JS & NEXT.JS 15",
   "MULTI-LLM ORCHESTRATION",
@@ -13,36 +20,32 @@ const domains = [
 
 const metrics = [
   {
-    num: "01",
+    id: "systems",
     label: "Delivered Systems",
     value: "10",
     suffix: "+",
     desc: "Production SaaS modules shipped across multi-role portals & APIs.",
-    dark: false,
   },
   {
-    num: "02",
+    id: "speed",
     label: "Speed Gain",
     value: "50",
     suffix: "%",
     desc: "Faster load times via code splitting, edge caching & bundle tuning.",
-    dark: true,
   },
   {
-    num: "03",
+    id: "vitals",
     label: "Core Web Vitals",
     value: "99",
     suffix: "+",
     desc: "Consistently scored across Next.js & Astro production storefronts.",
-    dark: false,
   },
   {
-    num: "04",
+    id: "exp",
     label: "Experience",
     value: "4",
     suffix: "+ Yrs",
     desc: "Full-stack Next.js, Node.js, PostgreSQL & multi-LLM AI engineering.",
-    dark: false,
   },
 ];
 ---
@@ -91,41 +94,34 @@ const metrics = [
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
-      {metrics.map((m) => (
-        <div
-          data-gsap-card
-          class={`relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between transition-colors duration-200 ${
-            m.dark
-              ? "bg-[#0A0B0E] text-white border border-white/10 shadow-[0_16px_40px_-14px_rgba(10,11,14,0.35)]"
-              : "bg-white text-[#0F172A] border border-black/[0.08] hover:border-[#5E6AD2]/45 shadow-xs"
-          }`}
-        >
-          <div
-            class={`absolute top-0 inset-x-0 h-[2px] ${m.dark ? "bg-[#828FFF]" : "bg-[#5E6AD2]/60"}`}
-            aria-hidden="true"
-          ></div>
-
-          <div>
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class={`text-[11px] font-mono uppercase tracking-[0.12em] font-semibold ${m.dark ? "text-[#828FFF]" : "text-slate-500"}`}>
+    <!-- Unified 4-Column Architectural Proof Matrix (Uniform Surface, Clear Internal Hierarchy) -->
+    <div data-gsap-card class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 sm:divide-x divide-black/[0.08]">
+        {metrics.map((m) => (
+          <div class="p-6 sm:p-7 flex flex-col justify-between gap-5 hover:bg-[#F8FAFC] transition-colors">
+            <div class="flex items-center justify-between gap-3">
+              <span class="text-xs font-grotesk font-semibold text-[#5E6AD2] tracking-[-0.01em]">
                 {m.label}
               </span>
-              <span class={`text-[11px] font-mono tabular-nums ${m.dark ? "text-slate-500" : "text-slate-400"}`}>
-                {m.num}
+              <span class="w-8 h-8 rounded-lg bg-[#5E6AD2]/10 border border-[#5E6AD2]/15 flex items-center justify-center text-[#5E6AD2] shrink-0" aria-hidden="true">
+                {m.id === "systems" && <PiStackDuotone className="w-4 h-4" />}
+                {m.id === "speed" && <PiLightningDuotone className="w-4 h-4" />}
+                {m.id === "vitals" && <PiGaugeDuotone className="w-4 h-4" />}
+                {m.id === "exp" && <PiBriefcaseDuotone className="w-4 h-4" />}
               </span>
             </div>
 
-            <div class={`font-grotesk font-bold text-4xl sm:text-[44px] leading-none tabular-nums tracking-[-0.03em] ${m.dark ? "text-white" : "text-[#0F172A]"}`}>
-              <span data-counter={m.value} data-suffix={m.suffix}>{m.value}{m.suffix}</span>
+            <div>
+              <div class="font-grotesk font-bold text-4xl sm:text-[42px] leading-none tabular-nums tracking-[-0.03em] text-[#0F172A]">
+                <span data-counter={m.value} data-suffix={m.suffix}>{m.value}{m.suffix}</span>
+              </div>
+              <p class="text-xs sm:text-[13px] font-sans mt-3 leading-relaxed text-slate-600">
+                {m.desc}
+              </p>
             </div>
           </div>
-
-          <p class={`text-xs sm:text-[13px] font-sans mt-4 leading-relaxed ${m.dark ? "text-slate-300" : "text-slate-600"}`}>
-            {m.desc}
-          </p>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>
