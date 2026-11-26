@@ -2,6 +2,7 @@
 // NovaStack Studio Hero + Verified Proof Strip
 // Left-aligned oversized H1 (word stagger) + Compact Founder Credibility Chip + 3 Layered Real Sanity Browser Frames + Real Proof Bar
 import { optimizeSanityImage } from "../../lib/optimizeImage";
+import { SiOpenai, SiAnthropic } from "react-icons/si";
 import HeroProductShowcase, {
   type HeroProductItem,
 } from "./HeroProductShowcase";
@@ -94,16 +95,18 @@ const realSanityProjectCount = (sanityProjects || []).filter(
   (doc) => Boolean(doc?.projectName || doc?.templateName) && Boolean(getImg(doc))
 ).length;
 
-// Real technologies used across shipped projects (no fake client logos)
+// Real technologies used across shipped projects with official multi-color brand icons
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+
 const builtWithStack = [
-  "Next.js",
-  "React",
-  "TypeScript",
-  "Astro",
-  "Node.js",
-  "PostgreSQL",
-  "Sanity CMS",
-  "OpenAI / Claude",
+  { name: "Next.js", iconUrl: `${DEVICON}/nextjs/nextjs-original.svg` },
+  { name: "React", iconUrl: `${DEVICON}/react/react-original.svg` },
+  { name: "TypeScript", iconUrl: `${DEVICON}/typescript/typescript-original.svg` },
+  { name: "Astro", iconUrl: `${DEVICON}/astro/astro-original.svg` },
+  { name: "Node.js", iconUrl: `${DEVICON}/nodejs/nodejs-original.svg` },
+  { name: "PostgreSQL", iconUrl: `${DEVICON}/postgresql/postgresql-original.svg` },
+  { name: "Sanity CMS", iconUrl: `${DEVICON}/sanity/sanity-original.svg` },
+  { name: "OpenAI / Claude", brandKey: "ai" as const },
 ];
 
 // Real verified proof facts already stated on this site + live Sanity project count
@@ -230,16 +233,31 @@ const verifiedProofFacts = [
       </div>
     </div>
 
-    <!-- Quiet "Built With" Real Technology Strip (Zero Fake Client Logos) -->
-    <div class="mt-9 pt-6 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <!-- "Built With" Real Technology Strip with Official Multi-Color Brand Icons -->
+    <div class="mt-9 pt-6 border-t border-[var(--border)] flex flex-col lg:flex-row lg:items-center justify-between gap-4">
       <span class="ns-mono-label text-[var(--muted)] shrink-0">
         Built with
       </span>
-      <ul class="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[13px] font-mono text-[var(--muted)]">
+      <ul class="flex flex-wrap items-center gap-2 sm:gap-2.5">
         {builtWithStack.map((tech) => (
-          <li class="inline-flex items-center gap-2">
-            <span class="w-1 h-1 rounded-full bg-[var(--border)]" aria-hidden="true"></span>
-            <span class="text-[var(--ink)] font-medium">{tech}</span>
+          <li class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)]/40 transition-colors">
+            {"iconUrl" in tech && tech.iconUrl ? (
+              <img
+                src={tech.iconUrl}
+                alt={tech.name}
+                width="16"
+                height="16"
+                loading="lazy"
+                decoding="async"
+                class="w-4 h-4 object-contain shrink-0"
+              />
+            ) : (
+              <span class="inline-flex items-center gap-1 shrink-0" aria-hidden="true">
+                <SiOpenai className="w-3.5 h-3.5 text-[#10A37F]" />
+                <SiAnthropic className="w-3.5 h-3.5 text-[#D97757]" />
+              </span>
+            )}
+            <span class="text-xs font-mono font-medium text-[var(--ink)]">{tech.name}</span>
           </li>
         ))}
       </ul>

@@ -1,6 +1,16 @@
 ---
 // NovaStack Engagement Models: Unified Architectural 3-Column Studio Matrix
 // Single crisp white frame with 1px hairline dividers, subtle tint on recommended tier, inline "Best for" (no nested boxes), and integrated bottom assurance bar
+import {
+  PiRocketLaunchDuotone,
+  PiUsersThreeDuotone,
+  PiHandshakeDuotone,
+  PiCheckCircleDuotone,
+  PiShieldCheckDuotone,
+  PiGitBranchDuotone,
+  PiUserCheckDuotone,
+} from "react-icons/pi";
+
 const models = [
   {
     id: "fixed-scope",
@@ -116,10 +126,21 @@ const guarantees = [
               </div>
 
               <!-- Title & Concise Summary -->
-              <div class="space-y-2">
-                <h3 class="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
-                  {model.title}
-                </h3>
+              <div class="space-y-2.5">
+                <div class="flex items-center gap-3">
+                  <div class={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${
+                    model.highlighted
+                      ? "bg-[var(--blue-50)] border-[var(--blue-600)]/20 text-[var(--blue-600)]"
+                      : "bg-[var(--bg)] border-[var(--border)] text-[var(--blue-600)]"
+                  }`}>
+                    {model.id === "fixed-scope" && <PiRocketLaunchDuotone className="w-5 h-5" />}
+                    {model.id === "freelance-support" && <PiUsersThreeDuotone className="w-5 h-5" />}
+                    {model.id === "ongoing-collaboration" && <PiHandshakeDuotone className="w-5 h-5" />}
+                  </div>
+                  <h3 class="text-xl sm:text-2xl font-semibold tracking-[-0.02em] text-[var(--ink)]">
+                    {model.title}
+                  </h3>
+                </div>
                 <p class="text-[15px] leading-[1.6] text-[var(--muted)]">
                   {model.description}
                 </p>
@@ -139,12 +160,10 @@ const guarantees = [
               <ul class="space-y-2.5 text-[15px] leading-[1.55] text-[var(--muted)]">
                 {model.highlights.map((item) => (
                   <li class="flex items-start gap-2.5">
-                    <span
-                      class="text-[var(--blue-600)] font-semibold shrink-0 mt-0.5"
+                    <PiCheckCircleDuotone
+                      className="w-4 h-4 text-[var(--blue-600)] shrink-0 mt-1"
                       aria-hidden="true"
-                    >
-                      ✓
-                    </span>
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -175,12 +194,18 @@ const guarantees = [
           Included on every engagement
         </span>
         <ul class="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm font-mono text-[var(--ink)]">
-          {guarantees.map((item) => (
-            <li class="inline-flex items-center gap-2">
-              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
-              <span>{item}</span>
-            </li>
-          ))}
+          <li class="inline-flex items-center gap-2">
+            <PiShieldCheckDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
+            <span>{guarantees[0]}</span>
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <PiGitBranchDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
+            <span>{guarantees[1]}</span>
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <PiUserCheckDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
+            <span>{guarantees[2]}</span>
+          </li>
         </ul>
       </div>
     </div>

@@ -1,6 +1,13 @@
 ---
 // NovaStack Contact Section: Two-Column Layout (Left Reassurance + Direct Channels | Right Prominent White Card Form)
 // Preserves /api/contact endpoint, FormData payload, and all field names 100% untouched
+import {
+  PiEnvelopeSimpleDuotone,
+  PiWhatsappLogoDuotone,
+  PiCopyDuotone,
+  PiClockDuotone,
+  PiListChecksDuotone,
+} from "react-icons/pi";
 ---
 
 <section id="contact" class="ns-section bg-[var(--bg)] text-[var(--ink)]">
@@ -26,55 +33,69 @@
         <!-- Direct Channels (2-col on Tablet, Stacked on Mobile & Desktop) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3.5 sm:gap-4">
           <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-5 flex items-center justify-between gap-4">
-            <div class="min-w-0">
-              <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-1">
-                Direct Email
-              </span>
-              <a
-                href="mailto:tanujp09@gmail.com"
-                class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors truncate block"
-              >
-                tanujp09@gmail.com
-              </a>
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-[var(--blue-50)] border border-[var(--blue-600)]/15 flex items-center justify-center text-[var(--blue-600)] shrink-0">
+                <PiEnvelopeSimpleDuotone className="w-5 h-5" />
+              </div>
+              <div class="min-w-0">
+                <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-0.5">
+                  Direct Email
+                </span>
+                <a
+                  href="mailto:tanujp09@gmail.com"
+                  class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors truncate block"
+                >
+                  tanujp09@gmail.com
+                </a>
+              </div>
             </div>
             <button
               type="button"
               id="agency-copy-email-btn"
               data-email="tanujp09@gmail.com"
-              class="shrink-0 px-4 py-2 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] text-xs font-mono font-medium text-[var(--ink)] transition-colors cursor-pointer"
+              class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[12px] bg-[var(--bg)] border border-[var(--border)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] text-xs font-mono font-medium text-[var(--ink)] transition-colors cursor-pointer"
             >
+              <PiCopyDuotone className="w-3.5 h-3.5" />
               <span id="agency-copy-email-text">Copy</span>
             </button>
           </div>
 
           <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-5 flex items-center justify-between gap-4">
-            <div>
-              <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-1">
-                Phone / WhatsApp
-              </span>
-              <a
-                href="tel:+919557321978"
-                class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors tabular-nums"
-              >
-                +91 9557321978
-              </a>
+            <div class="flex items-center gap-3.5 min-w-0">
+              <div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-500/20 flex items-center justify-center text-emerald-600 shrink-0">
+                <PiWhatsappLogoDuotone className="w-5 h-5" />
+              </div>
+              <div>
+                <span class="text-xs font-mono uppercase tracking-[0.08em] text-[var(--muted)] block mb-0.5">
+                  Phone / WhatsApp
+                </span>
+                <a
+                  href="tel:+919557321978"
+                  class="text-base font-mono font-medium text-[var(--ink)] hover:text-[var(--blue-600)] transition-colors tabular-nums"
+                >
+                  +91 9557321978
+                </a>
+              </div>
             </div>
             <a
               href="https://wa.me/919557321978?text=Hi%20Tanuj%2C%20I%20visited%20NovaStack%20Studio%20and%20want%20to%20discuss%20a%20project."
               target="_blank"
               rel="noopener noreferrer"
-              class="shrink-0 px-4 py-2 rounded-[12px] bg-[var(--blue-50)] text-[var(--blue-700)] hover:bg-[var(--blue-600)] hover:text-white text-xs font-mono font-medium transition-colors"
+              class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-2 rounded-[12px] bg-[var(--blue-50)] text-[var(--blue-700)] hover:bg-[var(--blue-600)] hover:text-white text-xs font-mono font-medium transition-colors"
             >
-              WhatsApp ↗
+              <span>WhatsApp ↗</span>
             </a>
           </div>
         </div>
 
         <!-- Reassurance Steps -->
         <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 space-y-3">
-          <span class="ns-mono-label text-[var(--blue-600)] font-medium block">
-            What Happens Next
-          </span>
+          <div class="flex items-center gap-2">
+            <PiListChecksDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" />
+            <span class="ns-mono-label text-[var(--blue-600)] font-medium block">
+              What Happens Next
+            </span>
+          </div>
           <ol class="space-y-3 text-base leading-[1.6] text-[var(--muted)]">
             <li>
               <strong class="text-[var(--ink)] font-semibold">1. Direct Review:</strong> Tanuj inspects your brief, Figma, or existing codebase personally.
@@ -100,8 +121,9 @@
               Tell me what you are building for a direct technical assessment.
             </p>
           </div>
-          <span class="px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium">
-            Reply &lt; 24h
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] text-xs font-mono font-medium">
+            <PiClockDuotone className="w-3.5 h-3.5" />
+            <span>Reply &lt; 24h</span>
           </span>
         </div>
 
@@ -124,7 +146,7 @@
                 name="from_name"
                 type="text"
                 required
-                placeholder="Sarah Jenkins"
+                placeholder="Rohan Mehta"
                 class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
               <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-name">
@@ -141,7 +163,7 @@
                 name="from_email"
                 type="email"
                 required
-                placeholder="sarah@company.com"
+                placeholder="rohan@kestrelhq.com"
                 class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
               <span class="agency-error text-xs font-mono text-[#B91C1C] hidden" id="err-email">
@@ -160,7 +182,7 @@
                 id="agency-company"
                 name="company_name"
                 type="text"
-                placeholder="Acme Corp"
+                placeholder="Kestrel Labs"
                 class="w-full min-h-[48px] rounded-[12px] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-base text-[var(--ink)] placeholder:text-[#64748B] focus:border-[var(--blue-600)] focus:ring-2 focus:ring-[#2563EB]/20 focus:outline-none transition-colors"
               />
             </div>

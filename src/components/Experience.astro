@@ -1,18 +1,42 @@
 ---
 import SectionHeader from "./SectionHeader.astro";
 
-const experienceData = [
+interface ExperienceItem {
+  id: string;
+  num: string;
+  role: string;
+  company: string;
+  duration: string;
+  period: string;
+  type: string;
+  isCurrent: boolean;
+  badge: string;
+  headlineOutcome: string;
+  companyUrl: string;
+  description: string;
+  highlights: string[];
+  kpis: { value: string; label: string }[];
+  technologies: string[];
+  logo: string;
+  brandMark: "cxisuite" | "nasyait" | "image";
+  accentBg: string;
+}
+
+const experienceData: ExperienceItem[] = [
   {
+    id: "cxisuite",
+    num: "01",
     role: "Full Stack Developer",
     company: "Cxisuite",
     duration: "Sep 2025 — Present",
-    period: "[2025 — PRESENT]",
+    period: "2025 — PRESENT",
     type: "Remote",
     isCurrent: true,
     badge: "Current Role",
     headlineOutcome: "Sawt AI & Multi-LLM SaaS",
     companyUrl: "https://cxisuite.com/",
-    description: "Architected and shipped Sawt AI, a bilingual Arabic/English AI survey SaaS for the Saudi market, alongside real-time CRM and mobile platforms.",
+    description:
+      "Architected and shipped Sawt AI, a bilingual Arabic/English AI survey SaaS for the Saudi market, alongside real-time CRM and mobile platforms.",
     highlights: [
       "Integrated multi-LLM pipelines (GPT, Gemini, Grok, Perplexity) with response validation and MyFatoorah subscription billing, webhooks, and tier access control.",
       "Engineered role-based auth, rate limiting, audit logging, and a real-time CRM using Socket.IO with live SLA tracking.",
@@ -23,19 +47,24 @@ const experienceData = [
       { value: "Real-Time", label: "Socket.IO CRM & Billing" }
     ],
     technologies: ["React.js", "Next.js", "Node.js", "TypeScript", "React Native", "Socket.IO", "PostgreSQL", "OpenAI / Gemini"],
-    logo: "",
+    logo: "https://cxisuite.com/logo.webp",
+    brandMark: "image",
+    accentBg: "bg-white",
   },
   {
+    id: "nasyait",
+    num: "02",
     role: "Frontend Developer",
     company: "Nasya IT",
     duration: "Feb 2025 — Jul 2025",
-    period: "[FEB — JUL 2025]",
+    period: "FEB — JUL 2025",
     type: "Remote",
     isCurrent: false,
     badge: "Solo Ownership",
     headlineOutcome: "Multi-Role Healthcare SaaS",
     companyUrl: "https://www.nasyait.com/",
-    description: "Solely owned the frontend architecture of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic) from UI design through production release.",
+    description:
+      "Solely owned the frontend architecture of a multi-role healthcare SaaS (Super Admin, Doctor, Patient, Clinic) from UI design through production release.",
     highlights: [
       "Built 3 role-based authentication portals and 10+ CRUD modules covering patient records, appointment scheduling, and clinic operations.",
       "Developed interactive medical dashboards with reactive filters, charting, and exportable reports connected to Node.js and MongoDB APIs.",
@@ -46,19 +75,24 @@ const experienceData = [
       { value: "4 Portals", label: "Admin, Doctor, Patient, Clinic" }
     ],
     technologies: ["React.js", "Node.js", "MongoDB", "REST APIs", "Tailwind CSS"],
-    logo: "",
+    logo: "https://www.nasyait.com/assets/img/NasyaIT.png",
+    brandMark: "image",
+    accentBg: "bg-white",
   },
   {
+    id: "techmatys",
+    num: "03",
     role: "React Developer",
     company: "Techmatys",
     duration: "May 2024 — Dec 2024",
-    period: "[MAY — DEC 2024]",
+    period: "MAY — DEC 2024",
     type: "Onsite",
     isCurrent: false,
     badge: "Enterprise EdTech",
     headlineOutcome: "Moodle LMS & React Dashboards",
     companyUrl: "https://www.linkedin.com/company/techmatys/",
-    description: "Engineered and customized Moodle-based LMS frontends and reusable React.js dashboard systems for institutional student, teacher, and admin workflows.",
+    description:
+      "Engineered and customized Moodle-based LMS frontends and reusable React.js dashboard systems for institutional student, teacher, and admin workflows.",
     highlights: [
       "Built academic management modules for attendance tracking, grading assessments, course scheduling, and institutional reporting.",
       "Integrated REST APIs and accelerated dashboard load times via route-level code splitting and lazy loading.",
@@ -70,18 +104,23 @@ const experienceData = [
     ],
     technologies: ["React.js", "Moodle LMS", "REST APIs", "Ant Design", "JavaScript (ES6+)"],
     logo: "/img/techmatys.jfif",
+    brandMark: "image",
+    accentBg: "bg-white",
   },
   {
+    id: "scube",
+    num: "04",
     role: "Frontend Developer",
     company: "Scube.co",
     duration: "Jan 2022 — Feb 2024",
-    period: "[2022 — 2024]",
+    period: "2022 — 2024",
     type: "Remote",
     isCurrent: false,
     badge: "Core Web Vitals",
     headlineOutcome: "50% Faster Next.js SaaS",
     companyUrl: "https://www.scube.co/",
-    description: "Built the production frontend of Breeze SaaS using Next.js (SSR/SSG) and TypeScript, integrating GraphQL and headless CMS pipelines.",
+    description:
+      "Built the production frontend of Breeze SaaS using Next.js (SSR/SSG) and TypeScript, integrating GraphQL and headless CMS pipelines.",
     highlights: [
       "Optimized Core Web Vitals (LCP, CLS, TTFB) via next/image optimization, code splitting, and edge caching strategies.",
       "Delivered a 50% improvement in page load speed and a 20% increase in user engagement across production web properties.",
@@ -92,13 +131,15 @@ const experienceData = [
       { value: "+20% Lift", label: "Production User Engagement" }
     ],
     technologies: ["Next.js", "TypeScript", "GraphQL", "Sanity.io", "Contentful", "Strapi"],
-    logo: "/img/SCUBE.webp",
+    logo: "https://www.scube.co/wp-content/uploads/2026/03/SCube-logo.svg",
+    brandMark: "image",
+    accentBg: "bg-white",
   },
 ];
 ---
 
-<section id="experience" class="relative z-10 border-t border-black/[0.08] py-14 sm:py-16 lg:py-20 overflow-hidden">
-  <div class="w-full max-w-7xl mx-auto">
+<section id="experience" class="relative z-10 bg-[#F1F5F9] py-16 sm:py-20 border-b border-slate-200/80">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
     
     <SectionHeader 
       eyebrow="03 / Career Timeline"
@@ -107,22 +148,99 @@ const experienceData = [
       subtitle="4+ years shipping commercial SaaS products, multi-role healthcare portals, and production AI systems."
     />
 
-    <!-- Editorial Interactive Experience Ledger -->
-    <div data-gsap-card class="bento-spotlight relative rounded-2xl bg-white border border-black/[0.08] overflow-hidden divide-y divide-black/[0.08] shadow-xs">
+    <!-- DESKTOP (lg+): INTERACTIVE CAREER DOSSIER SPLIT -->
+    <div id="exp-dossier-stage" class="hidden lg:grid lg:grid-cols-12 gap-6 items-stretch">
+      
+      <!-- Left Rail (5 Cols): Interactive Company Selector Cards -->
+      <div class="lg:col-span-5 flex flex-col justify-between gap-3" role="tablist" aria-label="Work Experience Roles">
+        <div class="space-y-2.5">
+          {experienceData.map((exp, idx) => {
+            const isInitial = idx === 0;
+            return (
+              <button
+                type="button"
+                role="tab"
+                aria-selected={isInitial ? "true" : "false"}
+                tabindex={isInitial ? "0" : "-1"}
+                data-exp-tab={exp.id}
+                data-active={isInitial ? "true" : "false"}
+                class="exp-tab-card group relative w-full text-left overflow-hidden rounded-2xl border p-4 transition-all duration-200 cursor-pointer"
+              >
+                <!-- Left Active Linear Indigo Rail -->
+                <span class="exp-tab-rail absolute left-0 top-0 bottom-0 w-[3px] bg-[#5E6AD2] transition-opacity duration-200" aria-hidden="true"></span>
 
-      <!-- Top Metadata Strip -->
-      <div class="px-4 sm:px-7 py-3.5 bg-slate-50/80 border-b border-black/[0.08] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono text-slate-500">
-        <div class="flex items-center gap-2">
-          <span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
-          <span class="text-[#0F172A] font-semibold uppercase tracking-[0.08em]">04 Production Roles · 2022 — 2026</span>
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-3.5 min-w-0">
+                    <!-- Crisp Company Logo -->
+                    <div class="relative w-12 h-12 rounded-xl border border-black/[0.08] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
+                      <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-400 select-none" aria-hidden="true">
+                        {exp.company.slice(0, 2).toUpperCase()}
+                      </span>
+                      {exp.logo && (
+                        <img
+                          src={exp.logo}
+                          alt={`${exp.company} logo`}
+                          width="40"
+                          height="40"
+                          loading="lazy"
+                          decoding="async"
+                          referrerpolicy="no-referrer"
+                          class="relative w-full h-full object-contain bg-white"
+                          onerror="this.style.display='none'"
+                        />
+                      )}
+                    </div>
+
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2">
+                        <span class="font-grotesk font-bold text-base text-[#0F172A] truncate">
+                          {exp.company}
+                        </span>
+                        {exp.isCurrent && (
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-500/30 text-[10px] font-mono font-semibold text-emerald-700 shrink-0">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            Current
+                          </span>
+                        )}
+                      </div>
+                      <span class="text-xs font-medium text-slate-600 block truncate mt-0.5">
+                        {exp.role}
+                      </span>
+                      <span class="text-[11px] font-mono text-slate-500 block mt-0.5">
+                        {exp.duration} · {exp.type}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col items-end gap-1 shrink-0">
+                    <span class="exp-tab-num text-xs font-mono font-semibold text-slate-400">
+                      {exp.num}
+                    </span>
+                    <span class="exp-tab-arrow text-sm text-[#5E6AD2] transition-transform duration-200" aria-hidden="true">
+                      →
+                    </span>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
         </div>
-        <div class="flex items-center gap-4">
-          <span class="hidden sm:inline text-slate-500">Click any role to inspect deliverables</span>
+
+        <!-- Bottom CV & Availability Bar -->
+        <div class="rounded-2xl bg-[#FAFAFB] border border-black/[0.08] px-5 py-4 flex items-center justify-between gap-4">
+          <div class="min-w-0">
+            <span class="text-[10px] font-mono uppercase tracking-[0.14em] text-[#5E6AD2] font-semibold block">
+              Full Career History
+            </span>
+            <span class="text-xs font-sans text-slate-600 truncate block mt-0.5">
+              4+ Years · 4 Shipped Roles
+            </span>
+          </div>
           <a
             href="/Resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#0F172A] hover:bg-[#5E6AD2] text-white font-grotesk font-semibold text-[11px] uppercase tracking-[0.04em] transition-colors"
+            class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#0F172A] hover:bg-[#5E6AD2] text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-colors"
           >
             <span>Download CV</span>
             <span>↗</span>
@@ -130,46 +248,150 @@ const experienceData = [
         </div>
       </div>
 
-      <!-- Accordion Rows (All 4 Companies Always Visible; Full Highlights & KPIs Inside) -->
-      {experienceData.map((exp, index) => {
-        const isFirst = index === 0;
-        return (
-          <div
-            class={`exp-ledger-item group transition-colors duration-300 ${
-              isFirst ? "is-open bg-slate-50/70" : "hover:bg-slate-50/50"
-            }`}
-            data-exp-item={index}
-          >
-            <!-- Interactive Row Header Button -->
-            <button
-              type="button"
-              aria-expanded={isFirst ? "true" : "false"}
-              aria-controls={`exp-drawer-${index}`}
-              id={`exp-trigger-${index}`}
-              data-exp-trigger={index}
-              class="w-full text-left px-4 sm:px-7 py-4 sm:py-5 flex items-center justify-between gap-3 sm:gap-6 cursor-pointer focus:outline-none"
+      <!-- Right Stage (7 Cols): Unified Light Architectural Career Dossier -->
+      <div class="lg:col-span-7 relative">
+        {experienceData.map((exp, idx) => {
+          const isInitial = idx === 0;
+          return (
+            <article
+              role="tabpanel"
+              data-exp-panel={exp.id}
+              data-active={isInitial ? "true" : "false"}
+              aria-hidden={isInitial ? "false" : "true"}
+              class={`exp-dossier-panel rounded-2xl border border-black/[0.08] bg-white shadow-xs overflow-hidden flex-col h-full transition-opacity duration-250 ${
+                isInitial ? "flex" : "hidden"
+              }`}
             >
-              <!-- Left: Index + Logo + Role + Company -->
-              <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                <span class={`exp-idx hidden xs:inline-flex font-mono text-xs font-bold tabular-nums transition-colors ${
-                  isFirst ? "text-accent-primary" : "text-slate-600 group-hover:text-[#0F172A]"
-                }`}>
-                  {String(index + 1).padStart(2, "0")}/
-                </span>
+              <!-- Crisp Architectural Top Header Band -->
+              <div class="relative bg-[#F8FAFF] p-6 xl:p-7 border-b border-black/[0.08]">
+                <div class="absolute top-0 inset-x-0 h-[2px] bg-[#5E6AD2]" aria-hidden="true"></div>
 
-                <!-- Company Logo -->
-                <div class={`relative w-10 h-10 sm:w-11 sm:h-11 rounded-lg bg-slate-100 p-2 border transition-all duration-300 shrink-0 flex items-center justify-center overflow-hidden ${
-                  isFirst ? "border-accent-primary/50" : "border-black/10 group-hover:border-black/25"
-                }`}>
-                  <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-500 select-none" aria-hidden="true">
+                <div class="flex items-start justify-between gap-4 mb-5">
+                  <div class="flex items-center gap-4 min-w-0">
+                    <div class="relative w-12 h-12 rounded-xl border border-black/[0.08] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden shadow-2xs">
+                      <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-400 select-none" aria-hidden="true">
+                        {exp.company.slice(0, 2).toUpperCase()}
+                      </span>
+                      {exp.logo && (
+                        <img
+                          src={exp.logo}
+                          alt={`${exp.company} logo`}
+                          width="40"
+                          height="40"
+                          loading="lazy"
+                          decoding="async"
+                          referrerpolicy="no-referrer"
+                          class="relative w-full h-full object-contain bg-white"
+                          onerror="this.style.display='none'"
+                        />
+                      )}
+                    </div>
+
+                    <div class="min-w-0">
+                      <div class="flex items-center gap-2.5 flex-wrap">
+                        <h3 class="font-grotesk text-2xl font-bold text-[#0F172A] tracking-tight">
+                          {exp.role}
+                        </h3>
+                        <span class="px-2.5 py-0.5 rounded-full bg-[#5E6AD2]/10 border border-[#5E6AD2]/20 text-[11px] font-mono text-[#5E6AD2] font-semibold">
+                          {exp.badge}
+                        </span>
+                      </div>
+                      <div class="flex items-center gap-2 text-xs font-mono text-slate-500 mt-1">
+                        <span class="text-[#0F172A] font-semibold">{exp.company}</span>
+                        <span>·</span>
+                        <span>{exp.duration}</span>
+                        <span>·</span>
+                        <span>{exp.type}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <a
+                    href={exp.companyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-[#0F172A] border border-black/10 text-[11px] font-mono font-semibold transition-colors"
+                  >
+                    <span>Website</span>
+                    <span>↗</span>
+                  </a>
+                </div>
+
+                <!-- 2 Crisp Impact KPI Tiles -->
+                <div class="grid grid-cols-2 gap-3">
+                  {exp.kpis.map((kpi) => (
+                    <div class="rounded-xl bg-white border border-black/[0.08] px-4 py-3">
+                      <div class="font-grotesk text-xl font-bold text-[#0F172A] tracking-tight">
+                        {kpi.value}
+                      </div>
+                      <div class="text-[11px] font-mono text-slate-500 mt-0.5">
+                        {kpi.label}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <!-- Crisp White Engineering Deliverables Body -->
+              <div class="p-6 xl:p-7 flex-1 flex flex-col justify-between gap-6">
+                <div class="space-y-5">
+                  <p class="text-[15px] text-[#0F172A] font-medium leading-[1.65]">
+                    {exp.description}
+                  </p>
+
+                  <div>
+                    <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#5E6AD2] font-semibold block mb-3">
+                      Key Engineering Deliverables
+                    </span>
+                    <ul class="space-y-3">
+                      {exp.highlights.map((point) => (
+                        <li class="flex items-start gap-3 text-sm text-slate-600 leading-[1.65]">
+                          <span class="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] mt-2 shrink-0"></span>
+                          <span>{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Production Stack Footer -->
+                <div class="pt-5 border-t border-black/[0.08]">
+                  <span class="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-500 font-semibold block mb-2.5">
+                    Production Stack
+                  </span>
+                  <div class="flex flex-wrap gap-1.5">
+                    {exp.technologies.map((tech) => (
+                      <span class="px-2.5 py-1 rounded-full bg-slate-50 border border-black/[0.08] text-xs font-mono text-slate-700">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+    </div>
+
+    <!-- MOBILE & TABLET (< lg): CLEAN LIGHT ARCHITECTURAL STACKED CARDS -->
+    <div class="lg:hidden space-y-4">
+      {experienceData.map((exp) => (
+        <article class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-xs">
+          <!-- Crisp Light Architectural Header -->
+          <div class="bg-[#F8FAFF] p-5 border-b border-black/[0.08]">
+            <div class="flex items-start justify-between gap-3 mb-4">
+              <div class="flex items-center gap-3 min-w-0">
+                <div class="relative w-11 h-11 rounded-xl border border-black/[0.08] bg-white p-1.5 flex items-center justify-center shrink-0 overflow-hidden">
+                  <span class="absolute inset-0 flex items-center justify-center font-grotesk text-xs font-bold text-slate-400 select-none" aria-hidden="true">
                     {exp.company.slice(0, 2).toUpperCase()}
                   </span>
                   {exp.logo && (
                     <img
                       src={exp.logo}
-                      alt={exp.company}
-                      width="40"
-                      height="40"
+                      alt={`${exp.company} logo`}
+                      width="36"
+                      height="36"
                       loading="lazy"
                       decoding="async"
                       referrerpolicy="no-referrer"
@@ -178,210 +400,176 @@ const experienceData = [
                     />
                   )}
                 </div>
-
-                <!-- Role & Company Title -->
                 <div class="min-w-0">
-                  <div class="flex flex-wrap items-center gap-1.5 sm:gap-2.5">
-                    <h3 class="font-grotesk text-base sm:text-xl font-bold text-[#0F172A] tracking-[-0.03em] truncate">
-                      {exp.role}
-                    </h3>
-                    <span class="text-black/20 hidden sm:inline">·</span>
-                    <span class="text-xs sm:text-sm font-mono font-semibold text-slate-700 truncate">
-                      {exp.company}
-                    </span>
-                    {exp.isCurrent ? (
-                      <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-500/30 text-emerald-800 font-medium">
-                        <span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
-                        {exp.badge}
-                      </span>
-                    ) : (
-                      <span class="hidden md:inline-flex text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-slate-100 border border-black/[0.08] text-slate-700">
-                        {exp.badge}
-                      </span>
-                    )}
-                  </div>
-
-                  <!-- Mobile Subline: Period & Type -->
-                  <div class="flex sm:hidden items-center gap-2 mt-0.5 text-[11px] font-mono text-slate-500">
-                    <span>{exp.duration}</span>
-                    <span>·</span>
-                    <span>{exp.type}</span>
-                  </div>
+                  <h3 class="font-grotesk text-lg font-bold text-[#0F172A] leading-snug truncate">
+                    {exp.role}
+                  </h3>
+                  <p class="text-xs font-mono text-slate-500 mt-0.5">
+                    {exp.company} · {exp.duration}
+                  </p>
                 </div>
               </div>
-
-              <!-- Right: Key Outcome Pill (Desktop) + Duration + Circular Toggle -->
-              <div class="flex items-center gap-3 sm:gap-5 shrink-0">
-                <span class="hidden lg:inline-flex items-center gap-1.5 px-3 py-1 bg-slate-100 border border-black/[0.08] text-[11px] font-mono text-slate-700">
-                  <span class="w-1.5 h-1.5 rounded-full bg-accent-primary"></span>
-                  {exp.headlineOutcome}
-                </span>
-
-                <div class="hidden sm:flex flex-col items-end text-right">
-                  <span class="text-xs font-mono font-medium text-[#0F172A] tabular-nums">{exp.duration}</span>
-                  <span class="text-[10px] font-mono text-slate-500">{exp.type}</span>
-                </div>
-
-                <span class={`exp-chevron w-9 h-9 sm:w-10 sm:h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
-                  isFirst
-                    ? "bg-accent-primary text-white border-accent-primary rotate-180"
-                    : "bg-slate-100 text-slate-700 border-black/10 group-hover:border-black/25 group-hover:text-black"
-                }`}>
-                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </div>
-            </button>
-
-            <!-- Accordion Drawer with Full Highlights, KPIs & Tech Stack -->
-            <div
-              id={`exp-drawer-${index}`}
-              role="region"
-              aria-labelledby={`exp-trigger-${index}`}
-              class={`exp-drawer grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                isFirst ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-              }`}
-            >
-              <div class="overflow-hidden">
-                <div class="px-4 sm:px-7 pb-6 sm:pb-7 pt-1">
-                  <div class="grid lg:grid-cols-12 gap-5 p-4 sm:p-6 bg-[#F8FAFC] border border-black/[0.08] rounded-xl">
-                    
-                    <!-- Left (7 Cols): Executive Summary & 3 Key Engineering Deliverables -->
-                    <div class="lg:col-span-7 space-y-3.5 min-w-0">
-                      <p class="text-xs sm:text-sm text-[#0F172A] font-medium leading-relaxed">
-                        {exp.description}
-                      </p>
-
-                      <ul class="space-y-2.5 pt-3 border-t border-black/[0.08]">
-                        {exp.highlights.map((point) => (
-                          <li class="flex items-start gap-2.5 text-xs sm:text-[13px] text-slate-600 leading-relaxed">
-                            <span class="w-1.5 h-1.5 rounded-full bg-accent-primary mt-1.5 shrink-0"></span>
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <!-- Right (5 Cols): Verified Impact KPIs + Stack + Company Link -->
-                    <div class="lg:col-span-5 flex flex-col justify-between gap-4 p-4 bg-white border border-black/[0.08] rounded-lg min-w-0 shadow-xs">
-                      <div class="space-y-4">
-                        <!-- 2x1 KPI Bento Tiles -->
-                        <div class="grid grid-cols-2 gap-2.5">
-                          {exp.kpis.map((kpi) => (
-                            <div class="p-3 bg-slate-50 border border-black/[0.06] rounded-md">
-                              <div class="text-sm sm:text-base font-bold font-grotesk text-[#0F172A] tracking-tight">
-                                {kpi.value}
-                              </div>
-                              <div class="text-[10px] font-mono text-slate-500 mt-0.5 leading-tight">
-                                {kpi.label}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-
-                        <!-- Core Stack Pills -->
-                        <div class="space-y-2">
-                          <span class="text-[10px] font-mono uppercase tracking-[0.12em] text-slate-500 font-semibold block">Production Stack</span>
-                          <div class="flex flex-wrap gap-1.5">
-                            {exp.technologies.map((tech) => (
-                              <span class="px-2.5 py-0.5 bg-slate-50 border border-black/[0.08] text-[11px] font-mono text-slate-700 rounded-full">
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Footer Link -->
-                      <div class="pt-3 border-t border-black/[0.08] flex items-center justify-between">
-                        <span class="text-[10px] font-mono uppercase text-slate-500">{exp.period}</span>
-                        <a
-                          href={exp.companyUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center gap-1.5 text-xs font-grotesk font-semibold uppercase tracking-[0.04em] text-accent-primary hover:text-[#0F172A] transition-colors"
-                        >
-                          <span>VISIT {exp.company.toUpperCase()}</span>
-                          <span>↗</span>
-                        </a>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
+              <span class="text-xs font-mono font-semibold text-[#5E6AD2] shrink-0">
+                {exp.num}
+              </span>
             </div>
 
+            <div class="grid grid-cols-2 gap-2.5">
+              {exp.kpis.map((kpi) => (
+                <div class="rounded-xl bg-white border border-black/[0.08] px-3 py-2.5">
+                  <div class="font-grotesk text-base font-bold text-[#0F172A]">{kpi.value}</div>
+                  <div class="text-[10px] font-mono text-slate-500 mt-0.5 leading-tight">{kpi.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        );
-      })}
+
+          <div class="p-5 space-y-4">
+            <p class="text-sm text-[#0F172A] font-medium leading-relaxed">
+              {exp.description}
+            </p>
+            <ul class="space-y-2.5">
+              {exp.highlights.map((point) => (
+                <li class="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#5E6AD2] mt-1.5 shrink-0"></span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div class="pt-3.5 border-t border-black/[0.08] flex flex-wrap items-center justify-between gap-3">
+              <div class="flex flex-wrap gap-1.5">
+                {exp.technologies.slice(0, 5).map((tech) => (
+                  <span class="px-2.5 py-0.5 rounded-full bg-slate-50 border border-black/[0.08] text-[11px] font-mono text-slate-700">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+              <a
+                href={exp.companyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-xs font-mono font-semibold text-[#5E6AD2] hover:underline"
+              >
+                Visit {exp.company} ↗
+              </a>
+            </div>
+          </div>
+        </article>
+      ))}
+
+      <div class="pt-2 flex justify-center">
+        <a
+          href="/Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0A0B0E] hover:bg-[#5E6AD2] text-white font-grotesk font-semibold text-xs uppercase tracking-wider transition-colors"
+        >
+          <span>Download Full CV</span>
+          <span>↗</span>
+        </a>
+      </div>
     </div>
 
   </div>
 </section>
 
+<style>
+  .exp-tab-card {
+    background-color: #FFFFFF;
+    border-color: rgba(15, 23, 42, 0.08);
+  }
+
+  .exp-tab-card:hover {
+    border-color: rgba(94, 106, 210, 0.35);
+    background-color: #F8FAFF;
+  }
+
+  .exp-tab-card .exp-tab-rail {
+    opacity: 0;
+  }
+
+  .exp-tab-card .exp-tab-arrow {
+    opacity: 0;
+    transform: translateX(-4px);
+  }
+
+  .exp-tab-card[data-active="true"] {
+    background-color: #F8FAFF;
+    border-color: #5E6AD2;
+    box-shadow: 0 8px 24px -10px rgba(94, 106, 210, 0.2);
+  }
+
+  .exp-tab-card[data-active="true"] .exp-tab-rail {
+    opacity: 1;
+  }
+
+  .exp-tab-card[data-active="true"] .exp-tab-num {
+    color: #5E6AD2;
+  }
+
+  .exp-tab-card[data-active="true"] .exp-tab-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+</style>
+
 <script>
-  const initExperienceLedger = () => {
-    const items = Array.from(document.querySelectorAll<HTMLElement>('[data-exp-item]'));
-    const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-exp-trigger]'));
+  const initExperienceDossier = () => {
+    const stage = document.getElementById("exp-dossier-stage");
+    if (!stage) return;
 
-    if (!items.length || !triggers.length) return;
+    const tabs = Array.from(stage.querySelectorAll<HTMLButtonElement>("[data-exp-tab]"));
+    const panels = Array.from(stage.querySelectorAll<HTMLElement>("[data-exp-panel]"));
+    if (!tabs.length || !panels.length) return;
 
-    const openRow = (targetIdx: number) => {
-      items.forEach((item, idx) => {
-        const trigger = item.querySelector<HTMLButtonElement>('[data-exp-trigger]');
-        const drawer = item.querySelector<HTMLElement>('.exp-drawer');
-        const chevron = item.querySelector<HTMLElement>('.exp-chevron');
-        const idxLabel = item.querySelector<HTMLElement>('.exp-idx');
+    const activate = (targetId: string) => {
+      tabs.forEach((tab) => {
+        const isMatch = tab.getAttribute("data-exp-tab") === targetId;
+        tab.setAttribute("data-active", isMatch ? "true" : "false");
+        tab.setAttribute("aria-selected", isMatch ? "true" : "false");
+        tab.setAttribute("tabindex", isMatch ? "0" : "-1");
+      });
 
-        const isOpen = idx === targetIdx;
-
-        item.classList.toggle('is-open', isOpen);
-        item.classList.toggle('bg-slate-50/70', isOpen);
-        item.classList.toggle('hover:bg-slate-50/50', !isOpen);
-
-        if (trigger) {
-          trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        }
-
-        if (drawer) {
-          drawer.classList.toggle('grid-rows-[1fr]', isOpen);
-          drawer.classList.toggle('opacity-100', isOpen);
-          drawer.classList.toggle('grid-rows-[0fr]', !isOpen);
-          drawer.classList.toggle('opacity-0', !isOpen);
-        }
-
-        if (chevron) {
-          chevron.classList.toggle('bg-accent-primary', isOpen);
-          chevron.classList.toggle('text-white', isOpen);
-          chevron.classList.toggle('border-accent-primary', isOpen);
-          chevron.classList.toggle('rotate-180', isOpen);
-
-          chevron.classList.toggle('bg-slate-100', !isOpen);
-          chevron.classList.toggle('text-slate-700', !isOpen);
-          chevron.classList.toggle('border-black/10', !isOpen);
-        }
-
-        if (idxLabel) {
-          idxLabel.classList.toggle('text-accent-primary', isOpen);
-          idxLabel.classList.toggle('text-slate-600', !isOpen);
-        }
+      panels.forEach((panel) => {
+        const isMatch = panel.getAttribute("data-exp-panel") === targetId;
+        panel.setAttribute("data-active", isMatch ? "true" : "false");
+        panel.setAttribute("aria-hidden", isMatch ? "false" : "true");
+        panel.classList.toggle("flex", isMatch);
+        panel.classList.toggle("hidden", !isMatch);
       });
     };
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener('click', () => {
-        const idx = Number(trigger.getAttribute('data-exp-trigger') || 0);
-        const parentItem = items[idx];
-        const alreadyOpen = parentItem?.classList.contains('is-open');
-        if (!alreadyOpen) {
-          openRow(idx);
+    tabs.forEach((tab, index) => {
+      if (tab.dataset.bound === "true") return;
+      tab.dataset.bound = "true";
+
+      const id = tab.getAttribute("data-exp-tab");
+      if (!id) return;
+
+      tab.addEventListener("click", () => activate(id));
+      tab.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowDown" || e.key === "ArrowRight") {
+          e.preventDefault();
+          const next = tabs[(index + 1) % tabs.length];
+          const nextId = next?.getAttribute("data-exp-tab");
+          if (next && nextId) {
+            activate(nextId);
+            next.focus();
+          }
+        } else if (e.key === "ArrowUp" || e.key === "ArrowLeft") {
+          e.preventDefault();
+          const prev = tabs[(index - 1 + tabs.length) % tabs.length];
+          const prevId = prev?.getAttribute("data-exp-tab");
+          if (prev && prevId) {
+            activate(prevId);
+            prev.focus();
+          }
         }
       });
     });
   };
 
-  initExperienceLedger();
-  document.addEventListener('astro:after-swap', initExperienceLedger);
+  initExperienceDossier();
+  document.addEventListener("astro:page-load", initExperienceDossier);
+  document.addEventListener("astro:after-swap", initExperienceDossier);
 </script>

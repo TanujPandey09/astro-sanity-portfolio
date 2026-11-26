@@ -4,18 +4,25 @@ import { client as fallbackSanityClient } from "../lib/sanityClient.js";
 import { fetchAllTemplates } from "../lib/templates";
 import { portableTextToPlainText } from "../lib/text";
 
-export const prerender = true;
+export const prerender = false;
 
 export const GET: APIRoute = async () => {
   const siteUrl = "https://tanujbuilds.site";
-  const sanity = useSanityClient() || fallbackSanityClient;
+  const fetchSafe = async (query: string) => {
+    try {
+      const client = useSanityClient();
+      const res = await client.fetch(query);
+      if (Array.isArray(res) && res.length > 0) return res;
+    } catch {}
+    return fallbackSanityClient.fetch(query);
+  };
 
   let projects: any[] = [];
   let blogs: any[] = [];
   let templates: any[] = [];
 
   try {
-    projects = await sanity.fetch(
+    projects = await fetchSafe(
       groq`*[_type == "projects" && defined(slug.current) && !defined(gumroadLink) && !(slug.current in [
         "lumina-dental-premium-dental-website-template",
         "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
@@ -26,7 +33,7 @@ export const GET: APIRoute = async () => {
   }
 
   try {
-    blogs = await sanity.fetch(
+    blogs = await fetchSafe(
       groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc){ projectName, slug, excerpt, Category }`
     );
   } catch (e) {
@@ -117,13 +124,14 @@ ${blogLines || `- [All Engineering Articles](${siteUrl}/blogs)`}
 - [Engineering Blog](${siteUrl}/blogs)
 - [XML Sitemap](${siteUrl}/sitemap.xml)
 - [RSS Feed](${siteUrl}/rss.xml)
+- [Full LLM Knowledge Base (GEO/AEO)](${siteUrl}/llms-full.txt)
 `;
 
   return new Response(body, {
     status: 200,
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 };

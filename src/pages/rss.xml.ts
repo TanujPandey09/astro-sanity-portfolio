@@ -3,7 +3,7 @@ import { useSanityClient, groq } from "astro-sanity";
 import { client as fallbackSanityClient } from "../lib/sanityClient.js";
 import { escapeXml, portableTextToPlainText } from "../lib/text";
 
-export const prerender = true;
+export const prerender = false;
 
 const siteUrl = "https://tanujbuilds.site";
 
@@ -17,11 +17,18 @@ type Blog = {
 };
 
 export const GET: APIRoute = async () => {
-  const sanity = useSanityClient() || fallbackSanityClient;
+  const fetchSafe = async (query: string) => {
+    try {
+      const client = useSanityClient();
+      const res = await client.fetch(query);
+      if (Array.isArray(res) && res.length > 0) return res;
+    } catch {}
+    return fallbackSanityClient.fetch(query);
+  };
   let blogs: Blog[] = [];
 
   try {
-    blogs = await sanity.fetch(
+    blogs = await fetchSafe(
       groq`*[_type == "blogs" && defined(slug.current)] | order(_createdAt desc){
         projectName,
         slug,
@@ -73,7 +80,7 @@ ${items}
     status: 200,
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "public, max-age=3600",
+      "Cache-Control": "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
     },
   });
 };

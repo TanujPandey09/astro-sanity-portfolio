@@ -2,6 +2,7 @@
 // NovaStack Process Section: Aligned Editorial Header + Scroll-Driven Framer Motion Timeline
 // Note: No overflow-hidden on section so sticky sidebar works and headings never clip
 import ProcessTimeline, { type ProcessStep } from "./ProcessTimeline";
+import { PiCheckCircleDuotone, PiShieldCheckDuotone } from "react-icons/pi";
 
 const steps: ProcessStep[] = [
   {
@@ -76,23 +77,28 @@ const steps: ProcessStep[] = [
         </div>
 
         <div class="rounded-[16px] bg-[var(--surface)] border border-[var(--border)] p-6 space-y-4">
-          <span class="ns-mono-label text-[var(--ink)] font-semibold block">
-            Milestone-Gated Execution
-          </span>
+          <div class="flex items-center gap-2.5">
+            <div class="w-8 h-8 rounded-lg bg-[var(--blue-50)] border border-[var(--blue-600)]/15 flex items-center justify-center text-[var(--blue-600)] shrink-0">
+              <PiShieldCheckDuotone className="w-4 h-4" />
+            </div>
+            <span class="ns-mono-label text-[var(--ink)] font-semibold block">
+              Milestone-Gated Execution
+            </span>
+          </div>
           <p class="text-base leading-[1.65] text-[var(--muted)]">
             Every stage produces a tangible deliverable you verify directly on staging. Invoices tie strictly to signed checkpoints.
           </p>
           <ul class="space-y-2.5 pt-3 border-t border-[var(--border)] text-sm font-mono text-[var(--ink)]">
             <li class="flex items-center gap-2.5">
-              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <PiCheckCircleDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
               <span>Written scope before code</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <PiCheckCircleDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
               <span>Weekly staging links &amp; Looms</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <span class="text-[var(--blue-600)] font-semibold" aria-hidden="true">✓</span>
+              <PiCheckCircleDuotone className="w-4 h-4 text-[var(--blue-600)] shrink-0" aria-hidden="true" />
               <span>100% repo transfer at launch</span>
             </li>
           </ul>

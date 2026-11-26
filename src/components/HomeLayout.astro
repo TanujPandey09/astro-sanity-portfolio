@@ -4,16 +4,12 @@ import { fallbackSanityClient } from "../lib/sanityClient.js";
 import ProjectItem from "./ProjectItem.astro";
 import BlogItem from "./BlogItem.astro";
 import AiChatbot from "./AiChatbot";
-import PremiumBackground from "./PremiumBackground.astro";
 import Hero from "./Hero.astro";
 import Services from "./Services.astro";
-import Skills from "./Skills.astro";
 import Experience from "./Experience.astro";
-import Process from "./Process.astro";
 import Contact from "./Contact.astro";
 import SectionHeader from "./SectionHeader.astro";
 import ProjectCard from "./ProjectCard.astro";
-import Ticker from "./Ticker.astro";
 import TemplateCard from "./TemplateCard.astro";
 
 import { fetchAllTemplates } from "../lib/templates";
@@ -58,142 +54,143 @@ const homePortraitUrl =
     : bannerUrl || undefined;
 
 const templatesData = await fetchAllTemplates();
+const featuredProjects = projectData.slice(0, 4);
+const extraProjects = projectData.slice(4);
 ---
 
-<div class="relative min-h-screen w-full max-w-[100vw] overflow-x-hidden selection:bg-accent-primary/30">
-  <PremiumBackground />
-
-  <!-- Hero Experience (Edge to Edge with Dark Canvas & Iridescent Liquid Drapery) -->
+<div class="relative min-h-screen w-full max-w-[100vw] overflow-x-clip bg-white selection:bg-[#5E6AD2]/20">
+  <!-- 1. OBSIDIAN HERO -->
   <Hero portraitUrl={homePortraitUrl} />
 
-  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- Selected Work Showcase -->
-    <section id="projects" class="py-14 sm:py-16 lg:py-20 relative z-10">
-      <div class="w-full">
-        <SectionHeader
-          eyebrow="01 / Selected Work"
-          title="Selected"
-          gradientText="Work."
-          subtitle="Production SaaS platforms, multi-LLM systems, and high-performance web applications shipped end-to-end."
-        />
-        
-        <!-- Featured Deliveries -->
-        <div class="flex flex-col gap-12 sm:gap-16 lg:gap-20">
-          {projectData?.slice(0, 4).map((project, index) => (
-            <ProjectItem project={project} index={index} />
-          ))}
-        </div>
-        
-        {projectData?.length > 4 && (
-          <div class="mt-14 md:mt-20 pt-10 border-t border-black/[0.08]">
-            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-4 border-b border-black/[0.08] gap-4">
-               <div>
-                  <h3 class="font-grotesk text-xl md:text-2xl font-bold text-[#0F172A] tracking-tight">More Shipped Builds</h3>
-                  <p class="text-xs sm:text-sm text-slate-600 mt-1">Additional client deliveries, internal tools, and web applications.</p>
-               </div>
-               <button 
-                 id="expand-repo"
-                 aria-label="Show all additional projects"
-                 aria-expanded="false"
-                 class="group inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-xs font-mono text-[#0F172A] transition-colors cursor-pointer"
-               >
-                 <span>Show All ({projectData.length - 4})</span>
-                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="repo-icon" class="transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
-               </button>
-            </div>
+  <!-- 2. SELECTED WORK (#FFFFFF Band — Uniform Architectural Browser Frames) -->
+  <section id="projects" class="py-16 sm:py-20 bg-white relative z-10">
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <SectionHeader
+        eyebrow="01 / Selected Work"
+        title="Selected"
+        gradientText="Work."
+        subtitle="Production SaaS platforms, multi-LLM AI systems, and high-performance web architectures shipped end-to-end."
+      />
 
-            <div id="repo-grid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-               {projectData?.slice(4).map((project, index) => (
-                 <ProjectCard project={project} index={index} />
-               ))}
-            </div>
+      <div class="flex flex-col gap-14 sm:gap-20">
+        {featuredProjects.map((project, idx) => (
+          <ProjectItem project={project} index={idx} />
+        ))}
+      </div>
 
-            <div class="mt-10 flex justify-center">
-               <a href="/projects" class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors">
-                  <span>View All Case Studies</span>
-                  <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
-               </a>
+      {extraProjects.length > 0 && (
+        <div class="mt-12 pt-8 border-t border-black/[0.08]">
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 class="font-grotesk text-lg sm:text-xl font-bold text-[#0F172A] tracking-tight">More Shipped Builds</h3>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">Additional client deliveries, internal tools, and web applications.</p>
+            </div>
+            <div class="flex items-center gap-3">
+              <button
+                id="expand-repo"
+                aria-label="Show all additional projects"
+                aria-expanded="false"
+                class="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#FAFAFB] border border-black/10 hover:border-[#5E6AD2] hover:text-[#5E6AD2] text-xs font-mono text-[#0F172A] transition-colors cursor-pointer"
+              >
+                <span>Show All ({extraProjects.length})</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" id="repo-icon" class="transition-transform duration-300"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+              <a
+                href="/projects"
+                class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#0F172A] hover:bg-[#5E6AD2] text-white text-xs font-mono font-semibold transition-colors"
+              >
+                <span>Full Archive</span>
+                <span>↗</span>
+              </a>
             </div>
           </div>
-        )}
-      </div>
-    </section>
-  </div>
 
-  <!-- Full-Bleed Impact & Domain Ticker -->
-  <Ticker />
-
-  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
-    <!-- High-Value Bento Services -->
-    <Services />
-
-    <!-- Experience Timeline -->
-    <Experience />
-
-    <!-- Technology Stack -->
-    <Skills />
-
-    <!-- Strategic Development Workflow & FAQ -->
-    <Process />
-
-    <!-- Commercial Templates & Digital Products Section -->
-    {templatesData && templatesData.length > 0 && (
-      <section id="templates" class="py-14 sm:py-16 lg:py-20 relative z-10 border-t border-black/[0.08]">
-        <div class="max-w-7xl mx-auto">
-          <SectionHeader 
-            eyebrow="06 / Commercial Assets"
-            title="Commercial" 
-            gradientText="Templates." 
-            subtitle="Production-ready Next.js, React, and TypeScript templates with commercial licenses and 99+ Lighthouse performance."
-          />
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-            {templatesData.slice(0, 2).map((template, index) => (
-              <TemplateCard template={template} index={index} />
+          <div id="repo-grid" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {extraProjects.map((project, index) => (
+              <ProjectCard project={project} index={index} />
             ))}
           </div>
+        </div>
+      )}
+    </div>
+  </section>
 
-          <div class="mt-10 flex justify-center">
-            <a 
-              href="/templates" 
-              class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors"
-            >
-              <span>Browse All Templates</span>
-              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
-            </a>
+  <!-- 3. CAPABILITIES, IMPACT & CORE STACK (#FAFAFB Band) -->
+  <Services />
+
+  <!-- 4. WORK EXPERIENCE (#FFFFFF Band) -->
+  <Experience />
+
+  <!-- 5. COMMERCIAL TEMPLATES (#FFFFFF Gallery Band) -->
+  {templatesData && templatesData.length > 0 && (
+    <section id="templates" class="py-16 sm:py-20 bg-white border-b border-slate-200/80 relative z-10">
+      <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 sm:mb-10">
+          <div class="max-w-2xl">
+            <div class="flex items-center gap-2.5 mb-3">
+              <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+              <span class="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.14em] text-[#5E6AD2] uppercase">
+                04 / Commercial Templates
+              </span>
+            </div>
+            <h2 class="font-grotesk font-bold tracking-[-0.03em] leading-[1.08] text-3xl sm:text-4xl lg:text-[44px] text-[#0F172A]">
+              Production <span class="text-[#5E6AD2]">Templates.</span>
+            </h2>
           </div>
-        </div>
-      </section>
-    )}
 
-    <!-- Blogs Section -->
-    <section id="blogs" class="py-14 sm:py-16 lg:py-20 relative z-10 border-t border-black/[0.08]">
-      <div class="max-w-7xl mx-auto">
-        <SectionHeader 
-          eyebrow="07 / Engineering Writing"
-          title="Engineering" 
-          gradientText="Writing." 
-          subtitle="Deep dives on full-stack architecture, multi-LLM orchestration, and Core Web Vitals optimization."
-        />
-        
-        <div class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-xs">
-          {blogData?.slice(0, 4).map((blog, index) => (
-            <BlogItem blog={blog} index={index} />
-          ))}
+          <a
+            href="/templates"
+            class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#0F172A] hover:text-[#5E6AD2] transition-colors self-start lg:self-auto"
+          >
+            <span>Browse All Templates</span>
+            <span class="text-[#5E6AD2]">→</span>
+          </a>
         </div>
-        
-        <div class="mt-8 flex justify-start sm:justify-end">
-           <a href="/blogs" class="group inline-flex items-center gap-3 pl-5 pr-2 py-2 rounded-full bg-white border border-black/10 hover:border-[#5E6AD2] text-xs font-mono font-semibold text-[#0F172A] transition-colors">
-              <span>Read All Articles</span>
-              <span class="w-7 h-7 rounded-full bg-slate-100 group-hover:bg-[#5E6AD2] group-hover:text-white flex items-center justify-center transition-colors font-bold">↗</span>
-           </a>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {templatesData.slice(0, 3).map((template, index) => (
+            <TemplateCard template={template} index={index} />
+          ))}
         </div>
       </div>
     </section>
+  )}
 
-    <!-- Contact Experience -->
-    <Contact />
-  </div>
+  <!-- 6. ENGINEERING WRITING (#EEF1FA Cool Indigo-Tinted Editorial Band) -->
+  <section id="blogs" class="py-16 sm:py-20 bg-[#EEF1FA] border-b border-[#5E6AD2]/15 relative z-10">
+    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 mb-8 sm:mb-10">
+        <div class="max-w-2xl">
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="w-5 h-px bg-[#5E6AD2]" aria-hidden="true"></span>
+            <span class="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.14em] text-[#5E6AD2] uppercase">
+              05 / Engineering Writing
+            </span>
+          </div>
+          <h2 class="font-grotesk font-bold tracking-[-0.03em] leading-[1.08] text-3xl sm:text-4xl lg:text-[44px] text-[#0F172A]">
+            Engineering <span class="text-[#5E6AD2]">Writing.</span>
+          </h2>
+        </div>
+
+        <a
+          href="/blogs"
+          class="inline-flex items-center gap-2 text-xs font-mono font-semibold text-[#0F172A] hover:text-[#5E6AD2] transition-colors self-start lg:self-auto"
+        >
+          <span>Read All Articles</span>
+          <span class="text-[#5E6AD2]">→</span>
+        </a>
+      </div>
+
+      <div class="rounded-2xl bg-white border border-black/[0.08] overflow-hidden shadow-sm">
+        {blogData?.slice(0, 4).map((blog, index) => (
+          <BlogItem blog={blog} index={index} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DIRECT CONTACT (#FFFFFF Band) -->
+  <Contact />
 </div>
 
 <AiChatbot client:load />

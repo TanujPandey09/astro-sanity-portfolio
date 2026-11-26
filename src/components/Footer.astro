@@ -24,15 +24,23 @@ const colTwo = [
     <div class="pb-12 sm:pb-16 border-b border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-8">
       <!-- Left: Monogram & Bio Indicator -->
       <div class="space-y-3">
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white/10 border border-white/15 flex items-center justify-center font-grotesk font-black text-lg text-white">
-            TP<span class="text-accent-primary">.</span>
+        <a href="/" class="inline-flex items-center gap-3 group" aria-label="Tanuj Pandey Home">
+          <div class="w-10 h-10 rounded-xl overflow-hidden border border-white/15 bg-white/5 shrink-0 flex items-center justify-center transition-transform duration-300 group-hover:scale-105">
+            <img
+              src="/favicon.svg"
+              alt="Tanuj Pandey Logo"
+              class="w-full h-full object-cover"
+              width="40"
+              height="40"
+            />
           </div>
           <div>
-            <span class="font-grotesk font-bold text-base text-white block">Tanuj Pandey</span>
+            <span class="font-grotesk font-bold text-base tracking-[-0.02em] text-white block">
+              TANUJ PANDEY<span class="text-[#828FFF]">.</span>
+            </span>
             <span class="text-xs font-mono text-slate-300">Full-Stack Architect &amp; AI Engineer</span>
           </div>
-        </div>
+        </a>
         <p class="text-xs sm:text-sm text-slate-300 max-w-md font-sans">
           Building scalable full-stack applications, multi-LLM orchestration pipelines, and high-performance digital products.
         </p>

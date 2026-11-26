@@ -221,6 +221,53 @@ const agencyJsonLd = {
   },
 };
 
+const agencyFaqJsonLd = {
+  "@type": "FAQPage",
+  "@id": `${canonicalURL}#faq`,
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "What kind of projects does NovaStack Studio take on?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "NovaStack Studio partners with startups, digital agencies, and product teams across four core areas: custom marketing websites (Next.js, Astro, Sanity CMS), full-stack SaaS applications (MVPs, portals, RBAC, Stripe billing), applied AI workflows (RAG pipelines, autonomous agents, LLM APIs), and production HTML email design systems.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Who actually builds the product at NovaStack Studio?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Every architectural decision, UI implementation, and backend integration is written directly by founder Tanuj Pandey. Clients communicate directly in Slack, WhatsApp, or email with the engineer shipping their commits.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How are milestones and payments structured?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Fixed-scope projects follow a 5-step milestone roadmap: Discovery, Technical Planning, UI/UX Design, Sprint Development, and Launch. Scope and milestones are locked in writing before coding starts, with private staging URLs tested at every checkpoint.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Do clients own 100% of the source code and accounts?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. All repositories, cloud hosting accounts (Vercel, Netlify, AWS, Neon), and Sanity CMS workspaces belong directly to the client organization with 100% IP transfer on final sign-off.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "How do custom HTML email design systems work?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "NovaStack designs and hand-codes modular, table-based HTML email kits using inline CSS and Outlook VML fallbacks tested across Outlook 365, Gmail, and Apple Mail, ready for Klaviyo, Mailchimp, HubSpot, SendGrid, or Resend.",
+      },
+    },
+  ],
+};
+
 const breadcrumbs = [
   { name: "Home", path: "/" },
   { name: "Agency", path: "/agency" },
@@ -232,7 +279,7 @@ const breadcrumbs = [
   description={pageDescription}
   schemaType="WebPage"
   breadcrumbs={breadcrumbs}
-  jsonLd={agencyJsonLd}
+  jsonLd={[agencyJsonLd, agencyFaqJsonLd]}
   hideDefaultHeader={true}
   hideDefaultFooter={true}
   isAgency={true}

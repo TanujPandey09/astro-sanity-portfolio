@@ -1,194 +1,346 @@
 ---
-import SectionHeader from "./SectionHeader.astro";
+import {
+  PiStackDuotone,
+  PiSparkleDuotone,
+  PiBroadcastDuotone,
+  PiSwatchesDuotone,
+  PiArrowRightBold,
+} from "react-icons/pi";
+import { SiOpenai, SiAnthropic, SiStripe, SiGooglegemini } from "react-icons/si";
 
-const services = [
-  {
-    span: "lg:col-span-7",
-    featured: true,
-    dark: true,
-    icon: "layers",
-    domain: "Core Architecture",
-    title: "Full-Stack SaaS & Web Engineering",
-    description: "End-to-end product development from database schema to sub-second React and Next.js interfaces. Built to handle real production traffic, complex role permissions, and clean team handoffs.",
-    deliverables: "Shipped Sawt AI, Breeze SaaS, and multi-role healthcare portals",
-    stack: ["Next.js / React", "Node.js / Express", "TypeScript", "PostgreSQL / Prisma", "REST & GraphQL"]
-  },
-  {
-    span: "lg:col-span-5",
-    featured: true,
-    dark: false,
-    icon: "sparkles",
-    domain: "Applied AI Systems",
-    title: "Multi-LLM & Agentic Workflows",
-    description: "Production LLM orchestration across OpenAI, Gemini, Claude, and Perplexity with structured output validation, RAG retrieval pipelines, and streaming conversational UIs.",
-    deliverables: "Multi-provider fallback routing & brand-safe response validation",
-    stack: ["OpenAI / Gemini / Claude", "Contextual RAG", "Vector Search", "Streaming UI"]
-  },
-  {
-    span: "lg:col-span-3",
-    featured: false,
-    dark: false,
-    icon: "pulse",
-    domain: "Low-Latency",
-    title: "Real-Time CRM & Event Streams",
-    description: "Bi-directional state synchronization, live ticket pipelines, and SLA tracking powered by Socket.IO, WebSockets, and Redis Pub/Sub.",
-    stack: ["Socket.IO", "WebSockets", "Redis"]
-  },
-  {
-    span: "lg:col-span-3",
-    featured: false,
-    dark: false,
-    icon: "layout",
-    domain: "Interface Craft",
-    title: "Design Systems & RTL UX",
-    description: "Accessible component libraries, bilingual Arabic/English RTL-first layouts, and hardware-accelerated motion that scores 99+ on Lighthouse.",
-    stack: ["Tailwind CSS", "GSAP / Motion", "RTL / i18n"]
-  },
-  {
-    span: "lg:col-span-3",
-    featured: false,
-    dark: false,
-    icon: "database",
-    domain: "Data Layer",
-    title: "Database & Query Optimization",
-    description: "High-throughput relational and document schemas, indexing strategies, and headless CMS pipelines with Sanity, Contentful, and Strapi.",
-    stack: ["PostgreSQL", "MongoDB", "Sanity CMS"]
-  },
-  {
-    span: "lg:col-span-3",
-    featured: false,
-    dark: false,
-    icon: "shield",
-    domain: "Monetization & Security",
-    title: "Billing, RBAC & Guardrails",
-    description: "Subscription lifecycles (Stripe, MyFatoorah), tier-based API metering, webhook idempotency, rate limiting, and audit logging.",
-    stack: ["Stripe / MyFatoorah", "RBAC Auth", "Webhooks"]
-  }
+const metrics = [
+  { value: "10+", label: "Shipped Production Modules", detail: "Multi-role portals & SaaS APIs" },
+  { value: "50%", label: "Faster Page Load Speed", detail: "SSR, code splitting & edge caching" },
+  { value: "99+", label: "Core Web Vitals Score", detail: "Across Next.js & Astro storefronts" },
+  { value: "4+ Yrs", label: "Full-Stack Experience", detail: "React, Node.js, PostgreSQL & AI" },
+];
+
+const DEVICON = "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons";
+
+const techStack = [
+  { name: "React.js", role: "UI Library", iconUrl: `${DEVICON}/react/react-original.svg` },
+  { name: "Next.js 15", role: "Full-Stack SSR", iconUrl: `${DEVICON}/nextjs/nextjs-original.svg`, lightPlate: true },
+  { name: "TypeScript", role: "Type Safety", iconUrl: `${DEVICON}/typescript/typescript-original.svg` },
+  { name: "Node.js", role: "Backend Runtime", iconUrl: `${DEVICON}/nodejs/nodejs-original.svg` },
+  { name: "Express.js", role: "REST APIs", iconUrl: `${DEVICON}/express/express-original.svg`, invert: true },
+  { name: "PostgreSQL", role: "Relational DB", iconUrl: `${DEVICON}/postgresql/postgresql-original.svg` },
+  { name: "Prisma ORM", role: "Schema & Queries", iconUrl: `${DEVICON}/prisma/prisma-original.svg`, invert: true },
+  { name: "MongoDB", role: "Document Store", iconUrl: `${DEVICON}/mongodb/mongodb-original.svg` },
+  { name: "Sanity CMS", role: "Headless CMS", iconUrl: `${DEVICON}/sanity/sanity-original.svg` },
+  { name: "Astro 5", role: "Edge Web Apps", iconUrl: `${DEVICON}/astro/astro-original.svg`, lightPlate: true },
+  { name: "Tailwind CSS", role: "Design System", iconUrl: `${DEVICON}/tailwindcss/tailwindcss-original.svg` },
+  { name: "Socket.IO", role: "Real-Time Sync", iconUrl: `${DEVICON}/socketio/socketio-original.svg`, invert: true },
+  { name: "Redis", role: "Cache & Pub/Sub", iconUrl: `${DEVICON}/redis/redis-original.svg` },
+  { name: "GraphQL", role: "Typed APIs", iconUrl: `${DEVICON}/graphql/graphql-plain.svg` },
+  { name: "OpenAI", role: "GPT & Agents", brandKey: "openai" },
+  { name: "Gemini", role: "Multimodal AI", brandKey: "gemini" },
+  { name: "Claude", role: "Reasoning LLMs", brandKey: "claude" },
+  { name: "Stripe", role: "SaaS Billing", brandKey: "stripe" },
 ];
 ---
 
-<section id="services" class="py-14 sm:py-16 lg:py-20 relative z-20">
-  <div class="w-full">
-    
-    <SectionHeader 
-      eyebrow="02 / Services"
-      title="What I Build &" 
-      gradientText="Ship to Production." 
-      subtitle="Focused on the layers that turn early product ideas into revenue-generating software: resilient backends, multi-LLM intelligence, real-time state, and fast interfaces."
-    />
+<!-- OBSIDIAN DARK MID-PAGE ANCHOR BAND (#0A0B0E) -->
+<section id="services" class="py-16 sm:py-24 bg-[#0A0B0E] text-white border-y border-white/10 relative z-10 overflow-hidden">
+  <!-- Subtle Linear Indigo Studio Ambient Glow -->
+  <div
+    class="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[960px] h-[380px] bg-[radial-gradient(ellipse_at_top,rgba(94,106,210,0.22)_0%,transparent_70%)]"
+    aria-hidden="true"
+  ></div>
 
-    <!-- Asymmetric 12-Column Engineering Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
-      {services.map((item, index) => (
-        <div
-          data-gsap-card
-          class={`group relative overflow-hidden rounded-2xl p-6 flex flex-col justify-between transition-colors duration-200 ${
-            item.dark
-              ? "bg-[#0A0B0E] text-white border border-white/10 shadow-[0_18px_48px_-14px_rgba(10,11,14,0.38)]"
-              : "bg-white text-[#0F172A] border border-black/[0.08] hover:border-[#5E6AD2]/45 shadow-xs"
-          } ${item.span}`}
-        >
-          {item.featured && (
-            <div
-              class={`absolute top-0 inset-x-0 h-[2px] ${item.dark ? "bg-[#828FFF]" : "bg-[#5E6AD2]"}`}
-              aria-hidden="true"
-            ></div>
-          )}
-
-          <div>
-            <!-- Top Row: Icon + Domain + Index -->
-            <div class="flex items-center justify-between gap-3 mb-5">
-              <div class="flex items-center gap-3 min-w-0">
-                <div
-                  class={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${
-                    item.dark
-                      ? "bg-[#5E6AD2]/20 border-[#828FFF]/30 text-[#828FFF]"
-                      : "bg-[#5E6AD2]/[0.08] border-[#5E6AD2]/20 text-[#5E6AD2]"
-                  }`}
-                >
-                  {item.icon === "layers" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                      <polyline points="2 17 12 22 22 17"></polyline>
-                      <polyline points="2 12 12 17 22 12"></polyline>
-                    </svg>
-                  )}
-                  {item.icon === "sparkles" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M12 3v4"></path><path d="M12 17v4"></path>
-                      <path d="M3 12h4"></path><path d="M17 12h4"></path>
-                      <circle cx="12" cy="12" r="3"></circle>
-                    </svg>
-                  )}
-                  {item.icon === "pulse" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                    </svg>
-                  )}
-                  {item.icon === "layout" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <rect x="3" y="3" width="18" height="18" rx="2"></rect>
-                      <path d="M3 9h18"></path><path d="M9 21V9"></path>
-                    </svg>
-                  )}
-                  {item.icon === "database" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                      <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"></path>
-                      <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3"></path>
-                    </svg>
-                  )}
-                  {item.icon === "shield" && (
-                    <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                    </svg>
-                  )}
-                </div>
-                <span class={`text-[11px] font-mono uppercase tracking-[0.12em] font-semibold truncate ${item.dark ? "text-[#828FFF]" : "text-[#5E6AD2]"}`}>
-                  {item.domain}
-                </span>
-              </div>
-              <span class={`text-xs font-mono tabular-nums font-semibold shrink-0 ${item.dark ? "text-slate-500" : "text-slate-400"}`}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-            </div>
-
-            <!-- Title -->
-            <h3 class={`font-grotesk ${item.featured ? "text-xl md:text-2xl" : "text-lg"} font-bold tracking-[-0.025em] mb-2.5 ${item.dark ? "text-white" : "text-[#0F172A]"}`}>
-              {item.title}
-            </h3>
-
-            <!-- Description -->
-            <p class={`text-sm font-normal leading-[1.65] mb-4 font-sans ${item.dark ? "text-slate-300" : "text-slate-600"}`}>
-              {item.description}
-            </p>
-
-            {item.deliverables && (
-              <p class={`text-xs font-mono font-medium mb-4 ${item.dark ? "text-slate-200" : "text-slate-700"}`}>
-                <span class={`mr-1.5 ${item.dark ? "text-[#828FFF]" : "text-[#5E6AD2]"}`}>→</span>{item.deliverables}
-              </p>
-            )}
-          </div>
-
-          <!-- Tech Chips -->
-          <div class={`pt-4 border-t ${item.dark ? "border-white/10" : "border-black/[0.08]"}`}>
-            <div class="flex flex-wrap gap-1.5">
-              {item.stack.map((tech) => (
-                <span
-                  class={`text-[11px] font-mono px-2.5 py-0.5 rounded-full border ${
-                    item.dark
-                      ? "bg-white/[0.06] border-white/10 text-slate-200"
-                      : "bg-slate-50 border-black/[0.08] text-slate-700"
-                  }`}
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      ))}
+  <div class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+    <!-- Dark-Surface Section Header -->
+    <div class="mb-10 sm:mb-12" data-gsap-heading>
+      <div class="flex items-center gap-2.5 mb-3">
+        <span class="w-5 h-px bg-[#828FFF]" aria-hidden="true"></span>
+        <span class="text-[11px] sm:text-xs font-mono font-semibold tracking-[0.14em] text-[#828FFF] uppercase">
+          02 / Capabilities &amp; Stack
+        </span>
+      </div>
+      <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4 lg:gap-10">
+        <h2 class="font-grotesk font-bold tracking-[-0.03em] leading-[1.08] text-3xl sm:text-4xl lg:text-[46px] text-white">
+          Engineered for <span class="text-[#828FFF]">Production.</span>
+        </h2>
+        <p class="max-w-md text-slate-300 text-sm sm:text-[15px] leading-[1.65] lg:text-right">
+          Four core engineering disciplines backed by strict TypeScript, measurable Core Web Vitals, and real production architectures.
+        </p>
+      </div>
     </div>
 
+    <!-- Unified 4-Metric Dark Architectural Proof Strip -->
+    <div data-gsap-card class="mb-7 rounded-2xl bg-[#11141E] border border-white/10 overflow-hidden">
+      <div class="grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 divide-x divide-white/10">
+        {metrics.map((m) => (
+          <div class="p-5 sm:p-6 hover:bg-white/[0.03] transition-colors">
+            <div class="font-grotesk font-bold text-2xl sm:text-3xl text-white tracking-[-0.03em] tabular-nums">
+              {m.value}
+            </div>
+            <div class="text-xs font-grotesk font-semibold text-[#828FFF] mt-1">
+              {m.label}
+            </div>
+            <p class="text-[11px] font-mono text-slate-400 mt-1 leading-relaxed">
+              {m.detail}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- 2x2 Dark Architectural Capability Matrix (Phosphor Duotone + Multi-Color Official Logos) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- 01: Full-Stack SaaS & Web Platforms -->
+      <article data-gsap-card class="group relative overflow-hidden rounded-2xl bg-[#11141E] border border-white/10 hover:border-[#828FFF]/50 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+        <div class="h-[2px] w-full bg-[#828FFF] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
+
+        <div class="px-6 py-4 bg-white/[0.03] border-b border-white/[0.08] flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/nextjs/nextjs-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5 rounded-full bg-white p-[1px]" loading="lazy" />
+              Next.js
+            </span>
+            <PiArrowRightBold className="w-3 h-3 text-slate-500" />
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/typescript/typescript-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5 rounded-[2px]" loading="lazy" />
+              API + RBAC
+            </span>
+            <PiArrowRightBold className="w-3 h-3 text-slate-500" />
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/postgresql/postgresql-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5" loading="lazy" />
+              PostgreSQL
+            </span>
+          </div>
+          <span class="text-xs font-mono font-semibold text-slate-500 shrink-0">01</span>
+        </div>
+
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-5">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-gradient-to-b from-[#5E6AD2]/30 to-[#5E6AD2]/10 border border-[#828FFF]/35 text-[#A5B0FF] flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <PiStackDuotone className="w-5 h-5" />
+              </span>
+              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#828FFF] font-semibold">
+                Core Architecture
+              </span>
+            </div>
+            <h3 class="font-grotesk text-xl sm:text-[22px] font-bold text-white tracking-[-0.025em]">
+              Full-Stack SaaS &amp; Web Platforms
+            </h3>
+            <p class="text-sm text-slate-300 leading-[1.68] font-sans">
+              End-to-end engineering from relational database schemas to sub-second React &amp; Next.js interfaces with multi-tenant RBAC, Stripe/MyFatoorah billing, and clean repository handoff.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs font-mono text-slate-400">
+            <span>Shipped: Sawt AI · Breeze SaaS · Healthcare Portals</span>
+            <SiStripe className="w-4 h-4 text-[#828FFF] shrink-0" />
+          </div>
+        </div>
+      </article>
+
+      <!-- 02: Multi-LLM & Agentic Workflows -->
+      <article data-gsap-card class="group relative overflow-hidden rounded-2xl bg-[#11141E] border border-white/10 hover:border-[#828FFF]/50 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+        <div class="h-[2px] w-full bg-[#828FFF] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
+
+        <div class="px-6 py-4 bg-white/[0.03] border-b border-white/[0.08] flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <SiOpenai className="w-3.5 h-3.5 text-white" />
+              GPT
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <SiGooglegemini className="w-3.5 h-3.5 text-[#828FFF]" />
+              Gemini
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <SiAnthropic className="w-3.5 h-3.5 text-[#E89B72]" />
+              Claude
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-[10px] font-mono font-semibold text-emerald-300">
+              RAG Validated
+            </span>
+          </div>
+          <span class="text-xs font-mono font-semibold text-slate-500 shrink-0">02</span>
+        </div>
+
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-5">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-gradient-to-b from-[#5E6AD2]/30 to-[#5E6AD2]/10 border border-[#828FFF]/35 text-[#A5B0FF] flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <PiSparkleDuotone className="w-5 h-5" />
+              </span>
+              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#828FFF] font-semibold">
+                Applied AI Systems
+              </span>
+            </div>
+            <h3 class="font-grotesk text-xl sm:text-[22px] font-bold text-white tracking-[-0.025em]">
+              Multi-LLM &amp; Agentic Workflows
+            </h3>
+            <p class="text-sm text-slate-300 leading-[1.68] font-sans">
+              Production LLM orchestration with structured JSON output validation, private vector RAG retrieval, automatic fallback routing, and streaming conversational interfaces.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs font-mono text-slate-400">
+            <span>Zero-drift JSON schemas · Streaming UI · Tool Agents</span>
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 03: Real-Time CRMs & Event Streams -->
+      <article data-gsap-card class="group relative overflow-hidden rounded-2xl bg-[#11141E] border border-white/10 hover:border-[#828FFF]/50 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+        <div class="h-[2px] w-full bg-[#828FFF] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
+
+        <div class="px-6 py-4 bg-white/[0.03] border-b border-white/[0.08] flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/socketio/socketio-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5 invert" loading="lazy" />
+              Socket.IO
+            </span>
+            <PiArrowRightBold className="w-3 h-3 text-slate-500" />
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/redis/redis-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5" loading="lazy" />
+              Redis Pub/Sub
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-[#5E6AD2]/20 border border-[#828FFF]/30 text-[10px] font-mono font-semibold text-[#828FFF]">
+              Live SLA
+            </span>
+          </div>
+          <span class="text-xs font-mono font-semibold text-slate-500 shrink-0">03</span>
+        </div>
+
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-5">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-gradient-to-b from-[#5E6AD2]/30 to-[#5E6AD2]/10 border border-[#828FFF]/35 text-[#A5B0FF] flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <PiBroadcastDuotone className="w-5 h-5" />
+              </span>
+              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#828FFF] font-semibold">
+                Low-Latency Systems
+              </span>
+            </div>
+            <h3 class="font-grotesk text-xl sm:text-[22px] font-bold text-white tracking-[-0.025em]">
+              Real-Time CRMs &amp; Event Streams
+            </h3>
+            <p class="text-sm text-slate-300 leading-[1.68] font-sans">
+              Bi-directional state synchronization, live support ticket pipelines, webhook idempotency, rate limiting, and audit-logged operational dashboards.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs font-mono text-slate-400">
+            <span>Sub-100ms Events · Audit Logs · Webhooks</span>
+            <img src={`${DEVICON}/nodejs/nodejs-original.svg`} alt="" width="16" height="16" class="w-4 h-4 shrink-0" loading="lazy" />
+          </div>
+        </div>
+      </article>
+
+      <!-- 04: Design Systems, RTL & Headless CMS -->
+      <article data-gsap-card class="group relative overflow-hidden rounded-2xl bg-[#11141E] border border-white/10 hover:border-[#828FFF]/50 hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between">
+        <div class="h-[2px] w-full bg-[#828FFF] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
+
+        <div class="px-6 py-4 bg-white/[0.03] border-b border-white/[0.08] flex items-center justify-between gap-3">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/sanity/sanity-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5" loading="lazy" />
+              Sanity CMS
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#0A0B0E] border border-white/10 text-[11px] font-mono font-medium text-white">
+              <img src={`${DEVICON}/astro/astro-original.svg`} alt="" width="14" height="14" class="w-3.5 h-3.5 rounded bg-white p-[1px]" loading="lazy" />
+              Astro 5
+            </span>
+            <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-[10px] font-mono font-semibold text-emerald-300">
+              99+ Vitals
+            </span>
+          </div>
+          <span class="text-xs font-mono font-semibold text-slate-500 shrink-0">04</span>
+        </div>
+
+        <div class="p-6 sm:p-7 flex-1 flex flex-col justify-between gap-5">
+          <div class="space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="w-10 h-10 rounded-xl bg-gradient-to-b from-[#5E6AD2]/30 to-[#5E6AD2]/10 border border-[#828FFF]/35 text-[#A5B0FF] flex items-center justify-center shrink-0 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]">
+                <PiSwatchesDuotone className="w-5 h-5" />
+              </span>
+              <span class="text-[11px] font-mono uppercase tracking-[0.12em] text-[#828FFF] font-semibold">
+                Interface &amp; CMS
+              </span>
+            </div>
+            <h3 class="font-grotesk text-xl sm:text-[22px] font-bold text-white tracking-[-0.025em]">
+              Design Systems, RTL &amp; Headless CMS
+            </h3>
+            <p class="text-sm text-slate-300 leading-[1.68] font-sans">
+              Accessible component libraries, bilingual Arabic/English RTL-first layouts, and fast editorial publishing pipelines with Sanity, Contentful, and Astro SSR.
+            </p>
+          </div>
+
+          <div class="pt-4 border-t border-white/[0.08] flex items-center justify-between gap-2 text-xs font-mono text-slate-400">
+            <span>Arabic/English RTL · Token Systems · SEO Ready</span>
+            <img src={`${DEVICON}/tailwindcss/tailwindcss-original.svg`} alt="" width="16" height="16" class="w-4 h-4 shrink-0" loading="lazy" />
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <!-- Official Multi-Color Brand Logos Production Tech Stack Grid -->
+    <div id="skills" class="mt-12 pt-10 border-t border-white/10">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+        <div>
+          <span class="text-[11px] font-mono uppercase tracking-[0.14em] text-[#828FFF] font-semibold block mb-1">
+            Daily Production Stack
+          </span>
+          <h3 class="font-grotesk text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Technologies I Ship With.
+          </h3>
+        </div>
+        <span class="text-xs font-mono text-slate-400">
+          {techStack.length} core production tools
+        </span>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {techStack.map((item) => (
+          <div class="group rounded-xl bg-[#11141E] border border-white/10 hover:border-[#828FFF]/50 hover:bg-[#171B2A] hover:-translate-y-0.5 px-3.5 py-3 flex items-center gap-3 transition-all duration-200">
+            <div class={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ${item.lightPlate ? "bg-white border-white/20 p-1.5" : "bg-[#0A0B0E] border-white/10 p-1.5"}`}>
+              {item.iconUrl ? (
+                <img
+                  src={item.iconUrl}
+                  alt={`${item.name} logo`}
+                  width="22"
+                  height="22"
+                  loading="lazy"
+                  decoding="async"
+                  class={`w-5 h-5 object-contain transition-transform duration-200 group-hover:scale-110 ${item.invert ? "invert" : ""}`}
+                />
+              ) : item.brandKey === "openai" ? (
+                <SiOpenai className="w-5 h-5 text-white transition-transform duration-200 group-hover:scale-110" />
+              ) : item.brandKey === "gemini" ? (
+                <svg class="w-5 h-5 transition-transform duration-200 group-hover:scale-110" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="geminiGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#4285F4" />
+                      <stop offset="50%" stop-color="#9B72CB" />
+                      <stop offset="100%" stop-color="#D96570" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M12 2C12.4 7.2 16.8 11.6 22 12C16.8 12.4 12.4 16.8 12 22C11.6 16.8 7.2 12.4 2 12C7.2 11.6 11.6 7.2 12 2Z" fill="url(#geminiGrad)" />
+                </svg>
+              ) : item.brandKey === "claude" ? (
+                <SiAnthropic className="w-5 h-5 text-[#E89B72] transition-transform duration-200 group-hover:scale-110" />
+              ) : (
+                <SiStripe className="w-5 h-5 text-[#828FFF] transition-transform duration-200 group-hover:scale-110" />
+              )}
+            </div>
+            <div class="min-w-0">
+              <span class="block text-xs font-grotesk font-bold text-white truncate">
+                {item.name}
+              </span>
+              <span class="block text-[10px] font-mono text-slate-400 truncate">
+                {item.role}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   </div>
 </section>

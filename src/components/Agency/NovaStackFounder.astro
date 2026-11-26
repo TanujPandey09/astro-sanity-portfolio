@@ -2,6 +2,8 @@
 // NovaStack Founder Section: Editorial Split Letter (Boutique Independent Studio Pattern)
 // Open 2-column layout (no heavy outer box): compact portrait + signature + links on left; concise founder note, 1-line verified track record, and single CTA on right
 import SelfWritingSignature from "./SelfWritingSignature.astro";
+import { PiGlobeDuotone, PiArrowUpRightBold } from "react-icons/pi";
+import { SiGithub, SiLinkedin } from "react-icons/si";
 
 interface Props {
   portraitUrl?: string;
@@ -10,9 +12,9 @@ interface Props {
 const { portraitUrl = "" } = Astro.props;
 
 const verifiedRoles = [
-  { company: "Cxisuite", detail: "Sawt AI & Real-Time CRM" },
-  { company: "Nasya IT", detail: "Multi-Role Healthcare SaaS" },
-  { company: "Scube.co", detail: "Next.js & Sanity SaaS" },
+  { company: "Cxisuite", detail: "Sawt AI & Real-Time CRM", logo: "https://cxisuite.com/logo.webp" },
+  { company: "Nasya IT", detail: "Multi-Role Healthcare SaaS", logo: "https://www.nasyait.com/assets/img/NasyaIT.png" },
+  { company: "Scube.co", detail: "Next.js & Sanity SaaS", logo: "https://www.scube.co/wp-content/uploads/2026/03/SCube-logo.svg" },
 ];
 ---
 
@@ -57,28 +59,32 @@ const verifiedRoles = [
         </div>
 
         <!-- Verified Links -->
-        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-3 border-t border-[var(--border)] text-sm font-mono">
+        <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-[var(--border)] text-xs font-mono">
           <a
             href="/"
-            class="text-[var(--blue-600)] hover:text-[var(--blue-700)] font-medium transition-colors"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--blue-50)] text-[var(--blue-700)] hover:bg-[var(--blue-600)] hover:text-white font-medium transition-colors"
           >
-            Portfolio ↗
+            <PiGlobeDuotone className="w-3.5 h-3.5" />
+            <span>Portfolio</span>
+            <PiArrowUpRightBold className="w-3 h-3" />
           </a>
           <a
             href="https://github.com/TanujPandey09"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--ink)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] transition-colors"
           >
-            GitHub ↗
+            <SiGithub className="w-3.5 h-3.5" />
+            <span>GitHub</span>
           </a>
           <a
             href="https://www.linkedin.com/in/tanujdev/"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-[var(--muted)] hover:text-[var(--ink)] transition-colors"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)] text-[var(--ink)] hover:border-[var(--blue-600)] hover:text-[var(--blue-600)] transition-colors"
           >
-            LinkedIn ↗
+            <SiLinkedin className="w-3.5 h-3.5 text-[#0A66C2]" />
+            <span>LinkedIn</span>
           </a>
         </div>
       </div>
@@ -108,19 +114,22 @@ const verifiedRoles = [
           </p>
         </div>
 
-        <!-- Clean 1-Line Verified Track Record Strip (No Heavy Boxed Cards) -->
-        <div class="py-4 border-y border-[var(--border)] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-5">
+        <!-- Verified Track Record Strip with Official Company Logos -->
+        <div class="py-4 border-y border-[var(--border)] flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
           <span class="ns-mono-label text-[var(--muted)] shrink-0">
             Previously at
           </span>
-          <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-            {verifiedRoles.map((role, idx) => (
-              <div class="inline-flex items-baseline gap-1.5 text-sm">
-                {idx > 0 && (
-                  <span class="text-[var(--border)] mr-3 hidden sm:inline" aria-hidden="true">·</span>
-                )}
-                <span class="font-semibold text-[var(--ink)]">{role.company}</span>
-                <span class="text-xs font-mono text-[var(--muted)]">({role.detail})</span>
+          <div class="flex flex-wrap items-center gap-2.5">
+            {verifiedRoles.map((role) => (
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--bg)] border border-[var(--border)]">
+                <img
+                  src={role.logo}
+                  alt={role.company}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-4 w-auto max-w-[56px] object-contain shrink-0"
+                />
+                <span class="text-xs font-mono text-[var(--muted)] hidden sm:inline">· {role.detail}</span>
               </div>
             ))}
           </div>

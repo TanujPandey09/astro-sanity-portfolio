@@ -2,6 +2,7 @@
 import { optimizeSanityImage } from "../lib/optimizeImage";
 import { formatCategoryLabel, type TemplateItem } from "../lib/templates";
 import { resolveDemoMedia } from "../lib/videoEmbed";
+import { PiArrowUpRightBold, PiPlayCircleDuotone, PiSealCheckDuotone } from "react-icons/pi";
 
 interface Props {
   template: TemplateItem;
@@ -11,14 +12,14 @@ interface Props {
 const { template, index = 0 } = Astro.props;
 
 const rawImageUrl = template.imageUrl || "/og-image-dark.png";
-const imageUrl = rawImageUrl.includes("cdn.sanity.io") 
-  ? optimizeSanityImage(rawImageUrl, 900, 80)
+const imageUrl = rawImageUrl.includes("cdn.sanity.io")
+  ? optimizeSanityImage(rawImageUrl, 1100, 88)
   : rawImageUrl;
 const demoMedia = resolveDemoMedia(template.demoVideoUrl);
 
 const price = template.price || "$49";
 const originalPrice = template.originalPrice;
-const tags = template.tags?.slice(0, 4) || ["Next.js", "React 19", "TypeScript", "Tailwind CSS"];
+const tags = template.tags?.slice(0, 3) || ["Next.js", "TypeScript", "Tailwind CSS"];
 const slug = template.slug?.current || "";
 const category = template.category || "other";
 const categoryLabel = formatCategoryLabel(category);
@@ -26,183 +27,170 @@ const categoryFilterKey = category.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 const priceNumeric = price.replace(/[^0-9.]/g, "") || "49";
 ---
 
-<article 
+<article
   data-gsap-card
   data-cursor-text="EXPLORE TEMPLATE ↗"
-  class="bento-spotlight template-card group relative rounded-2xl bg-white border border-black/[0.08] hover:border-accent-primary/50 hover:shadow-[0_20px_40px_rgba(0,0,0,0.08)] shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-[border-color,box-shadow] duration-300 flex flex-col justify-between overflow-hidden"
+  class="template-card group relative rounded-2xl bg-white border border-black/[0.08] hover:border-[#5E6AD2]/50 hover:-translate-y-1 shadow-[0_6px_24px_-14px_rgba(15,23,42,0.1)] hover:shadow-[0_22px_44px_-16px_rgba(15,23,42,0.16)] transition-all duration-300 flex flex-col justify-between overflow-hidden"
   data-category={categoryFilterKey}
   data-tags={tags.join(",").toLowerCase()}
   data-price={priceNumeric}
   data-name={template.templateName.toLowerCase()}
 >
-  <!-- Top Visual Showcase with Micro-Window Chrome Header -->
-  <div class="relative overflow-hidden w-full bg-[#F1F5F9] border-b border-black/[0.08]">
-    
-    <!-- Micro-Browser Header -->
-    <div class="px-3.5 py-2 bg-slate-50 border-b border-black/[0.08] flex items-center justify-between text-xs font-mono">
-      <div class="flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-        <span class="w-2 h-2 rounded-full bg-slate-300"></span>
-      </div>
+  <div class="h-[2px] w-full bg-[#5E6AD2] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" aria-hidden="true"></div>
 
-      <div class="flex items-center gap-1 text-[10px] text-accent-primary font-mono uppercase tracking-wider font-semibold">
-        <span>[ {categoryLabel} ]</span>
+  <div>
+    <!-- Clean Browser-Framed Product Showcase -->
+    <div class="p-3 bg-[#F4F6FA] border-b border-black/[0.08]">
+      <div class="relative rounded-xl bg-white border border-black/[0.08] overflow-hidden shadow-2xs">
+        <div class="px-3 py-2 bg-white border-b border-black/[0.08] flex items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5" aria-hidden="true">
+            <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+            <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+            <span class="w-2 h-2 rounded-full bg-slate-200"></span>
+          </div>
+          <span class="text-[10px] font-mono uppercase tracking-[0.1em] text-[#5E6AD2] font-semibold truncate">
+            {categoryLabel}
+          </span>
+          {template.badge ? (
+            <span class="px-2 py-0.5 rounded-full bg-[#5E6AD2]/10 text-[9px] font-mono uppercase tracking-wider text-[#5E6AD2] font-semibold shrink-0">
+              {template.badge}
+            </span>
+          ) : (
+            <span class="text-[10px] font-mono text-slate-400 shrink-0">
+              0{index + 1}
+            </span>
+          )}
+        </div>
+
+        <div class="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+          <a
+            href={`/templates/${slug}`}
+            aria-label={`Inspect ${template.templateName} details and live preview`}
+            class="block w-full h-full"
+          >
+            {imageUrl ? (
+              <img
+                src={imageUrl}
+                alt={`${template.templateName} commercial web template preview`}
+                loading="lazy"
+                decoding="async"
+                class="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              />
+            ) : (
+              <div class="w-full h-full flex flex-col items-center justify-center bg-[#F1F5F9] text-slate-500 font-mono text-xs gap-1.5">
+                <span class="text-xl font-bold font-grotesk text-[#0F172A]">NovaStack</span>
+                <span class="text-[10px]">Commercial Template</span>
+              </div>
+            )}
+          </a>
+
+          {demoMedia ? (
+            <button
+              type="button"
+              data-open-demo-modal
+              data-demo-kind={demoMedia.kind}
+              data-demo-src={demoMedia.src}
+              data-demo-poster={imageUrl || ""}
+              data-demo-title={`${template.templateName} — Demo Walkthrough`}
+              class="absolute bottom-2.5 right-2.5 z-20 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0A0B0E]/90 hover:bg-[#5E6AD2] border border-white/20 text-[10px] font-mono font-semibold text-white transition-colors cursor-pointer shadow-md"
+            >
+              <PiPlayCircleDuotone className="w-3.5 h-3.5 text-[#828FFF]" />
+              <span>Demo</span>
+            </button>
+          ) : (
+            <span
+              class="pointer-events-none absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full bg-white border border-black/10 text-[#0F172A] group-hover:bg-[#5E6AD2] group-hover:border-[#5E6AD2] group-hover:text-white flex items-center justify-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-200 shadow-sm"
+              aria-hidden="true"
+            >
+              <PiArrowUpRightBold className="w-3.5 h-3.5" />
+            </span>
+          )}
+        </div>
       </div>
     </div>
 
-    <!-- Preview Image Container (Always crisp PNG; Demo Video pops on click) -->
-    <a 
-      href={`/templates/${slug}`} 
-      aria-label={`Inspect ${template.templateName} details and live preview`} 
-      class="block relative w-full aspect-[16/10] cursor-pointer overflow-hidden group/thumb bg-[#0B0D12]"
-    >
-      {imageUrl ? (
-        <img 
-          src={imageUrl} 
-          alt={`${template.templateName} commercial web template preview`}
-          loading="lazy"
-          decoding="async"
-          class="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover/thumb:scale-[1.03]"
-        />
-      ) : (
-        <div class="w-full h-full flex flex-col items-center justify-center bg-[#F1F5F9] text-slate-500 font-mono text-xs gap-1.5">
-          <span class="text-xl font-bold font-grotesk text-[#0F172A]">NovaStack</span>
-          <span class="text-[10px]">Commercial Template</span>
-        </div>
-      )}
+    <!-- Product Details -->
+    <div class="p-5 sm:p-6 space-y-3">
+      <div class="flex items-start justify-between gap-3">
+        <h3 class="font-grotesk text-lg sm:text-xl font-bold text-[#0F172A] tracking-[-0.02em] leading-snug">
+          <a href={`/templates/${slug}`} class="hover:text-[#5E6AD2] transition-colors">
+            {template.templateName}
+          </a>
+        </h3>
 
-      <!-- Quick Action Hover Overlay -->
-      <div class="absolute inset-0 bg-black/25 opacity-0 group-hover/thumb:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-[#0F172A] font-grotesk font-bold text-xs uppercase tracking-wider shadow-lg transform translate-y-1 group-hover/thumb:translate-y-0 transition-transform duration-300">
-          <span>Inspect Template</span>
-          <span>→</span>
-        </span>
-      </div>
-
-      <!-- Floating Price Tag (Top Right) -->
-      <div class="absolute top-2.5 right-2.5 z-10 pointer-events-none">
-        <div class="px-2.5 py-1 rounded-full bg-white/95 backdrop-blur-md border border-black/10 flex items-baseline gap-1 shadow-sm">
-          <span class="text-xs font-bold text-[#0F172A] font-mono">{price}</span>
+        <div class="flex items-baseline gap-1.5 font-mono shrink-0">
+          <span class="text-lg font-bold text-[#0F172A]">{price}</span>
           {originalPrice && (
-            <span class="text-[10px] line-through text-slate-400 font-mono">{originalPrice}</span>
+            <span class="text-xs line-through text-slate-400">{originalPrice}</span>
           )}
         </div>
       </div>
 
-      <!-- Commercial / Badge (Top Left) -->
-      <div class="absolute top-2.5 left-2.5 z-10 flex items-center gap-1 pointer-events-none">
-        {template.badge ? (
-          <span class="px-2 py-0.5 rounded-md text-[9px] font-mono uppercase tracking-wider bg-accent-primary text-white font-bold shadow-xs">
-            {template.badge}
-          </span>
-        ) : (
-          <span class="px-2 py-0.5 rounded-md text-[9px] font-mono uppercase tracking-wider bg-[#0F172A] text-white border border-black/10 shadow-xs">
-            Commercial
-          </span>
-        )}
+      <p class="text-sm text-slate-600 leading-[1.6] line-clamp-2 font-sans">
+        {template.tagline}
+      </p>
+
+      <div class="flex flex-wrap items-center gap-3 text-[11px] font-mono text-slate-500 pt-1">
+        <span class="inline-flex items-center gap-1 text-[#0F172A] font-medium">
+          <PiSealCheckDuotone className="w-4 h-4 text-[#5E6AD2]" />
+          Commercial License
+        </span>
+        <span class="inline-flex items-center gap-1">
+          <PiSealCheckDuotone className="w-4 h-4 text-[#5E6AD2]" />
+          99+ Vitals
+        </span>
       </div>
-    </a>
 
-    {demoMedia && (
-      <button
-        type="button"
-        data-open-demo-modal
-        data-demo-kind={demoMedia.kind}
-        data-demo-src={demoMedia.src}
-        data-demo-poster={imageUrl || ""}
-        data-demo-title={`${template.templateName} — Demo Walkthrough`}
-        class="absolute bottom-2.5 right-2.5 z-20 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#0A0B0E]/90 hover:bg-[#5E6AD2] border border-white/20 text-[10px] font-mono font-semibold text-white transition-colors cursor-pointer"
-      >
-        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-        <span>▶ Watch Demo</span>
-      </button>
-    )}
-
-  </div>
-
-  <!-- Card Body & Meta Details -->
-  <div class="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-    <div>
-      <!-- Tech Stack Badges -->
-      <div class="flex flex-wrap gap-1 mb-2.5">
+      <div class="flex flex-wrap gap-1.5 pt-1">
         {tags.map((tag: string) => (
-          <span class="text-[9px] font-mono font-medium uppercase tracking-wider px-2 py-0.5 rounded bg-slate-100 border border-black/[0.08] text-slate-700">
+          <span class="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#FAFAFB] border border-black/[0.08] text-slate-700">
             {tag}
           </span>
         ))}
       </div>
-
-      <!-- Title & Tagline -->
-      <h3 class="font-grotesk text-base sm:text-lg font-bold text-[#0F172A] tracking-[-0.02em] transition-colors group-hover:text-accent-primary leading-snug mb-1.5">
-        <a href={`/templates/${slug}`} class="hover:text-accent-primary transition-colors">
-          {template.templateName}
-        </a>
-      </h3>
-
-      <p class="text-xs text-slate-600 leading-relaxed line-clamp-2 font-sans font-normal mb-3">
-        {template.tagline}
-      </p>
-
-      <!-- Key Proof Micro-Bar -->
-      <div class="py-2 px-2.5 rounded-lg bg-slate-50 border border-black/[0.06] flex items-center justify-between text-[10px] font-mono text-slate-600 mb-4">
-        <span class="inline-flex items-center gap-1 text-emerald-600 font-medium">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-          99+ Speed
-        </span>
-        <span class="text-black/20">·</span>
-        <span>Commercial Rights</span>
-        <span class="text-black/20">·</span>
-        <span>Free Updates</span>
-      </div>
     </div>
+  </div>
 
-    <!-- Card Action Buttons -->
-    <div class="pt-3 border-t border-black/[0.08] flex items-center justify-between gap-2">
-      <div class="flex items-center gap-1.5">
-        {template.demoLink && (
-          <a 
-            href={template.demoLink}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono font-medium text-slate-700 hover:text-black bg-slate-100 hover:bg-slate-200 border border-black/[0.08] transition-all"
-            title="Open live interactive demo preview"
-          >
-            <span>Demo</span>
-            <span class="text-[10px]">↗</span>
-          </a>
-        )}
-        
-        <a 
-          href={`/templates/${slug}`}
-          class="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs font-mono text-slate-600 hover:text-black hover:bg-slate-100 transition-colors"
-          title="Inspect full template specs, screenshots and features"
-        >
-          <span>Specs</span>
-          <span class="text-[10px]">→</span>
-        </a>
-      </div>
-
-      {template.gumroadLink ? (
-        <a 
-          href={template.gumroadLink}
+  <!-- Card Footer Actions -->
+  <div class="px-5 sm:px-6 pb-5 pt-4 border-t border-black/[0.06] flex items-center justify-between gap-2">
+    <div class="flex items-center gap-3">
+      {template.demoLink && (
+        <a
+          href={template.demoLink}
           target="_blank"
           rel="noopener noreferrer"
-          class="group/btn inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-all shadow-xs active:scale-95"
+          class="inline-flex items-center gap-1 text-xs font-mono font-medium text-slate-600 hover:text-[#5E6AD2] transition-colors"
         >
-          <span>Get {price}</span>
-          <span class="text-[10px] transition-transform duration-200 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5">↗</span>
-        </a>
-      ) : (
-        <a 
-          href={`/templates/${slug}`}
-          class="inline-flex items-center px-3.5 py-1.5 rounded-lg text-xs font-grotesk font-bold uppercase tracking-wider bg-[#0F172A] hover:bg-black text-white transition-colors"
-        >
-          <span>Details</span>
-          <span class="text-[10px]">→</span>
+          <span>Preview</span>
+          <PiArrowUpRightBold className="w-3.5 h-3.5" />
         </a>
       )}
+      <a
+        href={`/templates/${slug}`}
+        class="text-xs font-mono font-medium text-slate-600 hover:text-[#0F172A] transition-colors"
+      >
+        Specs →
+      </a>
     </div>
 
+    {template.gumroadLink ? (
+      <a
+        href={template.gumroadLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-grotesk font-semibold bg-[#0F172A] hover:bg-[#5E6AD2] text-white transition-colors"
+      >
+        <span>Get {price}</span>
+        <PiArrowUpRightBold className="w-3.5 h-3.5" />
+      </a>
+    ) : (
+      <a
+        href={`/templates/${slug}`}
+        class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-grotesk font-semibold bg-[#0F172A] hover:bg-[#5E6AD2] text-white transition-colors"
+      >
+        <span>Inspect</span>
+        <PiArrowUpRightBold className="w-3.5 h-3.5" />
+      </a>
+    )}
   </div>
 </article>

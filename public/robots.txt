@@ -55,3 +55,4 @@ Disallow: /api/
 # Sitemap & LLM Knowledge Index (GEO / AEO)
 Sitemap: https://tanujbuilds.site/sitemap.xml
 # LLMs Context: https://tanujbuilds.site/llms.txt
+# LLMs Full Knowledge Base: https://tanujbuilds.site/llms-full.txt

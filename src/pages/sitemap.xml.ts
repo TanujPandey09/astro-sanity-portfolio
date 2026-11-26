@@ -2,18 +2,25 @@ import type { APIRoute } from 'astro';
 import { useSanityClient, groq } from 'astro-sanity';
 import { client as fallbackSanityClient } from '../lib/sanityClient.js';
 
-export const prerender = true;
+export const prerender = false;
 
 export const GET: APIRoute = async () => {
   const siteUrl = 'https://tanujbuilds.site';
-  const sanity = useSanityClient() || fallbackSanityClient;
+  const fetchSafe = async (query: string) => {
+    try {
+      const client = useSanityClient();
+      const res = await client.fetch(query);
+      if (Array.isArray(res) && res.length > 0) return res;
+    } catch {}
+    return fallbackSanityClient.fetch(query);
+  };
 
   let projects: Array<{ slug?: { current?: string }, _updatedAt?: string }> = [];
   let blogs: Array<{ slug?: { current?: string }, _updatedAt?: string }> = [];
   let templates: Array<{ slug?: { current?: string }, _updatedAt?: string }> = [];
 
   try {
-    projects = await sanity.fetch(
+    projects = await fetchSafe(
       groq`*[_type == "projects" && defined(slug.current) && !defined(gumroadLink) && !(slug.current in [
         "lumina-dental-premium-dental-website-template",
         "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
@@ -24,14 +31,14 @@ export const GET: APIRoute = async () => {
   }
 
   try {
-    blogs = await sanity.fetch(groq`*[_type == "blogs" && defined(slug.current)]{ slug, _updatedAt }`);
+    blogs = await fetchSafe(groq`*[_type == "blogs" && defined(slug.current)]{ slug, _updatedAt }`);
   } catch (e) {
     console.error('Sitemap fetch blogs error:', e);
   }
 
   try {
-    const newTemplates = await sanity.fetch(groq`*[_type == "templates" && defined(slug.current)]{ slug, _updatedAt }`);
-    const legacyTemplates = await sanity.fetch(
+    const newTemplates = await fetchSafe(groq`*[_type == "templates" && defined(slug.current)]{ slug, _updatedAt }`);
+    const legacyTemplates = await fetchSafe(
       groq`*[_type == "projects" && (defined(gumroadLink) || slug.current in [
         "lumina-dental-premium-dental-website-template",
         "apex-luxury-ultra-luxury-real-estate-and-architectural-web-template"
@@ -105,7 +112,7 @@ ${allUrls
     status: 200,
     headers: {
       'Content-Type': 'application/xml; charset=utf-8',
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400',
     },
   });
 };
